@@ -1,0 +1,1853 @@
+
+
+This is **FlowMode v6.0 — Part 1 (Foundation Layer)**
+Designed to be:
+
+> **Executive-readable + Engineer-executable + AI-interpretable**
+
+---
+
+# 📄 **FlowMode v6.0 — Part 1: Foundation**
+
+## 🔷 Section 0 — IDE Execution Map (CRITICAL)
+
+### 🧭 Executive Summary
+
+This section ensures that every AI system (Claude, Cursor, Antigravity) knows **exactly how to interpret and execute FlowMode**.
+
+Without this, AI behavior becomes inconsistent.
+
+---
+
+### ⚙️ Operational Guidance
+
+* Every project MUST include FlowMode v6
+* Every IDE MUST reference this section first
+* This section acts as the **entry point for execution logic**
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+ide_execution_map:
+  priority_order:
+    - section_0
+    - section_1
+    - section_2
+    - section_7
+
+  claude:
+    entry_files:
+      - CLAUDE.md
+      - FlowMode_v6.md
+    behavior:
+      - enforce_skill_usage
+      - validate_against_flowmode
+      - require_review_before_ship
+      - follow_workflow_lifecycle
+
+  cursor:
+    entry_files:
+      - .cursor/rules/*.mdc
+      - FlowMode_v6.md
+    behavior:
+      - enforce_folder_structure
+      - enforce_design_system
+      - validate_api_usage
+      - block_unauthorized_patterns
+
+  antigravity:
+    entry_files:
+      - /skills/*
+      - /missions/*
+      - FlowMode_v6.md
+    behavior:
+      - execute_as_mission
+      - enforce_artifact_output
+      - log_all_actions
+      - validate_against_policy_engine
+```
+
+---
+
+# 🔷 Section 1 — Universal Operating Principles
+
+### 🧭 Executive Summary
+
+FlowMode defines how Afronovation builds **everything**:
+
+* software
+* platforms
+* APIs
+* AI systems
+* user experiences
+
+These principles ensure:
+
+* consistency
+* quality
+* scalability
+* governance
+
+---
+
+### ⚙️ Operational Guidance
+
+Every team member, AI system, and developer MUST:
+
+1. Follow structured workflows
+2. Use approved tools and APIs
+3. Respect tenant isolation
+4. Enforce design system
+5. Document everything
+6. Validate before release
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+operating_principles:
+  enforce_workflow: true
+  require_documentation: true
+  enforce_design_system: true
+  enforce_api_gateway: true
+  prohibit_direct_external_calls: true
+  require_validation_before_merge: true
+  enforce_security_checks: true
+```
+
+---
+
+# 🔷 Section 2 — Workflow Lifecycle (CORE ENGINE)
+
+### 🧭 Executive Summary
+
+All work follows a structured lifecycle:
+
+> **Think → Plan → Design → Build → Review → QA → Ship → Retro**
+
+This ensures:
+
+* no shortcuts
+* high-quality delivery
+* repeatable success
+
+---
+
+### ⚙️ Operational Guidance
+
+| Stage  | Purpose                        |
+| ------ | ------------------------------ |
+| Think  | Understand problem deeply      |
+| Plan   | Define scope + approach        |
+| Design | UX + system architecture       |
+| Build  | Implementation                 |
+| Review | Code + architecture validation |
+| QA     | Testing + validation           |
+| Ship   | Release                        |
+| Retro  | Learn + improve                |
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+workflow_lifecycle:
+  stages:
+    - think
+    - plan
+    - design
+    - build
+    - review
+    - qa
+    - ship
+    - retro
+
+  enforcement:
+    require_plan_before_build: true
+    require_review_before_qa: true
+    require_qa_before_ship: true
+    require_retro_after_ship: true
+```
+
+---
+
+# 🔷 Section 3 — Skill System (AI Execution Layer)
+
+### 🧭 Executive Summary
+
+Skills are **modular AI capabilities** that standardize how tasks are executed.
+
+They ensure:
+
+* consistency
+* quality
+* governance
+* reusability
+
+---
+
+### ⚙️ Operational Guidance
+
+* Every task MUST map to a skill
+* Skills MUST be approved before production
+* Skills define:
+
+  * inputs
+  * outputs
+  * tools
+  * models
+  * rules
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+skill_system:
+  require_skill_for_task: true
+  enforce_skill_validation: true
+  require_versioning: true
+  require_approval:
+    low_risk: false
+    medium_risk: true
+    high_risk: true
+```
+
+---
+
+# 🔷 Section 4 — Tool Registry (BridgeAPI Integration)
+
+### 🧭 Executive Summary
+
+All external services must be accessed through **BridgeAPI**.
+
+No direct API calls are allowed.
+
+---
+
+### ⚙️ Operational Guidance
+
+Examples:
+
+* Twilio → BridgeComms
+* Translation → BridgeTranslation
+* Payments → BridgePayments
+* Flights → BridgeAir
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+tool_registry:
+  require_bridgeapi: true
+  block_direct_api_calls: true
+  require_authentication: true
+  log_all_tool_usage: true
+```
+
+---
+
+# 🔷 Section 5 — Model Routing Strategy
+
+### 🧭 Executive Summary
+
+Different AI models are used for different tasks to balance:
+
+* cost
+* performance
+* accuracy
+
+---
+
+### ⚙️ Operational Guidance
+
+* High reasoning → Claude
+* Code → GPT
+* Cheap tasks → lightweight models
+* Multimodal → Gemini
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+model_routing:
+  enforce_routing: true
+  fallback_enabled: true
+  cost_optimization: true
+  track_usage: true
+```
+
+---
+
+# 🔷 Section 6 — Tenant & Data Model
+
+### 🧭 Executive Summary
+
+The platform is multi-tenant and sovereign-grade.
+
+Each tenant:
+
+* owns its data
+* controls its configuration
+* operates in isolated context
+
+---
+
+### ⚙️ Operational Guidance
+
+* Use RLS for isolation
+* Support multi-region deployment
+* Respect data residency
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+tenant_model:
+  isolation: rls
+  multi_region: true
+  enforce_data_boundary: true
+  tenant_scoped_memory: true
+```
+
+---
+
+# 🔷 Section 7 — IDE-Specific Execution Rules
+
+### 🧭 Executive Summary
+
+Each IDE follows FlowMode but executes differently.
+
+---
+
+## 🔹 Claude
+
+```yaml
+claude_rules:
+  use_skills: mandatory
+  validate_against_flowmode: true
+  require_structured_output: true
+```
+
+---
+
+## 🔹 Cursor
+
+```yaml
+cursor_rules:
+  enforce_rules_files: true
+  validate_code_structure: true
+  block_unapproved_patterns: true
+```
+
+---
+
+## 🔹 Antigravity
+
+```yaml
+antigravity_rules:
+  execute_as_mission: true
+  require_artifacts: true
+  enforce_policy_engine: true
+```
+
+---
+
+# 🔷 Section 8 — GitHub & CI/CD Governance
+
+### 🧭 Executive Summary
+
+GitHub is the **source of truth**.
+
+---
+
+### ⚙️ Operational Guidance
+
+* Use PR reviews
+* Enforce checks
+* Auto-generate docs
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+github_governance:
+  require_pr_review: true
+  require_ci_checks: true
+  auto_generate_docs: true
+  enforce_versioning: true
+```
+
+---
+
+# 🔷 Section 9 — Evaluation Engine (NEW — CRITICAL)
+
+### 🧭 Executive Summary
+
+Every output must be evaluated before release.
+
+---
+
+### ⚙️ Operational Guidance
+
+Evaluate:
+
+* UX quality
+* AI accuracy
+* performance
+* compliance
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+evaluation_engine:
+  required: true
+  metrics:
+    - ux_score
+    - performance_score
+    - compliance_score
+    - ai_quality_score
+  require_threshold: 85
+```
+
+---
+
+# 🧠 PART 1 COMPLETE
+
+This is now your:
+
+> **Foundation Layer of FlowMode v6**
+
+---
+
+# 🚀 NEXT (PART 2)
+
+We will build:
+
+* Design System Enforcement
+* Security & Compliance (Sovereign-grade)
+* API Governance
+* Admin Control Plane
+* OEM / White-label Model
+* Template + Folder System
+* Developer Execution Model
+
+---
+
+
+
+Below is **FlowMode v6.0 — Part 2**, with more technical precision, clearer enforcement language, and more implementation-ready structure.
+
+---
+
+# FlowMode v6.0 — Part 2: Control, Trust, and Execution
+
+## Section 10 — Design System Enforcement
+
+### Executive Summary
+
+Design quality is not optional. Every Afronovation product must feel premium, coherent, trustworthy, and conversion-oriented. The design system is the mechanism that turns that expectation into something repeatable across Bridge55, EmbassyOS, BridgeVault, BridgeAPI, Afronovation.com, and future products.
+
+This section ensures that:
+
+* UI consistency is enforced
+* design drift is reduced
+* accessibility is built in
+* white-label customization remains controlled
+* AI-generated UI does not degrade brand quality
+
+### Operational Guidance
+
+All product interfaces must inherit from an approved design system layer. Teams may extend patterns, but not invent conflicting primitives without review.
+
+There are three levels of design control:
+
+**Level 1 — Core Design Tokens**
+These are global and must remain stable:
+
+* color tokens
+* typography scale
+* spacing scale
+* border radius
+* shadows
+* motion rules
+* breakpoints
+* semantic states
+* z-index scale
+
+**Level 2 — Shared Components**
+These are reusable across products:
+
+* buttons
+* inputs
+* cards
+* tables
+* tabs
+* modals
+* drawers
+* empty states
+* alerts
+* badges
+* navigation
+* step flows
+* dashboards
+* data display components
+
+**Level 3 — App/Domain Presentation Overlays**
+These are product-specific:
+
+* Bridge55 travel cards, destination storytelling, booking flows
+* EmbassyOS citizen service cards, mission pages, appointment flows
+* BridgeVault secure document experiences
+* Afronovation corporate site storytelling and portfolio presentation
+
+### System Instructions
+
+```yaml
+design_system:
+  enforcement_level: strict
+  require_design_tokens: true
+  require_shared_components: true
+  prohibit_inline_style_drift: true
+  prohibit_unapproved_component_variants: true
+  require_accessibility_review: true
+  require_responsive_validation: true
+  require_white_label_constraints: true
+
+design_tokens:
+  source_of_truth:
+    - /packages/design-system/tokens
+    - /packages/design-system/themes
+  required_categories:
+    - color
+    - typography
+    - spacing
+    - radius
+    - elevation
+    - motion
+    - breakpoint
+    - semantic
+  prohibit_hardcoded_values:
+    - color
+    - font-size
+    - spacing
+    - shadow
+    - border-radius
+
+component_governance:
+  source_of_truth: /packages/design-system/components
+  require_component_docs: true
+  require_usage_examples: true
+  require_accessibility_notes: true
+  require_variant_registry: true
+  prohibit_duplicate_primitives: true
+
+ux_quality_gates:
+  require_trust_signals: true
+  require_conversion_clarity: true
+  require_task_completion_path: true
+  require_mobile_first_validation: true
+  require_empty_state_design: true
+  require_error_state_design: true
+```
+
+### Required Deliverables
+
+Every new UI initiative must include:
+
+* page inventory
+* component mapping
+* token usage audit
+* responsive behavior notes
+* accessibility notes
+* copy and microcopy review
+* white-label compatibility review where applicable
+
+### Evaluation Criteria
+
+A UI cannot be considered ready unless it passes:
+
+* design consistency
+* usability
+* accessibility
+* trust and clarity
+* responsive quality
+* brand fit
+* conversion-readiness
+
+---
+
+## Section 11 — Security, Compliance, and Sovereign-Grade Trust
+
+### Executive Summary
+
+Afronovation products must be built as trust systems, not only software systems. Security is not limited to auth and encryption; it includes tenant isolation, traceability, policy controls, data handling, vendor boundaries, and deployment choices.
+
+This section establishes the minimum trust posture for all products and platform services.
+
+### Operational Guidance
+
+Security and compliance must be designed in from the beginning. No team should treat them as cleanup work.
+
+The trust model must cover:
+
+* user identity
+* tenant identity
+* environment separation
+* secrets handling
+* model access
+* tool access
+* data movement
+* logging and auditability
+* retention and deletion
+* region and residency controls
+
+### Security Control Areas
+
+#### Identity and Access
+
+* all access must be authenticated
+* authorization must be role-based and tenant-scoped
+* privileged actions must be logged
+* sensitive admin actions should support stepped-up verification where appropriate
+
+#### Data Protection
+
+* encrypt in transit
+* encrypt at rest
+* classify sensitive data
+* define retention windows
+* define export and deletion rules
+* define residency constraints
+
+#### Application Security
+
+* no direct external API calls outside BridgeAPI
+* no secrets in code
+* no unreviewed admin bypasses
+* no uncontrolled background jobs
+* high-risk features require approval and audit visibility
+
+#### AI Security
+
+* prompt injection awareness
+* tool access restrictions
+* memory scope restrictions
+* unsafe content handling
+* model fallback governance
+* logging of model/tool decisions for sensitive workflows
+
+### System Instructions
+
+```yaml
+security_compliance:
+  require_authentication: true
+  require_authorization: true
+  require_tenant_scope: true
+  require_environment_separation: true
+  require_audit_logging: true
+  require_secret_management: true
+  require_encryption_at_rest: true
+  require_encryption_in_transit: true
+  require_data_classification: true
+  require_retention_policy: true
+  require_residency_policy: true
+
+environment_policy:
+  allowed_environments:
+    - local
+    - dev
+    - staging
+    - prod
+  prohibit_cross_environment_secret_reuse: true
+  require_environment_specific_config: true
+  require_prod_guardrails: true
+
+privileged_actions:
+  require_logging: true
+  require_actor_identity: true
+  require_timestamp: true
+  require_tenant_context: true
+  require_reason_for_high_risk_actions: true
+
+ai_security:
+  require_tool_allowlists: true
+  require_memory_scope_enforcement: true
+  require_prompt_injection_review: true
+  require_sensitive_workflow_logging: true
+  prohibit_unreviewed_high_risk_automation: true
+```
+
+### Compliance Positioning
+
+FlowMode v6 should explicitly support:
+
+* SOC2-oriented control design
+* governance-grade operations
+* Africa-focused sovereign deployment positioning
+* multi-region tenant-aware data residency
+* stronger controls for embassy/government-like clients
+
+### Required Deliverables
+
+* security architecture summary
+* data classification matrix
+* retention and deletion matrix
+* residency model summary
+* access control matrix
+* high-risk action register
+* audit logging specification
+
+---
+
+## Section 12 — API Governance and Integration Standards
+
+### Executive Summary
+
+BridgeAPI is the controlled gateway for external integrations, internal orchestration, aggregation services, and future SDK exposure. API sprawl is one of the fastest ways to create technical debt and security risk. This section prevents that.
+
+### Operational Guidance
+
+Every API must be treated as a governed product. This includes:
+
+* internal APIs
+* partner APIs
+* public APIs
+* aggregated APIs such as BridgeAir, BridgeStay, BridgeMobility
+* AI-facing internal service endpoints
+
+Each API must define:
+
+* owner
+* purpose
+* consumers
+* auth strategy
+* versioning
+* quotas
+* residency implications
+* billing implications
+* observability requirements
+
+### API Exposure Maturity Path
+
+1. internal-only
+2. partner/private
+3. public/SDK-enabled
+
+No API should jump directly to public without passing governance gates.
+
+### System Instructions
+
+```yaml
+api_governance:
+  require_registry_entry: true
+  require_owner: true
+  require_versioning: true
+  require_auth_strategy: true
+  require_rate_limit_policy: true
+  require_usage_logging: true
+  require_error_contract: true
+  require_deprecation_policy: true
+  require_residency_review: true
+
+api_exposure:
+  maturity_stages:
+    - internal
+    - partner
+    - public
+  require_stage_approval: true
+  prohibit_public_release_without_partner_validation: true
+
+bridgeapi_policy:
+  require_external_calls_through_bridgeapi: true
+  require_provider_normalization: true
+  require_provider_fallback_logic: true
+  require_provider_health_monitoring: true
+  require_cost_visibility: true
+```
+
+### Aggregation Rules
+
+For products like BridgeAir, BridgeStay, and BridgeMobility:
+
+* multiple upstream providers must be normalized into stable domain models
+* provider-specific quirks must be abstracted
+* provider health and outage handling must be visible
+* pricing and availability freshness must be defined
+* fallback provider logic must be documented
+* partner/provider terms must be respected
+
+### Required Deliverables
+
+* API registry entry
+* endpoint contract
+* versioning note
+* auth and rate-limit policy
+* error model
+* fallback strategy
+* monitoring plan
+* deprecation plan
+
+---
+
+## Section 13 — Admin Control Plane
+
+### Executive Summary
+
+The admin layer is the control plane of the platform. It exists before broad public API exposure because it governs configuration, approvals, policies, visibility, and safety.
+
+### Operational Guidance
+
+The admin control plane should be designed as a modular governance console with the ability to manage platform-wide and tenant-specific objects.
+
+### Core Admin Domains
+
+The admin layer must support:
+
+#### Platform Governance
+
+* skills
+* tools
+* model routing
+* policy rules
+* approval workflows
+* environments
+* release status
+
+#### Tenant Management
+
+* tenants
+* missions/apps
+* roles
+* plans
+* feature flags
+* residency settings
+* branding settings
+* persona settings
+
+#### Operational Visibility
+
+* logs
+* audit trails
+* usage analytics
+* cost analytics
+* API analytics
+* incident status
+* job status
+* evaluation outcomes
+
+#### Commercial Controls
+
+* subscription plans
+* wallet/credits
+* billing rules
+* quotas
+* entitlements
+* OEM packaging
+
+### System Instructions
+
+```yaml
+admin_control_plane:
+  require_role_based_access: true
+  require_tenant_scoping: true
+  require_audit_visibility: true
+  require_policy_management: true
+  require_feature_flag_support: true
+  require_cost_visibility: true
+  require_usage_analytics: true
+  require_residency_controls: true
+  require_branding_controls: true
+  require_persona_controls: true
+
+admin_domains:
+  required:
+    - tenants
+    - roles
+    - skills
+    - tools
+    - apis
+    - billing
+    - logs
+    - analytics
+    - feature_flags
+    - policies
+    - model_routing
+    - residency
+    - branding
+    - personas
+    - release_registry
+```
+
+### Best-Practice Additions
+
+Yes, you should include:
+
+* analytics
+* wallet/credits
+* policy center
+* evaluation dashboard
+* model routing dashboard
+* documentation registry
+* incident center
+* release registry
+
+These are not extras in a serious platform. They are part of operational maturity.
+
+### Required Deliverables
+
+* admin module map
+* RBAC matrix
+* tenant settings model
+* analytics model
+* billing and credit model
+* policy center scope
+* evaluation dashboard scope
+
+---
+
+## Section 14 — OEM and White-Label Governance
+
+### Executive Summary
+
+OEM and white-label capability is not just branding. It is controlled product adaptation. Done well, it increases revenue and market reach. Done poorly, it creates fragmented experiences and support complexity.
+
+### Operational Guidance
+
+White-labeling must be governed at multiple layers:
+
+#### Layer 1 — Brand
+
+* logo
+* colors
+* typography presets
+* imagery zones
+* domain/country branding
+* legal and footer content
+
+#### Layer 2 — Product Experience
+
+* enabled modules
+* nav structure
+* content sections
+* tenant-specific service catalogs
+* workflow options
+* booking/mission/service flows
+
+#### Layer 3 — AI Behavior
+
+* assistant name
+* tone
+* languages
+* knowledge source access
+* tool permissions
+* escalation behavior
+* output style
+* trust and review thresholds
+
+#### Layer 4 — Policy
+
+* data residency
+* retention
+* export permissions
+* analytics visibility
+* admin permissions
+* compliance mode
+
+### System Instructions
+
+```yaml
+oem_white_label:
+  support_full_ui_customization: true
+  support_ai_behavior_customization: true
+  support_policy_customization: true
+  require_governed_brand_constraints: true
+  require_tenant_safe_overrides: true
+  require_override_registry: true
+  prohibit_core_trust_control_removal: true
+
+white_label_layers:
+  - brand
+  - product_experience
+  - ai_behavior
+  - policy
+```
+
+### Non-Negotiables
+
+OEM clients may customize deeply, but they may not disable core trust requirements such as:
+
+* audit logging
+* tenant isolation
+* secure auth requirements
+* required compliance controls
+* approved API pathways
+
+### Required Deliverables
+
+* white-label capability matrix
+* override registry
+* brand token mapping
+* AI persona override spec
+* tenant policy override spec
+
+---
+
+## Section 15 — Template System and Folder Structure Governance
+
+### Executive Summary
+
+Projects must not invent their own structure. Structure must be standardized, teachable, automatable, and enforceable across the monorepo.
+
+FlowMode teaches the rules. The Monorepo Blueprint defines the canonical structure. Templates generate new projects correctly.
+
+### Operational Guidance
+
+Each new app, service, API module, skill, or package should start from a template type.
+
+Recommended template types:
+
+* app
+* service
+* api
+* package
+* skill
+* overlay
+* documentation module
+
+### Structure Rules
+
+No AI or developer should create arbitrary top-level folders without governance approval.
+
+All work must map into the approved monorepo zones:
+
+* apps
+* packages
+* services
+* docs
+* tooling
+* infra
+* tests
+* configs
+
+### System Instructions
+
+```yaml
+folder_structure_governance:
+  require_template_generation: true
+  prohibit_manual_top_level_folder_creation: true
+  require_monorepo_zone_compliance: true
+  require_project_registration: true
+  require_docs_scaffold: true
+  require_test_scaffold: true
+  require_config_scaffold: true
+
+template_types:
+  - app
+  - service
+  - api
+  - package
+  - skill
+  - overlay
+  - docs_module
+```
+
+### Template Generator Expectations
+
+Each generated project should include:
+
+* standard folders
+* config baseline
+* docs baseline
+* test baseline
+* design-system link
+* FlowMode reference
+* ownership metadata
+* registration in platform registry where relevant
+
+### Example App Template
+
+```yaml
+app_template:
+  required_folders:
+    - app
+    - components
+    - services
+    - hooks
+    - types
+    - config
+    - docs
+    - tests
+  required_files:
+    - README.md
+    - OWNERS.md
+    - ARCHITECTURE.md
+    - CHANGELOG.md
+```
+
+### Required Deliverables
+
+* template catalog
+* generation rules
+* monorepo placement rules
+* ownership rules
+* project registration rules
+
+---
+
+## Section 16 — Developer Execution Model
+
+### Executive Summary
+
+Developers need a clear, repeatable operating model. FlowMode must guide not only AI, but human execution from project start through release.
+
+### Operational Guidance
+
+The developer execution model should define:
+
+* how to start a project
+* where to place code
+* how to document changes
+* how to run reviews
+* how to test
+* how to release
+* how to use Claude, Cursor, and Antigravity against the same system
+
+### Developer Lifecycle
+
+1. select template
+2. generate project structure
+3. register project/module
+4. link to FlowMode sections
+5. implement against approved stack
+6. validate against skill and policy gates
+7. submit PR with required artifacts
+8. release through governed flow
+
+### System Instructions
+
+```yaml
+developer_execution:
+  require_template_start: true
+  require_project_registration: true
+  require_documentation_baseline: true
+  require_test_baseline: true
+  require_design_system_compliance: true
+  require_policy_validation: true
+  require_pr_artifacts: true
+  require_release_notes: true
+
+developer_artifacts:
+  required_for_pr:
+    - scope_summary
+    - implementation_notes
+    - test_evidence
+    - design_impact_notes
+    - api_impact_notes
+    - security_impact_notes
+```
+
+### IDE Instruction Principle
+
+Each IDE should not guess where to look. It should be told explicitly which sections of FlowMode to apply first.
+
+That means v6 will include dedicated IDE execution guidance such as:
+
+* what files to read first
+* which FlowMode sections are mandatory
+* when to stop and escalate
+* what artifacts to generate
+
+### Required Deliverables
+
+* developer onboarding guide
+* local setup guide
+* environment matrix
+* PR checklist
+* release checklist
+* IDE instruction pack
+
+---
+
+## Section 17 — Data Residency and Sovereign Deployment Strategy
+
+### Executive Summary
+
+Sovereign-grade solutions require more than secure data. They require intentional data placement, clear processing boundaries, and explainable deployment choices per tenant.
+
+This matters especially for EmbassyOS-style deployments and future public-sector or high-trust clients.
+
+### Operational Guidance
+
+Each tenant should have a residency profile that defines:
+
+* primary data region
+* backup/storage region
+* AI processing rules
+* log retention location
+* export rules
+* dedicated deployment requirements if needed
+
+The platform must support a practical maturity model:
+
+* default shared regional deployment
+* premium regional selection
+* higher-assurance dedicated deployment
+
+### System Instructions
+
+```yaml
+data_residency:
+  require_tenant_residency_profile: true
+  support_multi_region_per_tenant: true
+  require_processing_boundary_documentation: true
+  require_backup_region_policy: true
+  require_log_region_policy: true
+  require_export_policy: true
+  support_dedicated_deployment_tiers: true
+```
+
+### Sovereign Positioning Guidance
+
+For client-facing communication, the system should be able to explain:
+
+* where data is stored
+* how access is restricted
+* how regions are selected
+* what is shared vs dedicated
+* what higher-assurance options exist
+
+### Required Deliverables
+
+* tenant residency profile schema
+* region policy matrix
+* deployment tier matrix
+* client-facing sovereignty summary template
+
+---
+
+## Section 18 — Cost, Usage, and Model Efficiency Governance
+
+### Executive Summary
+
+AI systems fail commercially when usage is not visible and costs are not governed. Cost control must be built in from day one.
+
+### Operational Guidance
+
+Each tenant and each app should have visibility into:
+
+* model usage
+* tool/API usage
+* cost by feature
+* cost by workflow
+* cost by environment
+* budget alerts
+* fallback patterns
+
+### System Instructions
+
+```yaml
+cost_governance:
+  require_usage_tracking: true
+  require_cost_tracking: true
+  require_tenant_cost_visibility: true
+  require_budget_thresholds: true
+  require_model_fallback_rules: true
+  require_workflow_cost_profiling: true
+
+routing_efficiency:
+  prefer_low_cost_models_for_low_complexity_tasks: true
+  prefer_async_for_heavy_non_interactive_tasks: true
+  require_fallback_policy: true
+```
+
+### Best-Practice Execution Model
+
+For cost optimization and enterprise realism:
+
+* use real-time AI for user-facing interactions
+* use async/batch AI for reports, enrichment, audits, summarization, and heavy jobs
+* only use highest-cost models where they materially improve outcome quality
+
+### Required Deliverables
+
+* cost telemetry model
+* budget alert model
+* workflow routing matrix
+* model usage policy
+* async vs real-time policy
+
+---
+
+# Part 2 Complete
+
+This part establishes the control plane and execution rigor needed for enterprise-grade delivery.
+
+## What Part 2 now covers
+
+* design system enforcement
+* security and sovereign trust
+* API governance
+* admin control plane
+* OEM and white-label governance
+* folder/template governance
+* developer execution model
+* data residency strategy
+* cost and model efficiency governance
+
+## Next section set for Part 3
+
+Part 3 should move from policy into operational structure:
+
+* Skill Registry Standard
+* Tool Registry Standard
+* Approval and Risk Tiering
+* Evaluation and Scoring Framework
+* GitHub / PR / CI gates in deeper detail
+* IDE instruction packs for Claude, Cursor, and Antigravity
+* Required artifacts by workflow stage
+* Domain overlay framework for future apps
+
+Proceed with **FlowMode v6 — Part 3**.
+
+---
+
+This is the **final core layer** that turns FlowMode into a **fully operational, enforceable system**.
+
+Part 3 is where we move from **principles + controls → execution + enforcement + scaling**.
+
+---
+
+# 📄 **FlowMode v6.0 — Part 3: Execution, Registry, and Intelligence Layer**
+
+---
+
+# 🔷 Section 19 — Skill Registry Standard
+
+### 🧭 Executive Summary
+
+Skills are not prompts.
+They are **versioned, governed, testable AI capabilities**.
+
+This section defines how skills are:
+
+* created
+* structured
+* validated
+* approved
+* deployed
+* reused
+
+---
+
+### ⚙️ Operational Guidance
+
+Every skill must:
+
+* have a clear purpose
+* be reusable
+* produce structured outputs
+* use approved tools only
+* be versioned
+* be testable
+
+---
+
+### 🧩 Skill Schema (MANDATORY)
+
+```yaml
+skill:
+  id: string
+  name: string
+  version: string
+  owner: string
+  description: string
+  category: core | platform | domain | design | security
+
+  input_schema: JSONSchema
+  output_schema: JSONSchema
+
+  prompt_template: string
+
+  tools_allowed:
+    - tool_id
+
+  model_policy:
+    primary: string
+    fallback: string
+
+  risk_level: low | medium | high | critical
+
+  requires_approval: boolean
+
+  evaluation:
+    metrics:
+      - accuracy
+      - structure
+      - completeness
+      - compliance
+```
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+skill_registry:
+  require_registration: true
+  require_schema_validation: true
+  require_versioning: true
+  require_owner: true
+  require_evaluation_definition: true
+  prohibit_unregistered_skills: true
+```
+
+---
+
+### 🔁 Skill Lifecycle
+
+```yaml
+skill_lifecycle:
+  stages:
+    - draft
+    - review
+    - approved
+    - deployed
+    - deprecated
+
+  require_review_before_approval: true
+  require_tests_before_deploy: true
+```
+
+---
+
+# 🔷 Section 20 — Tool Registry Standard
+
+### 🧭 Executive Summary
+
+All tools (APIs, services, functions) must be:
+
+* registered
+* secured
+* monitored
+* reusable
+
+---
+
+### ⚙️ Operational Guidance
+
+Every tool must define:
+
+* authentication method
+* endpoint
+* rate limits
+* cost profile
+* usage scope
+
+---
+
+### 🧩 Tool Schema
+
+```yaml
+tool:
+  id: string
+  name: string
+  type: api | function | workflow
+  provider: string
+
+  auth:
+    type: api_key | oauth | service_account
+    required: true
+
+  endpoint: string
+
+  usage_policy:
+    allowed_scopes:
+      - skill_id
+    rate_limit: number
+    cost_per_call: number
+
+  fallback:
+    enabled: boolean
+    fallback_tool: string
+```
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+tool_registry:
+  require_registration: true
+  require_auth: true
+  require_logging: true
+  require_usage_policy: true
+  prohibit_direct_tool_access: true
+```
+
+---
+
+# 🔷 Section 21 — Approval & Risk Tiering System
+
+### 🧭 Executive Summary
+
+Not all actions are equal.
+
+This system ensures:
+
+* low-risk tasks move fast
+* high-risk tasks are controlled
+
+---
+
+### ⚙️ Risk Levels
+
+| Level    | Example        | Requirement    |
+| -------- | -------------- | -------------- |
+| Low      | UI tweaks      | auto           |
+| Medium   | API change     | review         |
+| High     | auth, payments | approval       |
+| Critical | data deletion  | multi-approval |
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+risk_tiering:
+  levels:
+    low:
+      approval_required: false
+    medium:
+      approval_required: true
+    high:
+      approval_required: true
+      require_senior_review: true
+    critical:
+      approval_required: true
+      require_multi_approval: true
+      require_audit_log: true
+```
+
+---
+
+# 🔷 Section 22 — Evaluation & Scoring Framework
+
+### 🧭 Executive Summary
+
+Every output must be **measured** before being trusted.
+
+---
+
+### ⚙️ Evaluation Dimensions
+
+* UX Quality
+* AI Accuracy
+* Performance
+* Security Compliance
+* Design Consistency
+* Conversion Readiness
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+evaluation_framework:
+  required: true
+
+  metrics:
+    ux_score: 0-100
+    ai_quality: 0-100
+    performance: 0-100
+    compliance: 0-100
+    design_score: 0-100
+    conversion_score: 0-100
+
+  thresholds:
+    minimum: 85
+    production: 90
+```
+
+---
+
+### 📊 Output Example
+
+```json
+{
+  "ux_score": 92,
+  "ai_quality": 89,
+  "conversion_score": 94,
+  "status": "approved"
+}
+```
+
+---
+
+# 🔷 Section 23 — GitHub / CI/CD Enforcement
+
+### 🧭 Executive Summary
+
+GitHub is the **execution backbone**.
+
+---
+
+### ⚙️ Required Pipeline
+
+* PR review
+* automated checks
+* test validation
+* doc validation
+* skill validation
+* deployment gate
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+ci_cd:
+  require_pr: true
+  require_checks:
+    - lint
+    - test
+    - typecheck
+    - skill_validation
+    - api_validation
+  require_approval: true
+  require_docs_update: true
+  block_merge_on_failure: true
+```
+
+---
+
+# 🔷 Section 24 — IDE Instruction Packs (DETAILED)
+
+---
+
+## 🔹 Claude (Deep Reasoning Engine)
+
+```yaml
+claude_execution:
+  read_order:
+    - FlowMode_v6.md
+    - CLAUDE.md
+
+  enforce:
+    - skill_usage
+    - workflow_lifecycle
+    - evaluation_framework
+
+  prohibit:
+    - skipping_stages
+    - direct_api_calls
+```
+
+---
+
+## 🔹 Cursor (Execution Engine)
+
+```yaml
+cursor_execution:
+  enforce_rules_files: true
+  enforce_structure: true
+  enforce_design_system: true
+  enforce_api_governance: true
+
+  prohibit:
+    - folder_drift
+    - direct_external_calls
+```
+
+---
+
+## 🔹 Antigravity (Orchestration Engine)
+
+```yaml
+antigravity_execution:
+  mode: mission_based
+
+  require:
+    - artifact_output
+    - evaluation
+    - logging
+
+  enforce:
+    - policy_engine
+    - skill_chain_execution
+```
+
+---
+
+# 🔷 Section 25 — Required Artifacts by Workflow Stage
+
+### 🧭 Executive Summary
+
+Every stage must produce **artifacts**.
+
+---
+
+### ⚙️ Artifact Matrix
+
+| Stage  | Required Output |
+| ------ | --------------- |
+| Think  | problem brief   |
+| Plan   | plan doc        |
+| Design | wireframe/spec  |
+| Build  | code            |
+| Review | review notes    |
+| QA     | test report     |
+| Ship   | release note    |
+| Retro  | improvement log |
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+artifacts:
+  require_per_stage: true
+  block_progress_if_missing: true
+```
+
+---
+
+# 🔷 Section 26 — Domain Overlay Framework
+
+### 🧭 Executive Summary
+
+Each new app adds a **domain layer**, not a new system.
+
+---
+
+### ⚙️ Overlay Structure
+
+```yaml
+overlay:
+  name: Bridge55
+
+  domain_rules:
+    - tourism_logic
+    - booking_rules
+
+  ui_patterns:
+    - destination_cards
+    - booking_flow
+
+  api_dependencies:
+    - bridgeair
+    - bridgestay
+
+  ai_skills:
+    - itinerary_ai
+```
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+domain_overlay:
+  require_overlay_definition: true
+  prohibit_core_modification: true
+  enforce_modular_extension: true
+```
+
+---
+
+# 🔷 Section 27 — Intelligence Feedback Loop
+
+### 🧭 Executive Summary
+
+The system must learn continuously.
+
+---
+
+### ⚙️ Feedback Sources
+
+* user behavior
+* AI outputs
+* QA results
+* production logs
+* cost metrics
+
+---
+
+### 🤖 System Instructions
+
+```yaml
+feedback_loop:
+  require_data_collection: true
+  require_analysis: true
+  require_iteration: true
+  require_skill_updates: true
+```
+
+---
+
+# 🧠 FLOWMODE v6 — CORE COMPLETE
+
+---
+
+# 🚀 WHAT YOU NOW HAVE
+
+You now have:
+
+### ✅ Full AI Operating System
+
+* governance
+* execution
+* validation
+* scaling
+
+---
+
+# 🎯 NEXT STEP (CRITICAL)
+
+We now move to:
+
+## 📊 Afronovation Master Tech Stack Register
+
+This will define:
+
+* exact technologies
+* environments
+* infra
+* model stack
+* APIs
+
+---
+
+Then:
+
+## 🗂 Monorepo Blueprint
+
+## 🧩 Skill Manifest v1
+
+## 🔌 BridgeAPI Spec
+
+## 🧪 Bridge55 + EmbassyOS Gap Analysis
+
+---
+
+# 🔥 FINAL NOTE
+
+What you’ve built here is:
+
+> **Not documentation — but a programmable operating system for AI-driven development**
+
+---
+
+Proceed to:
+
+👉 **Master Tech Stack Register v1.0**
+

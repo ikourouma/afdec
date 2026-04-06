@@ -1,0 +1,1217 @@
+Below is the **BridgeAPI v1.0 Specification**.
+
+This is the platform contract document that turns the earlier artifacts into a concrete service architecture. It is written to support both business review and technical execution.
+
+---
+
+# BridgeAPI v1.0 Specification
+
+## 1. Purpose
+
+### Executive Summary
+
+BridgeAPI is Afronovation’s unified API gateway, orchestration layer, and provider normalization platform.
+
+Its purpose is to give every Afronovation product a single governed way to access:
+
+* AI capabilities
+* communications
+* translation
+* payments
+* travel and hospitality aggregators
+* shared platform services
+* future third-party integrations
+
+BridgeAPI exists to prevent every app from building its own disconnected integrations.
+
+Instead of each app directly integrating vendors and APIs, BridgeAPI provides:
+
+* one governed access layer
+* one normalization model
+* one logging and audit model
+* one billing and cost visibility path
+* one tenant-aware control plane
+
+### Operational Purpose
+
+BridgeAPI defines:
+
+* how integrations are registered
+* how providers are normalized
+* how apps consume services
+* how tenant rules are enforced
+* how auth, logging, billing, and routing are applied
+* how future public APIs and SDKs will be exposed
+
+### System Rule
+
+```yaml
+bridgeapi:
+  required_for_external_integrations: true
+  prohibit_direct_app_to_provider_calls: true
+  require_registry_driven_provider_access: true
+  require_tenant_aware_policy_enforcement: true
+```
+
+---
+
+## 2. Strategic Role in the Afronovation Ecosystem
+
+### Executive Summary
+
+BridgeAPI is a core platform service, not a product-specific backend.
+
+It sits between:
+
+* Afronovation apps
+* platform services
+* external providers
+* future partner or public developers
+
+### BridgeAPI Enables
+
+* Bridge55 to consume travel, stay, mobility, payments, comms, AI
+* EmbassyOS to consume citizen-service workflows, comms, translation, payments, AI, document-related services
+* BridgeVault to consume document, audit, AI, security-related services
+* future products to launch faster without reintegrating vendors
+
+### Platform Position
+
+BridgeAPI should be treated as:
+
+* the **service mediation layer**
+* the **provider normalization layer**
+* the **policy enforcement layer**
+* the **commercial instrumentation layer**
+
+### System Rule
+
+```yaml
+bridgeapi_role:
+  classify_as_core_platform_service: true
+  serve_multiple_products: true
+  centralize_provider_logic: true
+  centralize_policy_enforcement: true
+```
+
+---
+
+## 3. Scope
+
+## In Scope
+
+* internal API gateway patterns
+* tenant-aware service access
+* provider normalization
+* auth and policy mediation
+* tool and provider registry integration
+* logging and audit hooks
+* cost and billing hooks
+* admin control plane integration
+* internal-first API maturity model
+* partner/public API readiness path
+
+## Out of Scope for v1
+
+* full public developer portal
+* broad public external SDK publishing
+* unrestricted third-party ecosystem
+* final enterprise dedicated deployment variants for every service
+* custom per-client protocol stacks beyond the core pattern
+
+### System Rule
+
+```yaml
+bridgeapi_scope:
+  internal_first: true
+  partner_ready_path: true
+  public_api_deferred_until_governed: true
+```
+
+---
+
+## 4. Core Architectural Principles
+
+### Executive Summary
+
+BridgeAPI must remain simple at the contract layer and powerful at the orchestration layer.
+
+### Principles
+
+1. One gateway, many service families
+2. Apps consume stable domain contracts, not vendor quirks
+3. Provider adapters are replaceable
+4. Every request is tenant-aware
+5. Every sensitive action is loggable and auditable
+6. Every commercial interaction is measurable
+7. API maturity progresses internal → partner → public
+
+### Operational Guidance
+
+BridgeAPI should avoid becoming:
+
+* a vendor-specific wrapper
+* a monolithic service with no boundaries
+* an uncontrolled pass-through proxy
+* a product-specific backend
+
+### System Rule
+
+```yaml
+bridgeapi_principles:
+  require_domain_contracts: true
+  require_replaceable_adapters: true
+  require_tenant_context: true
+  require_observability: true
+  require_commercial_visibility: true
+```
+
+---
+
+## 5. High-Level Architecture
+
+### Executive Summary
+
+BridgeAPI is a service family with one unified governance surface.
+
+### Conceptual Architecture
+
+```plaintext
+Apps / Admin / Future SDKs
+          │
+          ▼
+      BridgeAPI
+          │
+ ┌────────┼────────┬────────┬────────┬────────┐
+ ▼        ▼        ▼        ▼        ▼        ▼
+AI     Comms   Translation Payments Aggregators Core Platform
+          │
+          ▼
+   Provider Adapters / External APIs
+```
+
+### Internal Control Layers
+
+BridgeAPI must apply:
+
+* auth validation
+* tenant resolution
+* policy resolution
+* provider selection
+* logging
+* audit hooks
+* cost attribution
+* response normalization
+
+### System Rule
+
+```yaml
+bridgeapi_layers:
+  require_auth_layer: true
+  require_tenant_resolution: true
+  require_policy_resolution: true
+  require_provider_selection: true
+  require_logging_and_cost_hooks: true
+  require_response_normalization: true
+```
+
+---
+
+## 6. Core Service Families
+
+## 6.1 BridgeAI
+
+### Purpose
+
+Expose governed AI capabilities to apps through BridgeAPI.
+
+### Responsibilities
+
+* skill execution
+* model routing
+* persona enforcement
+* real-time AI execution
+* async AI execution
+* memory-aware interactions
+* evaluation hooks
+
+### Example Use Cases
+
+* travel planning assistant
+* embassy service assistant
+* content generation
+* form support
+* operational review workflows
+
+---
+
+## 6.2 BridgeComms
+
+### Purpose
+
+Provide a unified communication layer.
+
+### Responsibilities
+
+* SMS
+* WhatsApp-capable messaging path
+* notifications
+* workflow communications
+* future multi-channel comms expansion
+
+### Example Use Cases
+
+* OTP
+* booking updates
+* appointment reminders
+* embassy service notifications
+
+---
+
+## 6.3 BridgeTranslation
+
+### Purpose
+
+Provide governed multilingual translation support.
+
+### Responsibilities
+
+* translation orchestration
+* provider routing
+* quality control path
+* multilingual app enablement
+
+### Example Use Cases
+
+* multilingual UI support
+* translated assistant responses
+* embassy notices
+* travel content localization
+
+---
+
+## 6.4 BridgePayments
+
+### Purpose
+
+Provide multi-provider payment orchestration.
+
+### Responsibilities
+
+* checkout/payment intent initialization
+* method resolution
+* refunds
+* subscriptions
+* wallet/credits
+* billing policy hooks
+* reconciliation hooks
+
+### Example Use Cases
+
+* booking checkout
+* appointment payments
+* service fees
+* wallet-funded transactions
+* OEM billing plans
+
+---
+
+## 6.5 Aggregation Service Families
+
+### BridgeAir
+
+Flight and airline provider normalization.
+
+### BridgeStay
+
+Hotel, stay, and accommodation provider normalization.
+
+### BridgeMobility
+
+Taxi, transfer, ride, and ground mobility provider normalization.
+
+### Responsibilities
+
+* provider normalization
+* fallback logic
+* pricing/availability freshness handling
+* tenant/service enablement
+* health monitoring
+
+---
+
+## 6.6 Core Platform Functions
+
+### Purpose
+
+Support shared platform infrastructure exposed through BridgeAPI where needed.
+
+### Examples
+
+* feature flag resolution
+* config retrieval
+* policy lookup
+* tenant capabilities
+* pricing/billing metadata
+* audit/event emission
+
+### System Rule
+
+```yaml
+service_families:
+  required:
+    - bridgeai
+    - bridgecomms
+    - bridgetranslation
+    - bridgepayments
+    - bridgeair
+    - bridgestay
+    - bridgemobility
+    - core_platform
+```
+
+---
+
+## 7. API Consumption Model
+
+### Executive Summary
+
+Apps should consume BridgeAPI through stable domain contracts.
+
+Apps should not need to know:
+
+* which vendor is active
+* how fallback works
+* how provider quirks are handled
+* how rates/quotas are enforced internally
+
+### Consumption Types
+
+1. server-to-service internal calls
+2. app backend to BridgeAPI calls
+3. admin control plane calls
+4. future partner/private API access
+5. later public SDK/API access
+
+### Recommended Internal Pattern
+
+Apps call domain-oriented endpoints or internal service methods such as:
+
+* payment operations
+* itinerary/search operations
+* messaging operations
+* translation operations
+* AI assistant operations
+
+### System Rule
+
+```yaml
+api_consumption:
+  require_domain_oriented_contracts: true
+  hide_provider_specific_complexity: true
+  require_tenant_context: true
+```
+
+---
+
+## 8. API Maturity Model
+
+### Executive Summary
+
+BridgeAPI should not become public too early.
+
+### Maturity Stages
+
+#### Stage 1 — Internal
+
+Used only by Afronovation apps and admin surfaces.
+
+#### Stage 2 — Partner / Private
+
+Used by approved OEM or partner clients.
+
+#### Stage 3 — Public
+
+Stable, documented, versioned, externally consumable APIs and SDKs.
+
+### Release Rule
+
+A service family may not move to the next stage unless it has:
+
+* stable contracts
+* rate limits
+* auth policy
+* logging
+* supportability
+* deprecation policy
+* usage analytics
+
+### System Rule
+
+```yaml
+api_maturity:
+  stages:
+    - internal
+    - partner
+    - public
+  require_governance_before_promotion: true
+```
+
+---
+
+## 9. Tenant and Identity Model
+
+### Executive Summary
+
+Every BridgeAPI request must resolve tenant context before executing business logic.
+
+### Required Request Context
+
+* actor identity
+* tenant identity
+* app identity
+* environment
+* requested capability
+* applicable policy scope
+
+### Auth Strategy
+
+Default:
+
+* Supabase Auth-backed authenticated flows
+
+Scale Path:
+
+* federated auth
+* SSO
+* client-specific identity integrations
+
+### Authorization Model
+
+* tenant-aware RBAC
+* service family entitlements
+* feature/module enablement
+* policy-based restrictions
+* high-risk operation gating
+
+### System Rule
+
+```yaml
+tenant_identity_model:
+  require_actor_identity: true
+  require_tenant_identity: true
+  require_rbac_resolution: true
+  support_federated_scale_path: true
+```
+
+---
+
+## 10. Request Lifecycle
+
+### Executive Summary
+
+Every request must follow a predictable lifecycle.
+
+### Lifecycle
+
+1. authenticate
+2. resolve tenant and app context
+3. check entitlement and policy
+4. validate request schema
+5. resolve service family
+6. select provider or execution path
+7. execute
+8. normalize response
+9. log usage/cost/audit signals
+10. return response
+
+### System Rule
+
+```yaml
+request_lifecycle:
+  steps:
+    - authenticate
+    - resolve_context
+    - check_policy
+    - validate_schema
+    - resolve_service
+    - select_provider
+    - execute
+    - normalize
+    - log
+    - respond
+  require_full_lifecycle: true
+```
+
+---
+
+## 11. Provider Normalization Model
+
+### Executive Summary
+
+Provider-specific quirks must never leak into app contracts unnecessarily.
+
+### BridgeAPI Must Normalize
+
+* request shape
+* response shape
+* status semantics
+* error semantics
+* capabilities metadata
+* fallback behavior
+* pricing/method availability descriptors
+
+### Example Normalization Need
+
+Different payment providers may represent:
+
+* intent creation
+* currency handling
+* refunds
+* errors
+  in very different ways.
+
+Apps should consume one BridgePayments contract rather than each provider’s unique design.
+
+The same applies to:
+
+* flight availability
+* hotel inventory
+* ride availability
+* translation requests
+* messaging sends
+
+### System Rule
+
+```yaml
+provider_normalization:
+  require_stable_domain_contracts: true
+  require_adapter_layer: true
+  require_vendor_quirk_isolation: true
+```
+
+---
+
+## 12. Provider Adapter Architecture
+
+### Executive Summary
+
+Each external provider should be implemented as a replaceable adapter.
+
+### Adapter Responsibilities
+
+* auth/config for provider
+* request mapping
+* response mapping
+* error mapping
+* health checks
+* fallback compatibility
+* provider capability declaration
+
+### Adapter Rules
+
+* adapters must not define app logic
+* adapters must not bypass policy engine
+* adapters must expose capability metadata
+* adapters must be testable in isolation
+
+### Suggested Structure
+
+```plaintext
+services/bridgeapi/
+services/bridgepayments/
+services/bridgeair/
+...
+  src/
+    adapters/
+      stripe/
+      paystack/
+      flutterwave/
+      mpesa/
+```
+
+### System Rule
+
+```yaml
+adapter_architecture:
+  require_replaceable_adapters: true
+  require_capability_metadata: true
+  require_isolated_testing: true
+```
+
+---
+
+## 13. Policy Engine Integration
+
+### Executive Summary
+
+BridgeAPI must not be just a routing layer. It must enforce policy.
+
+### Policy Domains
+
+* tenant enablement
+* environment rules
+* data residency rules
+* provider eligibility
+* payment method enablement
+* AI model/skill eligibility
+* region/currency rules
+* OEM restrictions
+* high-risk action gating
+
+### Example Policies
+
+* Tenant A may use Stripe + Paystack but not M-Pesa
+* Tenant B may use only one AI persona set
+* Tenant C requires EU-region processing
+* Preview environments cannot call production payment capture
+
+### System Rule
+
+```yaml
+policy_integration:
+  require_policy_check_before_execution: true
+  support_tenant_specific_policy: true
+  support_environment_specific_policy: true
+  support_provider_restrictions: true
+```
+
+---
+
+## 14. Billing, Usage, and Commercial Instrumentation
+
+### Executive Summary
+
+BridgeAPI must support both product execution and business visibility.
+
+### Required Commercial Signals
+
+* request count
+* usage by tenant
+* usage by app
+* usage by service family
+* provider-level cost
+* model-level cost
+* payment processing volume
+* messaging usage
+* conversion-relevant event signals where relevant
+
+### Why This Matters
+
+BridgeAPI will support:
+
+* internal cost control
+* future OEM pricing
+* wallet/credit models
+* hybrid billing models
+* service usage analytics
+
+### System Rule
+
+```yaml
+commercial_instrumentation:
+  require_usage_tracking: true
+  require_cost_tracking: true
+  require_tenant_attribution: true
+  require_service_family_attribution: true
+```
+
+---
+
+## 15. Logging, Audit, and Observability
+
+### Executive Summary
+
+BridgeAPI must be observable enough to answer:
+
+* what happened
+* for whom
+* using which provider/model
+* at what cost
+* under what policy
+* with what outcome
+
+### Required Log Types
+
+* request logs
+* provider execution logs
+* normalized response logs
+* error logs
+* audit logs for sensitive actions
+* cost/usage telemetry
+* health metrics
+
+### Sensitive Workflows Requiring Audit Hooks
+
+* payment capture/refund
+* identity-sensitive operations
+* privileged admin actions
+* residency/policy changes
+* AI actions in sensitive contexts
+
+### System Rule
+
+```yaml
+observability:
+  require_request_logs: true
+  require_provider_logs: true
+  require_audit_hooks_for_sensitive_flows: true
+  require_health_metrics: true
+```
+
+---
+
+## 16. Error and Response Contract Strategy
+
+### Executive Summary
+
+Apps should receive predictable error and response contracts.
+
+### BridgeAPI Should Standardize
+
+* success envelope
+* error envelope
+* validation errors
+* provider unavailable errors
+* policy denied errors
+* rate limit errors
+* retry/fallback hints where safe
+
+### Error Classes
+
+* validation_error
+* auth_error
+* policy_error
+* provider_error
+* timeout_error
+* dependency_error
+* internal_error
+
+### System Rule
+
+```yaml
+response_contracts:
+  require_standard_response_envelopes: true
+  require_standard_error_classes: true
+  prohibit_raw_provider_error_leakage_without_mapping: true
+```
+
+---
+
+## 17. Service Family Specifications
+
+## 17.1 BridgePayments
+
+### Core Domain
+
+* initialize checkout
+* create payment intent
+* resolve payment methods
+* capture payment
+* refund payment
+* create subscription
+* manage wallet/credits
+* reconcile transaction
+* retrieve provider status
+
+### Required Routing Inputs
+
+* tenant
+* currency
+* region
+* payment method preference
+* product/use case
+* environment
+* policy restrictions
+
+### Example Provider Set
+
+* Stripe
+* Paystack
+* Flutterwave
+* M-Pesa
+* future adapters
+
+### Notes
+
+BridgePayments should support:
+
+* product-specific billing plans
+* wallet integration
+* regional method support
+* policy-driven provider availability
+
+---
+
+## 17.2 BridgeComms
+
+### Core Domain
+
+* send message
+* send OTP
+* send workflow notification
+* resolve channel availability
+* retrieve delivery status
+
+### Inputs
+
+* tenant
+* channel
+* region
+* policy context
+* template or message type
+
+---
+
+## 17.3 BridgeTranslation
+
+### Core Domain
+
+* translate text
+* detect language
+* multilingual content routing
+* quality-sensitive translation review path
+
+---
+
+## 17.4 BridgeAI
+
+### Core Domain
+
+* execute skill
+* run assistant interaction
+* apply persona
+* resolve model path
+* route async jobs
+* record evaluation signals
+
+---
+
+## 17.5 BridgeAir / BridgeStay / BridgeMobility
+
+### Core Domain
+
+* search availability
+* normalize results
+* expose structured options
+* handle fallback
+* track provider freshness and health
+
+### System Rule
+
+```yaml
+service_domains:
+  require_domain_operations_definition: true
+  require_policy_inputs: true
+  require_provider_compatibility_layer: true
+```
+
+---
+
+## 18. Admin Control Plane Hooks
+
+### Executive Summary
+
+BridgeAPI must integrate tightly with the admin control plane.
+
+### Admin-Managed Objects
+
+* tenants
+* service enablement
+* provider enablement
+* model routing policy
+* payment method enablement
+* feature flags
+* personas
+* residency profiles
+* quotas
+* wallet and credit settings
+* usage analytics views
+
+### Why This Matters
+
+Internal admin-first development depends on BridgeAPI being configurable through the control plane.
+
+### System Rule
+
+```yaml
+admin_hooks:
+  require_tenant_manageability: true
+  require_provider_enablement_controls: true
+  require_policy_admin_controls: true
+  require_usage_visibility: true
+```
+
+---
+
+## 19. Security and Trust Controls
+
+### Executive Summary
+
+BridgeAPI is a trust-critical platform component.
+
+### Required Controls
+
+* no direct provider secrets in app code
+* provider credentials managed centrally
+* environment separation
+* tenant-scoped access control
+* auditability for sensitive actions
+* high-risk operation gating
+* residency-aware routing where required
+* no preview env access to forbidden production operations
+
+### System Rule
+
+```yaml
+bridgeapi_security:
+  require_central_secret_management: true
+  require_environment_separation: true
+  require_tenant_scoped_access: true
+  require_sensitive_action_auditability: true
+```
+
+---
+
+## 20. Environment Strategy
+
+### Executive Summary
+
+BridgeAPI must behave differently by environment.
+
+### Environment Expectations
+
+* **local**: developer testing
+* **dev**: shared internal development
+* **preview**: Vercel-driven demos, stakeholder review, safe testing
+* **staging**: release-candidate validation
+* **production**: live workload
+
+### Environment Rules
+
+* preview should not execute prohibited production operations
+* provider sandboxes should be preferred outside production
+* logs and metrics should distinguish environment clearly
+
+### System Rule
+
+```yaml
+environment_strategy:
+  require_environment_awareness: true
+  require_restricted_preview_capabilities: true
+  prefer_sandbox_providers_outside_prod: true
+```
+
+---
+
+## 21. Data Residency and Sovereign Positioning
+
+### Executive Summary
+
+BridgeAPI must support tenant-aware residency posture.
+
+### Residency Capabilities
+
+* tenant residency profile
+* service-family-specific residency constraints
+* logging region policy
+* backup region policy
+* dedicated deployment tier path
+
+### Client-Facing Value
+
+This is especially important for:
+
+* EmbassyOS
+* BridgeVault
+* government-like or trust-heavy clients
+* region-sensitive commercial deployments
+
+### System Rule
+
+```yaml
+residency_support:
+  require_tenant_residency_profile: true
+  require_processing_boundary_awareness: true
+  support_dedicated_high_assurance_tiers: true
+```
+
+---
+
+## 22. Internal Module Structure Recommendation
+
+### Suggested Service Layout
+
+```plaintext
+services/bridgeapi/
+├── src/
+│   ├── gateway/
+│   ├── policies/
+│   ├── tenancy/
+│   ├── usage/
+│   ├── billing/
+│   ├── logging/
+│   ├── auth/
+│   ├── contracts/
+│   └── utils/
+├── docs/
+├── tests/
+├── config/
+├── README.md
+├── OWNERS.md
+├── ARCHITECTURE.md
+└── CHANGELOG.md
+```
+
+### Related Domain Service Layout
+
+Each domain service should expose:
+
+* `domain/`
+* `adapters/`
+* `contracts/`
+* `policies/`
+* `tests/`
+* `docs/`
+
+### System Rule
+
+```yaml
+bridgeapi_structure:
+  require_gateway_layer: true
+  require_policy_layer: true
+  require_contract_layer: true
+  require_usage_and_logging_layers: true
+```
+
+---
+
+## 23. Recommended Implementation Phases
+
+## Phase 1 — Core Foundation
+
+* tenant resolution
+* auth integration
+* policy enforcement
+* request lifecycle framework
+* logging and usage hooks
+* internal-only contract surface
+
+## Phase 2 — Initial Service Families
+
+* BridgeAI
+* BridgePayments
+* BridgeComms
+* BridgeTranslation
+
+## Phase 3 — Aggregation Families
+
+* BridgeAir
+* BridgeStay
+* BridgeMobility
+
+## Phase 4 — Admin and Commercial Hardening
+
+* provider enablement controls
+* tenant policy controls
+* usage analytics
+* wallet/credits
+* billing hooks
+* partner/private API path
+
+### System Rule
+
+```yaml
+implementation_phases:
+  prefer_foundation_before_provider_expansion: true
+  prefer_internal_governance_before_public_exposure: true
+```
+
+---
+
+## 24. Validation Against Bridge55 and EmbassyOS
+
+### Executive Summary
+
+BridgeAPI v1 should be validated against both Bridge55 and EmbassyOS without immediately changing product code.
+
+### Bridge55 Validation Goals
+
+* identify integration fragmentation
+* identify travel aggregation gaps
+* identify payment/comms/AI dependency gaps
+* identify conversion-related API opportunities
+* identify preview/demo environment opportunities
+
+### EmbassyOS Validation Goals
+
+* identify policy/residency gaps
+* identify citizen-service integration needs
+* identify trust and audit gaps
+* identify multilingual and comms orchestration needs
+* identify admin control plane dependencies
+
+### Output of Validation
+
+* gap inventory
+* priority recommendations
+* BridgeAPI mapping plan
+* elevated architecture recommendations
+
+### System Rule
+
+```yaml
+validation_strategy:
+  require_bridge55_assessment: true
+  require_embassyos_assessment: true
+  prohibit_blind_rewrite_without_gap_analysis: true
+```
+
+---
+
+## 25. Final Specification Summary
+
+### Executive Summary
+
+BridgeAPI v1.0 is the governed service mediation and normalization layer for Afronovation.
+
+It ensures that:
+
+* integrations are centralized
+* policies are enforced consistently
+* providers are abstracted
+* tenants are handled safely
+* business instrumentation is built in
+* future partner/public scale is possible
+* Bridge55 and EmbassyOS can evolve on a stronger platform foundation
+
+### System Rule
+
+```yaml
+bridgeapi_summary:
+  enforce_internal_first_api_maturity: true
+  enforce_policy_and_tenant_controls: true
+  enforce_provider_normalization: true
+  enforce_logging_and_commercial_visibility: true
+```
+
+---
+
+# Recommended Next Step
+
+The best next artifact is:
+
+## **Bridge55 Gap Assessment Framework**
+
+followed by
+
+## **EmbassyOS Sovereign-Grade Assessment Framework**
+
+That sequence matches your Option B strategy:
+
+* use BridgeAPI + FlowMode as the standard
+* assess existing products without blindly rewriting
+* identify gaps
+* recommend targeted elevation paths to Fortune-5 quality
+
+Proceeding with **Bridge55 Gap Assessment Framework** is the right next move.

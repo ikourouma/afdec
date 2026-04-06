@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "dealRoom": "DEAL ROOMS",
+    "news": "NEWS & MEDIA",
+    "events": "EVENTS",
+    "auth": "GATEWAY"
+  },
+  "home": {
+    "heroTagline": "Global Data Hub",
+    "heroCta": "Initialize Connection",
+    "verticalsTitle": "Active Sovereign Execution Sectors",
+    "verticalsDesc": "Direct investment corridors mapping North Carolina enterprise capacity to African infrastructure opportunities."
+  },
+  "verticals": {
+    "energy": "Energy Corridors",
+    "logistics": "Deep Water Logistics",
+    "agritech": "Sovereign Agritech",
+    "digital": "Digital Infrastructure",
+    "health": "Health Security",
+    "defense": "Secure Communications"
+  },
+  "footer": {
+    "rights": "All Rights Reserved. Sovereign data is protected under Tier-1 encryption."
+  }
+}

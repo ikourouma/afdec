@@ -1,0 +1,1014 @@
+Below is the **revised Afronovation Master Tech Stack Register v1.1** with:
+
+* **Vercel demo/preview role added**
+* **BridgePayments expanded**
+* **capability-based decision table structure added**
+
+---
+
+# Afronovation Master Tech Stack Register v1.1
+
+## 1. Purpose
+
+### Executive Summary
+
+The Afronovation Master Tech Stack Register is the authoritative record of approved technology capabilities, platform defaults, alternatives, scaling paths, and usage rules across the Afronovation ecosystem.
+
+It is designed to prevent:
+
+* stack drift
+* duplicated architecture decisions
+* unnecessary rewrites
+* inconsistent implementation patterns
+* avoidable vendor sprawl
+* weak governance over future platform growth
+
+This register is intentionally **capability-based**, not merely vendor-based.
+Afronovation defines **the capability first**, then maps technologies to that capability.
+
+### Operational Purpose
+
+This register defines:
+
+* capability categories
+* default technologies
+* approved alternatives
+* enterprise conditional paths
+* when to use each option
+* when not to use each option
+* owners and review cadence
+
+### System Rule
+
+```yaml
+tech_stack_register:
+  required_for_all_projects: true
+  capability_based: true
+  prohibit_ungoverned_stack_sprawl: true
+  require_module_level_stack_mapping: true
+  require_documented_exception_for_nonstandard_choices: true
+```
+
+---
+
+## 2. Guiding Principles
+
+### Executive Summary
+
+Afronovation stack decisions are based on six principles:
+
+1. Speed with structure
+2. Enterprise-grade scalability
+3. Sovereign-grade trust
+4. Multi-tenant readiness
+5. Pragmatic affordability
+6. Vendor flexibility without architectural chaos
+
+### Operational Guidance
+
+A technology should be preferred when it:
+
+* solves a repeatable platform problem
+* reduces delivery time without weakening governance
+* supports multi-tenant or enterprise patterns
+* fits the FlowMode v6 operating model
+* has a clear scaling path
+* can be abstracted or swapped with minimal platform disruption
+
+### System Rule
+
+```yaml
+stack_principles:
+  prefer_capabilities_over_vendor_lock_in: true
+  prefer_reuse_over_novelty: true
+  prefer_governed_platforms: true
+  prefer_enterprise_scale_paths: true
+  prefer_ai_native_compatibility: true
+  require_reviewable_tradeoffs: true
+```
+
+---
+
+## 3. Stack Classification Model
+
+### Executive Summary
+
+Every stack decision must be classified so teams know whether a technology is default, alternative, conditional, or experimental.
+
+### Classification Levels
+
+* **Tier A — Core Approved Default**
+  Mandatory unless an approved exception exists.
+
+* **Tier B — Approved Alternative**
+  Allowed when there is a valid team, delivery, or module reason.
+
+* **Tier C — Enterprise Conditional**
+  Used when compliance, client, scale, or geographic requirements demand it.
+
+* **Tier D — Experimental**
+  Allowed only in pilots, sandboxes, or reviewed evaluation contexts.
+
+### System Rule
+
+```yaml
+stack_classification:
+  tiers:
+    - core_default
+    - approved_alternative
+    - enterprise_conditional
+    - experimental
+  require_tier_assignment: true
+```
+
+---
+
+# 4. Capability-Based Decision Tables
+
+## 4.1 Monorepo, Source Control, and Build Orchestration
+
+| Capability             | Purpose                                | Default Technology | Approved Alternatives                 | Enterprise Conditional                     | Use When                                  | Do Not Use When                                                            | Owner                | Review Cadence  |
+| ---------------------- | -------------------------------------- | ------------------ | ------------------------------------- | ------------------------------------------ | ----------------------------------------- | -------------------------------------------------------------------------- | -------------------- | --------------- |
+| Source control         | Versioning, collaboration, PR workflow | GitHub             | None preferred                        | Client-mandated mirrored enterprise repo   | All platform and product work             | Offline or client-restricted environments mandate different source control | Platform Engineering | Every 12 months |
+| Package management     | Workspace/package consistency          | pnpm               | npm                                   | Client build constraints justify otherwise | Monorepo and shared package workflows     | A temporary single-package prototype does not need workspace tooling       | Platform Engineering | Every 12 months |
+| Monorepo orchestration | Build, cache, task coordination        | Turborepo          | Nx                                    | Advanced enterprise orchestration need     | Shared apps, packages, services, overlays | Repo is not structured as a monorepo                                       | Platform Engineering | Every 12 months |
+| Primary language       | Typed shared development               | TypeScript         | JavaScript for narrow utility scripts | Additional service language by exception   | Shared frontend/backend/services/packages | New language adds operational drag without clear gain                      | Platform Engineering | Every 12 months |
+
+### System Rule
+
+```yaml
+monorepo_stack:
+  vcs: github
+  package_manager: pnpm
+  orchestration: turborepo
+  language: typescript
+  mandatory: true
+```
+
+---
+
+## 4.2 Frontend Web Application Capability
+
+| Capability                | Purpose                               | Default Technology | Approved Alternatives              | Enterprise Conditional                         | Use When                                            | Do Not Use When                                                | Owner                    | Review Cadence  |
+| ------------------------- | ------------------------------------- | ------------------ | ---------------------------------- | ---------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------- | ------------------------ | --------------- |
+| Web application framework | SEO, SSR, scalable product delivery   | Next.js            | None preferred                     | Specialized microfrontend pattern if justified | Public products, admin apps, multi-tenant frontends | Static microsite does not need framework complexity            | Frontend Platform        | Every 12 months |
+| UI library                | Interactive component rendering       | React              | None preferred                     | None currently                                 | Shared component architecture and app development   | A different UI framework is introduced without platform reason | Frontend Platform        | Every 12 months |
+| Styling system            | Tokenized, governed UI implementation | Tailwind CSS       | CSS Modules by scoped exception    | None currently                                 | Design-system-led UI implementation                 | Hardcoded, unmanaged styling is spreading across apps          | Design System + Frontend | Every 12 months |
+| Motion layer              | Premium interactions and feedback     | Framer Motion      | Native CSS motion where sufficient | None currently                                 | High-value interface moments                        | Motion adds unnecessary performance or UX cost                 | Design System            | Every 12 months |
+
+### Notes
+
+Tailwind must remain token-driven and design-system-bound.
+
+### System Rule
+
+```yaml
+frontend_stack:
+  framework: nextjs
+  library: react
+  styling: tailwind
+  motion: framer_motion
+  require_design_system_binding: true
+```
+
+---
+
+## 4.3 Mobile Application Capability
+
+| Capability                    | Purpose                          | Default Technology | Approved Alternatives | Enterprise Conditional              | Use When                                           | Do Not Use When                                          | Owner               | Review Cadence  |
+| ----------------------------- | -------------------------------- | ------------------ | --------------------- | ----------------------------------- | -------------------------------------------------- | -------------------------------------------------------- | ------------------- | --------------- |
+| Rapid mobile MVP              | Fast mobile rollout              | FlutterFlow        | None preferred        | None currently                      | Early rollout, citizen-facing MVPs                 | Product immediately requires deep custom mobile behavior | Product Engineering | Every 12 months |
+| Controlled mobile app         | Governed mobile engineering path | Flutter            | React Native          | Native-only path if later justified | Mature mobile product needs stronger control       | Team cannot sustain Flutter or app is web-first only     | Product Engineering | Every 12 months |
+| Alternate cross-platform path | Alternate mature mobile option   | React Native       | None preferred        | Client/team-specific need           | Existing expertise or integration fit justifies it | It creates unnecessary divergence from the default path  | Product Engineering | Every 12 months |
+
+### System Rule
+
+```yaml
+mobile_stack:
+  primary_mvp: flutterflow
+  primary_controlled_mobile: flutter
+  approved_alternative: react_native
+  require_bridgeapi_integration: true
+```
+
+---
+
+## 4.4 Backend Platform and Service Capability
+
+| Capability       | Purpose                                           | Default Technology   | Approved Alternatives                                  | Enterprise Conditional                        | Use When                                           | Do Not Use When                                                       | Owner                | Review Cadence  |
+| ---------------- | ------------------------------------------------- | -------------------- | ------------------------------------------------------ | --------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- | -------------------- | --------------- |
+| Backend platform | Database, auth, storage, realtime, rapid services | Supabase             | Direct managed Postgres + custom services by exception | OCI / AWS / Azure hosted dedicated services   | Fast governed multi-tenant delivery                | Client requires dedicated infrastructure or more control than default | Platform Engineering | Every 6 months  |
+| Database         | Relational system of record                       | PostgreSQL           | None preferred                                         | Dedicated enterprise-managed Postgres options | Multi-tenant apps, metadata, transactional systems | A different datastore is introduced without fit-for-purpose reasoning | Data Platform        | Every 12 months |
+| Service runtime  | Shared orchestration and integrations             | Node.js + TypeScript | Bun for targeted utilities if approved                 | Containerized enterprise services             | API adapters, orchestration, workflows             | Runtime divergence increases maintenance burden                       | Platform Engineering | Every 12 months |
+
+### System Rule
+
+```yaml
+backend_stack:
+  primary_platform: supabase
+  primary_database: postgres
+  primary_runtime: nodejs
+  primary_language: typescript
+  support_dedicated_services: true
+  support_multicloud_scaling: true
+```
+
+---
+
+## 4.5 Authentication Capability
+
+| Capability                  | Purpose                         | Default Technology    | Approved Alternatives | Enterprise Conditional                                | Use When                                   | Do Not Use When                                        | Owner             | Review Cadence |
+| --------------------------- | ------------------------------- | --------------------- | --------------------- | ----------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------------- | -------------- |
+| Default authentication      | App auth and session management | Supabase Auth         | None preferred        | Federated auth, SSO, client IAM integration           | Most product and platform implementations  | Client mandates enterprise identity integration        | Identity Platform | Every 6 months |
+| Enterprise identity scaling | Federated login and SSO         | Documented scale path | OAuth-based flows     | SAML / enterprise federation / custom client identity | Enterprise or sovereign clients require it | Early product phase does not need the added complexity | Identity Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+identity_stack:
+  default_auth: supabase_auth
+  support_federated_auth: true
+  support_sso: true
+  require_tenant_scoped_rbac: true
+  require_documented_auth_strategy_per_project: true
+```
+
+---
+
+## 4.6 Authorization and Tenant Isolation Capability
+
+| Capability       | Purpose                     | Default Technology                 | Approved Alternatives                  | Enterprise Conditional                            | Use When                             | Do Not Use When                                    | Owner                    | Review Cadence |
+| ---------------- | --------------------------- | ---------------------------------- | -------------------------------------- | ------------------------------------------------- | ------------------------------------ | -------------------------------------------------- | ------------------------ | -------------- |
+| Tenant isolation | Multi-tenant access control | Hybrid multi-tenant with RLS-first | Dedicated schema patterns by exception | Dedicated environment per higher-assurance tenant | Shared platform serving many tenants | Client requires strict environment-level isolation | Identity + Data Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+authorization_tenancy:
+  model: hybrid_multi_tenant
+  isolation_default: rls
+  support_dedicated_deployment: true
+  require_tenant_context_on_all_sensitive_queries: true
+```
+
+---
+
+## 4.7 Storage and Document Capability
+
+| Capability              | Purpose                             | Default Technology | Approved Alternatives                | Enterprise Conditional                         | Use When                                       | Do Not Use When                                           | Owner         | Review Cadence  |
+| ----------------------- | ----------------------------------- | ------------------ | ------------------------------------ | ---------------------------------------------- | ---------------------------------------------- | --------------------------------------------------------- | ------------- | --------------- |
+| Object/document storage | Files, uploads, regulated documents | Supabase Storage   | S3-compatible managed object storage | Client-dedicated storage boundary              | Product and platform document handling         | Client requires isolated storage or strict cloud boundary | Data Platform | Every 12 months |
+| Document metadata       | Searchable, auditable metadata      | PostgreSQL         | None preferred                       | Dedicated metadata service if scale demands it | BridgeVault, EmbassyOS, document-heavy systems | Metadata is scattered in app code or unmanaged stores     | Data Platform | Every 12 months |
+
+### System Rule
+
+```yaml
+storage_stack:
+  default_storage: supabase_storage
+  metadata_store: postgres
+  require_tenant_scoped_access: true
+  require_document_auditability_for_sensitive_products: true
+  support_s3_compatible_scaling: true
+```
+
+---
+
+# 5. AI, Orchestration, and Model Capability
+
+## 5.1 AI Orchestration Capability
+
+| Capability       | Purpose                                  | Default Technology | Approved Alternatives                                   | Enterprise Conditional                    | Use When                                   | Do Not Use When                                     | Owner                      | Review Cadence |
+| ---------------- | ---------------------------------------- | ------------------ | ------------------------------------------------------- | ----------------------------------------- | ------------------------------------------ | --------------------------------------------------- | -------------------------- | -------------- |
+| AI orchestration | Centralized AI behavior, skills, routing | BridgeAI (Dia)     | None                                                    | Client-dedicated orchestration deployment | Any AI-enabled Afronovation app or service | App orchestrates AI independently from the platform | AI Platform                | Every 6 months |
+| AI/API mediation | Governed tool/model/provider access      | BridgeAPI          | Direct internal service call only by approved exception | Dedicated client-facing gateway           | Skills, tools, aggregation, logging        | Apps call providers directly                        | AI Platform + API Platform | Every 6 months |
+| Operating model  | AI and dev execution governance          | FlowMode v6        | None                                                    | Client overlay governance docs            | All AI-native workstreams                  | Teams improvise operating rules outside the system  | Platform Governance        | Every 6 months |
+
+### System Rule
+
+```yaml
+ai_architecture:
+  orchestrator: bridgeai
+  gateway: bridgeapi
+  operating_system: flowmode_v6
+  require_model_routing: true
+  require_skill_governance: true
+  require_tool_governance: true
+```
+
+---
+
+## 5.2 Model Routing Capability
+
+| Capability                | Purpose                                 | Default Technology            | Approved Alternatives             | Enterprise Conditional                              | Use When                                    | Do Not Use When                                              | Owner       | Review Cadence |
+| ------------------------- | --------------------------------------- | ----------------------------- | --------------------------------- | --------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------ | ----------- | -------------- |
+| Deep reasoning            | Architecture, review, complex planning  | Claude-class reasoning models | GPT-class reasoning alternatives  | Higher-tier reasoning model for highest-stakes work | PRDs, architecture, governance, reviews     | Cheap/simple tasks where premium reasoning adds little value | AI Platform | Every 3 months |
+| Code generation           | Coding throughput                       | GPT-class coding models       | Claude-class reasoning/coding     | Client-approved alternative coder models            | Implementation-heavy workflows              | High-governance reasoning tasks need stronger planning first | AI Platform | Every 3 months |
+| Multimodal / long context | Large context and multimodal processing | Gemini-class models           | Other approved multimodal options | Dedicated multimodal service path                   | Images, long docs, multimodal ops           | Narrow text-only task does not need it                       | AI Platform | Every 3 months |
+| Low-cost routine work     | Repetitive low-risk operations          | Lightweight routed models     | None preferred                    | None currently                                      | Summaries, transforms, low-risk batch tasks | Quality-sensitive output requires stronger model             | AI Platform | Every 3 months |
+
+### System Rule
+
+```yaml
+model_strategy:
+  multi_provider: true
+  require_primary_and_fallback: true
+  require_cost_aware_routing: true
+  prohibit_single_vendor_lock_in: true
+```
+
+---
+
+## 5.3 IDE-Aligned Model Guidance
+
+### Claude-Centered Work
+
+* primary: reasoning-focused model
+* secondary: lower-cost transformation model
+* optional: higher-stakes reasoning tier
+* fallback: routed secondary provider
+
+### Cursor-Centered Work
+
+* primary: strong coding model
+* secondary: reasoning model
+* tertiary: long-context model
+* low-cost coder for repetitive tasks
+
+### Antigravity-Centered Work
+
+* primary: orchestration / multimodal model
+* secondary: faster low-latency model
+* fallback: reasoning model
+* coding fallback where needed
+
+### System Rule
+
+```yaml
+ide_model_guidance:
+  claude:
+    prefer:
+      - reasoning_primary
+      - lightweight_transform
+      - high_stakes_reasoning
+      - routed_fallback
+  cursor:
+    prefer:
+      - coding_primary
+      - reasoning_secondary
+      - long_context_secondary
+      - low_cost_coder
+  antigravity:
+    prefer:
+      - orchestration_primary
+      - fast_secondary
+      - reasoning_fallback
+      - coding_fallback
+```
+
+---
+
+## 5.4 AI Execution Mode Capability
+
+| Capability   | Purpose                              | Default Technology           | Approved Alternatives | Enterprise Conditional                | Use When                                                | Do Not Use When                                            | Owner       | Review Cadence |
+| ------------ | ------------------------------------ | ---------------------------- | --------------------- | ------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------- | ----------- | -------------- |
+| Real-time AI | Interactive user-facing assistance   | BridgeAI real-time execution | None preferred        | Dedicated low-latency infra if needed | Chat, guidance, search, transactional help              | Heavy background processing is treated as interactive work | AI Platform | Every 6 months |
+| Async AI     | Background processing and heavy jobs | BridgeAI async execution     | None preferred        | Dedicated worker infrastructure       | Reports, audits, summaries, document pipelines, scoring | User needs immediate in-session result                     | AI Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+ai_execution_modes:
+  support_realtime: true
+  support_async: true
+  default_interactive_to_realtime: true
+  default_heavy_noninteractive_to_async: true
+```
+
+---
+
+## 5.5 Memory and Retrieval Capability
+
+| Capability                     | Purpose                               | Default Technology                    | Approved Alternatives                        | Enterprise Conditional              | Use When                                             | Do Not Use When                       | Owner                       | Review Cadence |
+| ------------------------------ | ------------------------------------- | ------------------------------------- | -------------------------------------------- | ----------------------------------- | ---------------------------------------------------- | ------------------------------------- | --------------------------- | -------------- |
+| Session memory                 | In-session continuity                 | BridgeAI session-scoped memory        | None preferred                               | None currently                      | Interactive assistants and guided workflows          | Cross-session retention is needed     | AI Platform                 | Every 6 months |
+| Tenant-scoped long-term memory | Governed durable memory and retrieval | Tenant-scoped memory policy and store | Dedicated retrieval stack by future approval | Dedicated client retrieval boundary | Repeated user/tenant workflows need retained context | Cross-tenant memory reuse would occur | AI Platform + Data Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+memory_strategy:
+  support_session_memory: true
+  support_tenant_scoped_long_term_memory: true
+  prohibit_cross_tenant_memory_leakage: true
+  require_memory_policy_per_product: true
+```
+
+---
+
+# 6. API and Integration Capability
+
+## 6.1 API Gateway and Mediation Capability
+
+| Capability              | Purpose                                | Default Technology | Approved Alternatives                  | Enterprise Conditional          | Use When                                             | Do Not Use When              | Owner        | Review Cadence |
+| ----------------------- | -------------------------------------- | ------------------ | -------------------------------------- | ------------------------------- | ---------------------------------------------------- | ---------------------------- | ------------ | -------------- |
+| API gateway / mediation | Controlled service and provider access | BridgeAPI          | Internal service adapters by exception | Dedicated client-facing gateway | All external integrations and governed internal APIs | Apps call providers directly | API Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+api_stack:
+  gateway: bridgeapi
+  require_registry: true
+  require_normalization: true
+  require_logging: true
+  require_versioning: true
+```
+
+---
+
+## 6.2 Communications Capability
+
+| Capability                      | Purpose                             | Default Technology           | Approved Alternatives                 | Enterprise Conditional          | Use When                                  | Do Not Use When                                                                      | Owner        | Review Cadence |
+| ------------------------------- | ----------------------------------- | ---------------------------- | ------------------------------------- | ------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------ | ------------ | -------------- |
+| Communications orchestration    | Unified messaging and notifications | BridgeComms                  | None preferred                        | Additional provider adapters    | App messaging, OTP, workflow comms        | Apps integrate providers directly                                                    | API Platform | Every 6 months |
+| Primary communications provider | SMS and messaging delivery          | Twilio                       | Additional approved providers later   | Tenant/client-required provider | Standard messaging workflows              | Regional/legal/commercial need requires different provider and no adapter exists yet | API Platform | Every 6 months |
+| WhatsApp pathway                | Governed messaging option           | BridgeComms provider adapter | Other approved WhatsApp-capable paths | Client/regional workflow need   | Tenant chooses supported messaging option | Direct unmanaged WhatsApp integration from app code                                  | API Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+communications_stack:
+  primary_provider: twilio
+  gateway_module: bridgecomms
+  prohibit_direct_app_level_provider_calls: true
+  support_whatsapp_path: true
+```
+
+---
+
+## 6.3 Translation Capability
+
+| Capability                | Purpose                                  | Default Technology | Approved Alternatives         | Enterprise Conditional                   | Use When                             | Do Not Use When                                  | Owner                      | Review Cadence |
+| ------------------------- | ---------------------------------------- | ------------------ | ----------------------------- | ---------------------------------------- | ------------------------------------ | ------------------------------------------------ | -------------------------- | -------------- |
+| Translation orchestration | Multilingual support through one gateway | BridgeTranslation  | Multiple underlying providers | Dedicated language/provider requirements | Customer-facing multilingual systems | Translation logic is embedded separately per app | API Platform + AI Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+translation_stack:
+  gateway_module: bridgetranslation
+  require_abstraction: true
+  support_multiple_providers: true
+  require_quality_validation_for_customer_facing_translation: true
+```
+
+---
+
+## 6.4 Payments Capability
+
+### Executive Summary
+
+BridgePayments is not a single payment integration. It is a **payment orchestration and normalization layer** that lets Afronovation apps support multiple processors, regional payment methods, tenant-specific enablement, wallet/credit patterns, and future growth without rewriting each app.
+
+### Capability Table
+
+| Capability                           | Purpose                                      | Default Technology                       | Approved Alternatives             | Enterprise Conditional                      | Use When                                        | Do Not Use When                                        | Owner                              | Review Cadence |
+| ------------------------------------ | -------------------------------------------- | ---------------------------------------- | --------------------------------- | ------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------ | ---------------------------------- | -------------- |
+| Payment orchestration                | Unified payment logic and routing            | BridgePayments                           | None preferred                    | Client-dedicated payment routing layer      | Any app requiring payments or monetization      | Apps call payment providers directly                   | Payments Platform                  | Every 6 months |
+| Global/general processor             | Broad processor support                      | Stripe adapter                           | Additional processor adapters     | Client requires different primary processor | Standard checkout, subscriptions, cards         | Regional fit or method mix requires localization       | Payments Platform                  | Every 6 months |
+| Africa-focused processor             | Regional payment support                     | Paystack adapter                         | Flutterwave adapter               | Market-specific provider expansion          | West Africa and regional payment fit            | Geography or method coverage is insufficient           | Payments Platform                  | Every 6 months |
+| Multi-method Africa/global processor | Additional channels and regional flexibility | Flutterwave adapter                      | Paystack adapter                  | Future provider additions                   | Cards, transfers, wallets, mixed method support | Method support or commercial alignment is insufficient | Payments Platform                  | Every 6 months |
+| Mobile money adapter                 | Mobile-money payment support                 | M-Pesa adapter                           | Other mobile money adapters later | Market-specific deployments                 | Regional mobile money acceptance is required    | Market does not need it                                | Payments Platform                  | Every 6 months |
+| Wallet and credits                   | Stored value and prepaid usage               | BridgePayments wallet layer              | None preferred                    | Product-specific wallet variant             | Usage credits, OEM billing, internal balances   | Product does not need stored value                     | Payments Platform                  | Every 6 months |
+| Billing model enforcement            | Subscription, usage, tenant, hybrid billing  | Product-configured BridgePayments policy | None preferred                    | Client-specific contract billing logic      | Monetized products and OEM packaging            | Billing is handled ad hoc outside governance           | Payments Platform + Commercial Ops | Every 6 months |
+
+### BridgePayments Platform Layers
+
+**Layer 1 — Core Payment Domain**
+
+* payments
+* refunds
+* payouts
+* subscriptions
+* invoices
+* wallet / credits
+* reconciliation
+
+**Layer 2 — Provider Adapters**
+
+* Stripe
+* Paystack
+* Flutterwave
+* M-Pesa
+* future aggregators or regional processors
+
+**Layer 3 — Policy and Routing**
+
+* tenant-enabled providers
+* method resolution
+* region / currency rules
+* fee logic
+* fallback logic
+* billing model hooks
+* risk controls
+* audit and reconciliation hooks
+
+### System Rule
+
+```yaml
+payments_stack:
+  gateway_module: bridgepayments
+  support_multi_processor_orchestration: true
+  support_wallet: true
+  support_credit_model: true
+  support_provider_routing: true
+  support_tenant_method_enablement: true
+  require_product_level_billing_definition: true
+  prohibit_direct_provider_calls_from_apps: true
+```
+
+---
+
+## 6.5 Aggregation API Capability
+
+| Capability                       | Purpose                                    | Default Technology | Approved Alternatives        | Enterprise Conditional           | Use When                             | Do Not Use When                                  | Owner        | Review Cadence |
+| -------------------------------- | ------------------------------------------ | ------------------ | ---------------------------- | -------------------------------- | ------------------------------------ | ------------------------------------------------ | ------------ | -------------- |
+| Flight aggregation               | Normalize airline / flight providers       | BridgeAir          | Additional provider families | Client/market-specific providers | Travel booking and itinerary systems | App hardcodes airline vendor logic               | API Platform | Every 6 months |
+| Stay / accommodation aggregation | Normalize hotel / stay providers           | BridgeStay         | Additional provider families | Client/market-specific providers | Travel and lodging products          | App embeds direct hotel provider logic           | API Platform | Every 6 months |
+| Mobility aggregation             | Normalize taxis / transfers / ride options | BridgeMobility     | Additional provider families | Client/market-specific providers | Ground transport workflows           | App directly integrates unmanaged ride providers | API Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+aggregation_stack:
+  require_provider_normalization: true
+  require_fallback_logic: true
+  require_provider_health_monitoring: true
+  require_cost_visibility: true
+  require_modular_expansion: true
+```
+
+---
+
+# 7. Design System and Experience Capability
+
+## 7.1 Design System Capability
+
+| Capability           | Purpose                      | Default Technology                   | Approved Alternatives | Enterprise Conditional              | Use When                                    | Do Not Use When                           | Owner         | Review Cadence |
+| -------------------- | ---------------------------- | ------------------------------------ | --------------------- | ----------------------------------- | ------------------------------------------- | ----------------------------------------- | ------------- | -------------- |
+| Shared design tokens | Visual system consistency    | Shared design token package          | None preferred        | Tenant/theme overlays               | All UI work                                 | Styling is hardcoded outside tokens       | Design System | Every 6 months |
+| Shared components    | Reusable UI primitives       | Shared component library             | None preferred        | Specialized enterprise components   | Apps, dashboards, portals, marketing blocks | Teams duplicate primitives inconsistently | Design System | Every 6 months |
+| Product overlays     | Domain-specific presentation | Bridge55, EmbassyOS, future overlays | None preferred        | OEM/client-specific themed overlays | Product-specific UX patterns are required   | Core design system is forked or broken    | Design System | Every 6 months |
+
+### System Rule
+
+```yaml
+design_stack:
+  require_shared_tokens: true
+  require_shared_components: true
+  require_overlay_support: true
+  require_documented_component_usage: true
+```
+
+---
+
+## 7.2 UX Validation Capability
+
+| Capability    | Purpose                                   | Default Technology                     | Approved Alternatives             | Enterprise Conditional        | Use When                                    | Do Not Use When                               | Owner          | Review Cadence |
+| ------------- | ----------------------------------------- | -------------------------------------- | --------------------------------- | ----------------------------- | ------------------------------------------- | --------------------------------------------- | -------------- | -------------- |
+| UX validation | Trust, clarity, conversion, accessibility | FlowMode UX review + evaluation engine | Additional research tooling later | Client-specific testing stack | Customer-facing products and critical flows | UI is shipped without trust/conversion review | Product Design | Every 6 months |
+
+### System Rule
+
+```yaml
+ux_validation:
+  require_ux_review: true
+  require_accessibility_review: true
+  require_conversion_assessment: true
+```
+
+---
+
+# 8. Observability, Analytics, and Evaluation Capability
+
+## 8.1 Logging and Auditability Capability
+
+| Capability         | Purpose                                | Default Technology                  | Approved Alternatives                 | Enterprise Conditional           | Use When                                                    | Do Not Use When                    | Owner                | Review Cadence |
+| ------------------ | -------------------------------------- | ----------------------------------- | ------------------------------------- | -------------------------------- | ----------------------------------------------------------- | ---------------------------------- | -------------------- | -------------- |
+| Structured logging | Explain system behavior                | Structured platform logs            | Dedicated observability tooling later | Client-required enterprise stack | Services, AI, APIs, workflows                               | Logs are ad hoc or missing context | Platform Engineering | Every 6 months |
+| Audit logging      | Trace privileged and sensitive actions | Audit trail model in platform/admin | Dedicated compliance tooling later    | Higher-assurance deployments     | Admin actions, data-sensitive workflows, payments, identity | Sensitive actions are not recorded | Platform Governance  | Every 6 months |
+
+### System Rule
+
+```yaml
+observability_stack:
+  require_structured_logs: true
+  require_audit_logs: true
+  require_model_usage_logs: true
+  require_tool_usage_logs: true
+```
+
+---
+
+## 8.2 Analytics Capability
+
+| Capability           | Purpose                                       | Default Technology                  | Approved Alternatives              | Enterprise Conditional              | Use When                                    | Do Not Use When                         | Owner                  | Review Cadence |
+| -------------------- | --------------------------------------------- | ----------------------------------- | ---------------------------------- | ----------------------------------- | ------------------------------------------- | --------------------------------------- | ---------------------- | -------------- |
+| Product analytics    | Understand behavior and adoption              | Platform and tenant analytics layer | Product-specific analytics add-ons | Client-specific analytics boundary  | Product usage, conversion, feature adoption | Decisions are made without evidence     | Product Ops            | Every 6 months |
+| Cost analytics       | Track AI/API/platform cost by tenant/workflow | Platform cost analytics             | None preferred                     | Client chargeback model             | Multi-tenant AI/API workloads               | Cost visibility is unavailable          | Finance Ops + Platform | Every 6 months |
+| Conversion analytics | Optimize ROI and funnel performance           | Customer-product analytics layer    | Dedicated CRO tooling later        | Client-specific marketing analytics | Afronovation.com, Bridge55, public funnels  | Revenue-critical flows are not measured | Growth + Product Ops   | Every 6 months |
+
+### System Rule
+
+```yaml
+analytics_stack:
+  require_platform_analytics: true
+  require_tenant_analytics: true
+  require_cost_analytics: true
+  require_conversion_analytics_for_customer_products: true
+```
+
+---
+
+## 8.3 Evaluation Capability
+
+| Capability             | Purpose                                     | Default Technology         | Approved Alternatives                | Enterprise Conditional              | Use When                                  | Do Not Use When                              | Owner               | Review Cadence |
+| ---------------------- | ------------------------------------------- | -------------------------- | ------------------------------------ | ----------------------------------- | ----------------------------------------- | -------------------------------------------- | ------------------- | -------------- |
+| Scoring and evaluation | Measure output quality before trust/release | FlowMode evaluation engine | Dedicated testing/eval tooling later | Client-specific evaluation controls | AI outputs, UI reviews, readiness scoring | Release decisions are based on opinion alone | Platform Governance | Every 6 months |
+
+### System Rule
+
+```yaml
+evaluation_stack:
+  require_scoring_framework: true
+  require_thresholds: true
+  require_release_gate_support: true
+```
+
+---
+
+# 9. Infrastructure and Deployment Capability
+
+## 9.1 Frontend Deployment and Preview Capability
+
+### Executive Summary
+
+Vercel is explicitly approved not only as a frontend deployment option, but also as a **demo, preview, stakeholder review, and product-validation platform**.
+
+### Capability Table
+
+| Capability                | Purpose                                   | Default Technology          | Approved Alternatives                      | Enterprise Conditional           | Use When                                                                   | Do Not Use When                                                     | Owner                          | Review Cadence |
+| ------------------------- | ----------------------------------------- | --------------------------- | ------------------------------------------ | -------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------ | -------------- |
+| Frontend deployment       | Fast deployment of frontend apps          | Vercel                      | Other approved hosting paths later         | Client-specific frontend hosting | Next.js web apps, previews, approved production frontends                  | Sovereign or client constraints require different host              | Platform Engineering           | Every 6 months |
+| Demo / preview deployment | Stakeholder demos, QA, review, validation | Vercel Preview environments | Temporary internal preview stack if needed | Client-isolated preview systems  | Product demos, design validation, PR review, internal QA, executive review | Sensitive client constraints prohibit shared preview infrastructure | Platform Engineering + Product | Every 6 months |
+
+### System Rule
+
+```yaml
+vercel_usage:
+  support_frontend_deployment: true
+  support_demo_preview_testing: true
+  support_stakeholder_review_workflows: true
+  require_nonproduction_governance_for_previews: true
+```
+
+---
+
+## 9.2 Backend Deployment Capability
+
+| Capability         | Purpose                         | Default Technology | Approved Alternatives                 | Enterprise Conditional      | Use When                         | Do Not Use When                                                | Owner                | Review Cadence |
+| ------------------ | ------------------------------- | ------------------ | ------------------------------------- | --------------------------- | -------------------------------- | -------------------------------------------------------------- | -------------------- | -------------- |
+| Backend foundation | Core platform services and data | Supabase           | Service-specific hosting by exception | OCI / AWS / Azure workloads | Rapid governed platform delivery | Client requires dedicated infra or deeper service segmentation | Platform Engineering | Every 6 months |
+
+### System Rule
+
+```yaml
+default_deployment:
+  backend_foundation: supabase
+  frontend_deployment: vercel
+  source_control: github
+```
+
+---
+
+## 9.3 Multi-Cloud Scale Capability
+
+| Capability                 | Purpose                                 | Default Technology | Approved Alternatives          | Enterprise Conditional                       | Use When                                               | Do Not Use When                                       | Owner                | Review Cadence  |
+| -------------------------- | --------------------------------------- | ------------------ | ------------------------------ | -------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------- | -------------------- | --------------- |
+| Enterprise cloud expansion | Dedicated client or advanced scale path | OCI / AWS / Azure  | Client-specific approved cloud | Dedicated sovereign or enterprise deployment | Compliance, dedicated clients, advanced workload needs | Early product phase does not require added complexity | Platform Engineering | Every 12 months |
+
+### System Rule
+
+```yaml
+multicloud_strategy:
+  support_oci: true
+  support_aws: true
+  support_azure: true
+  support_client_specific_deployment_paths: true
+```
+
+---
+
+## 9.4 Data Residency Capability
+
+| Capability               | Purpose                                   | Default Technology       | Approved Alternatives | Enterprise Conditional              | Use When                                  | Do Not Use When                                 | Owner                               | Review Cadence |
+| ------------------------ | ----------------------------------------- | ------------------------ | --------------------- | ----------------------------------- | ----------------------------------------- | ----------------------------------------------- | ----------------------------------- | -------------- |
+| Tenant residency profile | Region-aware sovereign deployment posture | Platform residency model | None preferred        | Dedicated regional deployment model | Multi-tenant and sovereign-grade products | Region handling is undocumented or uncontrolled | Platform Governance + Data Platform | Every 6 months |
+
+### System Rule
+
+```yaml
+residency_strategy:
+  require_tenant_residency_profile: true
+  support_multi_region_selection: true
+  require_region_policy_docs: true
+  support_dedicated_high_assurance_options: true
+```
+
+---
+
+# 10. Security and Secrets Capability
+
+## 10.1 Security Capability
+
+| Capability                | Purpose                               | Default Technology                                | Approved Alternatives                | Enterprise Conditional                    | Use When                                           | Do Not Use When                             | Owner                           | Review Cadence |
+| ------------------------- | ------------------------------------- | ------------------------------------------------- | ------------------------------------ | ----------------------------------------- | -------------------------------------------------- | ------------------------------------------- | ------------------------------- | -------------- |
+| Platform security posture | Cross-cutting trust and control model | FlowMode security controls + platform enforcement | Dedicated security tooling over time | Client-mandated enterprise security stack | All products and services                          | Security is treated as optional or deferred | Security + Platform Governance  | Every 6 months |
+| Secrets management        | Safe credential storage and access    | Approved environment / secret management path     | Client-specific secret platform      | Enterprise vault integration              | Providers, CI/CD, integrations, production systems | Secrets are hardcoded or shared informally  | Security + Platform Engineering | Every 6 months |
+
+### System Rule
+
+```yaml
+security_stack:
+  require_secret_management: true
+  require_encryption: true
+  require_environment_separation: true
+  require_auditability: true
+  require_risk_based_approval: true
+```
+
+---
+
+# 11. Testing and Quality Capability
+
+| Capability                   | Purpose                       | Default Technology                     | Approved Alternatives                   | Enterprise Conditional              | Use When                                         | Do Not Use When                                  | Owner                             | Review Cadence |
+| ---------------------------- | ----------------------------- | -------------------------------------- | --------------------------------------- | ----------------------------------- | ------------------------------------------------ | ------------------------------------------------ | --------------------------------- | -------------- |
+| Unit and integration testing | Validate logic and modules    | Standard project test stack per module | Alternative test libraries by exception | Client-specific compliance testing  | Core packages, services, APIs                    | Modules ship without baseline verification       | Engineering Quality               | Every 6 months |
+| End-to-end testing           | Validate critical flows       | Standard E2E stack per app             | Additional platform tooling later       | Client-required test infrastructure | Booking, appointment, payment, auth, admin flows | Critical flows are validated only manually       | Engineering Quality               | Every 6 months |
+| Skill and AI validation      | Validate governed AI behavior | FlowMode evals and skill validation    | Additional eval tooling later           | Client-specific AI assurance layer  | AI-enabled workflows and outputs                 | Skills ship without evidence of behavior quality | AI Platform + Engineering Quality | Every 6 months |
+
+### System Rule
+
+```yaml
+testing_stack:
+  require_unit_tests: true
+  require_integration_tests: true
+  require_e2e_for_critical_flows: true
+  require_api_contract_validation: true
+  require_skill_validation: true
+```
+
+---
+
+# 12. Feature Flags, Configuration, and Experimentation Capability
+
+| Capability           | Purpose                                                   | Default Technology                  | Approved Alternatives                    | Enterprise Conditional                   | Use When                                               | Do Not Use When                                         | Owner                | Review Cadence |
+| -------------------- | --------------------------------------------------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------- | -------------------- | -------------- |
+| Feature flags        | Controlled enable/disable of modules and features         | Platform-managed feature flag layer | Product-scoped config flags by exception | Client-specific feature management layer | Tenant entitlements, staged rollout, module control    | Features are toggled through code edits alone           | Platform Engineering | Every 6 months |
+| Remote configuration | Tenant and environment-specific behavior control          | Platform config model               | None preferred                           | Client-specific configuration service    | OEM, residency, payments, module settings, AI behavior | App configuration is scattered and unmanaged            | Platform Engineering | Every 6 months |
+| Experimentation      | Controlled testing for conversion and product improvement | Product experimentation model       | Additional tooling later                 | Enterprise experimentation stack         | Landing pages, flows, pricing, funnel optimization     | Major conversion decisions are made without measurement | Growth + Product Ops | Every 6 months |
+
+### System Rule
+
+```yaml
+feature_configuration_stack:
+  require_feature_flag_support: true
+  require_remote_config_support: true
+  require_governed_experimentation_for_conversion_work: true
+```
+
+---
+
+# 13. Documentation Capability
+
+| Capability                  | Purpose                                        | Default Technology                                 | Approved Alternatives | Enterprise Conditional | Use When                               | Do Not Use When                           | Owner               | Review Cadence |
+| --------------------------- | ---------------------------------------------- | -------------------------------------------------- | --------------------- | ---------------------- | -------------------------------------- | ----------------------------------------- | ------------------- | -------------- |
+| Core platform documentation | Shared system knowledge and execution guidance | FlowMode, Tech Stack Register, Blueprint docs      | None preferred        | Client overlay docs    | All platform and product work          | Teams rely only on memory or chat history | Platform Governance | Every 6 months |
+| Module documentation        | Local module clarity                           | README, architecture doc, changelog, ownership doc | None preferred        | Additional client docs | All apps, services, packages, overlays | Modules have no local source of truth     | Module Owner        | Every 6 months |
+
+### System Rule
+
+```yaml
+documentation_stack:
+  require_core_documents: true
+  require_module_docs: true
+  require_changelog: true
+  require_release_notes: true
+```
+
+---
+
+# 14. Module-to-Stack Mapping Requirement
+
+### Executive Summary
+
+Every module must explicitly declare which capabilities and technologies it uses.
+
+### Example Mapping
+
+**BridgeAPI**
+
+* TypeScript
+* Node.js services
+* Supabase / Postgres
+* BridgeAI integration
+* registry-based provider orchestration
+* structured logging
+* billing and cost hooks
+
+**Bridge55**
+
+* Next.js
+* React
+* Tailwind
+* design overlays
+* BridgeAir / BridgeStay / BridgeMobility
+* real-time and async AI
+* Vercel preview workflows for demos and reviews
+
+**EmbassyOS**
+
+* Next.js
+* React
+* Tailwind
+* sovereign-grade controls
+* residency profile support
+* document-heavy storage patterns
+* citizen/admin AI overlays
+* Vercel preview workflows for safe non-production validation
+
+**BridgeVault**
+
+* secure document storage
+* strong auditability
+* tenant-scoped access
+* white-label policy controls
+
+### System Rule
+
+```yaml
+module_mapping:
+  require_stack_mapping_per_module: true
+  require_owner: true
+  require_exception_logging: true
+```
+
+---
+
+# 15. Exception and Change Control
+
+### Executive Summary
+
+This register is designed to reduce rewrites by staying capability-first. Technologies may evolve, but changes must be governed.
+
+### Approved Change Process
+
+A new technology may be introduced only if it includes:
+
+* capability gap being solved
+* rationale
+* cost impact
+* security impact
+* operational impact
+* migration implications
+* owner
+* review decision
+
+### System Rule
+
+```yaml
+stack_change_control:
+  require_capability_gap_statement: true
+  require_rationale: true
+  require_security_review: true
+  require_cost_review: true
+  require_operational_review: true
+  require_approval: true
+  require_register_update: true
+```
+
+---
+
+# 16. Initial Approved Stack Summary v1.1
+
+## Core Platform
+
+* GitHub
+* pnpm
+* Turborepo
+* TypeScript
+
+## Frontend
+
+* Next.js
+* React
+* Tailwind CSS
+* shared design token/component system
+* Framer Motion
+
+## Mobile
+
+* FlutterFlow
+* Flutter
+* React Native as approved alternative
+
+## Backend
+
+* Supabase
+* PostgreSQL
+* Node.js / TypeScript services
+
+## Auth
+
+* Supabase Auth default
+* federated auth / SSO documented as scale path
+
+## Tenancy
+
+* hybrid multi-tenant
+* RLS-first
+* dedicated paths for higher-assurance clients
+
+## Storage
+
+* Supabase Storage
+* Postgres metadata
+* S3-compatible scale path
+
+## AI
+
+* BridgeAI (Dia)
+* BridgeAPI mediation
+* multi-model routing
+* real-time + async execution
+
+## Communications
+
+* BridgeComms
+* Twilio
+* governed messaging abstractions
+* WhatsApp-capable path through controlled adapter layer
+
+## Translation
+
+* BridgeTranslation
+* provider abstraction model
+
+## Payments
+
+* BridgePayments
+* Stripe
+* Paystack
+* Flutterwave
+* M-Pesa
+* wallet / credits support
+* provider routing and billing policy hooks
+
+## Aggregators
+
+* BridgeAir
+* BridgeStay
+* BridgeMobility
+
+## Deployment
+
+* Supabase backend foundation
+* Vercel frontend deployment and preview/demo testing
+* GitHub source control and CI governance
+* OCI / AWS / Azure scale path
+
+## Governance
+
+* FlowMode v6
+* admin control plane
+* evaluation engine
+* capability-based stack governance
+* documented exceptions and review cadence
+
+---
+
+# 17. Recommended Next Companion Documents
+
+The next documents should be:
+
+1. **Monorepo Architecture Blueprint v1.0**
+2. **Skill Manifest v1**
+3. **BridgeAPI v1.0 Specification**
+4. **Bridge55 Gap Assessment Framework**
+5. **EmbassyOS Sovereign-Grade Assessment Framework**
+
+---
+
+This v1.1 is now stronger and more durable because it is organized by **capability + decision rules**, not just vendor lists.
+
+Proceeding next with **Monorepo Architecture Blueprint v1.0** is the right move.

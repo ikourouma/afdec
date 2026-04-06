@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-zinc-925: #0c0c0e;
+  --color-zinc-975: #050506;
+  --color-blue-500: #1E40AF;
+  --color-blue-600: #1D3557;
+  --tracking-tighter: -0.05em;
+  --ease-weight-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-background: var(--color-zinc-925);
+  --color-foreground: #ffffff;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-blue-500);
+  color: white;
+}

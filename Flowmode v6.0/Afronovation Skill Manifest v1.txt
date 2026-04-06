@@ -1,0 +1,1238 @@
+Below is the **Afronovation Skill Manifest v1**.
+
+This document turns FlowMode from an operating model into an executable system by defining the first governed skill inventory, how each skill behaves, when it is used, who owns it, what it produces, and how it is approved.
+
+It is designed to be:
+
+* executive-readable
+* engineering-actionable
+* AI/IDE-enforceable
+
+---
+
+# Afronovation Skill Manifest v1
+
+## 1. Purpose
+
+### Executive Summary
+
+The Afronovation Skill Manifest defines the governed AI skills that power execution across Afronovation’s platform, apps, services, reviews, QA, design, security, and release workflows.
+
+A skill is not just a prompt.
+A skill is a **versioned, owned, testable, policy-bound execution capability**.
+
+This manifest exists to ensure that AI work is:
+
+* consistent
+* modular
+* governed
+* reusable
+* measurable
+* scalable across current and future products
+
+### Operational Purpose
+
+This manifest defines:
+
+* skill categories
+* first-wave production skills
+* ownership and risk tiering
+* inputs and outputs
+* required artifacts
+* approval rules
+* execution expectations
+* future extension model for app/domain overlays
+
+### System Rule
+
+```yaml
+skill_manifest:
+  required_for_ai_execution: true
+  prohibit_unregistered_production_skills: true
+  require_owner_and_risk_tier: true
+  require_evaluation_definition: true
+```
+
+---
+
+## 2. Skill Design Principles
+
+### Executive Summary
+
+Afronovation skills must be designed as governed platform assets, not informal one-off instructions.
+
+### Core Principles
+
+1. **One skill = one clear execution role**
+2. **Every skill must produce a useful artifact or outcome**
+3. **Skills must be versioned and owned**
+4. **Skills must align with FlowMode**
+5. **High-risk skills require stronger approval**
+6. **Skills should be reusable across products where possible**
+7. **Domain overlays extend the system without breaking the core**
+
+### Operational Guidance
+
+A skill should exist when:
+
+* a workflow repeats often
+* consistency matters
+* risk exists if execution is ad hoc
+* evidence or artifacts are needed
+* AI behavior must be constrained and reviewable
+
+A skill should not exist when:
+
+* the behavior is too vague
+* the workflow is not repeatable
+* the task is better handled by general reasoning inside a governed parent skill
+
+### System Rule
+
+```yaml
+skill_principles:
+  require_clear_execution_role: true
+  require_artifact_or_decision_output: true
+  require_governance_alignment: true
+  require_owner: true
+  require_versioning: true
+```
+
+---
+
+## 3. Skill Taxonomy
+
+### Executive Summary
+
+Skills are grouped by purpose so teams understand where they belong and how they evolve.
+
+### Skill Categories
+
+#### A. Core Governance and Delivery Skills
+
+Used across all platform and product work.
+
+#### B. Platform and Orchestration Skills
+
+Used for BridgeAI, BridgeAPI, tooling, skills, models, and execution control.
+
+#### C. Design System and UX Skills
+
+Used to enforce premium UI/UX quality.
+
+#### D. Security, Trust, and Compliance Skills
+
+Used for sovereign-grade, enterprise-grade, and high-trust review.
+
+#### E. Domain Overlay Skills
+
+App/domain-specific skills layered on top of the core platform.
+
+### System Rule
+
+```yaml
+skill_taxonomy:
+  categories:
+    - core_governance_delivery
+    - platform_orchestration
+    - design_ux
+    - security_compliance
+    - domain_overlay
+  require_category_assignment: true
+```
+
+---
+
+## 4. Skill Registry Schema
+
+### Executive Summary
+
+Every production skill must conform to a standard schema.
+
+### Mandatory Skill Schema
+
+```yaml
+skill:
+  id: string
+  name: string
+  version: string
+  category: string
+  owner: string
+  status: draft | review | approved | deployed | deprecated
+
+  purpose: string
+  trigger_conditions:
+    - string
+
+  inputs:
+    required:
+      - string
+    optional:
+      - string
+
+  outputs:
+    primary:
+      - string
+    secondary:
+      - string
+
+  artifacts:
+    required:
+      - string
+
+  tools_allowed:
+    - string
+
+  model_policy:
+    primary_class: string
+    fallback_class: string
+
+  risk_tier: low | medium | high | critical
+  approval_policy: auto | reviewed | senior_review | multi_approval
+
+  evaluation:
+    required_metrics:
+      - string
+    minimum_threshold: number
+
+  dependencies:
+    - string
+
+  overlays_supported: true | false
+```
+
+### System Rule
+
+```yaml
+skill_schema:
+  require_full_schema: true
+  prohibit_partial_production_skill_definitions: true
+  require_artifacts: true
+  require_evaluation_policy: true
+```
+
+---
+
+## 5. Skill Lifecycle
+
+### Executive Summary
+
+Skills must move through a controlled lifecycle.
+
+### Lifecycle Stages
+
+* **draft** — being created or refined
+* **review** — under governance and quality review
+* **approved** — allowed for limited or controlled use
+* **deployed** — available for standard use
+* **deprecated** — no longer recommended; migration path required
+
+### Operational Guidance
+
+A skill may not be used in production if it is:
+
+* unregistered
+* unowned
+* unevaluated
+* missing risk tier
+* missing approval policy
+
+### System Rule
+
+```yaml
+skill_lifecycle:
+  stages:
+    - draft
+    - review
+    - approved
+    - deployed
+    - deprecated
+  require_review_before_approval: true
+  require_evaluation_before_deploy: true
+  require_migration_note_for_deprecation: true
+```
+
+---
+
+# 6. Wave 1 Skill Set
+
+## 6.1 Wave 1 Objective
+
+### Executive Summary
+
+Wave 1 includes the minimum high-value skills needed to:
+
+* govern execution
+* review architecture and implementation
+* enforce design quality
+* validate security and compliance
+* run QA
+* support BridgeAPI-first development
+* prepare for Bridge55 and EmbassyOS assessment
+
+These are the first production-grade skills.
+
+---
+
+## 6.2 Core Governance and Delivery Skills
+
+### 6.2.1 `charter-review`
+
+**Category:** core_governance_delivery
+**Purpose:** Validate that requested work aligns with product charter, FlowMode, business goals, and platform direction.
+**Owner:** Platform Governance
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Trigger Conditions**
+
+* new feature request
+* new initiative
+* major workflow change
+* scope clarification before planning
+
+**Required Inputs**
+
+* initiative summary
+* business objective
+* affected product/module
+* known constraints
+
+**Primary Outputs**
+
+* charter alignment assessment
+* scope framing
+* identified risks or misalignment
+
+**Required Artifacts**
+
+* charter review note
+* alignment summary
+* recommended next stage
+
+**Tools Allowed**
+
+* docs
+* module registry
+* stack register
+* flowmode references
+
+**Evaluation Metrics**
+
+* relevance
+* completeness
+* governance alignment
+
+---
+
+### 6.2.2 `plan-ceo-review`
+
+**Category:** core_governance_delivery
+**Purpose:** Pressure-test scope, business logic, prioritization, strategic positioning, and ROI logic at an executive level.
+**Owner:** Product Strategy
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Primary Outputs**
+
+* executive scope summary
+* value/risk framing
+* prioritization recommendation
+
+**Required Artifacts**
+
+* CEO review memo
+* strategic recommendation
+
+---
+
+### 6.2.3 `plan-eng-review`
+
+**Category:** core_governance_delivery
+**Purpose:** Assess architecture direction, system boundaries, dependencies, risks, scalability, and implementation sequencing.
+**Owner:** Platform Engineering
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* engineering review memo
+* architecture risk summary
+* dependency assessment
+
+---
+
+### 6.2.4 `plan-design-review`
+
+**Category:** core_governance_delivery
+**Purpose:** Review product flow, UX structure, page/component strategy, clarity, and design direction before build.
+**Owner:** Product Design
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* design review note
+* flow-level recommendations
+* user experience risks
+
+---
+
+### 6.2.5 `implementation-review`
+
+**Category:** core_governance_delivery
+**Purpose:** Review code or proposed implementation for correctness, maintainability, structure, completeness, and reuse alignment.
+**Owner:** Engineering Quality
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* implementation review report
+* issue list
+* required remediation list
+
+---
+
+### 6.2.6 `investigate`
+
+**Category:** core_governance_delivery
+**Purpose:** Perform structured root-cause analysis on bugs, incidents, regressions, or broken workflows.
+**Owner:** Engineering Quality
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* incident/problem summary
+* root cause analysis
+* corrective action list
+
+---
+
+### 6.2.7 `qa-mission`
+
+**Category:** core_governance_delivery
+**Purpose:** Execute full QA workflow with evidence, screenshots, defects, and readiness findings.
+**Owner:** Quality Engineering
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* QA report
+* issue log
+* evidence package
+* readiness recommendation
+
+---
+
+### 6.2.8 `qa-only`
+
+**Category:** core_governance_delivery
+**Purpose:** Audit and document issues without making implementation changes.
+**Owner:** Quality Engineering
+**Risk Tier:** low
+**Approval Policy:** auto
+
+**Required Artifacts**
+
+* QA findings report
+* issue matrix
+
+---
+
+### 6.2.9 `release-control`
+
+**Category:** core_governance_delivery
+**Purpose:** Validate release readiness across tests, docs, versioning, approvals, and production gates.
+**Owner:** Release Management
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* release readiness checklist
+* release decision memo
+* blocker list if not ready
+
+---
+
+### 6.2.10 `document-sync`
+
+**Category:** core_governance_delivery
+**Purpose:** Ensure implementation, PRDs, architecture docs, and release notes remain aligned.
+**Owner:** Platform Governance
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* documentation sync report
+* affected docs list
+* update recommendations
+
+---
+
+### 6.2.11 `retro`
+
+**Category:** core_governance_delivery
+**Purpose:** Capture lessons learned, process gaps, and corrective actions after release or milestone completion.
+**Owner:** Platform Governance
+**Risk Tier:** low
+**Approval Policy:** auto
+
+**Required Artifacts**
+
+* retrospective note
+* improvement actions
+* ownership assignment where applicable
+
+---
+
+### 6.2.12 `trust-guard`
+
+**Category:** core_governance_delivery
+**Purpose:** Apply guardrails for destructive actions, secrets handling, environment safety, and high-risk changes.
+**Owner:** Security + Platform Governance
+**Risk Tier:** critical
+**Approval Policy:** multi_approval
+
+**Required Artifacts**
+
+* risk notice
+* action classification
+* approval path if needed
+
+---
+
+## 6.3 Platform and Orchestration Skills
+
+### 6.3.1 `skill-builder`
+
+**Category:** platform_orchestration
+**Purpose:** Create or refine governed skills using the approved schema and manifest rules.
+**Owner:** AI Platform
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* skill definition draft
+* schema validation output
+* evaluation plan
+
+---
+
+### 6.3.2 `skill-validator`
+
+**Category:** platform_orchestration
+**Purpose:** Validate skill structure, ownership, artifacts, risk tier, evaluation policy, and manifest compliance.
+**Owner:** AI Platform
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* validation report
+* compliance status
+* missing fields list
+
+---
+
+### 6.3.3 `tool-registry-manager`
+
+**Category:** platform_orchestration
+**Purpose:** Register, review, update, or deprecate tools and provider adapters.
+**Owner:** API Platform
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* tool registry change note
+* auth/risk summary
+* usage policy summary
+
+---
+
+### 6.3.4 `model-router-review`
+
+**Category:** platform_orchestration
+**Purpose:** Recommend best model routing by complexity, cost, latency, trust level, and workflow type.
+**Owner:** AI Platform
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* routing recommendation
+* cost/quality tradeoff summary
+* fallback recommendation
+
+---
+
+### 6.3.5 `persona-configurator`
+
+**Category:** platform_orchestration
+**Purpose:** Define tenant-specific or app-specific assistant behavior, tone, language, capabilities, and boundaries.
+**Owner:** AI Platform
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* persona config definition
+* tenant/app scope summary
+* allowed tools/capabilities matrix
+
+---
+
+### 6.3.6 `oem-packaging-review`
+
+**Category:** platform_orchestration
+**Purpose:** Validate OEM and white-label configuration across UI, AI behavior, permissions, and policy settings.
+**Owner:** Platform Governance
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* OEM readiness report
+* override matrix
+* trust control preservation report
+
+---
+
+### 6.3.7 `api-aggregation-review`
+
+**Category:** platform_orchestration
+**Purpose:** Review normalized contracts, provider mappings, fallback logic, and domain model consistency for aggregated services.
+**Owner:** API Platform
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* aggregation assessment
+* provider gap summary
+* normalization recommendations
+
+---
+
+### 6.3.8 `memory-policy-review`
+
+**Category:** platform_orchestration
+**Purpose:** Review what memory is stored, where, for how long, and under what tenant/policy boundaries.
+**Owner:** AI Platform + Security
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* memory policy note
+* data scope matrix
+* retention recommendation
+
+---
+
+## 6.4 Design System and UX Skills
+
+### 6.4.1 `ui-review`
+
+**Category:** design_ux
+**Purpose:** Review interface quality, layout clarity, trust, consistency, and execution quality.
+**Owner:** Product Design
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* UI review report
+* strengths/weaknesses summary
+* visual recommendations
+
+---
+
+### 6.4.2 `ux-optimization`
+
+**Category:** design_ux
+**Purpose:** Improve flow-level usability, reduce friction, and increase trust and task completion.
+**Owner:** Product Design
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* UX optimization memo
+* friction map
+* prioritized improvement list
+
+---
+
+### 6.4.3 `design-token-validation`
+
+**Category:** design_ux
+**Purpose:** Validate that implementation uses the approved design token system and does not drift into unmanaged styles.
+**Owner:** Design System
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* token compliance report
+* style drift findings
+* remediation list
+
+---
+
+### 6.4.4 `accessibility-audit`
+
+**Category:** design_ux
+**Purpose:** Audit key flows and interfaces for accessibility readiness and remediation needs.
+**Owner:** Product Design + Engineering Quality
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* accessibility report
+* issue severity map
+* remediation guidance
+
+---
+
+### 6.4.5 `content-and-microcopy-review`
+
+**Category:** design_ux
+**Purpose:** Review copy, labels, instructions, trust language, and multilingual readiness.
+**Owner:** Product Design + Content Strategy
+**Risk Tier:** low
+**Approval Policy:** auto
+
+**Required Artifacts**
+
+* copy review summary
+* clarity/trust issues
+* revised wording recommendations
+
+---
+
+### 6.4.6 `landing-page-strategy-review`
+
+**Category:** design_ux
+**Purpose:** Assess marketing and landing pages for positioning, credibility, conversion, and premium quality.
+**Owner:** Growth + Product Design
+**Risk Tier:** medium
+**Approval Policy:** reviewed
+
+**Required Artifacts**
+
+* landing page assessment
+* conversion recommendations
+* content hierarchy recommendations
+
+---
+
+## 6.5 Security, Trust, and Compliance Skills
+
+### 6.5.1 `security-review`
+
+**Category:** security_compliance
+**Purpose:** Review auth, permissions, secrets, environment safety, and system attack surface.
+**Owner:** Security
+**Risk Tier:** critical
+**Approval Policy:** multi_approval
+
+**Required Artifacts**
+
+* security review report
+* findings severity summary
+* remediation priorities
+
+---
+
+### 6.5.2 `compliance-review`
+
+**Category:** security_compliance
+**Purpose:** Review controls against governance-grade, SOC2-oriented, and sovereign-grade expectations.
+**Owner:** Security + Platform Governance
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* compliance gap summary
+* control mapping note
+* readiness recommendation
+
+---
+
+### 6.5.3 `data-boundary-review`
+
+**Category:** security_compliance
+**Purpose:** Validate tenant isolation, residency posture, data handling, access boundaries, and export/retention implications.
+**Owner:** Security + Data Platform
+**Risk Tier:** critical
+**Approval Policy:** multi_approval
+
+**Required Artifacts**
+
+* boundary review report
+* residency and retention implications
+* isolation risk summary
+
+---
+
+### 6.5.4 `audit-trail-review`
+
+**Category:** security_compliance
+**Purpose:** Validate that high-risk or regulated workflows produce sufficient evidence and traceability.
+**Owner:** Security + Platform Governance
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* auditability assessment
+* evidence gap list
+* corrective actions
+
+---
+
+### 6.5.5 `risk-classification`
+
+**Category:** security_compliance
+**Purpose:** Classify work as low, medium, high, or critical and assign the correct governance path.
+**Owner:** Platform Governance
+**Risk Tier:** high
+**Approval Policy:** senior_review
+
+**Required Artifacts**
+
+* risk classification note
+* required gate path
+* escalation guidance
+
+---
+
+# 7. Domain Overlay Skill Framework
+
+## 7.1 Executive Summary
+
+Domain skills should not be hardcoded into the core manifest forever. The manifest must support incremental expansion as Afronovation launches new apps.
+
+That means domain skills are treated as **overlay packs**.
+
+## 7.2 Current Planned Overlay Families
+
+* Bridge55
+* EmbassyOS
+* BridgeVault
+* BridgeAPI
+* BridgeAir
+* BridgeStay
+* BridgeMobility
+* AfCON Hub
+* future app/domain overlays
+
+## 7.3 Overlay Skill Rule
+
+Each overlay skill must:
+
+* reference the base manifest
+* declare domain dependencies
+* declare special rules or constraints
+* declare what core skills it depends on
+* avoid duplicating shared logic already handled by core skills
+
+### System Rule
+
+```yaml
+domain_overlay_skills:
+  require_overlay_pack_definition: true
+  require_dependency_on_core_skills: true
+  prohibit_core_logic_duplication: true
+  require_versioning_if_operationally_significant: true
+```
+
+---
+
+# 8. Initial Overlay Skill Placeholders
+
+These are placeholders, not yet full Wave 1 production skills.
+
+## Bridge55 Overlay Candidates
+
+* `bridge55-domain-review`
+* `itinerary-ai-review`
+* `travel-funnel-review`
+* `booking-experience-review`
+* `cross-sell-experience-review`
+
+## EmbassyOS Overlay Candidates
+
+* `embassyos-domain-review`
+* `citizen-service-flow-review`
+* `mission-site-trust-review`
+* `data-residency-readiness-review`
+* `consular-process-review`
+
+## BridgeVault Overlay Candidates
+
+* `bridgevault-domain-review`
+* `document-trust-review`
+* `vault-access-boundary-review`
+
+## BridgeAPI Overlay Candidates
+
+* `bridgeapi-domain-review`
+* `service-contract-review`
+* `provider-adapter-review`
+
+These will become Wave 2 or Wave 3 skills after the core foundation is active.
+
+---
+
+# 9. Skill Ownership Model
+
+### Executive Summary
+
+Every production skill must have a named owner domain.
+
+### Owner Domains
+
+* Platform Governance
+* Platform Engineering
+* AI Platform
+* API Platform
+* Product Design
+* Engineering Quality
+* Security
+* Data Platform
+* Growth
+* Release Management
+* Product Strategy
+
+### Required Ownership Fields
+
+* primary owner domain
+* reviewer domain
+* escalation path for high-risk skills
+
+### System Rule
+
+```yaml
+skill_ownership:
+  require_primary_owner: true
+  require_reviewer_owner: true
+  require_escalation_path_for_high_risk: true
+```
+
+---
+
+# 10. Risk Tiering and Approval Matrix
+
+## 10.1 Risk Tiers
+
+| Risk Tier | Meaning                                                       | Approval Policy |
+| --------- | ------------------------------------------------------------- | --------------- |
+| Low       | Low-impact, non-sensitive, reversible                         | auto            |
+| Medium    | Important but bounded impact                                  | reviewed        |
+| High      | Material platform, product, trust, or customer impact         | senior_review   |
+| Critical  | Security, data, auth, destructive, or highly sensitive impact | multi_approval  |
+
+## 10.2 Approval Expectations
+
+### Auto
+
+May proceed if registered, valid, and within bounds.
+
+### Reviewed
+
+Requires standard review by the relevant owner domain.
+
+### Senior Review
+
+Requires elevated review and stronger artifact completeness.
+
+### Multi Approval
+
+Requires multiple stakeholders or roles before production use.
+
+### System Rule
+
+```yaml
+approval_matrix:
+  low: auto
+  medium: reviewed
+  high: senior_review
+  critical: multi_approval
+```
+
+---
+
+# 11. Required Artifacts by Skill Type
+
+## Core Governance Skills
+
+* memo
+* review summary
+* risk note
+* recommended next step
+
+## Platform Skills
+
+* schema/config output
+* registry update note
+* routing/policy note
+* dependency summary
+
+## Design Skills
+
+* UI/UX review report
+* evidence screenshots if relevant
+* token or accessibility findings
+* prioritized recommendations
+
+## Security/Compliance Skills
+
+* findings report
+* severity classification
+* remediation summary
+* approval recommendation
+
+### System Rule
+
+```yaml
+skill_artifacts:
+  require_artifact_generation: true
+  require_artifact_type_alignment_by_skill_category: true
+```
+
+---
+
+# 12. Skill Evaluation Requirements
+
+### Executive Summary
+
+A skill is not production-ready unless it can be evaluated.
+
+### Required Evaluation Dimensions
+
+* output relevance
+* structural completeness
+* governance compliance
+* artifact completeness
+* domain fit where applicable
+* trust alignment for sensitive workflows
+
+### Example Threshold Guidance
+
+* minimum reviewable: 80
+* minimum deployable: 85
+* production-preferred: 90+
+
+### System Rule
+
+```yaml
+skill_evaluation:
+  require_defined_metrics: true
+  require_minimum_threshold: true
+  require_higher_threshold_for_high_risk: true
+```
+
+---
+
+# 13. Skill Execution Rules
+
+### Executive Summary
+
+A skill should be invoked only when its role matches the task and its governance path is satisfied.
+
+### Execution Rules
+
+* do not invoke a skill outside its purpose
+* do not skip required artifacts
+* do not bypass higher-risk approval paths
+* do not duplicate an existing registered skill unnecessarily
+* use parent/core skills before creating overlay variants
+
+### System Rule
+
+```yaml
+skill_execution_rules:
+  require_role_match: true
+  require_artifacts: true
+  prohibit_approval_bypass: true
+  prohibit_duplicate_skill_creation_without_review: true
+```
+
+---
+
+# 14. Wave 1 Recommended Rollout Order
+
+## Phase 1 — Foundation
+
+* charter-review
+* plan-eng-review
+* implementation-review
+* investigate
+* qa-mission
+* release-control
+* document-sync
+* trust-guard
+
+## Phase 2 — Platform Control
+
+* skill-builder
+* skill-validator
+* tool-registry-manager
+* model-router-review
+* persona-configurator
+* api-aggregation-review
+* memory-policy-review
+
+## Phase 3 — Experience and Trust
+
+* ui-review
+* ux-optimization
+* design-token-validation
+* accessibility-audit
+* security-review
+* compliance-review
+* data-boundary-review
+* audit-trail-review
+* risk-classification
+
+### System Rule
+
+```yaml
+skill_rollout_sequence:
+  prefer_foundation_before_overlays: true
+  prefer_control_skills_before_domain_expansion: true
+```
+
+---
+
+# 15. Future Expansion Model
+
+### Executive Summary
+
+Afronovation will continue adding new apps and domain overlays. This manifest is designed for growth without requiring structural reinvention.
+
+### Expansion Rules
+
+When a new app is added:
+
+1. evaluate whether core skills already cover most of the need
+2. create overlay candidates only for domain-specific logic
+3. register new overlay skills with dependencies
+4. avoid cloning core skills unless governance-approved
+5. update overlay docs and module registry
+
+### System Rule
+
+```yaml
+future_skill_expansion:
+  support_incremental_overlay_growth: true
+  require_core_first_reuse_check: true
+  require_overlay_registration: true
+```
+
+---
+
+# 16. Wave 1 Skill Inventory Summary
+
+## Core Governance and Delivery
+
+* charter-review
+* plan-ceo-review
+* plan-eng-review
+* plan-design-review
+* implementation-review
+* investigate
+* qa-mission
+* qa-only
+* release-control
+* document-sync
+* retro
+* trust-guard
+
+## Platform and Orchestration
+
+* skill-builder
+* skill-validator
+* tool-registry-manager
+* model-router-review
+* persona-configurator
+* oem-packaging-review
+* api-aggregation-review
+* memory-policy-review
+
+## Design and UX
+
+* ui-review
+* ux-optimization
+* design-token-validation
+* accessibility-audit
+* content-and-microcopy-review
+* landing-page-strategy-review
+
+## Security and Compliance
+
+* security-review
+* compliance-review
+* data-boundary-review
+* audit-trail-review
+* risk-classification
+
+Total Wave 1 governed skills: **31**
+
+---
+
+# 17. Final Manifest Summary
+
+### Executive Summary
+
+The Afronovation Skill Manifest v1 establishes the first governed AI execution layer for the platform.
+
+It ensures that:
+
+* AI execution is modular and controlled
+* high-value workflows are reusable
+* design, engineering, platform, and security quality are enforceable
+* BridgeAPI-first development has a governed support layer
+* future overlay skills can be added without destabilizing the system
+
+### System Rule
+
+```yaml
+manifest_summary:
+  enforce_governed_skill_execution: true
+  enforce_owner_and_risk_tier: true
+  enforce_artifacts_and_evaluation: true
+  support_overlay_expansion: true
+```
+
+---
+
+# Recommended Next Step
+
+The best next artifact is:
+
+## **BridgeAPI v1.0 Specification**
+
+That document should define:
+
+* BridgeAPI purpose and scope
+* service boundaries
+* module architecture
+* gateway patterns
+* auth and tenancy model
+* provider normalization model
+* payments, comms, translation, aggregation families
+* admin control hooks
+* logging, analytics, and billing hooks
+
+Proceeding with **BridgeAPI v1.0 Specification** is the right next move.

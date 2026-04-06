@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "dealRoom": "SALLES DE MARCHÉS",
+    "news": "ACTUALITÉS ET MÉDIAS",
+    "events": "ÉVÉNEMENTS",
+    "auth": "PORTAIL"
+  },
+  "home": {
+    "heroTagline": "Pôle de Données Global",
+    "heroCta": "Initialiser la Connexion",
+    "verticalsTitle": "Secteurs d'Exécution Souverains Actifs",
+    "verticalsDesc": "Corridors d'investissement directs reliant la capacité des entreprises de Caroline du Nord aux opportunités d'infrastructures africaines."
+  },
+  "verticals": {
+    "energy": "Corridors Énergétiques",
+    "logistics": "Logistique en Eau Profonde",
+    "agritech": "Agritech Souveraine",
+    "digital": "Infrastructure Numérique",
+    "health": "Sécurité Sanitaire",
+    "defense": "Communications Sécurisées"
+  },
+  "footer": {
+    "rights": "Tous Droits Réservés. Les données souveraines sont protégées par un cryptage de niveau 1."
+  }
+}

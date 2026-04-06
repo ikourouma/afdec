@@ -1,0 +1,1224 @@
+Here is the **Afronovation Monorepo Architecture Blueprint v1.0** in a clean, consolidated format for review.
+
+---
+
+# Afronovation Monorepo Architecture Blueprint v1.0
+
+## 1. Purpose
+
+### Executive Summary
+
+The Afronovation Monorepo Architecture Blueprint defines the canonical structure of the Afronovation codebase.
+
+Its purpose is to ensure that:
+
+* all products follow one system
+* shared capabilities are reused
+* governance is enforceable
+* AI tools do not create structural drift
+* new apps and services can be added cleanly
+* platform assets scale across Bridge55, EmbassyOS, BridgeVault, BridgeAPI, Afronovation.com, and future products
+
+This blueprint is the **physical realization** of FlowMode v6 and the Master Tech Stack Register.
+
+### Operational Purpose
+
+This blueprint defines:
+
+* top-level folder zones
+* module types
+* ownership boundaries
+* rules for shared vs app-specific code
+* template expectations
+* how overlays are added
+* how IDEs should enforce structure
+
+### System Rule
+
+```yaml
+monorepo_blueprint:
+  required_for_all_modules: true
+  prohibit_unapproved_top_level_folders: true
+  require_template_based_generation: true
+  require_module_registration: true
+```
+
+---
+
+## 2. Architectural Principles
+
+### Executive Summary
+
+The monorepo is designed around five principles:
+
+1. Shared where possible
+2. Isolated where necessary
+3. Governed by default
+4. Template-driven from day one
+5. Expandable without restructuring
+
+### Operational Guidance
+
+The monorepo must support:
+
+* shared platform services
+* multiple apps
+* multiple domain overlays
+* central design system assets
+* central AI and orchestration assets
+* central documentation and governance
+* future OEM and enterprise client needs
+
+### System Rule
+
+```yaml
+architecture_principles:
+  prefer_shared_platform_assets: true
+  prefer_modular_boundaries: true
+  prohibit_duplicate_foundational_logic: true
+  require_expandable_structure: true
+  require_clear_ownership: true
+```
+
+---
+
+## 3. Canonical Top-Level Structure
+
+### Executive Summary
+
+All work must fit into an approved top-level zone. No feature, prototype, or product should create a new top-level pattern without review.
+
+### Canonical Structure
+
+```plaintext
+/
+├── apps/
+├── packages/
+├── services/
+├── docs/
+├── tooling/
+├── infra/
+├── tests/
+├── configs/
+├── scripts/
+└── ide-adapters/
+```
+
+### Top-Level Zone Purpose
+
+#### `apps/`
+
+End-user or operator-facing applications.
+
+Examples:
+
+* bridge55
+* embassyos
+* bridgevault
+* afronovation-site
+* admin-console
+
+#### `packages/`
+
+Reusable shared libraries used across apps and services.
+
+Examples:
+
+* design-system
+* ui
+* auth
+* shared-types
+* shared-utils
+* analytics
+* feature-flags
+* config-core
+* sdk-core
+* testing-utils
+
+#### `services/`
+
+Backend, orchestration, integration, and domain service modules.
+
+Examples:
+
+* bridgeapi
+* bridgeai
+* bridgecomms
+* bridgetranslation
+* bridgepayments
+* bridgeair
+* bridgestay
+* bridgemobility
+* model-router
+* tool-registry
+* skill-registry
+* evaluation-engine
+* policy-engine
+* job-runner
+* audit-log
+
+#### `docs/`
+
+Governance, architecture, developer, API, security, and product documentation.
+
+#### `tooling/`
+
+Generators, validators, repo tools, codemods, and automation utilities.
+
+#### `infra/`
+
+Infrastructure-as-code, provider configs, environment definitions, deployment manifests.
+
+#### `tests/`
+
+Cross-module integration, E2E, regression, evals, and performance validation.
+
+#### `configs/`
+
+Shared configuration schemas, policy configs, model configs, tenant configs, environment configs.
+
+#### `scripts/`
+
+Setup, validation, migration, bootstrap, release, and repo operation scripts.
+
+#### `ide-adapters/`
+
+Claude, Cursor, and Antigravity adapter assets and enforcement files.
+
+### System Rule
+
+```yaml
+top_level_structure:
+  allowed_zones:
+    - apps
+    - packages
+    - services
+    - docs
+    - tooling
+    - infra
+    - tests
+    - configs
+    - scripts
+    - ide-adapters
+  prohibit_unapproved_top_level_creation: true
+```
+
+---
+
+## 4. Recommended Initial Monorepo Tree
+
+```plaintext
+/
+├── apps/
+│   ├── afronovation-site/
+│   ├── admin-console/
+│   ├── bridge55/
+│   ├── embassyos/
+│   └── bridgevault/
+│
+├── packages/
+│   ├── design-system/
+│   ├── ui/
+│   ├── auth/
+│   ├── shared-types/
+│   ├── shared-utils/
+│   ├── analytics/
+│   ├── feature-flags/
+│   ├── config-core/
+│   ├── sdk-core/
+│   └── testing-utils/
+│
+├── services/
+│   ├── bridgeapi/
+│   ├── bridgeai/
+│   ├── bridgecomms/
+│   ├── bridgetranslation/
+│   ├── bridgepayments/
+│   ├── bridgeair/
+│   ├── bridgestay/
+│   ├── bridgemobility/
+│   ├── model-router/
+│   ├── tool-registry/
+│   ├── skill-registry/
+│   ├── evaluation-engine/
+│   ├── policy-engine/
+│   ├── job-runner/
+│   └── audit-log/
+│
+├── docs/
+│   ├── flowmode/
+│   ├── architecture/
+│   ├── stack-register/
+│   ├── developer-guide/
+│   ├── overlays/
+│   ├── prds/
+│   ├── api/
+│   ├── security/
+│   ├── operations/
+│   └── release-notes/
+│
+├── tooling/
+│   ├── generators/
+│   ├── validators/
+│   ├── lint-rules/
+│   ├── codemods/
+│   └── repo-tools/
+│
+├── infra/
+│   ├── vercel/
+│   ├── supabase/
+│   ├── github/
+│   ├── cloud/
+│   │   ├── oci/
+│   │   ├── aws/
+│   │   └── azure/
+│   └── environments/
+│
+├── tests/
+│   ├── e2e/
+│   ├── integration/
+│   ├── regression/
+│   ├── evals/
+│   └── performance/
+│
+├── configs/
+│   ├── environments/
+│   ├── tenants/
+│   ├── policies/
+│   ├── models/
+│   └── features/
+│
+├── scripts/
+│   ├── setup/
+│   ├── release/
+│   ├── migrations/
+│   ├── validate/
+│   └── bootstrap/
+│
+└── ide-adapters/
+    ├── claude/
+    ├── cursor/
+    └── antigravity/
+```
+
+---
+
+## 5. Zone-by-Zone Rules
+
+## 5.1 `apps/` Rules
+
+### Purpose
+
+`apps/` contains user-facing and operator-facing products. Apps consume platform capabilities; they do not recreate them.
+
+### Allowed
+
+* app-specific routes and pages
+* app-specific components
+* app-specific workflows
+* app-level config
+* app-level docs
+* app-level tests
+* domain overlay bindings
+
+### Not Allowed
+
+* duplicated shared primitives
+* direct provider integrations that belong in services
+* duplicate auth logic
+* duplicate design token systems
+* duplicate payment logic
+* duplicate feature flag infrastructure
+
+### Recommended App Structure
+
+```plaintext
+apps/<app-name>/
+├── app/
+├── components/
+├── features/
+├── services/
+├── hooks/
+├── types/
+├── config/
+├── docs/
+├── tests/
+├── public/
+├── styles/
+├── README.md
+├── OWNERS.md
+├── ARCHITECTURE.md
+└── CHANGELOG.md
+```
+
+### System Rule
+
+```yaml
+apps_zone:
+  require_app_template: true
+  prohibit_platform_logic_duplication: true
+  require_local_docs: true
+  require_local_tests: true
+```
+
+---
+
+## 5.2 `packages/` Rules
+
+### Purpose
+
+`packages/` contains reusable shared libraries used across multiple apps or services.
+
+### Allowed
+
+* shared UI
+* shared auth helpers
+* shared types
+* shared utilities
+* analytics helpers
+* feature flag helpers
+* config schemas
+* SDK primitives
+* test utilities
+* design system assets
+
+### Not Allowed
+
+* app-specific workflows
+* provider-specific business logic that belongs in services
+* tenant-specific branding embedded in foundational packages
+
+### Recommended Package Structure
+
+```plaintext
+packages/<package-name>/
+├── src/
+├── docs/
+├── tests/
+├── package.json
+├── README.md
+├── CHANGELOG.md
+└── OWNERS.md
+```
+
+### System Rule
+
+```yaml
+packages_zone:
+  require_reusability_justification: true
+  prohibit_app_specific_behavior: true
+  require_package_docs: true
+  require_tests_for_foundational_packages: true
+```
+
+---
+
+## 5.3 `services/` Rules
+
+### Purpose
+
+`services/` contains platform, orchestration, integration, and domain services.
+
+### Allowed
+
+* API mediation
+* provider adapters
+* orchestration logic
+* AI execution engines
+* evaluation logic
+* routing engines
+* background job processing
+* audit services
+* policy enforcement layers
+
+### Not Allowed
+
+* product UI
+* design-system duplication
+* tenant-specific overrides hardcoded into core service logic
+* uncontrolled direct access patterns outside approved registries
+
+### Recommended Service Structure
+
+```plaintext
+services/<service-name>/
+├── src/
+│   ├── domain/
+│   ├── adapters/
+│   ├── routes/
+│   ├── policies/
+│   ├── jobs/
+│   └── utils/
+├── docs/
+├── tests/
+├── config/
+├── README.md
+├── OWNERS.md
+├── ARCHITECTURE.md
+└── CHANGELOG.md
+```
+
+### System Rule
+
+```yaml
+services_zone:
+  require_service_boundary_definition: true
+  require_docs_and_architecture_notes: true
+  require_contract_or_adapter_definition: true
+  prohibit_ui_logic: true
+```
+
+---
+
+## 5.4 `docs/` Rules
+
+### Purpose
+
+`docs/` is the documentation backbone of the monorepo.
+
+### Core Subzones
+
+* flowmode
+* architecture
+* stack-register
+* developer-guide
+* overlays
+* prds
+* api
+* security
+* operations
+* release-notes
+
+### Not Allowed
+
+* orphan docs with no owner
+* undocumented core changes
+* conflicting architecture docs serving as multiple truths
+
+### System Rule
+
+```yaml
+docs_zone:
+  require_owner_for_major_docs: true
+  require_update_when_structure_changes: true
+  prohibit_conflicting_source_of_truth_docs: true
+```
+
+---
+
+## 5.5 `tooling/` Rules
+
+### Purpose
+
+`tooling/` exists to automate good behavior.
+
+### Examples
+
+* app generator
+* service generator
+* skill generator
+* overlay generator
+* folder placement validator
+* stack compliance validator
+* docs synchronizer
+
+### System Rule
+
+```yaml
+tooling_zone:
+  require_tooling_for_repeatable_patterns: true
+  prefer_automation_over_manual_setup: true
+```
+
+---
+
+## 5.6 `infra/` Rules
+
+### Purpose
+
+`infra/` captures deployment and infrastructure logic.
+
+### Suggested Subzones
+
+* vercel
+* supabase
+* github
+* cloud/oci
+* cloud/aws
+* cloud/azure
+* environments
+
+### Not Allowed
+
+* hidden infra logic spread across apps
+* production infra with no ownership or docs
+* mixed experimental and production infra without separation
+
+### System Rule
+
+```yaml
+infra_zone:
+  require_environment_clear_separation: true
+  require_provider_specific_grouping: true
+  require_docs_for_deployment_patterns: true
+```
+
+---
+
+## 5.7 `tests/` Rules
+
+### Purpose
+
+`tests/` contains cross-module and platform-level test assets. Local unit tests remain close to each module.
+
+### Subzones
+
+* e2e
+* integration
+* regression
+* evals
+* performance
+
+### System Rule
+
+```yaml
+tests_zone:
+  require_cross_module_tests_here: true
+  require_evals_here: true
+  prohibit_test_orphans: true
+```
+
+---
+
+## 5.8 `configs/` Rules
+
+### Purpose
+
+`configs/` stores shared configuration models and templates.
+
+### Suggested Subzones
+
+* environments
+* tenants
+* policies
+* models
+* features
+
+### System Rule
+
+```yaml
+configs_zone:
+  require_shared_config_patterns: true
+  prohibit_unmanaged_config_sprawl: true
+```
+
+---
+
+## 5.9 `scripts/` Rules
+
+### Purpose
+
+`scripts/` contains operational scripts for setup, release, migration, validation, and bootstrap.
+
+### Suggested Subzones
+
+* setup
+* release
+* migrations
+* validate
+* bootstrap
+
+### System Rule
+
+```yaml
+scripts_zone:
+  require_script_categorization: true
+  require_script_docs_for_high_impact_scripts: true
+```
+
+---
+
+## 5.10 `ide-adapters/` Rules
+
+### Purpose
+
+`ide-adapters/` contains IDE-specific instruction assets and enforcement packs.
+
+### Suggested Subzones
+
+* claude
+* cursor
+* antigravity
+
+### Contents
+
+* adapter-specific instructions
+* generated enforcement files
+* workflow routing references
+* startup guidance for each IDE
+* mapping to FlowMode sections
+
+### System Rule
+
+```yaml
+ide_adapters_zone:
+  require_adapter_specific_docs: true
+  require_alignment_with_flowmode: true
+  prohibit_conflicting_instructions_across_ides: true
+```
+
+---
+
+## 6. App Taxonomy
+
+### App Types
+
+* **Product Apps**: Bridge55, EmbassyOS, BridgeVault
+* **Control Plane Apps**: admin-console
+* **Brand/Marketing Apps**: afronovation-site
+
+### System Rule
+
+```yaml
+app_taxonomy:
+  types:
+    - product
+    - control_plane
+    - brand_marketing
+  require_app_type_assignment: true
+```
+
+---
+
+## 7. Service Taxonomy
+
+### Service Types
+
+* **Core Platform Services**
+
+  * bridgeapi
+  * bridgeai
+  * model-router
+  * tool-registry
+  * skill-registry
+  * evaluation-engine
+  * policy-engine
+
+* **Domain Services**
+
+  * bridgepayments
+  * bridgeair
+  * bridgestay
+  * bridgemobility
+  * bridgecomms
+  * bridgetranslation
+
+* **Operational Services**
+
+  * job-runner
+  * audit-log
+
+### System Rule
+
+```yaml
+service_taxonomy:
+  types:
+    - core_platform
+    - domain_service
+    - operational_service
+  require_service_type_assignment: true
+```
+
+---
+
+## 8. Overlay Architecture Model
+
+### Executive Summary
+
+New app and domain overlays will keep being added. The repo must support that without restructuring.
+
+### Overlay Types
+
+* product/domain overlay
+* regional overlay
+* OEM/client overlay
+* UI/theme overlay
+* compliance/policy overlay
+
+### Suggested Overlay Locations
+
+* `docs/overlays/`
+* `configs/tenants/`
+* `packages/design-system/`
+* service-level config/policy layers where needed
+
+### Overlay Rules
+
+* overlays may extend, not break, core behavior
+* overlays must declare dependencies
+* overlays must declare overrides
+* overlays must be versioned if operationally significant
+
+### System Rule
+
+```yaml
+overlay_architecture:
+  support_incremental_overlay_growth: true
+  require_overlay_definition: true
+  prohibit_core_platform_forking: true
+  require_override_registry: true
+```
+
+---
+
+## 9. Ownership Model
+
+### Executive Summary
+
+Every module must have a clearly defined owner.
+
+### Required Files
+
+Each app, service, and major package should include:
+
+* `OWNERS.md`
+* `README.md`
+* `ARCHITECTURE.md` where needed
+* `CHANGELOG.md`
+
+### Ownership Scope
+
+* technical owner
+* product owner where relevant
+* governance owner for high-trust modules
+* review responsibility
+
+### System Rule
+
+```yaml
+ownership_model:
+  require_owners_file: true
+  require_module_owner: true
+  require_review_responsibility: true
+```
+
+---
+
+## 10. Template and Generator Architecture
+
+### Executive Summary
+
+No project should start from a blank folder. New work must be created from templates.
+
+### Required Generators
+
+* `create-app`
+* `create-service`
+* `create-package`
+* `create-skill`
+* `create-overlay`
+* `create-doc-module`
+
+### Expected Generator Output
+
+Every generated module should include:
+
+* base folder structure
+* core docs
+* ownership file
+* test scaffold
+* config scaffold
+* FlowMode reference
+* registration hooks where relevant
+
+### Example Commands
+
+```bash
+pnpm create app bridgehealth
+pnpm create service bridgeidentity
+pnpm create overlay west-africa-travel
+pnpm create skill itinerary-review
+```
+
+### System Rule
+
+```yaml
+generator_architecture:
+  require_generators_for_new_modules: true
+  prohibit_blank_manual_module_starts: true
+  require_standard_scaffolding: true
+```
+
+---
+
+## 11. IDE Enforcement Model
+
+### Claude
+
+Claude should:
+
+* read FlowMode and module docs
+* avoid creating unapproved top-level structure
+* propose reuse before creating new modules
+* map work to existing zones
+
+### Cursor
+
+Cursor should:
+
+* enforce `.cursor/rules`
+* validate folder placement
+* prevent structural drift
+* reinforce design-system and service-boundary rules
+
+### Antigravity
+
+Antigravity should:
+
+* execute template-based missions
+* require artifact output
+* validate module placement against blueprint
+
+### System Rule
+
+```yaml
+ide_enforcement:
+  claude:
+    require_blueprint_awareness: true
+  cursor:
+    require_folder_validation: true
+  antigravity:
+    require_template_mission_alignment: true
+```
+
+---
+
+## 12. Module Registration Model
+
+### Executive Summary
+
+Each major module should be registered so the platform can understand what exists and what it depends on.
+
+### Registration Fields
+
+* module name
+* module type
+* owner
+* status
+* dependencies
+* stack mapping
+* risk classification
+* docs path
+
+### Suggested Location
+
+* centralized registry under `configs/`
+* optionally supplemented by per-module metadata
+
+### Example
+
+```yaml
+module:
+  id: bridgeapi
+  type: service
+  owner: platform-engineering
+  status: active
+  depends_on:
+    - shared-types
+    - auth
+    - config-core
+  docs:
+    - docs/api/bridgeapi.md
+```
+
+### System Rule
+
+```yaml
+module_registration:
+  require_registration_for_major_modules: true
+  require_dependency_visibility: true
+  require_status_tracking: true
+```
+
+---
+
+## 13. Boundary Rules: What Must Be Shared vs Local
+
+### Must Be Shared
+
+* design tokens
+* shared UI primitives
+* shared auth primitives
+* shared types
+* analytics base utilities
+* feature flag infrastructure
+* model routing policies
+* skill and tool registries
+* evaluation logic
+* API mediation patterns
+
+### Must Stay Local
+
+* app-specific page composition
+* app-specific workflow logic
+* app-specific copy/content
+* product-specific experiments
+* contextual UI built on shared primitives
+
+### Review Before Promoting to Shared
+
+* business logic that may later generalize
+* product-specific workflow helpers
+* region-specific integrations
+* experimental AI behaviors
+
+### System Rule
+
+```yaml
+boundary_rules:
+  require_shared_for_foundational_assets: true
+  require_local_for_product_specific_logic: true
+  require_review_before_promoting_to_shared: true
+```
+
+---
+
+## 14. Environment Architecture
+
+### Core Environments
+
+* local
+* dev
+* preview
+* staging
+* production
+
+### Mapping Guidance
+
+* **local**: developer machine
+* **dev**: shared internal development
+* **preview**: Vercel preview/demo/testing
+* **staging**: release candidate validation
+* **production**: live tenant or public workload
+
+### System Rule
+
+```yaml
+environment_architecture:
+  environments:
+    - local
+    - dev
+    - preview
+    - staging
+    - production
+  require_environment_specific_config: true
+  prohibit_environment_assumption_leakage: true
+```
+
+---
+
+## 15. Documentation Architecture Inside the Repo
+
+### Suggested Documentation Map
+
+```plaintext
+docs/
+├── flowmode/
+├── stack-register/
+├── architecture/
+│   ├── monorepo-blueprint.md
+│   ├── bridgeapi/
+│   ├── bridgeai/
+│   └── apps/
+├── developer-guide/
+├── api/
+├── overlays/
+├── security/
+├── operations/
+├── prds/
+└── release-notes/
+```
+
+### Rules
+
+* architecture docs explain systems
+* overlay docs explain domain-specific behavior
+* developer guide explains how to work
+* release notes explain what changed
+
+### System Rule
+
+```yaml
+documentation_architecture:
+  require_clear_doc_categorization: true
+  require_major_system_architecture_docs: true
+  require_overlay_docs_for_domain_extensions: true
+```
+
+---
+
+## 16. Suggested Initial Module Inventory
+
+### Apps
+
+* afronovation-site
+* admin-console
+* bridge55
+* embassyos
+* bridgevault
+
+### Packages
+
+* design-system
+* ui
+* auth
+* shared-types
+* shared-utils
+* analytics
+* feature-flags
+* config-core
+* sdk-core
+* testing-utils
+
+### Services
+
+* bridgeapi
+* bridgeai
+* bridgecomms
+* bridgetranslation
+* bridgepayments
+* bridgeair
+* bridgestay
+* bridgemobility
+* model-router
+* tool-registry
+* skill-registry
+* evaluation-engine
+* policy-engine
+* job-runner
+* audit-log
+
+---
+
+## 17. Recommended Module Creation Sequence
+
+### Phase 1 — Platform Foundation
+
+* packages/design-system
+* packages/shared-types
+* packages/config-core
+* services/bridgeapi
+* services/bridgeai
+* services/model-router
+* services/tool-registry
+* services/skill-registry
+* apps/admin-console
+* docs/foundation set
+
+### Phase 2 — Product Validation Apps
+
+* apps/bridge55
+* apps/embassyos
+* service adapters needed for validation
+* evaluation-engine
+* policy-engine
+
+### Phase 3 — Domain Expansion
+
+* bridgepayments
+* bridgeair
+* bridgestay
+* bridgemobility
+* bridgecomms
+* bridgetranslation
+* bridgevault
+* afronovation-site refresh
+
+### System Rule
+
+```yaml
+module_creation_sequence:
+  prefer_foundation_before_expansion: true
+  prefer_platform_services_before_product_duplication: true
+```
+
+---
+
+## 18. Change Control for Structure
+
+### Structural Changes Require
+
+* reason for change
+* impact analysis
+* affected modules
+* migration plan
+* docs update
+* approval
+
+### Examples
+
+* new top-level zone
+* moving a package to a service
+* splitting a service
+* changing app taxonomy
+* changing template rules
+
+### System Rule
+
+```yaml
+structure_change_control:
+  require_rationale: true
+  require_impact_analysis: true
+  require_docs_update: true
+  require_approval: true
+```
+
+---
+
+## 19. Final Blueprint Summary
+
+### Executive Summary
+
+Afronovation’s monorepo is designed to be:
+
+* modular
+* governed
+* AI-enforceable
+* enterprise-ready
+* overlay-friendly
+* reusable across current and future products
+
+### Core Outcomes
+
+This blueprint ensures:
+
+* new work starts in the right place
+* shared capabilities stay shared
+* apps remain clean consumers of platform logic
+* services remain governed providers of capability
+* docs stay navigable
+* templates prevent structural drift
+* AI tools can operate safely inside the repo
+
+### System Rule
+
+```yaml
+blueprint_summary:
+  enforce_structure: true
+  enforce_reuse: true
+  enforce_registration: true
+  enforce_template_generation: true
+  enforce_documented_boundaries: true
+```
+
+---
+
+## Fortune-5 recommendations before the next artifact
+
+This blueprint is strong, but I recommend three refinements in the next pass:
+
+* add a **module registry schema** under `configs/`
+* add a **template manifest** for each generator
+* add a **boundary decision checklist** to help decide whether code belongs in `apps/`, `packages/`, or `services/`
+
+The best next document is **Skill Manifest v1**.
