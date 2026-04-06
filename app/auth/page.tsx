@@ -120,6 +120,7 @@ export default function AuthGateway() {
           }
         });
         if (error) throw error;
+        if (!data.user) throw new Error("Registration failed. No user returned.");
         activeUserId = data.user.id;
       }
 
