@@ -111,3 +111,67 @@ ALTER TABLE public.market_sentiments ENABLE ROW LEVEL SECURITY;
 
 -- Allow anonymous inserts for feedback (No read access)
 CREATE POLICY "Enable insert for anonymous users" ON public.market_sentiments FOR INSERT WITH CHECK (true);
+
+-- 10. Create the CMS Page Content table (Phase 7)
+CREATE TABLE IF NOT EXISTS public.page_content (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    page_slug TEXT NOT NULL UNIQUE,
+    page_title TEXT NOT NULL,
+    meta_description TEXT,
+    hero_headline TEXT,
+    hero_subheadline TEXT,
+    hero_image_url TEXT,
+    sections JSONB NOT NULL DEFAULT '[]',
+    sidebar JSONB,
+    is_published BOOLEAN DEFAULT false,
+    language TEXT DEFAULT 'en',
+    updated_at TIMESTAMPTZ DEFAULT now(),
+    updated_by UUID REFERENCES auth.users(id)
+);
+
+ALTER TABLE public.page_content ENABLE ROW LEVEL SECURITY;
+
+-- Public read for published pages
+CREATE POLICY "Published pages are viewable by everyone" ON public.page_content
+    FOR SELECT USING (is_published = true);
+
+-- Admins can manage all page content
+CREATE POLICY "Admins manage page content" ON public.page_content FOR ALL USING (
+    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('super_admin', 'admin'))
+);
+
+-- 11. Create the Country Profiles table (Africa Investment Intelligence Map)
+CREATE TABLE IF NOT EXISTS public.country_profiles (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    country_code TEXT NOT NULL,
+    country_name TEXT NOT NULL,
+    region TEXT NOT NULL,
+    capital TEXT,
+    currency TEXT,
+    gdp_usd BIGINT,
+    gdp_growth_pct DECIMAL(5,2),
+    fdi_inflows_usd BIGINT,
+    population BIGINT,
+    urban_population_pct DECIMAL(5,2),
+    internet_penetration_pct DECIMAL(5,2),
+    tourism_arrivals INTEGER,
+    trade_pct_gdp DECIMAL(5,2),
+    inflation_pct DECIMAL(5,2),
+    mobile_subscriptions_per100 DECIMAL(6,2),
+    afdec_priority BOOLEAN DEFAULT false,
+    afdec_notes TEXT,
+    data_year INTEGER,
+    last_refreshed TIMESTAMPTZ DEFAULT now(),
+    UNIQUE(country_code)
+);
+
+ALTER TABLE public.country_profiles ENABLE ROW LEVEL SECURITY;
+
+-- Public read access for country data
+CREATE POLICY "Country profiles are viewable by everyone" ON public.country_profiles
+    FOR SELECT USING (true);
+
+-- Admins manage country data
+CREATE POLICY "Admins manage country profiles" ON public.country_profiles FOR ALL USING (
+    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role IN ('super_admin', 'admin'))
+);
