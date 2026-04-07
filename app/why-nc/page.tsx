@@ -9,7 +9,6 @@ import { TopNav } from "@/components/ui/top-nav";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
-import { PageHero } from "@/components/ui/page-hero";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { ArrowRight, Plane, Ship, Train, Wifi, Building2, DollarSign, Users, Sun, TreePine, Heart, Briefcase, Factory, Globe } from "lucide-react";
 
@@ -104,12 +103,21 @@ export default function WhyNCPage() {
         <Header />
       </div>
 
-      {/* ── Hero ── */}
-      <PageHero
-        tag="Strategic Footprint"
-        headline="Why North Carolina"
-        subheadline="The #1 state for business in America. The lowest corporate tax rate. A workforce pipeline that rivals any nation. This is where AfDEC chose to build — and why your enterprise should too."
-      />
+      {/* ── Hero with NC Background ── */}
+      <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=2069&auto=format&fit=crop')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/95 to-zinc-950/80" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-24 md:py-32 relative z-10">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-6 rounded-full backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Strategic Footprint</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] max-w-4xl">Why North Carolina</h1>
+          <p className="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl leading-relaxed font-medium">The #1 state for business in America. The lowest corporate tax rate. A workforce pipeline that rivals any nation. This is where AfDEC chose to build — and why your enterprise should too.</p>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+      </section>
 
       {/* ── By the Numbers ── */}
       <section ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
@@ -225,7 +233,7 @@ export default function WhyNCPage() {
 
       {/* ── Tourism ── */}
       <section className="bg-zinc-950 py-24 border-b border-zinc-800/30 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=2532&auto=format&fit=crop')", backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1601370690183-1c7796ecec61?q=80&w=2670&auto=format&fit=crop')", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-zinc-950/70" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="max-w-2xl">

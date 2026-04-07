@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── Board of Directors (Placeholder) ───
 const boardMembers = [
-  { name: "Ibrahima K.", title: "Chairman & Founder", org: "AfDEC", image: null },
+  { name: "Ibrahima Kourouma", title: "President & Chairman", org: "AfDEC", image: null },
   { name: "Amara D.", title: "Vice Chair, Strategy", org: "Continental Finance Group", image: null },
   { name: "Fatima N.", title: "Secretary, Governance", org: "Pan-African Trade Council", image: null },
   { name: "Kwame A.", title: "Treasurer", org: "Atlas Capital Partners", image: null },
@@ -25,29 +25,30 @@ const boardMembers = [
   { name: "David O.", title: "Director, Partnerships", org: "NC Innovation Hub", image: null },
 ];
 
-// ─── Committees ───
-const committees = [
-  { name: "Finance & Audit Committee", description: "Oversees fiscal integrity, annual budgets, and financial reporting standards.", members: 4 },
-  { name: "Programs & Impact Committee", description: "Designs and evaluates initiative effectiveness across all AfDEC programs.", members: 5 },
-  { name: "Governance & Nominating Committee", description: "Manages board composition, bylaws compliance, and leadership transitions.", members: 3 },
-  { name: "Fundraising & Development Committee", description: "Drives capital campaigns, donor relations, and partnership pipeline growth.", members: 4 },
-  { name: "Communications & Marketing Committee", description: "Shapes institutional messaging, brand strategy, and media relations.", members: 3 },
+// ─── Committee Members (Placeholder - 9 members, 3x3) ───
+const committeeMembers = [
+  { name: "Aminata S.", title: "Finance & Audit", role: "Committee Chair", region: "West Africa" },
+  { name: "John T.", title: "Finance & Audit", role: "Committee Member", region: "North America" },
+  { name: "Blessing O.", title: "Finance & Audit", role: "Committee Member", region: "Southern Africa" },
+  { name: "Marie-Claire D.", title: "Programs & Impact", role: "Committee Chair", region: "Central Africa" },
+  { name: "Rashid K.", title: "Programs & Impact", role: "Committee Member", region: "East Africa" },
+  { name: "Patricia H.", title: "Programs & Impact", role: "Committee Member", region: "North America" },
+  { name: "Samuel E.", title: "Governance & Nominating", role: "Committee Chair", region: "West Africa" },
+  { name: "Linda W.", title: "Fundraising & Development", role: "Committee Chair", region: "North America" },
+  { name: "Ahmed B.", title: "Communications", role: "Committee Chair", region: "North Africa" },
 ];
 
-// ─── Board of Advisors ───
+// ─── Board of Advisors (Placeholder - 9 advisors, 3x3) ───
 const advisors = [
   { name: "Dr. Olusegun B.", title: "Senior Economic Advisor", expertise: "Macroeconomic Policy & Trade", region: "West Africa" },
   { name: "Michelle T.", title: "Strategic Advisor", expertise: "Corporate Governance & ESG", region: "North America" },
   { name: "Jean-Pierre L.", title: "Francophone Markets Advisor", expertise: "Bilateral Investment Treaties", region: "Central Africa" },
   { name: "Prof. Aisha K.", title: "Research Advisor", expertise: "Diaspora Economics & Migration", region: "East Africa" },
-];
-
-// ─── Timeline ───
-const milestones = [
-  { year: "2024", title: "Founding Vision", description: "AfDEC conceptualized as a transatlantic economic bridge connecting North Carolina and the African continent." },
-  { year: "2025", title: "Incorporation & Board Formation", description: "Incorporated as a North Carolina 501(c)(4). Inaugural board seated. Strategic framework ratified." },
-  { year: "2026", title: "Platform Launch & Phase 1 Operations", description: "Digital platform deployed. First market briefings published. Member enrollment opens." },
-  { year: "2027", title: "Expansion Target", description: "First bilateral trade delegation. Accra and Nairobi hub activation. Inaugural State of Africa Business event." },
+  { name: "Dr. Robert M.", title: "Infrastructure Advisor", expertise: "Public-Private Partnerships", region: "Southern Africa" },
+  { name: "Nadia E.", title: "Legal & Compliance Advisor", expertise: "International Trade Law", region: "North Africa" },
+  { name: "Charles N.", title: "Technology Advisor", expertise: "Digital Transformation & Fintech", region: "East Africa" },
+  { name: "Susan P.", title: "Tourism & Hospitality Advisor", expertise: "Sovereign Tourism Strategy", region: "North America" },
+  { name: "Dr. Yusuf A.", title: "Climate & Energy Advisor", expertise: "Green Infrastructure & ESG", region: "West Africa" },
 ];
 
 // ─── Values ───
@@ -55,34 +56,36 @@ const values = [
   { icon: Target, title: "Sovereign Purpose", description: "Every initiative exists to create tangible economic pathways between Africa and North Carolina." },
   { icon: Users, title: "Diaspora-First", description: "The African diaspora is not a demographic — it is an economic force. We center their capital, talent, and vision." },
   { icon: Handshake, title: "Bilateral Integrity", description: "All partnerships are structured for mutual benefit. We reject extractive models." },
-  { icon: Award, title: "Institutional Excellence", description: "We operate at the standard of a Fortune 5 organization — in transparency, data, and accountability." },
+  { icon: Award, title: "Institutional Excellence", description: "We operate at the highest standard — in transparency, data, and accountability." },
 ];
 
 export default function AboutPage() {
-  const timelineRef = useRef<HTMLDivElement>(null);
   const valuesRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Animate value cards
     gsap.fromTo(".value-card", 
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out",
         scrollTrigger: { trigger: valuesRef.current, start: "top 80%" }
       }
     );
-    // Animate board cards
     gsap.fromTo(".board-card",
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out",
         scrollTrigger: { trigger: boardRef.current, start: "top 80%" }
       }
     );
-    // Animate timeline items
-    gsap.fromTo(".timeline-item",
-      { x: -30, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: "power3.out",
-        scrollTrigger: { trigger: timelineRef.current, start: "top 80%" }
+    gsap.fromTo(".committee-card",
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: "power3.out",
+        scrollTrigger: { trigger: ".committee-section", start: "top 80%" }
+      }
+    );
+    gsap.fromTo(".advisor-card",
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: "power3.out",
+        scrollTrigger: { trigger: ".advisor-section", start: "top 80%" }
       }
     );
   }, { scope: undefined });
@@ -95,12 +98,26 @@ export default function AboutPage() {
         <Header />
       </div>
 
-      {/* ── Hero ── */}
-      <PageHero
-        tag="The Council"
-        headline="The African Diaspora Economic Council"
-        subheadline="A sovereign institution bridging institutional capital and enterprise expansion between North Carolina and the African continent. We exist to create permanent economic infrastructure for the global African diaspora."
-      />
+      {/* ── Hero with African Accent Pattern ── */}
+      <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
+        {/* African geometric pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0l40 40L0 80zM80 0L40 40l40 40z'/%3E%3Cpath d='M20 0l20 20L20 40zM60 0L40 20l20 20zM20 40l20 20L20 80zM60 40L40 60l20 20z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Ccircle cx='80' cy='0' r='4'/%3E%3Ccircle cx='0' cy='80' r='4'/%3E%3Ccircle cx='80' cy='80' r='4'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "80px 80px" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
+        
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-24 md:py-32 relative z-10">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-6 rounded-full backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">The Council</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] max-w-4xl">
+            The African Diaspora Economic Council
+          </h1>
+          <p className="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl leading-relaxed font-medium">
+            A sovereign institution building permanent economic bridges between North Carolina and the African continent. We exist to connect capital, talent, and enterprise across both shores.
+          </p>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+      </section>
 
       {/* ── Mission & Vision ── */}
       <section className="bg-zinc-950 py-24 border-b border-zinc-800/30">
@@ -112,10 +129,10 @@ export default function AboutPage() {
                 <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Our Mission</span>
               </div>
               <p className="text-2xl md:text-3xl font-bold text-white leading-snug mb-6">
-                To architect bilateral economic corridors that unlock capital, talent, and trade between the U.S. and Africa.
+                We build the bridges that connect African and American enterprises to shared prosperity.
               </p>
               <p className="text-[15px] text-zinc-400 leading-relaxed">
-                AfDEC operates at the intersection of foreign direct investment, diaspora capital mobilization, and sovereign economic development. Based in Raleigh, North Carolina, we convene investors, enterprises, and government partners to build the infrastructure required for transatlantic prosperity.
+                AfDEC brings together investors, businesses, and government partners to open new markets, create jobs, and move capital across the Atlantic. Based in Raleigh, North Carolina, we work at the intersection of trade, investment, and diaspora-driven growth — turning relationships into lasting economic infrastructure.
               </p>
             </div>
             <div>
@@ -124,10 +141,10 @@ export default function AboutPage() {
                 <span className="text-[11px] font-bold tracking-[0.2em] text-emerald-400 uppercase">Our Vision</span>
               </div>
               <p className="text-2xl md:text-3xl font-bold text-white leading-snug mb-6">
-                A world where the African diaspora commands its economic destiny across both continents.
+                A world where the African diaspora leads its own economic future — on both continents.
               </p>
               <p className="text-[15px] text-zinc-400 leading-relaxed">
-                By 2030, AfDEC will be the preeminent institutional bridge between Africa and North America — deploying capital into high-growth sectors, connecting 10,000 enterprises to cross-border opportunity, and establishing permanent policy pathways that outlast any single administration.
+                By 2030, AfDEC will be the leading platform connecting Africa and North America — deploying capital into high-growth sectors, empowering 10,000 enterprises with cross-border opportunity, and building policy pathways that create generational wealth for the diaspora.
               </p>
             </div>
           </div>
@@ -159,7 +176,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Board of Directors ── */}
-      <section ref={boardRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="governance" ref={boardRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Governance</span>
@@ -189,50 +206,58 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Committees ── */}
-      <section className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      {/* ── Standing Committees ── */}
+      <section className="committee-section bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Operational Structure</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Standing Committees</h2>
+            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Our committees drive the day-to-day operations and strategic execution of the Council&apos;s mandate.</p>
           </div>
-          <div className="space-y-3">
-            {committees.map((c) => (
-              <details key={c.name} className="group bg-zinc-900/30 border border-zinc-800/50 rounded-sm overflow-hidden">
-                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-zinc-900/60 transition-colors">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-2 h-2 rounded-full bg-blue-500/60 group-open:bg-blue-500 transition-colors"></div>
-                    <h3 className="text-white font-semibold text-[15px]">{c.name}</h3>
-                  </div>
-                  <span className="text-[11px] text-zinc-600 font-medium tracking-wider uppercase">{c.members} Members</span>
-                </summary>
-                <div className="px-6 pb-6 pl-12">
-                  <p className="text-zinc-400 text-[14px] leading-relaxed">{c.description}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {committeeMembers.map((member) => (
+              <div key={member.name} className="committee-card bg-zinc-900/20 border border-zinc-800/40 p-6 rounded-sm flex items-start space-x-4">
+                <div className="w-14 h-14 rounded-sm bg-gradient-to-br from-amber-600/20 to-amber-800/20 border border-amber-700/30 flex items-center justify-center text-amber-400 font-bold text-lg shrink-0">
+                  {member.name.split(" ").map(n => n[0]).join("").slice(0,2)}
                 </div>
-              </details>
+                <div>
+                  <h3 className="text-white font-bold text-[15px]">{member.name}</h3>
+                  <p className="text-amber-400 text-[13px] font-medium mt-0.5">{member.role}</p>
+                  <div className="flex items-center space-x-3 mt-2">
+                    <span className="text-[11px] text-zinc-500 flex items-center space-x-1">
+                      <Building2 className="w-3 h-3" />
+                      <span>{member.title}</span>
+                    </span>
+                    <span className="text-[11px] text-zinc-600 flex items-center space-x-1">
+                      <Globe className="w-3 h-3" />
+                      <span>{member.region}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Board of Advisors ── */}
-      <section className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section className="advisor-section bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Strategic Counsel</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Board of Advisors</h2>
-            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Distinguished leaders who provide strategic counsel on macroeconomic policy, governance, and transatlantic market development.</p>
+            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Distinguished leaders providing strategic counsel on policy, governance, and transatlantic market development.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {advisors.map((advisor) => (
-              <div key={advisor.name} className="bg-zinc-900/20 border border-zinc-800/40 p-6 rounded-sm flex items-start space-x-5">
+              <div key={advisor.name} className="advisor-card bg-zinc-900/20 border border-zinc-800/40 p-6 rounded-sm flex items-start space-x-4">
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-600/20 to-emerald-800/20 border border-emerald-700/30 flex items-center justify-center text-emerald-400 font-bold text-lg shrink-0">
                   {advisor.name.split(" ").map(n => n[0]).join("").slice(0,2)}
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-[15px]">{advisor.name}</h3>
                   <p className="text-emerald-400 text-[13px] font-medium mt-0.5">{advisor.title}</p>
-                  <div className="flex items-center space-x-4 mt-2">
+                  <div className="flex items-center space-x-3 mt-2">
                     <span className="text-[11px] text-zinc-500 flex items-center space-x-1">
                       <Building2 className="w-3 h-3" />
                       <span>{advisor.expertise}</span>
@@ -249,41 +274,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Timeline ── */}
-      <section ref={timelineRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Institutional Trajectory</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-3">The Journey</h2>
-          </div>
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 via-blue-500/20 to-transparent hidden md:block"></div>
-
-            <div className="space-y-12">
-              {milestones.map((m, i) => (
-                <div key={m.year} className="timeline-item flex items-start space-x-8">
-                  <div className="relative shrink-0 hidden md:block">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-black border-2 ${i === milestones.length - 1 ? 'border-zinc-700 bg-zinc-900 text-zinc-500' : 'border-blue-500/50 bg-blue-500/10 text-blue-400'}`}>
-                      {m.year.slice(2)}
-                    </div>
-                  </div>
-                  <div className="pb-2">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <span className="text-blue-400 font-black text-sm md:hidden">{m.year}</span>
-                      <h3 className="text-white font-bold text-lg">{m.title}</h3>
-                    </div>
-                    <p className="text-zinc-400 text-[14px] leading-relaxed max-w-lg">{m.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── CTA ── */}
-      <section className="bg-zinc-950 py-24">
+      <section className="bg-[#080808] py-24">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-black text-white mb-6">Join the Mandate</h2>
           <p className="text-zinc-400 text-lg max-w-xl mx-auto mb-10">
@@ -303,10 +295,7 @@ export default function AboutPage() {
 
       {/* ── Footer Ecosystem ── */}
       <div className="relative bg-zinc-950 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')" }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')" }} />
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-zinc-950 to-transparent pointer-events-none z-10" />
         <Newsletter />
         <Footer />
