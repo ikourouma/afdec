@@ -192,6 +192,7 @@ export function Header() {
   };
 
   return (
+    <>
     <header 
       ref={containerRef}
       className="bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 relative"
@@ -291,13 +292,15 @@ export function Header() {
           })}
         </div>
       </div>
+    </header>
 
       {/* ══════════════════════════════════════════════════════════════ */}
-      {/* MOBILE: Full-Screen Overlay (Goldman Sachs / McKinsey pattern)*/}
+      {/* MOBILE: Full-Screen Overlay — OUTSIDE header to escape        */}
+      {/* the sticky z-[100] parent stacking context                    */}
       {/* ══════════════════════════════════════════════════════════════ */}
       <div
         ref={mobileOverlayRef}
-        className="fixed inset-0 z-[150] bg-zinc-950 flex-col hidden"
+        className="fixed inset-0 z-[200] bg-zinc-950 flex-col hidden"
         style={{ opacity: 0 }}
       >
         {/* Overlay Header — mirrors main header for visual continuity */}
@@ -404,6 +407,6 @@ export function Header() {
 
         </div>
       </div>
-    </header>
+    </>
   );
 }
