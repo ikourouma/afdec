@@ -15,7 +15,8 @@ const navigation = [
       {
         title: "Who We Are",
         links: [
-          { name: "Board of Directors & Governance", href: "#" },
+          { name: "About AfDEC", href: "/about" },
+          { name: "Board of Directors & Governance", href: "/about#governance" },
           { name: "AfDEC Strategic Framework (2026-2030)", href: "#" },
           { name: "Diaspora Impact Fund", href: "#" },
         ],
@@ -23,8 +24,9 @@ const navigation = [
       {
         title: "Operations",
         links: [
-          { name: "Council Operations & Careers", href: "#" },
-          { name: "Investor & Media Relations", href: "#" },
+          { name: "Careers & Volunteer Corps", href: "/about/careers" },
+          { name: "Invest in AfDEC", href: "/invest" },
+          { name: "Media Relations", href: "/media" },
           { name: "Events", href: "/events" },
           { name: "News & Media", href: "/news" },
         ],
