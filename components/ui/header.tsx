@@ -40,8 +40,8 @@ const navigation = [
       {
         title: "The Mandate",
         links: [
-          { name: "Why North Carolina", href: "#" },
-          { name: "Why Africa", href: "#" },
+          { name: "Why North Carolina", href: "/why-nc" },
+          { name: "Why Africa", href: "/why-africa" },
         ],
       },
       {
