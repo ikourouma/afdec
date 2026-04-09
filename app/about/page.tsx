@@ -11,7 +11,19 @@ import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { PageHero } from "@/components/ui/page-hero";
 import { FlashBanner } from "@/components/ui/flash-banner";
-import { Users, Target, Award, Handshake, ArrowRight, Building2, Globe } from "lucide-react";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { SideNav, type NavSection } from "@/components/ui/side-nav";
+import { Users, Target, Award, Handshake, ArrowRight, Building2, Globe, Shield, FileText, Zap } from "lucide-react";
+
+const SECTIONS: NavSection[] = [
+  { id: "hero", label: "The Council" },
+  { id: "mission", label: "Mission & Vision" },
+  { id: "mandate", label: "Sovereign Mandate" },
+  { id: "values", label: "Core Values" },
+  { id: "governance", label: "Governance" },
+  { id: "committees", label: "Committees" },
+  { id: "advisors", label: "Advisors" },
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,13 +109,33 @@ export default function AboutPage() {
         <FlashBanner />
         <Header />
       </div>
+      <Breadcrumb />
+      <SideNav sections={SECTIONS} accentColor="blue" />
+      {/* Page Content Begins */}
 
-      {/* ── Hero with African Accent Pattern ── */}
-      <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
-        {/* African geometric pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0l40 40L0 80zM80 0L40 40l40 40z'/%3E%3Cpath d='M20 0l20 20L20 40zM60 0L40 20l20 20zM20 40l20 20L20 80zM60 40L40 60l20 20z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Ccircle cx='80' cy='0' r='4'/%3E%3Ccircle cx='0' cy='80' r='4'/%3E%3Ccircle cx='80' cy='80' r='4'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "80px 80px" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
+      {/* ── Hero with Dual-Layer Background (Photo + Sovereign Pattern) ── */}
+      <section id="section-hero" className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
+        {/* Layer 1: Photorealistic Depth (Strategic Leadership) */}
+        <div
+          className="absolute inset-0 opacity-[0.45]"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
         
+        {/* Layer 2: Sovereign Geometric Pattern Overlay — African Institutional Style */}
+        <div className="absolute inset-0 opacity-[0.045] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0l40 40L0 80zM80 0L40 40l40 40z'/%3E%3Cpath d='M20 0l20 20L20 40zM60 0L40 20l20 20zM20 40l20 20L20 80zM60 40L40 60l20 20z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "80px 80px" }} />
+
+        {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-zinc-950/25" />
+        
+        {/* Bottom fade into page content */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
+        {/* Subtle African geometric texture on top */}
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0l40 40L0 80zM80 0L40 40l40 40z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "80px 80px" }} />
+
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-24 md:py-32 relative z-10">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-6 rounded-full backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
@@ -119,8 +151,58 @@ export default function AboutPage() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
       </section>
 
+      {/* ── Sovereign Mandate (Fortune 5 Style Segment) ── */}
+      <section id="section-mandate" className="bg-zinc-950 py-12">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+          <div className="relative bg-zinc-900/30 border border-zinc-800/50 rounded-2xl overflow-hidden p-8 md:p-12">
+            {/* Background Texture */}
+            <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30L0 0h60L30 30z' fill='%23ffffff'/%3E%3C/svg%3E")` }} />
+            
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="max-w-2xl text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-950/40 border border-blue-900/30 mb-6 rounded-full">
+                  <Shield className="w-3.5 h-3.5 text-blue-400" />
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">Strategic Directive</span>
+                </div>
+                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">
+                  The AfDEC Strategic<br />Framework (2026-2030)
+                </h2>
+                <p className="text-zinc-400 text-lg leading-relaxed mb-8">
+                  A sovereign blueprint for transatlantic economic integration — driving prosperity between North Carolina and the African continent through structured, high-impact pillars.
+                </p>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                  <Link href="/about/strategic-framework" className="inline-flex items-center gap-2 group bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-black tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-xl">
+                    Explore the 2030 Blueprint
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link href="/insights/policy" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
+                    <FileText className="w-4 h-4" />
+                    Policy Publications
+                  </Link>
+                </div>
+              </div>
+              
+              {/* Visual Element: Pillar Highlight */}
+              <div className="grid grid-cols-2 gap-4 w-full lg:w-auto">
+                {[
+                  { label: "Market Access", icon: Globe, color: "blue" },
+                  { label: "SME Growth", icon: Building2, color: "emerald" },
+                  { label: "Infrastructure", icon: Zap, color: "amber" },
+                  { label: "Human Capital", icon: Users, color: "purple" },
+                ].map((item) => (
+                  <div key={item.label} className="bg-zinc-900/40 border border-zinc-800/40 p-5 rounded-xl flex flex-col items-center text-center">
+                    <item.icon className="w-5 h-5 text-zinc-600 mb-2" />
+                    <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Mission & Vision ── */}
-      <section className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-mission" className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             <div>
@@ -152,7 +234,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Core Values ── */}
-      <section ref={valuesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-values" ref={valuesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Foundational Principles</span>
@@ -176,7 +258,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Board of Directors ── */}
-      <section id="governance" ref={boardRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-governance" ref={boardRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Governance</span>
@@ -207,7 +289,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Standing Committees ── */}
-      <section className="committee-section bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-committees" className="committee-section bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Operational Structure</span>
@@ -241,7 +323,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Board of Advisors ── */}
-      <section className="advisor-section bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-advisors" className="advisor-section bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Strategic Counsel</span>
@@ -303,3 +385,4 @@ export default function AboutPage() {
     </main>
   );
 }
+

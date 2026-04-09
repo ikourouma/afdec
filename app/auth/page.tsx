@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase";
 const marketingSlides = [
   {
     title: "Combining robust statistical insight with authentic partnership.",
-    subtitle: "Join thousands of verified global trade leaders. By accessing the Universal Gateway, you secure direct entry to embargoed policy reports, multi-million dollar infrastructure RFPs, and continental expansion pipelines.",
+    subtitle: "Join thousands of verified global trade leaders. By accessing the Partner Portal, you secure direct entry to institutional policy reports, bilateral infrastructure RFPs, and continental expansion pipelines.",
     stat_1_val: "$500M+",
     stat_1_label: "Capital Volume",
     stat_2_val: "54",
@@ -235,7 +235,7 @@ export default function AuthGateway() {
           
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">
-              {view === 'login' ? 'Universal Gateway' : 'Diaspora & Partner Registration'}
+              {view === 'login' ? 'Secure Partner Portal' : 'Diaspora & Partner Registration'}
             </h1>
             <p className="text-base text-zinc-400">
               {view === 'login' 
@@ -330,7 +330,7 @@ export default function AuthGateway() {
               ) : (
                 <>
                   {view === 'login' ? <Lock className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
-                  <span>{view === 'login' ? 'Execute Handshake' : 'Join the AfDEC Network'}</span>
+                  <span>{view === 'login' ? 'Sign In' : 'Join the AfDEC Network'}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </>
               )}

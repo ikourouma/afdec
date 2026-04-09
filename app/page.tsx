@@ -15,7 +15,7 @@ import { FlashBanner } from "@/components/ui/flash-banner";
 export default function AfDECBoardPage() {
   return (
     <main className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/30 selection:text-blue-200">
-      <div className="sticky top-0 z-[100] w-full flex flex-col">
+      <div className="sticky top-0 z-[100] w-full flex flex-col" data-nav-id="main-nav">
         <TopNav />
         <FlashBanner />
         <Header />

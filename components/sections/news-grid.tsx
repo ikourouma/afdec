@@ -62,7 +62,7 @@ export function NewsGrid() {
             <span className="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">News & Media</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Global Market Briefings</h2>
           </div>
-          <Link href="#" className="hidden md:flex items-center text-sm font-bold text-zinc-300 hover:text-white group">
+          <Link href="/news" className="hidden md:flex items-center text-sm font-bold text-zinc-300 hover:text-white group">
             <span className="pb-1 border-b border-zinc-700 group-hover:border-blue-500 transition-colors">View All Press Releases</span>
             <ArrowRight className="w-4 h-4 ml-2 text-zinc-500 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
           </Link>
@@ -107,7 +107,7 @@ export function NewsGrid() {
 
         {/* Mobile View All button */}
         <div className="md:hidden mt-10 text-center">
-          <Link href="#" className="inline-flex items-center text-sm font-bold text-white px-6 py-3 border border-zinc-700 bg-zinc-900 w-full justify-center">
+          <Link href="/news" className="inline-flex items-center text-sm font-bold text-white px-6 py-3 border border-zinc-700 bg-zinc-900 w-full justify-center">
             View All Press Releases
           </Link>
         </div>

@@ -5,34 +5,43 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 
 const footerLinks = {
   council: [
-    { name: "Board of Directors", href: "#" },
-    { name: "Strategic Framework", href: "#" },
-    { name: "Diaspora Impact Fund", href: "#" },
-    { name: "Annual Report", href: "#" },
-    { name: "Invest in AfDEC", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Media Relations", href: "#" },
+    { name: "Board of Directors", href: "/about#section-governance" },
+    { name: "Strategic Framework", href: "/about/strategic-framework" },
+    { name: "Diaspora Impact Fund", href: "/diaspora-impact-fund" },
+    { name: "Annual Report", href: "/annual-report" },
+    { name: "Invest in AfDEC", href: "/invest" },
+    { name: "Careers", href: "/careers" },
+    { name: "Media Relations", href: "/media" },
   ],
   infrastructure: [
-    { name: "Why North Carolina", href: "#" },
-    { name: "Why Africa", href: "#" },
-    { name: "Sovereign Tourism", href: "#", accent: true },
-    { name: "Sovereign Incentives", href: "#" },
-    { name: "Enterprise Hubs", href: "#" },
+    { name: "Why North Carolina", href: "/why-nc" },
+    { name: "Why Africa", href: "/why-africa" },
+    { name: "Sovereign Tourism", href: "/tourism" },
+    { name: "Business Hubs", href: "/dual-continent-business-hub" },
+    { name: "Sovereign Incentives", href: "/sovereign-incentives-grants" },
   ],
   integration: [
-    { name: "Expansion Support", href: "#" },
-    { name: "Export Assistance", href: "#" },
-    { name: "Bilateral Trade", href: "#" },
-    { name: "Partner Access", href: "#" },
+    { name: "Transatlantic Corridor", href: "/corridor" },
+    { name: "Enterprise Expansion", href: "/corridor/expansion" },
+    { name: "Export & Trade Assistance", href: "/corridor/export-trade" },
+    { name: "Government Partnerships", href: "/corridor/partnerships" },
+    { name: "Market Access by Region", href: "/corridor/markets" },
+  ],
+  sectors: [
+    { name: "Agriculture & Farming", href: "/sectors/agriculture" },
+    { name: "Sustainable Energy", href: "/sectors/clean-energy" },
+    { name: "Life Sciences & Health", href: "/sectors/life-sciences" },
+    { name: "Manufacturing & Aerospace", href: "/sectors/manufacturing" },
+    { name: "Financial Technology", href: "/sectors/fintech" },
+    { name: "Defense & Security", href: "/sectors/defense" },
   ],
   initiatives: [
-    { name: "Grow with AfDEC", href: "#", highlight: true },
-    { name: "Africa Works Initiative", href: "#" },
-    { name: "Standing Against Poverty", href: "#" },
-    { name: "Climate & Growth", href: "#" },
-    { name: "The State of Africa Business", href: "#" },
-    { name: "Antitrust & Free Markets", href: "#" },
+    { name: "Grow with AfDEC", href: "/initiatives/grow", highlight: true },
+    { name: "Africa Works Initiative", href: "/initiatives/africa-works" },
+    { name: "Standing Against Poverty", href: "/initiatives/poverty" },
+    { name: "Climate & Growth", href: "/initiatives/climate" },
+    { name: "The State of Africa Business", href: "/initiatives/state-of-business" },
+    { name: "Antitrust & Free Markets", href: "/initiatives/antitrust" },
   ],
   legal: [
     { name: "Privacy", href: "/compliance" },
@@ -97,7 +106,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.infrastructure.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className={`text-[13px] transition-colors ${link.accent ? 'text-blue-400 font-medium hover:text-blue-300' : 'text-zinc-500 hover:text-blue-400'}`}>
+                  <Link href={link.href} className="text-[13px] text-zinc-500 hover:text-blue-400 transition-colors">
                     {link.name}
                   </Link>
                 </li>

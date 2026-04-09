@@ -10,7 +10,18 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { FlashBanner } from "@/components/ui/flash-banner";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { SideNav, type NavSection } from "@/components/ui/side-nav";
 import { ArrowRight, TrendingUp, Users, Globe, DollarSign, MapPin } from "lucide-react";
+
+const SECTIONS: NavSection[] = [
+  { id: "hero", label: "The Mandate" },
+  { id: "growth", label: "Growth Engine" },
+  { id: "corridors", label: "Regional Corridors" },
+  { id: "tourism", label: "Sovereign Tourism" },
+  { id: "integration", label: "Continental Integration" },
+];
+import { AfricaMap } from "@/components/sections/africa-map";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -114,10 +125,26 @@ export default function WhyAfricaPage() {
         <FlashBanner />
         <Header />
       </div>
+      <Breadcrumb />
+      <SideNav sections={SECTIONS} accentColor="emerald" />
 
-      {/* ── Hero with African Geometric Pattern ── */}
-      <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.8'%3E%3Cpath d='M0 50h100M50 0v100'/%3E%3Cpath d='M25 0l25 25L25 50 0 25zM75 0l25 25L75 50 50 25zM25 50l25 25L25 100 0 75zM75 50l25 25L75 100 50 75z'/%3E%3Ccircle cx='50' cy='50' r='12'/%3E%3Ccircle cx='50' cy='50' r='6'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='100' cy='0' r='5'/%3E%3Ccircle cx='0' cy='100' r='5'/%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3Ccircle cx='50' cy='0' r='3'/%3E%3Ccircle cx='50' cy='100' r='3'/%3E%3Ccircle cx='0' cy='50' r='3'/%3E%3Ccircle cx='100' cy='50' r='3'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "100px 100px" }} />
+      {/* ── Hero with Dual-Layer Background (Savanna + Sovereign Pattern) ── */}
+      <section id="section-hero" className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
+        {/* Layer 1: Photorealistic Depth (Savanna Sunset) */}
+        <div
+          className="absolute inset-0 opacity-[0.45]"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1516026672322-bc52d61a9d41?q=80&w=2070&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
+        
+        {/* Layer 2: Sovereign Geometric Pattern Overlay — African Institutional Style */}
+        <div className="absolute inset-0 opacity-[0.045] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.8'%3E%3Cpath d='M0 50h100M50 0v100'/%3E%3Cpath d='M25 0l25 25L25 50 0 25zM75 0l25 25L75 50 50 25zM25 50l25 25L25 100 0 75zM75 50l25 25L75 100 50 75z'/%3E%3Ccircle cx='50' cy='50' r='12'/%3E%3Ccircle cx='50' cy='50' r='6'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "100px 100px" }} />
+
+        {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/25" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
 
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-24 md:py-32 relative z-10">
@@ -136,7 +163,7 @@ export default function WhyAfricaPage() {
       </section>
 
       {/* ── Continental Growth Engine ── */}
-      <section ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-growth" ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Continental Overview</span>
@@ -158,7 +185,7 @@ export default function WhyAfricaPage() {
       </section>
 
       {/* ── Regional Corridors — Bento Grid ── */}
-      <section ref={regionsRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-corridors" ref={regionsRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <div className="inline-flex items-center space-x-2 mb-4">
@@ -239,16 +266,35 @@ export default function WhyAfricaPage() {
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <p className="text-zinc-500 text-[13px]">The Africa Investment Intelligence Map with country-level World Bank data is coming soon.</p>
+          <div className="mt-16 pt-16 border-t border-zinc-800/50">
+            <div className="mb-10">
+              <div className="inline-flex items-center space-x-2 mb-4">
+                <div className="w-8 h-px bg-blue-500"></div>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">AfDEC Intelligence Terminal</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-white">Africa Investment Map</h2>
+              <p className="text-zinc-400 mt-4 max-w-2xl text-[15px] leading-relaxed">
+                Click any country to access AfDEC&apos;s sovereign intelligence brief — economic indicators, sector opportunities, and bilateral assessment notes curated by the Board.
+              </p>
+            </div>
+            <AfricaMap />
           </div>
         </div>
       </section>
 
-      {/* ── Tourism with African Pattern Background ── */}
-      <section className="bg-zinc-950 py-24 border-b border-zinc-800/30 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.6'%3E%3Cpath d='M0 60h120M60 0v120'/%3E%3Cpath d='M30 0l30 30L30 60 0 30zM90 0l30 30L90 60 60 30zM30 60l30 30L30 120 0 90zM90 60l30 30L90 120 60 90z'/%3E%3Ccircle cx='60' cy='60' r='15'/%3E%3Ccircle cx='60' cy='60' r='8'/%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='120' cy='0' r='6'/%3E%3Ccircle cx='0' cy='120' r='6'/%3E%3Ccircle cx='120' cy='120' r='6'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "120px 120px" }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-zinc-950/70" />
+      {/* ── Tourism — African Safari / Heritage Cinematic Reveal ── */}
+      <section id="section-tourism" className="bg-zinc-950 py-24 border-b border-zinc-800/30 relative overflow-hidden">
+        {/* Premium African safari — Serengeti wildlife landscape */}
+        <div
+          className="absolute inset-0 opacity-[0.42]"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2070&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
+        {/* Cinematic left-dark / right-reveal gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/25" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center space-x-2 mb-4">
@@ -277,7 +323,7 @@ export default function WhyAfricaPage() {
       </section>
 
       {/* ── AfCFTA & Trade ── */}
-      <section ref={tradeRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-integration" ref={tradeRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <div className="inline-flex items-center space-x-2 mb-4">

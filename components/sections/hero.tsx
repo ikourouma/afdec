@@ -170,6 +170,31 @@ export function Hero() {
               </Link>
             )}
 
+            {/* ── Intelligence Terminal CTA — Branded Glow Button ── */}
+            {slide.id === "slide-1" && (
+              <Link
+                href="/africa-intelligence"
+                className="relative flex items-center justify-center gap-2.5 px-7 py-5 rounded-sm h-full w-full sm:w-auto overflow-hidden group"
+                style={{
+                  background: "linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%)",
+                  boxShadow: "0 0 24px rgba(37,99,235,0.45), 0 0 48px rgba(5,150,105,0.2)",
+                }}
+              >
+                {/* Animated glow pulse */}
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: "linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #a78bfa 100%)" }} />
+                <span className="absolute inset-0 rounded-sm opacity-75 group-hover:opacity-100 transition-opacity"
+                  style={{ boxShadow: "0 0 40px rgba(59,130,246,0.6), 0 0 80px rgba(16,185,129,0.3)", animation: "pulse 2.5s ease-in-out infinite" }} />
+                {/* Live indicator */}
+                <span className="relative flex h-2 w-2 shrink-0 z-10">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                </span>
+                <span className="relative z-10 text-white font-bold text-sm tracking-wide whitespace-nowrap">Africa Intelligence</span>
+                <ArrowRight className="w-4 h-4 text-white/90 group-hover:translate-x-1 transition-transform relative z-10 shrink-0" />
+              </Link>
+            )}
+
             {slide.secondary_cta_type === "event_details" && (
               <div className="flex flex-col justify-center px-6 py-3 h-full border-l-2 border-emerald-500/50 hidden sm:flex bg-zinc-900/40 backdrop-blur-sm rounded-r-sm">
                 <div className="flex items-center text-zinc-300 mb-1">

@@ -53,6 +53,8 @@ export function TopNav() {
           <div className="flex items-center space-x-6 text-[10px] md:text-xs tracking-widest font-bold text-zinc-300">
             <Link href="/faqs" className="hover:text-blue-400 transition-colors hidden sm:block">FAQS</Link>
             <Link href="/contact" className="hover:text-blue-400 transition-colors hidden sm:block">CONTACT</Link>
+            <Link href="/contact" className="text-amber-500 hover:text-amber-400 transition-colors hidden lg:block">ADVERTISE WITH US</Link>
+            <Link href="/invest" className="text-amber-500 hover:text-amber-400 transition-colors hidden lg:block">BECOME A MEMBER</Link>
             <Link href="/news" className="hover:text-blue-400 transition-colors">{t("nav.news")}</Link>
             <Link href="/events" className="hover:text-blue-400 transition-colors">{t("nav.events")}</Link>
             

@@ -9,7 +9,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "AfDEC | African Diaspora Economic Council",
-  description: "2026 Strategic Framework & Public Landing Page",
+  description: "Strategic Framework & Public Landing Page",
 };
 
 export default function RootLayout({

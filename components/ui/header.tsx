@@ -15,22 +15,39 @@ const navigation = [
       {
         title: "Who We Are",
         links: [
+          { name: "AfDEC Strategic Framework (2026-2030)", href: "/about/strategic-framework" },
           { name: "About AfDEC", href: "/about" },
           { name: "Board of Directors & Governance", href: "/about#governance" },
-          { name: "AfDEC Strategic Framework (2026-2030)", href: "#" },
-          { name: "Diaspora Impact Fund", href: "#" },
+          { name: "Diaspora Impact Fund", href: "/invest#impact-fund" },
         ],
       },
       {
         title: "Operations",
         links: [
-          { name: "Careers & Volunteer Corps", href: "/about/careers" },
+          { name: "Careers & Volunteer Corps", href: "/careers" },
           { name: "Invest in AfDEC", href: "/invest" },
           { name: "Media Relations", href: "/media" },
           { name: "Events", href: "/events" },
           { name: "News & Media", href: "/news" },
         ],
       },
+      {
+        title: "Diaspora Impact Fund",
+        links: [
+          { name: "Fund Overview & Mission", href: "/diaspora-impact-fund" },
+          { name: "Development Projects", href: "/diaspora-impact-fund#projects" },
+          { name: "How to Contribute", href: "/diaspora-impact-fund#contribute" },
+          { name: "SME Grant Application", href: "/diaspora-impact-fund#apply" },
+        ],
+      },
+      {
+        title: "Sponsorship",
+        links: [
+          { name: "Sponsorship Opportunities", href: "/invest#sponsorship" },
+          { name: "Media & Advertising Kits", href: "/media#advertising" },
+        ],
+      },
+
     ],
   },
   {
@@ -45,10 +62,11 @@ const navigation = [
         ],
       },
       {
-        title: "Infrastructure",
+        title: "Infrastructure & Tourism",
         links: [
-          { name: "Dual-Continent Megasites", href: "#" },
-          { name: "Sovereign Incentives & Grants", href: "#" },
+          { name: "Dual-Continent Business Hubs", href: "/dual-continent-business-hub" },
+          { name: "Sovereign Incentives & Grants", href: "/sovereign-incentives-grants" },
+          { name: "Sovereign Tourism", href: "/tourism" },
         ],
       },
     ],
@@ -58,17 +76,17 @@ const navigation = [
     icon: Globe,
     sections: [
       {
-        title: "Expansion",
+        title: "Business Expansion",
         links: [
-          { name: "Enterprise Expansion Support", href: "#" },
-          { name: "Export & Trade Assistance", href: "#" },
+          { name: "Enterprise Expansion Support", href: "/corridor/expansion" },
+          { name: "Export & Trade Assistance", href: "/corridor/export-trade" },
         ],
       },
       {
         title: "Diplomatic Relations",
         links: [
-          { name: "Strategic Government Partnerships", href: "#" },
-          { name: "Market Access by Region", href: "#" },
+          { name: "Strategic Government Partnerships", href: "/corridor/partnerships" },
+          { name: "Market Access by Region", href: "/corridor/markets" },
         ],
       },
     ],
@@ -80,17 +98,17 @@ const navigation = [
       {
         title: "Core Sectors",
         links: [
-          { name: "Agriculture & Farming", href: "#" },
-          { name: "Sustainable Energy Transitions", href: "#" },
-          { name: "Life Sciences & Bio-Economics", href: "#" },
+          { name: "Agriculture & Farming", href: "/sectors/agriculture" },
+          { name: "Sustainable Energy", href: "/sectors/clean-energy" },
+          { name: "Life Sciences & Health", href: "/sectors/life-sciences" },
         ],
       },
       {
         title: "Advanced Sectors",
         links: [
-          { name: "Advanced Manufacturing & Aerospace", href: "#" },
-          { name: "Financial Markets & Fintech", href: "#" },
-          { name: "Defense & Autonomous Systems", href: "#" },
+          { name: "Advanced Manufacturing & Aerospace", href: "/sectors/manufacturing" },
+          { name: "Financial Markets & Financial Technology", href: "/sectors/fintech" },
+          { name: "Defense & Security Technology", href: "/sectors/defense" },
         ],
       },
     ],
@@ -100,16 +118,22 @@ const navigation = [
     icon: TrendingUp,
     sections: [
       {
+        title: "Intelligence Terminal",
+        links: [
+          { name: "● Live · Africa Intelligence Map", href: "/africa-intelligence" },
+        ],
+      },
+      {
         title: "Research",
         links: [
-          { name: "Policy Publications & Briefs", href: "#" },
-          { name: "Transatlantic Market Outlook", href: "#" },
+          { name: "Policy Publications & Briefs", href: "/insights/policy" },
+          { name: "Transatlantic Market Outlook", href: "/insights/market-outlook" },
         ],
       },
       {
         title: "Data",
         links: [
-          { name: "Diaspora Data Terminal", href: "#" },
+          { name: "Diaspora Data Terminal", href: "/insights/data-terminal" },
         ],
       },
     ],

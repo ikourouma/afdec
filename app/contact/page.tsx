@@ -43,56 +43,59 @@ export default function ContactGatewayPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-zinc-950 font-sans text-zinc-100 selection:bg-blue-500/30 selection:text-white">
-      
-      {/* LEFT: Sovereign Branding Block */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-[#001428] flex-col justify-between overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#001428] via-transparent to-[#001428]/80"></div>
-        
-        <div className="relative z-10 p-12">
-          <Link href="/" className="inline-flex items-center text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-widest">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Terminate & Return
-          </Link>
-          <div className="mt-16">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="w-12 h-12 bg-blue-600/20 border border-blue-500/30 rounded-sm flex items-center justify-center">
-                <span className="text-blue-500 font-bold text-lg">AfDEC</span>
+    <div className="h-screen bg-zinc-950 font-sans text-zinc-100 selection:bg-blue-500/30 selection:text-white overflow-hidden flex flex-col">
+      <div className="flex-1 flex items-center justify-center py-8 lg:py-12">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 w-full h-full flex items-center justify-center">
+          <div className="flex w-full h-full max-h-[850px] bg-[#000a14] border border-zinc-800/50 rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+            
+            {/* LEFT: Sovereign Branding Block */}
+            <div className="hidden lg:flex lg:w-1/2 relative bg-[#001428] flex-col justify-between overflow-hidden border-r border-zinc-800/30">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001428] via-transparent to-[#001428]/80"></div>
+              
+              <div className="relative z-10 p-10 xl:p-14">
+                <Link href="/" className="inline-flex items-center text-[10px] font-black text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-[0.3em]">
+                  <ArrowLeft className="w-3.5 h-3.5 mr-2" />
+                  Terminate & Return
+                </Link>
+                <div className="mt-12">
+                  <div className="flex items-center space-x-4 mb-8">
+                    <div className="w-10 h-10 bg-blue-600/20 border border-blue-500/30 rounded-sm flex items-center justify-center">
+                      <span className="text-blue-500 font-bold text-base">AfDEC</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-bold tracking-[0.2em] uppercase text-[10px]">African Diaspora Economic Council</p>
+                      <p className="text-zinc-500 font-semibold text-[9px] uppercase tracking-widest">North Carolina</p>
+                    </div>
+                  </div>
+                  <h1 className="text-3xl xl:text-5xl font-black text-white tracking-tight leading-[1.1]">
+                    Sovereign <br /> Communications.
+                  </h1>
+                  <p className="mt-6 text-zinc-400 text-[13px] max-w-sm leading-relaxed font-medium">
+                    The Council (AfDEC) is a sovereign institution representing diaspora enterprises before government agencies and global markets. Submit inquiries directly to the Executive Board via Tier-1 encrypted protocols.
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-white font-bold tracking-widest uppercase text-xs">African Diaspora Economic Council</p>
-                <p className="text-zinc-500 font-semibold text-[10px] uppercase tracking-widest">North Carolina</p>
+
+              <div className="relative z-10 p-10 xl:p-14 border-t border-zinc-900/50">
+                <div className="flex items-center space-x-3 mb-4">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Encrypted pipeline Active</span>
+                </div>
+                <p className="text-zinc-600 text-[11px] leading-relaxed max-w-sm font-medium">
+                  Expect a response mapping within 24-48 global hours depending on security clearance.
+                </p>
               </div>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-              Sovereign <br /> Communications.
-            </h1>
-            <p className="mt-6 text-zinc-400 text-sm max-w-md leading-relaxed font-medium">
-              The African Diaspora Economic Council (AfDEC) is an institutional organization representing the unified interests of diaspora enterprises and transatlantic trade before government agencies and global markets. Submit your institutional inquiries directly to the Executive Board. All corporate transmissions are mapped firmly through Tier-1 encrypted protocols.
-            </p>
-          </div>
-        </div>
 
-        <div className="relative z-10 p-12 border-t border-zinc-900/50">
-          <div className="flex items-center space-x-3 mb-4">
-            <ShieldCheck className="w-5 h-5 text-emerald-500" />
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-500">Encrypted transmission pipeline Active</span>
-          </div>
-          <p className="text-zinc-600 text-xs leading-relaxed max-w-sm font-medium">
-            AfDEC monitors all communications via automated operational telemetry. Expect a response mapping within 24-48 global hours depending on security clearance.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT: Transmission Input Block */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 xl:p-24 relative bg-zinc-950">
-        
-        {/* Mobile-only back button */}
-        <Link href="/" className="lg:hidden absolute top-8 left-8 inline-flex items-center text-xs font-bold text-blue-500 uppercase tracking-widest">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Gateway
-        </Link>
+            {/* RIGHT: Transmission Input Block */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 xl:p-16 relative bg-zinc-950 overflow-y-auto custom-scrollbar">
+              
+              {/* Mobile-only back button */}
+              <Link href="/" className="lg:hidden absolute top-8 left-8 inline-flex items-center text-[10px] font-bold text-blue-500 uppercase tracking-widest">
+                <ArrowLeft className="w-3.5 h-3.5 mr-2" />
+                Gateway
+              </Link>
 
         <div className="w-full max-w-md">
           <div className="text-center mb-10">
@@ -165,10 +168,12 @@ export default function ContactGatewayPage() {
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Transmission Topic</label>
                 <select name="topic" required className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none appearance-none cursor-pointer">
-                   <option value="General Inquiry">General Board Inquiry</option>
-                   <option value="Sovereign Partnership">Sovereign / Public Sector Partnership</option>
-                   <option value="Infrastructure Investment">Mega-Site Infrastructure Investment</option>
-                   <option value="Press / Media">Press / Global Media</option>
+                   <option value="Institutional Partnership">Institutional Partnership</option>
+                   <option value="Media & Press Inquiry">Media & Press Inquiry</option>
+                   <option value="Sponsorship & Advertising">Sponsorship & Advertising</option>
+                   <option value="General Information">General Information</option>
+                   <option value="Human Capital & Careers">Human Capital & Careers</option>
+                   <option value="Member Services">Member Services</option>
                 </select>
               </div>
 
@@ -200,5 +205,8 @@ export default function ContactGatewayPage() {
         </div>
       </div>
     </div>
+  </div>
+</div>
+</div>
   );
 }

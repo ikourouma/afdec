@@ -10,7 +10,19 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { FlashBanner } from "@/components/ui/flash-banner";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { SideNav, type NavSection } from "@/components/ui/side-nav";
 import { ArrowRight, Plane, Ship, Train, Wifi, Building2, DollarSign, Users, Sun, TreePine, Heart, Briefcase, Factory, Globe } from "lucide-react";
+
+const SECTIONS: NavSection[] = [
+  { id: "hero", label: "Strategic Footprint" },
+  { id: "stats", label: "By The Numbers" },
+  { id: "infrastructure", label: "Infrastructure" },
+  { id: "workforce", label: "Workforce" },
+  { id: "industries", label: "Industry Corridors" },
+  { id: "tourism", label: "Sovereign Tourism" },
+  { id: "quality", label: "Quality of Life" },
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,11 +114,26 @@ export default function WhyNCPage() {
         <FlashBanner />
         <Header />
       </div>
+      <Breadcrumb />
+      <SideNav sections={SECTIONS} accentColor="blue" />
 
-      {/* ── Hero with NC Background ── */}
-      <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=2069&auto=format&fit=crop')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/95 to-zinc-950/80" />
+      {/* ── Hero with Dual-Layer Background (Skyline + Infrastructure Grid) ── */}
+      <section id="section-hero" className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
+        {/* Layer 1: Photorealistic Depth (NC Skyline) */}
+        <div
+          className="absolute inset-0 opacity-[0.45]"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1569344445347-1941656f5ef1?q=80&w=2670&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
+        
+        {/* Layer 2: Sovereign Infrastructure Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.035] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Cpath d='M0 30h60M30 0v60'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "60px 60px" }} />
+
+        {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/25" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-24 md:py-32 relative z-10">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-6 rounded-full backdrop-blur-md">
@@ -120,7 +147,7 @@ export default function WhyNCPage() {
       </section>
 
       {/* ── By the Numbers ── */}
-      <section ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-stats" ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">NC at a Glance</span>
@@ -139,7 +166,7 @@ export default function WhyNCPage() {
       </section>
 
       {/* ── Infrastructure ── */}
-      <section ref={infraRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-infrastructure" ref={infraRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <div className="inline-flex items-center space-x-2 mb-4">
@@ -174,7 +201,7 @@ export default function WhyNCPage() {
       </section>
 
       {/* ── Workforce & Education ── */}
-      <section ref={workforceRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+      <section id="section-workforce" ref={workforceRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             <div>
@@ -207,7 +234,7 @@ export default function WhyNCPage() {
       </section>
 
       {/* ── Key Industries ── */}
-      <section ref={industriesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-industries" ref={industriesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Sector Strength</span>
@@ -231,10 +258,19 @@ export default function WhyNCPage() {
         </div>
       </section>
 
-      {/* ── Tourism ── */}
-      <section className="bg-zinc-950 py-24 border-b border-zinc-800/30 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1601370690183-1c7796ecec61?q=80&w=2670&auto=format&fit=crop')", backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-zinc-950/70" />
+      {/* ── Tourism — NC Outer Banks / Blue Ridge Reveal ── */}
+      <section id="section-tourism" className="bg-zinc-950 py-24 border-b border-zinc-800/30 relative overflow-hidden">
+        {/* NC scenic beauty — Blue Ridge Parkway landscape */}
+        <div
+          className="absolute inset-0 opacity-[0.42]"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?q=80&w=2670&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+          }}
+        />
+        {/* Cinematic left-dark / right-reveal gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/25" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="max-w-2xl">
             <div className="inline-flex items-center space-x-2 mb-4">
@@ -259,7 +295,7 @@ export default function WhyNCPage() {
       </section>
 
       {/* ── Quality of Life ── */}
-      <section className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="section-quality" className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Beyond Business</span>
