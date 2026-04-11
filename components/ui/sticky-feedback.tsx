@@ -12,8 +12,26 @@ export function StickyFeedback() {
   const [success, setSuccess] = useState(false);
   const [score, setScore] = useState<number>(0);
   const [feedback, setFeedback] = useState("");
+  const [managed, setManaged] = useState({
+    trigger_label: "Pulse",
+    title: "Market Pulse",
+    description: "Your intelligence directly refines the AfDEC operational model. Please rate your experience and provide direct operational feedback.",
+    question_1: "1. Operational Execution Rating",
+    question_2: "2. How can we serve you better?",
+    placeholder: "Detail institutional requirements or bottlenecks..."
+  });
   
   const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function loadManaged() {
+      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'sticky_pulse_config').single();
+      if (data?.content) {
+        setManaged(data.content as any);
+      }
+    }
+    loadManaged();
+  }, []);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useGSAP(() => {
@@ -90,7 +108,7 @@ export function StickyFeedback() {
         <div className="p-6 border-b border-zinc-900 flex items-center justify-between bg-zinc-900/50">
           <div className="flex items-center space-x-3">
             <Activity className="w-5 h-5 text-blue-400" />
-            <h3 className="font-bold text-white text-lg">Market Pulse</h3>
+            <h3 className="font-bold text-white text-lg">{managed.title}</h3>
           </div>
           <button 
             onClick={() => setIsOpen(false)}
@@ -112,7 +130,7 @@ export function StickyFeedback() {
           ) : (
              <>
                 <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-medium">
-                  Your intelligence directly refines the AfDEC operational model. Please rate your experience and provide direct operational feedback.
+                  {managed.description}
                 </p>
 
                 <form className="space-y-8" onSubmit={handleSubmit}>
@@ -120,7 +138,7 @@ export function StickyFeedback() {
                   {/* Score Question */}
                   <div className="space-y-4">
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500">
-                      1. Operational Execution Rating
+                      {managed.question_1}
                     </label>
                     <div className="flex justify-between items-center bg-zinc-900/50 p-3 rounded-sm border border-zinc-800">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -139,7 +157,7 @@ export function StickyFeedback() {
                   {/* Feedback Text Area */}
                   <div className="space-y-4">
                     <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500">
-                      2. How can we serve you better?
+                      {managed.question_2}
                     </label>
                     <textarea 
                       required
@@ -147,7 +165,7 @@ export function StickyFeedback() {
                       onChange={(e) => setFeedback(e.target.value)}
                       rows={5} 
                       className="w-full bg-zinc-900/50 border border-zinc-800 text-zinc-200 text-sm p-4 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 rounded-sm resize-none transition-colors outline-none"
-                      placeholder="Detail institutional requirements or bottlenecks..."
+                      placeholder={managed.placeholder}
                     />
                   </div>
 

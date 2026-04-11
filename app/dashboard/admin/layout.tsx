@@ -16,7 +16,8 @@ import {
   Settings,
   ChevronLeft,
   MessageSquare,
-  Briefcase
+  Briefcase,
+  ShieldCheck
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
