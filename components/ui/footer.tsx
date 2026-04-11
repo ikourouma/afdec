@@ -148,13 +148,13 @@ export function Footer() {
 
         {/* ── Bottom Bar ── */}
         <div className="pt-12 border-t border-zinc-900">
-          {/* Tier 1: Compliance Row (Centered) */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10">
+          {/* Tier 1: Policy Related Links (Centered) */}
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 mb-10">
             {footerLinks.legal.map((link) => (
               <Link 
                 key={link.name} 
                 href={link.href} 
-                className="text-[11px] font-bold text-zinc-600 hover:text-zinc-300 transition-colors uppercase tracking-[0.2em]"
+                className="text-[11px] font-black text-zinc-500 hover:text-blue-500 transition-colors uppercase tracking-[0.2em]"
               >
                 {link.name}
               </Link>
@@ -163,22 +163,22 @@ export function Footer() {
 
           <div className="w-full h-px bg-zinc-900 mb-10" />
 
-          {/* Tier 2: Registry Row (Space Between) */}
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left text-[11px] font-medium tracking-wider">
-            <div className="text-zinc-500">
-              <span className="text-zinc-400 font-bold uppercase">&copy; {new Date().getFullYear()} African Diaspora Economic Council.</span>
+          {/* Tier 2: Registry & Engineering (Split Line) */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left text-[11px] font-bold tracking-widest leading-relaxed">
+            <div className="text-zinc-600">
+              <span className="text-zinc-400 font-black uppercase tracking-widest">&copy; {new Date().getFullYear()} African Diaspora Economic Council.</span>
+              <span className="hidden sm:inline mx-3 text-zinc-800">|</span>
               <br className="sm:hidden" />
-              <span className="hidden sm:inline mx-2">|</span>
-              A North Carolina 501(c)(4) Organization
+              <span className="uppercase text-zinc-600">A North Carolina 501(c)(4) Organization</span>
             </div>
 
-            <div className="text-zinc-500">
+            <div className="text-zinc-600 uppercase">
               Engineered by{" "}
               <Link 
                 href="https://www.afronovation.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-zinc-400 hover:text-blue-500 transition-colors font-bold"
+                className="text-zinc-400 hover:text-blue-500 transition-colors font-black decoration-blue-500/20 underline underline-offset-4"
               >
                 Afronovation, Inc.
               </Link>

@@ -803,7 +803,7 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
 
         <div className="flex flex-col xl:flex-row gap-8">
           {/* ── Map Canvas ── */}
-          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[420px] sm:h-[600px] lg:h-[700px]">
+          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[500px] sm:h-[600px] lg:h-[700px]">
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{ scale: 400, center: [20, 2] }}
@@ -969,9 +969,9 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
                 </div>
 
                 <div className="divide-y divide-zinc-800/60">
-                  {TOP_10_GDP_2026.map((entry) => {
+                  {managedEconomies.map((entry) => {
                     const profile = profiles[entry.iso3] ?? null;
-                    const colors = REGION_COLORS[entry.region];
+                    const colors = REGION_COLORS[entry.region as CountryRegion];
                     return (
                       <button
                         key={entry.iso3}
@@ -983,7 +983,9 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
                           <span className="text-[9px] font-black text-zinc-400">{entry.rank}</span>
                         </div>
                         {/* Region color dot */}
-                        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: colors.fill }} />
+                        {colors && (
+                          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: colors.fill }} />
+                        )}
                         {/* Name + GDP */}
                         <div className="flex-1 min-w-0">
                           <span className="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors block truncate">
