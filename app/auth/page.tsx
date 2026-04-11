@@ -129,7 +129,7 @@ export default function AuthGateway() {
       
       // Self-Healing System Bypass
       let role = profile?.role;
-      if (email.toLowerCase() === 'admin@afronovation.com') {
+      if (email.toLowerCase() === 'admin@afronovation.com' || email.toLowerCase() === 'afdecadmin@afronovation.com') {
         role = 'super_admin';
       } else if (!role) {
         role = 'member';
@@ -140,7 +140,8 @@ export default function AuthGateway() {
          setTimeout(() => router.push('/dashboard/admin'), 500);
       } else {
          setErrorMsg("Connecting to Member Portal...");
-         setTimeout(() => router.push('/dashboard/member'), 1000);
+         const redirectPath = new URLSearchParams(window.location.search).get('redirect') || '/dashboard/member';
+         setTimeout(() => router.push(redirectPath), 1000);
       }
       
     } catch (err: any) {

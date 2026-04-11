@@ -13,38 +13,38 @@ const navigation = [
     icon: Shield,
     sections: [
       {
-        title: "Who We Are",
+        title: "Institutional Identity",
         links: [
-          { name: "AfDEC Strategic Framework (2026-2030)", href: "/about/strategic-framework" },
-          { name: "About AfDEC", href: "/about" },
-          { name: "Board of Directors & Governance", href: "/about#governance" },
-          { name: "Diaspora Impact Fund", href: "/invest#impact-fund" },
+          { name: "About AfDEC Mandate", href: "/about" },
+          { name: "Sovereign Strategic Framework", href: "/about/strategic-framework" },
+          { name: "Leadership & Governance Hub", href: "/about/leadership" },
+          { name: "The Sovereign Council", href: "/about/leadership#council" },
         ],
       },
       {
         title: "Operations",
         links: [
+          { name: "Staff & Committee Appointments", href: "/about/leadership#executive" },
+          { name: "Board of Advisors", href: "/about/leadership#advisor" },
           { name: "Careers & Volunteer Corps", href: "/careers" },
-          { name: "Invest in AfDEC", href: "/invest" },
-          { name: "Media Relations", href: "/media" },
-          { name: "Events", href: "/events" },
-          { name: "News & Media", href: "/news" },
+          { name: "Media & Press Relations", href: "/media" },
         ],
       },
       {
-        title: "Diaspora Impact Fund",
+        title: "Impact Capital",
         links: [
-          { name: "Fund Overview & Mission", href: "/diaspora-impact-fund" },
-          { name: "Development Projects", href: "/diaspora-impact-fund#projects" },
-          { name: "How to Contribute", href: "/diaspora-impact-fund#contribute" },
-          { name: "SME Grant Application", href: "/diaspora-impact-fund#apply" },
+          { name: "Diaspora Impact Fund", href: "/diaspora-impact-fund" },
+          { name: "SME Development Projects", href: "/diaspora-impact-fund#projects" },
+          { name: "Direct Contribution Portal", href: "/diaspora-impact-fund#contribute" },
+          { name: "Launch SME Application", href: "/diaspora-impact-fund#apply" },
         ],
       },
       {
-        title: "Sponsorship",
+        title: "Strategic Access",
         links: [
-          { name: "Sponsorship Opportunities", href: "/invest#sponsorship" },
-          { name: "Media & Advertising Kits", href: "/media#advertising" },
+          { name: "Initiate Global Expansion", href: "/corridor/expansion" },
+          { name: "Member Portal 'God Mode'", href: "/auth" },
+          { name: "Sponsorship & Tenders", href: "/invest#sponsorship" },
         ],
       },
 
@@ -55,18 +55,19 @@ const navigation = [
     icon: Landmark,
     sections: [
       {
-        title: "The Mandate",
+        title: "Regional Authority",
         links: [
-          { name: "Why North Carolina", href: "/why-nc" },
-          { name: "Why Africa", href: "/why-africa" },
+          { name: "Why North Carolina Hub", href: "/why-nc" },
+          { name: "Why Africa Continent", href: "/why-africa" },
+          { name: "Regional Market Access", href: "/corridor/markets" },
         ],
       },
       {
-        title: "Infrastructure & Tourism",
+        title: "Infrastructure",
         links: [
           { name: "Dual-Continent Business Hubs", href: "/dual-continent-business-hub" },
           { name: "Sovereign Incentives & Grants", href: "/sovereign-incentives-grants" },
-          { name: "Sovereign Tourism", href: "/tourism" },
+          { name: "Sovereign Tourism Strategy", href: "/tourism" },
         ],
       },
     ],
@@ -76,17 +77,11 @@ const navigation = [
     icon: Globe,
     sections: [
       {
-        title: "Business Expansion",
+        title: "Corridor Services",
         links: [
-          { name: "Enterprise Expansion Support", href: "/corridor/expansion" },
-          { name: "Export & Trade Assistance", href: "/corridor/export-trade" },
-        ],
-      },
-      {
-        title: "Diplomatic Relations",
-        links: [
-          { name: "Strategic Government Partnerships", href: "/corridor/partnerships" },
-          { name: "Market Access by Region", href: "/corridor/markets" },
+          { name: "Enterprise Expansion Suite", href: "/corridor/expansion" },
+          { name: "Export & Trade Logistics", href: "/corridor/export-trade" },
+          { name: "Government Relations", href: "/corridor/partnerships" },
         ],
       },
     ],
@@ -96,19 +91,19 @@ const navigation = [
     icon: Building2,
     sections: [
       {
-        title: "Core Sectors",
+        title: "Core Infrastructure",
         links: [
           { name: "Agriculture & Farming", href: "/sectors/agriculture" },
-          { name: "Sustainable Energy", href: "/sectors/clean-energy" },
-          { name: "Life Sciences & Health", href: "/sectors/life-sciences" },
+          { name: "Clean Energy & Water", href: "/sectors/clean-energy" },
+          { name: "Life Sciences & Biotech", href: "/sectors/life-sciences" },
         ],
       },
       {
-        title: "Advanced Sectors",
+        title: "Advanced Technology",
         links: [
-          { name: "Advanced Manufacturing & Aerospace", href: "/sectors/manufacturing" },
-          { name: "Financial Markets & Financial Technology", href: "/sectors/fintech" },
-          { name: "Defense & Security Technology", href: "/sectors/defense" },
+          { name: "Advanced Manufacturing", href: "/sectors/manufacturing" },
+          { name: "Fintech & Capital Markets", href: "/sectors/fintech" },
+          { name: "Defense & Security", href: "/sectors/defense" },
         ],
       },
     ],
@@ -121,19 +116,14 @@ const navigation = [
         title: "Intelligence Terminal",
         links: [
           { name: "● Live · Africa Intelligence Map", href: "/africa-intelligence" },
-        ],
-      },
-      {
-        title: "Research",
-        links: [
-          { name: "Policy Publications & Briefs", href: "/insights/policy" },
-          { name: "Transatlantic Market Outlook", href: "/insights/market-outlook" },
-        ],
-      },
-      {
-        title: "Data",
-        links: [
           { name: "Diaspora Data Terminal", href: "/insights/data-terminal" },
+        ],
+      },
+      {
+        title: "Institutional Research",
+        links: [
+          { name: "Policy Briefs & White Papers", href: "/insights/policy" },
+          { name: "Strategic Market Outlook", href: "/insights/market-outlook" },
         ],
       },
     ],

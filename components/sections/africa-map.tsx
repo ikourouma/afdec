@@ -787,26 +787,27 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
             )}
           </div>
           {/* Region legend */}
-          {Object.entries(REGION_COLORS).map(([key, val]) => (
-            <div key={key} className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: val.fill }} />
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{val.label}</span>
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-3 flex-1">
+            {Object.entries(REGION_COLORS).map(([key, val]) => (
+              <div key={key} className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: val.fill }} />
+                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{val.label}</span>
+              </div>
+            ))}
+            <div className="flex items-center gap-2">
+              <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">AfDEC Priority</span>
             </div>
-          ))}
-          <div className="flex items-center gap-2 ml-auto">
-            <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-            <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">AfDEC Priority</span>
           </div>
         </div>
 
         <div className="flex flex-col xl:flex-row gap-8">
           {/* ── Map Canvas ── */}
-          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative min-h-[540px]">
+          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[420px] sm:h-[600px] lg:h-[700px]">
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{ scale: 400, center: [20, 2] }}
               style={{ width: "100%", height: "100%" }}
-              height={580}
             >
               <ZoomableGroup zoom={1} center={[20, 2]} minZoom={0.9} maxZoom={6}>
                 <Geographies geography={GEO_URL}>

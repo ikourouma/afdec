@@ -56,7 +56,7 @@ export function Newsletter() {
             </button>
           </form>
           <p className="text-xs text-zinc-500 mt-4 leading-relaxed">
-            By subscribing, you agree to our <a href="#" className="underline hover:text-zinc-300">Privacy Protocol</a>. Your intelligence data is secured in compliance with ISO protocols.
+            By subscribing, you agree to our <a href="/compliance/privacy-policy" className="underline hover:text-zinc-300">Privacy Policy</a>. Your intelligence data is secured in compliance with ISO protocols.
           </p>
         </div>
       </div>

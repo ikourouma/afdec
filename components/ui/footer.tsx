@@ -5,11 +5,11 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 
 const footerLinks = {
   council: [
-    { name: "Board of Directors", href: "/about#section-governance" },
-    { name: "Strategic Framework", href: "/about/strategic-framework" },
+    { name: "Sovereign Leadership Hub", href: "/about/leadership" },
+    { name: "Institutional Governance", href: "/about/leadership#governance" },
+    { name: "Sovereign Strategic Framework", href: "/about/strategic-framework" },
     { name: "Diaspora Impact Fund", href: "/diaspora-impact-fund" },
     { name: "Annual Report", href: "/annual-report" },
-    { name: "Invest in AfDEC", href: "/invest" },
     { name: "Careers", href: "/careers" },
     { name: "Media Relations", href: "/media" },
   ],
@@ -21,11 +21,10 @@ const footerLinks = {
     { name: "Sovereign Incentives", href: "/sovereign-incentives-grants" },
   ],
   integration: [
-    { name: "Transatlantic Corridor", href: "/corridor" },
-    { name: "Enterprise Expansion", href: "/corridor/expansion" },
-    { name: "Export & Trade Assistance", href: "/corridor/export-trade" },
-    { name: "Government Partnerships", href: "/corridor/partnerships" },
-    { name: "Market Access by Region", href: "/corridor/markets" },
+    { name: "Transatlantic Corridor Hub", href: "/corridor" },
+    { name: "Enterprise Expansion Suite", href: "/corridor/expansion" },
+    { name: "Export & Trade Logistics", href: "/corridor/export-trade" },
+    { name: "Regional Market Access", href: "/corridor/markets" },
   ],
   sectors: [
     { name: "Agriculture & Farming", href: "/sectors/agriculture" },
@@ -37,17 +36,18 @@ const footerLinks = {
   ],
   initiatives: [
     { name: "Grow with AfDEC", href: "/initiatives/grow", highlight: true },
+    { name: "Impact Projects", href: "/diaspora-impact-fund#projects" },
     { name: "Africa Works Initiative", href: "/initiatives/africa-works" },
     { name: "Standing Against Poverty", href: "/initiatives/poverty" },
     { name: "Climate & Growth", href: "/initiatives/climate" },
-    { name: "The State of Africa Business", href: "/initiatives/state-of-business" },
-    { name: "Antitrust & Free Markets", href: "/initiatives/antitrust" },
   ],
   legal: [
-    { name: "Privacy", href: "/compliance" },
-    { name: "Terms", href: "/compliance" },
-    { name: "Accessibility", href: "/compliance" },
-    { name: "Cookies", href: "/compliance" },
+    { name: "Privacy Policy", href: "/compliance/privacy-policy" },
+    { name: "Terms of Service", href: "/compliance/terms-of-service" },
+    { name: "Cookie Policy", href: "/compliance/cookie-policy" },
+    { name: "Accessibility Statement", href: "/compliance/accessibility" },
+    { name: "Master Sitemap", href: "/sitemap" },
+    { name: "Governance & Compliance", href: "/compliance" },
   ],
 };
 
@@ -147,24 +147,41 @@ export function Footer() {
         </div>
 
         {/* ── Bottom Bar ── */}
-        <div className="pt-8 border-t border-zinc-800/80">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-zinc-400 font-medium">
-              &copy; {new Date().getFullYear()} African Diaspora Economic Council. A North Carolina 501(c)(4) Organization.
-            </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-center">
-              {footerLinks.legal.map((link, i) => (
-                <span key={link.name} className="flex items-center">
-                  <Link href={link.href} className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors font-medium">
-                    {link.name}
-                  </Link>
-                  {i < footerLinks.legal.length - 1 && <span className="ml-4 text-zinc-700 hidden sm:inline">&middot;</span>}
-                </span>
-              ))}
-              <span className="hidden md:inline text-zinc-700 mx-1">|</span>
-              <span className="text-xs text-zinc-500">HQ: Raleigh, NC</span>
-              <span className="hidden sm:inline text-zinc-700">&middot;</span>
-              <span className="text-xs text-zinc-500">Accra &middot; Nairobi &middot; London</span>
+        <div className="pt-12 border-t border-zinc-900">
+          {/* Tier 1: Compliance Row (Centered) */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10">
+            {footerLinks.legal.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="text-[11px] font-bold text-zinc-600 hover:text-zinc-300 transition-colors uppercase tracking-[0.2em]"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="w-full h-px bg-zinc-900 mb-10" />
+
+          {/* Tier 2: Registry Row (Space Between) */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left text-[11px] font-medium tracking-wider">
+            <div className="text-zinc-500">
+              <span className="text-zinc-400 font-bold uppercase">&copy; {new Date().getFullYear()} African Diaspora Economic Council.</span>
+              <br className="sm:hidden" />
+              <span className="hidden sm:inline mx-2">|</span>
+              A North Carolina 501(c)(4) Organization
+            </div>
+
+            <div className="text-zinc-500">
+              Engineered by{" "}
+              <Link 
+                href="https://www.afronovation.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-blue-500 transition-colors font-bold"
+              >
+                Afronovation, Inc.
+              </Link>
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SideNav, type NavSection } from "@/components/ui/side-nav";
 import { supabase } from "@/lib/supabase";
+import { ImpactCalculator } from "@/components/sections/impact-calculator";
 import {
   Heart, Globe, Users, ArrowRight, CheckCircle, Building2,
   Landmark, DollarSign, Leaf, Zap, Shield, BookOpen, Star,
@@ -23,6 +24,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PAGE_SECTIONS: NavSection[] = [
   { id: "mission", label: "Our Mission" },
+  { id: "impact", label: "Impact Simulator" },
+  { id: "methodology", label: "Methodology" },
   { id: "projects", label: "Projects" },
   { id: "contribute", label: "Contribute" },
   { id: "apply", label: "SME Apply" },
@@ -124,7 +127,7 @@ const CONTRIBUTION_PATHS = [
     description: "Institutional donors — foundations, corporations, government agencies — partner with AfDEC to fund one or more development projects. Your name appears on the project page alongside your contribution.",
     benefits: ["Named project sponsorship", "Quarterly impact reporting", "AfDEC Partnership recognition", "Tax documentation provided"],
     cta: "Become a Grant Partner",
-    href: "/contact?inquiry=donor_institutional",
+    href: "/diaspora-impact-fund/interest?inquiry=donor_institutional",
   },
   {
     icon: Heart,
@@ -135,7 +138,7 @@ const CONTRIBUTION_PATHS = [
     description: "Individuals from the North Carolina and African diaspora community can contribute any amount to the fund. Every dollar is deployed to active development projects.",
     benefits: ["Contribution tax receipt", "AfDEC Donor Newsletter", "Annual Impact Report", "Project updates by email"],
     cta: "Donate to the Fund",
-    href: "/contact?inquiry=donor_individual",
+    href: "/diaspora-impact-fund/interest?inquiry=donor_individual",
   },
   {
     icon: Users,
@@ -146,7 +149,7 @@ const CONTRIBUTION_PATHS = [
     description: "Organizations contributing professional services, technology, logistics, or expertise rather than cash. Program partners co-execute projects alongside AfDEC's on-the-ground team.",
     benefits: ["Program co-execution credit", "Access to project teams", "AfDEC Network access", "Joint press releases"],
     cta: "Explore Partnership",
-    href: "/contact?inquiry=program_partner",
+    href: "/diaspora-impact-fund/interest?inquiry=program_partner",
   },
 ];
 
@@ -184,7 +187,7 @@ export default function DiasporaImpactFundPage() {
   const totalTarget = SEED_PROJECTS.reduce((sum, p) => sum + p.target_amount_usd, 0);
 
   return (
-    <main className="min-h-screen bg-zinc-950 font-sans selection:bg-emerald-500/30">
+    <main className="min-h-screen bg-zinc-950 font-sans selection:bg-emerald-500/30 scroll-smooth">
       <div className="sticky top-0 z-[100] w-full flex flex-col" data-nav-id="main-nav">
         <TopNav />
         <FlashBanner />
@@ -215,7 +218,7 @@ export default function DiasporaImpactFundPage() {
             Aligned with African Development Bank, World Bank, and IMF development pillars. 100% of net donations deployed to named development projects. Zero ambiguity. Maximum impact.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="#contribute" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-lg shadow-emerald-900/30">
+            <Link href="/diaspora-impact-fund/interest" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-lg shadow-emerald-900/30">
               <Heart className="w-4 h-4" />
               Make a Contribution
             </Link>
@@ -301,8 +304,98 @@ export default function DiasporaImpactFundPage() {
         </div>
       </section>
 
+      {/* ── Sovereign Impact Simulator (Fortress Feature) ── */}
+      <section id="impact" className="bg-zinc-950 py-24 border-b border-zinc-800/30">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+           <div className="mb-14">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-px bg-emerald-500" />
+                <span className="text-[11px] font-bold tracking-[0.2em] text-emerald-400 uppercase">Interactive Telemetry</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+                Sovereign Impact<br />Simulator.
+              </h2>
+           </div>
+           
+           <ImpactCalculator />
+        </div>
+      </section>
+
+      {/* ── Fund Methodology & AfCFTA Integration ── */}
+      <section id="methodology" className="bg-[#050505] py-24 border-b border-zinc-800/30 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-px bg-blue-500" />
+                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Institutional logic</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-8">
+                The Methodology of<br />Sovereign Deployment
+              </h2>
+              <p className="text-zinc-400 text-[15px] leading-relaxed mb-8">
+                Our deployment strategy is not merely philanthropic — it is a calculated economic intervention. By aligning every grant with the **AfCFTA (African Continental Free Trade Area)**, we ensure that micro-investments contribute to macro-economic supply chain resilience.
+              </p>
+              
+              <div className="p-6 bg-gradient-to-br from-blue-950/20 to-emerald-950/10 border border-blue-900/30 rounded-xl mb-10">
+                <div className="flex items-center gap-3 mb-3">
+                  <Globe className="w-5 h-5 text-blue-400" />
+                  <h3 className="text-blue-100 font-bold text-sm">AfCFTA Strategic Nexus</h3>
+                </div>
+                <p className="text-zinc-500 text-[13px] leading-relaxed">
+                  We categorize projects based on their ability to facilitate cross-border trade. A grant to a Ghanain farmer is weighted by its potential to export to neighboring Ivory Coast or Senegal under the AfCFTA tariff-reduction protocols.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { title: "Tariff Optimization", desc: "Prioritizing SMEs in sectors with 90% tariff removal status." },
+                  { title: "Supply Chain Linkage", desc: "Focusing on logistics that bridge NC capital to African raw materials." },
+                  { title: "Digital Protocol Hubs", desc: "Funding the digitial infrastructure required for AfCFTA compliance." }
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4">
+                    <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
+                    <div>
+                      <div className="text-white text-xs font-bold uppercase tracking-widest">{item.title}</div>
+                      <div className="text-zinc-500 text-xs mt-1">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-8 md:p-12">
+                <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-10">7-Step Deployment Lifecycle</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  {[
+                    { step: "01", label: "Vetting", sub: "KYC/AML checks on all applicants via NC legal nodes." },
+                    { step: "02", label: "Alignment", sub: "Matching project goals to SDG 2030 and AfCFTA pillars." },
+                    { step: "03", label: "Simulated ROI", sub: "Running the data through our Sovereign Impact Simulator." },
+                    { step: "04", label: "Funding", sub: "Capital escrowed in the Diaspora Impact Fund vault." },
+                    { step: "05", label: "Execution", sub: "Milestone-based disbursement to on-the-ground SMEs." },
+                    { step: "06", label: "Monitoring", sub: "Telemetry check-ins every 30 days via AfDEC field reps." },
+                    { step: "07", label: "Reporting", sub: "Final Impact Audit published to institutional donors." },
+                  ].map((item) => (
+                    <div key={item.step} className="relative pl-8 border-l border-zinc-800">
+                      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-950 border border-zinc-700 flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                      </div>
+                      <div className="text-[10px] font-black text-zinc-700 mb-1">{item.step}</div>
+                      <div className="text-zinc-200 text-xs font-bold uppercase tracking-widest">{item.label}</div>
+                      <div className="text-zinc-500 text-[11px] mt-1 leading-relaxed">{item.sub}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Development Projects ── */}
-      <section id="section-projects" ref={projectsRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
+      <section id="projects" ref={projectsRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-4">
@@ -497,9 +590,9 @@ export default function DiasporaImpactFundPage() {
                   </div>
                 ))}
               </div>
-              <Link href="/contact?inquiry=sme_grant_interest"
+              <Link href="/diaspora-impact-fund/apply"
                 className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
-                Register My Interest
+                Launch SME Application
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -579,20 +672,20 @@ export default function DiasporaImpactFundPage() {
                 The AfDEC Diaspora Impact Fund needs institutional partners, individual donors, and African SMEs ready to grow with the fund.
               </p>
               <div className="space-y-3">
-                <Link href="/contact?inquiry=donor_institutional" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
+                <Link href="/diaspora-impact-fund/interest?inquiry=donor_institutional" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Institutional Donation</span>
                   <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
                 </Link>
-                <Link href="/contact?inquiry=donor_individual" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
+                <Link href="/diaspora-impact-fund/interest?inquiry=donor_individual" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Individual Donation</span>
                   <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
                 </Link>
-                <Link href="/contact?inquiry=program_partner" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
+                <Link href="/diaspora-impact-fund/interest?inquiry=program_partner" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Program Partnership</span>
                   <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
                 </Link>
-                <Link href="/contact?inquiry=sme_grant_interest" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-amber-900/40 px-5 py-3.5 rounded-sm transition-all group">
-                  <span className="text-zinc-300 text-sm font-bold group-hover:text-white">SME Grant Interest</span>
+                <Link href="/diaspora-impact-fund/apply" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-amber-900/40 px-5 py-3.5 rounded-sm transition-all group">
+                  <span className="text-zinc-300 text-sm font-bold group-hover:text-white">SME Grant Application</span>
                   <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-amber-400" />
                 </Link>
               </div>

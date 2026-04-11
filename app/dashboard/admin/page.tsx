@@ -58,16 +58,23 @@ export default function AdminOverviewPage() {
 
   React.useEffect(() => {
     async function syncTelemetry() {
-      const [{ count: leadCount }, { count: profileCount }] = await Promise.all([
+      const [
+        { count: leadCount }, 
+        { count: profileCount },
+        { count: appCount },
+        { count: interestCount }
+      ] = await Promise.all([
         supabase.from('lead_intakes').select('*', { count: 'exact', head: true }),
-        supabase.from('profiles').select('*', { count: 'exact', head: true })
+        supabase.from('profiles').select('*', { count: 'exact', head: true }),
+        supabase.from('fund_applications').select('*', { count: 'exact', head: true }),
+        supabase.from('fund_interests').select('*', { count: 'exact', head: true })
       ]);
       
       setCounts({
-        businesses: leadCount || 0,
+        businesses: appCount || 0,
         diaspora: profileCount || 0,
-        agencies: 54, // Hardcoded Sovereign limit
-        markets: 12
+        agencies: leadCount || 0,
+        markets: interestCount || 0
       });
     }
     syncTelemetry();

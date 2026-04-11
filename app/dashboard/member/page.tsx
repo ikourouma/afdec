@@ -11,6 +11,7 @@ export default function MemberDashboardPage() {
   const [profile, setProfile] = useState<{ first_name?: string; last_name?: string; organization?: string; email?: string } | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [applications, setApplications] = useState<any[]>([]);
 
   useEffect(() => {
     async function loadSession() {
@@ -31,6 +32,15 @@ export default function MemberDashboardPage() {
         ...profileData,
         email: session.user.email
       });
+
+      // Fetch applications
+      const { data: apps } = await supabase
+        .from('fund_applications')
+        .select('id, reference_number, status, project_title, submitted_at')
+        .eq('applicant_user_id', session.user.id)
+        .order('submitted_at', { ascending: false });
+      
+      setApplications(apps || []);
       setIsLoading(false);
     }
     loadSession();
@@ -103,7 +113,7 @@ export default function MemberDashboardPage() {
       )}
 
       {/* Main Workspace */}
-      <main className="max-w-[1200px] mx-auto p-6 md:p-12 lg:p-20">
+      <main className="max-w-[1200px] mx-auto p-6 md:p-12 lg:px-12 lg:py-20">
         <div className="mb-12 md:mb-16">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 text-white">
             Welcome back, {profile?.first_name || 'Partner'}.
@@ -114,7 +124,7 @@ export default function MemberDashboardPage() {
         </div>
 
         {/* Responsive Grid of Link Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           
           <Link href="/dashboard/member/expansion" className="bg-zinc-900 border border-zinc-800 p-6 rounded-md group hover:border-blue-500 transition-all flex flex-col justify-between">
             <div>
@@ -168,6 +178,55 @@ export default function MemberDashboardPage() {
             </div>
           </Link>
 
+        </div>
+
+        {/* Impact Fund Applications Section */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-black text-white tracking-tight">Impact Fund Applications</h2>
+            <Link href="/diaspora-impact-fund/apply" className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-widest">
+              New Application
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            {applications.length > 0 ? (
+              applications.map((app) => (
+                <div key={app.id} className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-zinc-700 transition-all">
+                  <div className="space-y-1">
+                    <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Reference No.</div>
+                    <div className="text-lg font-black text-white">{app.reference_number}</div>
+                    <p className="text-sm text-zinc-500">{app.project_title}</p>
+                  </div>
+                  <div className="flex items-center gap-8">
+                    <div className="text-right">
+                      <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Status</div>
+                      <span className={`text-[10px] font-bold px-3 py-1 rounded-full border uppercase tracking-widest ${
+                        app.status === 'submitted' ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' :
+                        app.status === 'under_review' ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' :
+                        app.status === 'shortlisted' ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' :
+                        app.status === 'approved' || app.status === 'funded' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' :
+                        'bg-zinc-800 border-zinc-700 text-zinc-500'
+                      }`}>
+                        {app.status.replace(/_/g, ' ')}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Submitted</div>
+                      <div className="text-xs font-bold text-zinc-300">{new Date(app.submitted_at).toLocaleDateString()}</div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-16 bg-zinc-900/10 border border-dashed border-zinc-800 rounded-lg">
+                <p className="text-sm text-zinc-500 mb-4">No active grant applications found.</p>
+                <Link href="/diaspora-impact-fund/apply" className="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest hover:text-emerald-300 transition-colors">
+                  Submit SME Grant Proposal <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Security Notice */}

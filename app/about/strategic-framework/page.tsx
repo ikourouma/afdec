@@ -31,7 +31,7 @@ const SECTIONS: NavSection[] = [
 const PILLARS = [
   {
     icon: Globe,
-    title: "Market Integration",
+    title: "Regional Market Access",
     description: "Aligning North Carolina enterprises with the African Continental Free Trade Area (AfCFTA) to enable seamless transatlantic commerce.",
     metrics: ["Duty-Free Access", "Trade Corridor Optimization"]
   },
@@ -43,7 +43,7 @@ const PILLARS = [
   },
   {
     icon: Building2,
-    title: "Industrialization & SMEs",
+    title: "Export & Trade Logistics",
     description: "Building sustainable diaspora supply chains by integrating African SMEs into NC industrial manufacturing ecosystems.",
     metrics: ["SME Grant Deployment", "Supply Chain Diversification"]
   },

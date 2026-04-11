@@ -26,3 +26,15 @@ body {
   background-color: var(--color-blue-500);
   color: white;
 }
+
+@utility text-glow-blue {
+  text-shadow: 0 0 20px rgba(30, 64, 175, 0.4);
+}
+
+@utility text-glow-amber {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+@utility text-glow-emerald {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}

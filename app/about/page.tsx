@@ -13,7 +13,8 @@ import { PageHero } from "@/components/ui/page-hero";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SideNav, type NavSection } from "@/components/ui/side-nav";
-import { Users, Target, Award, Handshake, ArrowRight, Building2, Globe, Shield, FileText, Zap } from "lucide-react";
+import { Users, Target, Award, Handshake, ArrowRight, Building2, Globe, Shield, FileText, Zap, Landmark } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SECTIONS: NavSection[] = [
   { id: "hero", label: "The Council" },
@@ -27,42 +28,6 @@ const SECTIONS: NavSection[] = [
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ─── Board of Directors (Placeholder) ───
-const boardMembers = [
-  { name: "Ibrahima Kourouma", title: "President & Chairman", org: "AfDEC", image: null },
-  { name: "Amara D.", title: "Vice Chair, Strategy", org: "Continental Finance Group", image: null },
-  { name: "Fatima N.", title: "Secretary, Governance", org: "Pan-African Trade Council", image: null },
-  { name: "Kwame A.", title: "Treasurer", org: "Atlas Capital Partners", image: null },
-  { name: "Sarah M.", title: "Director, Programs", org: "Diaspora Bridge Foundation", image: null },
-  { name: "David O.", title: "Director, Partnerships", org: "NC Innovation Hub", image: null },
-];
-
-// ─── Committee Members (Placeholder - 9 members, 3x3) ───
-const committeeMembers = [
-  { name: "Aminata S.", title: "Finance & Audit", role: "Committee Chair", region: "West Africa" },
-  { name: "John T.", title: "Finance & Audit", role: "Committee Member", region: "North America" },
-  { name: "Blessing O.", title: "Finance & Audit", role: "Committee Member", region: "Southern Africa" },
-  { name: "Marie-Claire D.", title: "Programs & Impact", role: "Committee Chair", region: "Central Africa" },
-  { name: "Rashid K.", title: "Programs & Impact", role: "Committee Member", region: "East Africa" },
-  { name: "Patricia H.", title: "Programs & Impact", role: "Committee Member", region: "North America" },
-  { name: "Samuel E.", title: "Governance & Nominating", role: "Committee Chair", region: "West Africa" },
-  { name: "Linda W.", title: "Fundraising & Development", role: "Committee Chair", region: "North America" },
-  { name: "Ahmed B.", title: "Communications", role: "Committee Chair", region: "North Africa" },
-];
-
-// ─── Board of Advisors (Placeholder - 9 advisors, 3x3) ───
-const advisors = [
-  { name: "Dr. Olusegun B.", title: "Senior Economic Advisor", expertise: "Macroeconomic Policy & Trade", region: "West Africa" },
-  { name: "Michelle T.", title: "Strategic Advisor", expertise: "Corporate Governance & ESG", region: "North America" },
-  { name: "Jean-Pierre L.", title: "Francophone Markets Advisor", expertise: "Bilateral Investment Treaties", region: "Central Africa" },
-  { name: "Prof. Aisha K.", title: "Research Advisor", expertise: "Diaspora Economics & Migration", region: "East Africa" },
-  { name: "Dr. Robert M.", title: "Infrastructure Advisor", expertise: "Public-Private Partnerships", region: "Southern Africa" },
-  { name: "Nadia E.", title: "Legal & Compliance Advisor", expertise: "International Trade Law", region: "North Africa" },
-  { name: "Charles N.", title: "Technology Advisor", expertise: "Digital Transformation & Fintech", region: "East Africa" },
-  { name: "Susan P.", title: "Tourism & Hospitality Advisor", expertise: "Sovereign Tourism Strategy", region: "North America" },
-  { name: "Dr. Yusuf A.", title: "Climate & Energy Advisor", expertise: "Green Infrastructure & ESG", region: "West Africa" },
-];
-
 // ─── Values ───
 const values = [
   { icon: Target, title: "Sovereign Purpose", description: "Every initiative exists to create tangible economic pathways between Africa and North Carolina." },
@@ -73,31 +38,12 @@ const values = [
 
 export default function AboutPage() {
   const valuesRef = useRef<HTMLDivElement>(null);
-  const boardRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.fromTo(".value-card", 
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out",
         scrollTrigger: { trigger: valuesRef.current, start: "top 80%" }
-      }
-    );
-    gsap.fromTo(".board-card",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out",
-        scrollTrigger: { trigger: boardRef.current, start: "top 80%" }
-      }
-    );
-    gsap.fromTo(".committee-card",
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: "power3.out",
-        scrollTrigger: { trigger: ".committee-section", start: "top 80%" }
-      }
-    );
-    gsap.fromTo(".advisor-card",
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: "power3.out",
-        scrollTrigger: { trigger: ".advisor-section", start: "top 80%" }
       }
     );
   }, { scope: undefined });
@@ -183,17 +129,21 @@ export default function AboutPage() {
               </div>
               
               {/* Visual Element: Pillar Highlight */}
-              <div className="grid grid-cols-2 gap-4 w-full lg:w-auto">
+              <div className="grid grid-cols-2 gap-6 w-full lg:w-auto">
                 {[
-                  { label: "Market Access", icon: Globe, color: "blue" },
-                  { label: "SME Growth", icon: Building2, color: "emerald" },
-                  { label: "Infrastructure", icon: Zap, color: "amber" },
-                  { label: "Human Capital", icon: Users, color: "purple" },
+                  { label: "Regional Market Access", icon: Globe, color: "blue", glow: "hover:border-blue-500/50 hover:bg-blue-500/5", iconColor: "text-blue-500" },
+                  { label: "Export & Trade Logistics", icon: Building2, color: "emerald", glow: "hover:border-emerald-500/50 hover:bg-emerald-500/5", iconColor: "text-emerald-500" },
+                  { label: "Infrastructure", icon: Zap, color: "amber", glow: "hover:border-amber-500/50 hover:bg-amber-500/5", iconColor: "text-amber-500" },
+                  { label: "Human Capital", icon: Users, color: "purple", glow: "hover:border-purple-500/50 hover:bg-purple-500/5", iconColor: "text-purple-500" },
                 ].map((item) => (
-                  <div key={item.label} className="bg-zinc-900/40 border border-zinc-800/40 p-5 rounded-xl flex flex-col items-center text-center">
-                    <item.icon className="w-5 h-5 text-zinc-600 mb-2" />
-                    <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">{item.label}</span>
-                  </div>
+                  <motion.div 
+                    key={item.label} 
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className={`bg-zinc-900/60 border border-zinc-800/60 p-8 rounded-xl flex flex-col items-center text-center transition-all duration-300 cursor-default min-w-[180px] ${item.glow}`}
+                  >
+                    <item.icon className={`w-8 h-8 mb-4 transition-colors ${item.iconColor}`} />
+                    <span className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{item.label}</span>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -257,101 +207,56 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Board of Directors ── */}
-      <section id="section-governance" ref={boardRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Governance</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Board of Directors</h2>
-            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Representing the unified interests of the African diaspora business community across North Carolina and the continent.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {boardMembers.map((member) => (
-              <div key={member.name} className="board-card group bg-zinc-900/30 border border-zinc-800/50 p-6 rounded-sm hover:border-zinc-700 transition-all duration-300">
-                <div className="flex items-start space-x-4">
-                  <div className="w-16 h-16 rounded-sm bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white font-black text-xl shrink-0">
-                    {member.name.split(" ").map(n => n[0]).join("")}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-white font-bold text-[15px]">{member.name}</h3>
-                    <p className="text-blue-400 text-[13px] font-medium mt-0.5">{member.title}</p>
-                    <p className="text-zinc-500 text-[12px] mt-1">{member.org}</p>
-                  </div>
-                </div>
-                <div className="mt-4 flex items-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-zinc-600 hover:text-blue-400 cursor-pointer transition-colors"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  <span className="text-[11px] text-zinc-600">View Profile</span>
-                </div>
+      {/* ── Institutional Leadership & Oversight (Cinematic Portal) ── */}
+      <section id="section-governance" className="bg-[#080808] py-32 border-b border-zinc-800/30 overflow-hidden relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0,transparent_70%)]" />
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+            <div className="max-w-2xl text-center lg:text-left">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-900 border border-zinc-800 mb-8 rounded-full">
+                <Users className="w-3 h-3 text-blue-500" />
+                <span className="text-[10px] font-black tracking-[0.2em] text-zinc-500 uppercase">Institutional Governance</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Standing Committees ── */}
-      <section id="section-committees" className="committee-section bg-[#080808] py-24 border-b border-zinc-800/30">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Operational Structure</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Standing Committees</h2>
-            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Our committees drive the day-to-day operations and strategic execution of the Council&apos;s mandate.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {committeeMembers.map((member) => (
-              <div key={member.name} className="committee-card bg-zinc-900/20 border border-zinc-800/40 p-6 rounded-sm flex items-start space-x-4">
-                <div className="w-14 h-14 rounded-sm bg-gradient-to-br from-amber-600/20 to-amber-800/20 border border-amber-700/30 flex items-center justify-center text-amber-400 font-bold text-lg shrink-0">
-                  {member.name.split(" ").map(n => n[0]).join("").slice(0,2)}
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-[15px]">{member.name}</h3>
-                  <p className="text-amber-400 text-[13px] font-medium mt-0.5">{member.role}</p>
-                  <div className="flex items-center space-x-3 mt-2">
-                    <span className="text-[11px] text-zinc-500 flex items-center space-x-1">
-                      <Building2 className="w-3 h-3" />
-                      <span>{member.title}</span>
-                    </span>
-                    <span className="text-[11px] text-zinc-600 flex items-center space-x-1">
-                      <Globe className="w-3 h-3" />
-                      <span>{member.region}</span>
-                    </span>
-                  </div>
-                </div>
+              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[0.95] mb-8">
+                The Sovereign<br />Mandate.
+              </h2>
+              <p className="text-xl text-zinc-400 font-medium leading-relaxed mb-10">
+                Our leadership hierarchy is structured across three distinct pillars: The Sovereign Council (Fiduciary), the Executive Mandate (Operations), and the Board of Advisors (Strategy). 
+              </p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                <Link href="/about/leadership" className="inline-flex items-center gap-2 group bg-blue-600 hover:bg-blue-500 text-white text-xs font-black tracking-widest uppercase px-10 py-5 rounded-sm transition-all shadow-xl">
+                  Explore the Identity Hub
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href="/about/leadership#governance" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
+                  <Landmark className="w-4 h-4" />
+                  Institutional Framework
+                </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Board of Advisors ── */}
-      <section id="section-advisors" className="advisor-section bg-zinc-950 py-24 border-b border-zinc-800/30">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Strategic Counsel</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Board of Advisors</h2>
-            <p className="text-zinc-400 mt-4 max-w-xl text-[15px]">Distinguished leaders providing strategic counsel on policy, governance, and transatlantic market development.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advisors.map((advisor) => (
-              <div key={advisor.name} className="advisor-card bg-zinc-900/20 border border-zinc-800/40 p-6 rounded-sm flex items-start space-x-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-600/20 to-emerald-800/20 border border-emerald-700/30 flex items-center justify-center text-emerald-400 font-bold text-lg shrink-0">
-                  {advisor.name.split(" ").map(n => n[0]).join("").slice(0,2)}
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-[15px]">{advisor.name}</h3>
-                  <p className="text-emerald-400 text-[13px] font-medium mt-0.5">{advisor.title}</p>
-                  <div className="flex items-center space-x-3 mt-2">
-                    <span className="text-[11px] text-zinc-500 flex items-center space-x-1">
-                      <Building2 className="w-3 h-3" />
-                      <span>{advisor.expertise}</span>
-                    </span>
-                    <span className="text-[11px] text-zinc-600 flex items-center space-x-1">
-                      <Globe className="w-3 h-3" />
-                      <span>{advisor.region}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+            </div>
+            
+            {/* Visual Abstract: The Trinity Tiers */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full lg:w-auto">
+               {[
+                 { label: "Sovereign Council", color: "text-blue-500", glow: "hover:border-blue-500/40", detail: "Fiduciary Oversight", href: "/about/leadership#council" },
+                 { label: "Executive Mandate", color: "text-amber-500", glow: "hover:border-amber-500/40", detail: "Operational Drive", href: "/about/leadership#executive" },
+                 { label: "Board of Advisors", color: "text-emerald-500", glow: "hover:border-emerald-500/40", detail: "Strategic Counsel", href: "/about/leadership#advisor" }
+               ].map((tier) => (
+                 <Link 
+                   key={tier.label} 
+                   href={tier.href}
+                   className={`p-10 border border-zinc-800 bg-zinc-900/40 rounded-sm text-center group transition-all duration-500 flex flex-col justify-center min-h-[240px] ${tier.glow}`}
+                 >
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <div className={`text-[10px] font-black ${tier.color} uppercase tracking-[0.4em] mb-4`}>{tier.label}</div>
+                      <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest group-hover:text-zinc-300 transition-colors">{tier.detail}</div>
+                      <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ArrowRight className={`w-5 h-5 mx-auto ${tier.color}`} />
+                      </div>
+                    </motion.div>
+                 </Link>
+               ))}
+            </div>
           </div>
         </div>
       </section>

@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     async function loadAdminSession() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        if (session.user.email?.toLowerCase() === 'admin@afronovation.com') {
+        if (session.user.email?.toLowerCase() === 'afdecadmin@afronovation.com') {
           setAdminName("Ibrahima Kourouma");
         } else {
           const { data: profile } = await supabase.from('profiles').select('first_name, last_name').eq('id', session.user.id).maybeSingle();
@@ -51,6 +51,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Enterprise Entities", href: "/dashboard/admin/businesses", icon: Building2 },
     { name: "Communications Control", href: "/dashboard/admin/concierge", icon: MessageSquare },
     { name: "Deal Rooms", href: "/dashboard/admin/deal-room", icon: Briefcase },
+    { name: "Sovereign Council", href: "/dashboard/admin/staff", icon: ShieldCheck },
     { name: "User Management", href: "/dashboard/admin/users", icon: Users },
   ];
 
