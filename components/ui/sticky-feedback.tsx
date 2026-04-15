@@ -23,7 +23,7 @@ export function StickyFeedback() {
   
   const panelRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function loadManaged() {
       const { data } = await supabase.from('managed_content').select('content').eq('slug', 'sticky_pulse_config').single();
       if (data?.content) {

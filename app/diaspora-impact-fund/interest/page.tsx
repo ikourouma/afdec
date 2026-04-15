@@ -16,7 +16,9 @@ import { TopNav } from "@/components/ui/top-nav";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 
-export default function DonorInterestPage() {
+import { Suspense } from "react";
+
+function DonorInterestForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,11 +34,19 @@ export default function DonorInterestPage() {
     setValue,
     watch,
     formState: { errors }
-  } = useForm<DonorInterestInput>({
+  } = useForm({
     resolver: zodResolver(donorInterestSchema),
     defaultValues: {
       inquiry_type: "donor_individual",
+      full_name: "",
+      email: "",
+      organization: "",
+      phone: "",
+      country: "",
       preferred_project_id: preSelectedProjectId || null,
+      message: "",
+      contribution_type: "financial",
+      estimated_contribution_usd: 0
     }
   });
 
@@ -250,5 +260,13 @@ export default function DonorInterestPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function DonorInterestPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-zinc-950 flex items-center justify-center"><Loader2 className="w-8 h-8 text-emerald-500 animate-spin" /></div>}>
+      <DonorInterestForm />
+    </Suspense>
   );
 }

@@ -38,13 +38,13 @@ export type GrantApplicationInput = z.infer<typeof grantApplicationSchema>;
 export const donorInterestSchema = z.object({
   inquiry_type: z.enum(['donor_individual', 'donor_institutional', 'program_partner', 'matching_funds']),
   full_name: z.string().min(2, "Full name is required"),
-  organization: z.string().min(2, "Organization is required"),
+  organization: z.string().optional(), 
   email: z.string().email("Invalid email address"),
-  phone: z.string().min(5, "Phone number is required"),
-  country: z.string().min(2, "Country is required"),
-  preferred_project_id: z.string().uuid("Please select a preferred project").nullable(),
-  contribution_type: z.string().min(2, "Contribution type is required"),
-  estimated_contribution_usd: z.coerce.number().min(1, "Estimated contribution is required"),
+  phone: z.string().optional(),
+  country: z.string().optional(),
+  preferred_project_id: z.string().uuid().nullable().optional(),
+  contribution_type: z.string().optional(),
+  estimated_contribution_usd: z.coerce.number().optional(),
   message: z.string().min(10, "Please provide detailed interest (min 10 chars)"),
 });
 

@@ -27,8 +27,8 @@ export async function proxy(request: NextRequest) {
     const role = session.user.user_metadata?.role || 'member';
 
     // Admin Security: Force re-auth every 24 hours
-    if (role === 'admin' && session.last_sign_in_at) {
-        const lastSignIn = new Date(session.last_sign_in_at).getTime();
+    if (role === 'admin' && session.user.last_sign_in_at) {
+        const lastSignIn = new Date(session.user.last_sign_in_at).getTime();
         const now = new Date().getTime();
         const hoursPassed = (now - lastSignIn) / (1000 * 60 * 60);
 

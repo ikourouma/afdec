@@ -662,7 +662,30 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
   const [selectedCountry, setSelectedCountry] = useState<CountryProfile | null>(null);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const [dataSource, setDataSource] = useState<"loading" | "live" | "fallback">("loading");
+  const [managedEconomies, setManagedEconomies] = useState<any[]>([
+    { rank: 1, iso3: "ZAF", name: "South Africa", gdp: "$443.64B", gdp_growth: "+1.2%", region: "south" },
+    { rank: 2, iso3: "EGY", name: "Egypt", gdp: "$399.51B", gdp_growth: "+4.1%", region: "north" },
+    { rank: 3, iso3: "NGA", name: "Nigeria", gdp: "$334.34B", gdp_growth: "+3.4%", region: "west" },
+    { rank: 4, iso3: "DZA", name: "Algeria", gdp: "$284.98B", gdp_growth: "+3.2%", region: "north" },
+    { rank: 5, iso3: "MAR", name: "Morocco", gdp: "$196.12B", gdp_growth: "+3.0%", region: "north" },
+    { rank: 6, iso3: "ETH", name: "Ethiopia", gdp: "$156.07B", gdp_growth: "+6.2%", region: "east" },
+    { rank: 7, iso3: "KEN", name: "Kenya", gdp: "$113.42B", gdp_growth: "+5.0%", region: "east" },
+    { rank: 8, iso3: "AGO", name: "Angola", gdp: "$94.1B", gdp_growth: "+2.8%", region: "south" },
+    { rank: 9, iso3: "TZA", name: "Tanzania", gdp: "$79.6B", gdp_growth: "+5.1%", region: "east" },
+    { rank: 10, iso3: "GHA", name: "Ghana", gdp: "$76.4B", gdp_growth: "+4.4%", region: "west" }
+  ]);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  // ── Managed Content: Top Economies ─────────────────────────────────────────
+  useEffect(() => {
+    async function loadManaged() {
+      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'map_top_economies').single();
+      if (data?.content) {
+        setManagedEconomies(data.content as any[]);
+      }
+    }
+    loadManaged();
+  }, []);
 
   // ── Supabase read (with local fallback) ───────────────────────────────────
   useEffect(() => {
