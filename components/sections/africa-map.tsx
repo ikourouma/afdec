@@ -13,6 +13,9 @@ import { supabase } from "@/lib/supabase";
 const GEO_URL =
   "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 
+const GEO_URL_FALLBACK =
+  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -674,27 +677,82 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
     { rank: 9, iso3: "TZA", name: "Tanzania", gdp: "$79.6B", gdp_growth: "+5.1%", region: "east" },
     { rank: 10, iso3: "GHA", name: "Ghana", gdp: "$76.4B", gdp_growth: "+4.4%", region: "west" }
   ]);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [geoUrl, setGeoUrl] = useState<string>(GEO_URL);
+  const [geoError, setGeoError] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Pre-validate GeoJSON URL availability with timeout
+  useEffect(() => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
+    fetch(GEO_URL, { signal: controller.signal, method: 'HEAD' })
+      .then((res) => {
+        clearTimeout(timeout);
+        if (!res.ok) {
+          setGeoUrl(GEO_URL_FALLBACK);
+        }
+      })
+      .catch(() => {
+        clearTimeout(timeout);
+        // Primary URL unreachable — try fallback
+        setGeoUrl(GEO_URL_FALLBACK);
+        // Also try HEAD on fallback to detect total network failure
+        const fallbackController = new AbortController();
+        const fallbackTimeout = setTimeout(() => fallbackController.abort(), 5000);
+        fetch(GEO_URL_FALLBACK, { signal: fallbackController.signal, method: 'HEAD' })
+          .then((res) => {
+            clearTimeout(fallbackTimeout);
+            if (!res.ok) setGeoError(true);
+          })
+          .catch(() => {
+            clearTimeout(fallbackTimeout);
+            setGeoError(true);
+          });
+      });
+
+    return () => { clearTimeout(timeout); controller.abort(); };
+  }, []);
+
+  const isMobile = windowWidth < 768;
+  const isTablet = windowWidth >= 768 && windowWidth < 1280;
 
   // ── Managed Content: Top Economies ─────────────────────────────────────────
   useEffect(() => {
     async function loadManaged() {
-      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'map_top_economies').single();
-      if (data?.content) {
-        setManagedEconomies(data.content as any[]);
+      try {
+        const result = await Promise.race([
+          supabase.from('managed_content').select('content').eq('slug', 'map_top_economies').single(),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+        ]);
+        if (result.data?.content) {
+          setManagedEconomies(result.data.content as any[]);
+        }
+      } catch {
+        // Supabase unreachable — using default economies
       }
     }
     loadManaged();
   }, []);
 
-  // ── Supabase read (with local fallback) ───────────────────────────────────
+  // ── Supabase read (with local fallback + timeout) ─────────────────────────
   useEffect(() => {
     async function fetchProfiles() {
       setDataSource("loading");
       try {
-        const { data, error } = await supabase
-          .from("country_profiles")
-          .select("*");
+        const result = await Promise.race([
+          supabase.from("country_profiles").select("*"),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+        ]);
+
+        const { data, error } = result;
 
         if (error || !data || data.length === 0) {
           setDataSource("fallback");
@@ -826,14 +884,38 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
 
         <div className="flex flex-col xl:flex-row gap-8">
           {/* ── Map Canvas ── */}
-          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[500px] sm:h-[600px] lg:h-[700px]">
+          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[420px] sm:h-[600px] lg:h-[700px]">
+            {geoError ? (
+              /* ── Offline Fallback UI ── */
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0a0a0a]">
+                <div className="w-16 h-16 rounded-full bg-amber-950/40 border border-amber-800/40 flex items-center justify-center">
+                  <Globe className="w-8 h-8 text-amber-500" />
+                </div>
+                <div className="text-center max-w-sm px-4">
+                  <h3 className="text-white font-black text-lg mb-2">Map Temporarily Offline</h3>
+                  <p className="text-zinc-500 text-sm font-medium leading-relaxed mb-4">
+                    The intelligence map could not connect to the geospatial data source. Country intelligence data is still available in the panel.
+                  </p>
+                  <button
+                    onClick={() => { setGeoError(false); setGeoUrl(GEO_URL); }}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold uppercase tracking-widest rounded-sm transition-colors border border-zinc-700"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    Retry Connection
+                  </button>
+                </div>
+              </div>
+            ) : (
             <ComposableMap
               projection="geoMercator"
-              projectionConfig={{ scale: 400, center: [20, 2] }}
+              projectionConfig={{ 
+                scale: isMobile ? 320 : (isTablet ? 360 : 400), 
+                center: isMobile ? [18, 5] : [20, 2] 
+              }}
               style={{ width: "100%", height: "100%" }}
             >
-              <ZoomableGroup zoom={1} center={[20, 2]} minZoom={0.9} maxZoom={6}>
-                <Geographies geography={GEO_URL}>
+              <ZoomableGroup zoom={1} center={isMobile ? [18, 5] : [20, 2]} minZoom={0.8} maxZoom={6}>
+                <Geographies geography={geoUrl}>
                 {({ geographies }: { geographies: GeoFeature[] }) =>
                     geographies.map((geo) => {
                       const iso3 = getCountryISO3(geo);
@@ -867,12 +949,15 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
                 </Geographies>
               </ZoomableGroup>
             </ComposableMap>
+            )}
 
             {/* Zoom hint */}
+            {!geoError && (
             <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs text-zinc-700 font-medium">
               <MapPin className="w-3 h-3" />
               Scroll to zoom · Drag to pan · Click country for brief
             </div>
+            )}
           </div>
 
           {/* ── Country Detail Panel ── */}

@@ -55,18 +55,23 @@ const mockSlides: SlideType[] = [
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
-  const [slides, setSlides] = useState<SlideType[]>([]);
+  const [slides, setSlides] = useState<SlideType[]>(mockSlides);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { t } = useLanguage();
 
   useEffect(() => {
     async function loadSlides() {
-      const { data } = await supabase.from('hero_slides').select('*').eq('is_active', true).order('sort_order', { ascending: true });
-      if (data && data.length > 0) {
-        setSlides(data as SlideType[]);
-      } else {
-        setSlides(mockSlides);
+      try {
+        const result = await Promise.race([
+          supabase.from('hero_slides').select('*').eq('is_active', true).order('sort_order', { ascending: true }),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+        ]);
+        if (result.data && result.data.length > 0) {
+          setSlides(result.data as SlideType[]);
+        }
+      } catch {
+        // Supabase unreachable — mockSlides already loaded as default
       }
     }
     loadSlides();
@@ -135,7 +140,7 @@ export function Hero() {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 -mt-20 md:-mt-32" ref={textContainerRef}>
         <div className="max-w-4xl">
-          {slide.id === 'slide-1' && (
+          {currentSlideIndex === 0 && (
             <div className="hero-headline inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-8 rounded-full backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
               <span className="text-sm font-semibold tracking-wide text-zinc-300 uppercase">THE MANDATE</span>
@@ -171,7 +176,7 @@ export function Hero() {
             )}
 
             {/* ── Intelligence Terminal CTA — Branded Glow Button ── */}
-            {slide.id === "slide-1" && (
+            {currentSlideIndex === 0 && (
               <Link
                 href="/africa-intelligence"
                 className="relative flex items-center justify-center gap-2.5 px-7 py-5 rounded-sm h-full w-full sm:w-auto overflow-hidden group"

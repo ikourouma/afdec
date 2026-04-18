@@ -43,10 +43,10 @@ export function TopNav() {
       <div className="bg-zinc-950/95 backdrop-blur-md border-b border-zinc-900 border-opacity-50 text-xs h-10 flex items-center relative z-50">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 w-full flex justify-between items-center">
           
-          {/* Tagline / System Status instead of clocks */}
+          {/* Tagline / System Status */}
           <div className="hidden md:flex items-center space-x-2 text-zinc-500 font-medium tracking-wide">
             <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
-            <span>Global Corporate Headquarters • Raleigh, NC</span>
+            <span>Sovereign Economic Council • Transatlantic Operations</span>
           </div>
 
           {/* Utility Links */}

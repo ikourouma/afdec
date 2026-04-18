@@ -65,7 +65,7 @@ export function Footer() {
               <BrandLogo isDarkTheme={true} variant={"acronym"} />
             </div>
             <p className="text-[13px] text-zinc-500 leading-relaxed max-w-sm mb-8">
-              The African Diaspora Economic Council. Bridging institutional capital and enterprise expansion between North Carolina and the African continent.
+              The African Diaspora Economic Council. Bridging institutional capital and enterprise expansion across the transatlantic corridor through sovereign-grade strategic operations.
             </p>
             <div className="flex items-center space-x-2.5">
               <Link href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all duration-300">
