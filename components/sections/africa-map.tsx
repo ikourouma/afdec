@@ -732,8 +732,10 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
           supabase.from('managed_content').select('content').eq('slug', 'map_top_economies').single(),
           new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
         ]);
-        if (result.data?.content) {
-          setManagedEconomies(result.data.content as any[]);
+        const cmsData = result.data?.content as any[] | undefined;
+        if (cmsData && Array.isArray(cmsData) && cmsData.length >= 10) {
+          // Only override when CMS has a complete top-10 set
+          setManagedEconomies(cmsData);
         }
       } catch {
         // Supabase unreachable — using default economies
@@ -882,9 +884,9 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
           </div>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-8">
+        <div className="flex flex-col xl:flex-row gap-8 xl:items-stretch">
           {/* ── Map Canvas ── */}
-          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative h-[420px] sm:h-[600px] lg:h-[700px]">
+          <div className="flex-1 bg-[#0a0a0a] border border-zinc-800 rounded-xl overflow-hidden relative min-h-[420px] sm:min-h-[600px] lg:min-h-[700px]">
             {geoError ? (
               /* ── Offline Fallback UI ── */
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0a0a0a]">
@@ -961,7 +963,7 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
           </div>
 
           {/* ── Country Detail Panel ── */}
-          <div className="xl:w-[380px] shrink-0">
+          <div className="xl:w-[380px] shrink-0 flex flex-col">
             {selectedCountry ? (
               <div className="bg-zinc-900/80 border border-zinc-700 rounded-xl overflow-hidden">
                 {/* Header */}

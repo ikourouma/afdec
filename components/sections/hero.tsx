@@ -58,7 +58,15 @@ export function Hero() {
   const [slides, setSlides] = useState<SlideType[]>(mockSlides);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const slideIndexRef = useRef(0);
+  const transitioningRef = useRef(false);
+  const slidesRef = useRef(mockSlides);
   const { t } = useLanguage();
+
+  // Keep refs in sync with state
+  useEffect(() => { slideIndexRef.current = currentSlideIndex; }, [currentSlideIndex]);
+  useEffect(() => { transitioningRef.current = isTransitioning; }, [isTransitioning]);
+  useEffect(() => { slidesRef.current = slides; }, [slides]);
 
   useEffect(() => {
     async function loadSlides() {
@@ -67,9 +75,12 @@ export function Hero() {
           supabase.from('hero_slides').select('*').eq('is_active', true).order('sort_order', { ascending: true }),
           new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
         ]);
-        if (result.data && result.data.length > 0) {
+        if (result.data && result.data.length >= mockSlides.length) {
+          // Only override mock slides when CMS has a complete set
           setSlides(result.data as SlideType[]);
         }
+        // If Supabase returns fewer slides than mock, keep mockSlides to prevent
+        // the hero from degrading (e.g. DB has 1 row but mock has 2 slides)
       } catch {
         // Supabase unreachable — mockSlides already loaded as default
       }
@@ -77,32 +88,51 @@ export function Hero() {
     loadSlides();
   }, []);
 
+  // Auto-play: uses refs to always read the latest values (no stale closures)
   useEffect(() => {
     if (slides.length <= 1) return;
     const interval = setInterval(() => {
-      handleNextSlide();
+      const nextIndex = (slideIndexRef.current + 1) % slidesRef.current.length;
+      goToSlide(nextIndex);
     }, 8000);
     return () => clearInterval(interval);
-  }, [currentSlideIndex]);
+  }, [slides.length]);
 
-  const handleNextSlide = () => {
-    if (isTransitioning) return;
+  const goToSlide = (index: number) => {
+    if (transitioningRef.current || index === slideIndexRef.current) return;
     setIsTransitioning(true);
+    transitioningRef.current = true;
     
-    gsap.to(textContainerRef.current, {
+    const textEl = textContainerRef.current;
+    if (!textEl) {
+      // No DOM element — just switch directly
+      setCurrentSlideIndex(index);
+      slideIndexRef.current = index;
+      setIsTransitioning(false);
+      transitioningRef.current = false;
+      return;
+    }
+
+    gsap.to(textEl, {
       opacity: 0,
       y: 20,
       duration: 0.5,
       ease: "power2.in",
       onComplete: () => {
-        setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
-        setTimeout(() => {
-          gsap.fromTo(textContainerRef.current, 
+        setCurrentSlideIndex(index);
+        slideIndexRef.current = index;
+        // Wait for React to re-render with new slide content, then fade in
+        requestAnimationFrame(() => {
+          gsap.fromTo(textEl, 
             { opacity: 0, y: -20 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
+              onComplete: () => {
+                setIsTransitioning(false);
+                transitioningRef.current = false;
+              }
+            }
           );
-          setIsTransitioning(false);
-        }, 50);
+        });
       }
     });
   };
@@ -234,7 +264,7 @@ export function Hero() {
         {slides.map((_, i) => (
           <button 
             key={i}
-            onClick={() => setCurrentSlideIndex(i)}
+            onClick={() => goToSlide(i)}
             className={`w-12 h-1.5 transition-all duration-300 rounded-full ${i === currentSlideIndex ? 'bg-blue-500' : 'bg-zinc-700/50 hover:bg-zinc-500'}`}
           />
         ))}
