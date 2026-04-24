@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   async redirects() {
     return [
       {
@@ -15,6 +14,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  output: 'standalone', 
+  // If you are using Hostinger Shared Hosting (not VPS), you might need:
+  // output: 'export', 
 };
 
 export default nextConfig;
