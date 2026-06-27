@@ -318,6 +318,100 @@ export const initiatives: Record<string, Initiative> = {
         }
       }
     ]
+  },
+
+  "diaspora-community": {
+    slug: "diaspora-community",
+    label: "Diaspora Community",
+    badge_color: "text-blue-400",
+    accent: "blue",
+    hero_title: "Diaspora Community Development",
+    hero_subtitle: "Building the socio-economic infrastructure for the African diaspora. Fostering unity, capacity building, and institutional strength across communities.",
+    hero_image: "https://images.unsplash.com/photo-1542626991-cbc4e32524cc?q=80&w=2670&auto=format&fit=crop",
+    is_gated: false,
+    sections: [
+      {
+        id: "overview",
+        label: "Overview",
+        type: "text_columns",
+        data: {
+          heading: "Elevating Community Institutions",
+          body: "AfDEC supports grassroots and mid-level organizations within the diaspora to build capacity, access funding, and scale their impact. We require verified institutional frameworks to deploy resources.",
+          columns: [
+            { icon: "Users", title: "Capacity Building", body: "Training programs for nonprofit leaders and community organizers." },
+            { icon: "Briefcase", title: "Grant Readiness", body: "Structuring organizations to receive municipal, state, and federal funding." },
+            { icon: "ShieldCheck", title: "Institutional Standards", body: "Establishing governance and compliance frameworks for diaspora entities." },
+            { icon: "Network", title: "Bilateral Networking", body: "Connecting local diaspora chapters with continental African development goals." },
+          ]
+        }
+      },
+      {
+        id: "cta",
+        label: "Register",
+        type: "cta",
+        data: {
+          heading: "Register Your Organization",
+          body: "To participate in AfDEC's Diaspora Community Development programs and access funding, your organization must be registered with active 501(c)(3) or 501(c)(4) tax-exempt status. Unregistered partner registries have been deprecated.",
+          primary_label: "Submit 501(c)(3) Proof",
+          primary_href: "/contact",
+          secondary_label: "View Compliance Guidelines",
+          secondary_href: "/about/strategic-framework",
+        }
+      }
+    ]
+  },
+
+  "sme-development": {
+    slug: "sme-development",
+    label: "SME Development",
+    badge_color: "text-emerald-400",
+    accent: "emerald",
+    hero_title: "SME Development",
+    hero_subtitle: "Empowering Small and Medium Enterprises with the tools, capital, and bilateral networks needed to scale across the North Carolina - Africa economic corridor.",
+    hero_image: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=2670&auto=format&fit=crop",
+    is_gated: false,
+    sections: [
+      {
+        id: "overview",
+        label: "Overview",
+        type: "text_columns",
+        data: {
+          heading: "Scaling Diaspora Enterprises",
+          body: "Small and Medium Enterprises are the backbone of the global economy. AfDEC provides targeted support to help these businesses access new markets, secure financing, and navigate international trade regulations.",
+          columns: [
+            { icon: "TrendingUp", title: "Growth Capital", body: "Access to SME-focused lending facilities and venture debt." },
+            { icon: "Globe", title: "Market Entry", body: "Strategic guidance for expanding operations into African markets." },
+            { icon: "Briefcase", title: "Procurement", body: "Assistance in securing government and institutional contracts." },
+            { icon: "Network", title: "B2B Matchmaking", body: "Connecting diaspora SMEs with established corporate partners." },
+          ]
+        }
+      },
+      {
+        id: "cta",
+        label: "Join",
+        type: "cta",
+        data: {
+          heading: "Accelerate Your SME",
+          body: "Join the AfDEC SME Development network to unlock growth opportunities and specialized institutional support.",
+          primary_label: "Apply for Support",
+          primary_href: "/contact",
+          secondary_label: "View Requirements",
+          secondary_href: "/invest",
+        }
+      }
+    ]
+  },
+
+  "africa-center": {
+    slug: "africa-center",
+    label: "The Africa Center Initiative",
+    badge_color: "text-blue-400",
+    accent: "blue",
+    hero_title: "The NC Africa Center",
+    hero_subtitle: "North Carolina's First Sovereign Gateway for Transatlantic Commerce, Innovation & Community Development",
+    hero_image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2670&auto=format&fit=crop",
+    is_gated: false,
+    sections: []
   }
 };
 

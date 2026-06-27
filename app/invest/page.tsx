@@ -226,7 +226,7 @@ export default function InvestPage() {
       </section>
 
       {/* ── Private Direct Contact ── */}
-      <section className="bg-zinc-950 py-24 border-t border-zinc-900 overflow-hidden relative">
+      <section id="sponsorship" className="bg-zinc-950 py-24 border-t border-zinc-900 overflow-hidden relative">
         {/* Subtle background kente element */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full" />
         

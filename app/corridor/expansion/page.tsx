@@ -177,7 +177,7 @@ export default function ExpansionPage() {
                <p className="text-zinc-500 text-sm mb-10">
                  Upon submission, an AfDEC Senior Advisor will contact your leadership team within 48 hours for a preliminary directive briefing.
                </p>
-               <Link href="/contact" className="w-full inline-flex items-center justify-center px-8 py-5 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-xl group">
+               <Link href="/contact?topic=expansion" className="w-full inline-flex items-center justify-center px-8 py-5 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-xl group">
                  Open Expansion Inquiry <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                </Link>
             </div>

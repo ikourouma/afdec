@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -12,12 +12,10 @@ import { Newsletter } from "@/components/ui/newsletter";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SideNav, type NavSection } from "@/components/ui/side-nav";
-import { supabase } from "@/lib/supabase";
 import { ImpactCalculator } from "@/components/sections/impact-calculator";
 import {
   Heart, Globe, Users, ArrowRight, CheckCircle, Building2,
-  Landmark, DollarSign, Leaf, Zap, Shield, BookOpen, Star,
-  ChevronRight, TrendingUp, Award
+  DollarSign, ChevronRight, Award
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,89 +24,10 @@ const PAGE_SECTIONS: NavSection[] = [
   { id: "mission", label: "Our Mission" },
   { id: "impact", label: "Impact Simulator" },
   { id: "methodology", label: "Methodology" },
-  { id: "projects", label: "Projects" },
   { id: "contribute", label: "Contribute" },
   { id: "apply", label: "SME Apply" },
   { id: "governance", label: "Governance" },
 ];
-
-type FundProject = {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  description: string;
-  cover_image_url?: string;
-  country: string;
-  region: string;
-  target_amount_usd: number;
-  raised_amount_usd: number;
-  funding_pct: number;
-  beneficiary_estimate?: number;
-  multilateral_tags?: string[];
-  sdg_goals?: number[];
-  is_featured: boolean;
-  status: string;
-  applications_open: boolean;
-  max_grant_usd?: number;
-};
-
-// ── Seed fallback data matching what's in impact_fund_migration.sql ──────────
-const SEED_PROJECTS: FundProject[] = [
-  {
-    id: "1", slug: "agrilink-west-africa", title: "AgriLink West Africa",
-    category: "Agriculture", country: "Ghana, Senegal", region: "West Africa",
-    description: "Connecting 500 smallholder farmers across Ghana and Senegal to mobile agritech platforms — providing real-time market pricing, soil health data, and micro-loan facilitation through NC-Africa agricultural technology partnerships.",
-    cover_image_url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=900&auto=format&fit=crop",
-    target_amount_usd: 150000, raised_amount_usd: 0, funding_pct: 0,
-    beneficiary_estimate: 500, multilateral_tags: ["AfDB"], sdg_goals: [2, 8],
-    is_featured: true, status: "active", applications_open: false, max_grant_usd: 7500,
-  },
-  {
-    id: "2", slug: "nc-kenya-health-bridge", title: "NC–Kenya Health Bridge",
-    category: "Health", country: "Kenya", region: "East Africa",
-    description: "Establishing a sustainable medical supply corridor between North Carolina health systems and 12 rural clinics in Western Kenya — supporting the Kenyan government's Universal Health Coverage mandate.",
-    cover_image_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop",
-    target_amount_usd: 200000, raised_amount_usd: 0, funding_pct: 0,
-    beneficiary_estimate: 12000, multilateral_tags: ["WorldBank", "USAID"], sdg_goals: [3, 10],
-    is_featured: true, status: "active", applications_open: false, max_grant_usd: 10000,
-  },
-  {
-    id: "3", slug: "sahel-solar-schools", title: "Sahel Solar Schools",
-    category: "Education & Energy", country: "Mali, Burkina Faso", region: "West Africa",
-    description: "Deploying off-grid solar power and digital learning infrastructure to 10 rural schools — impacting 3,200 students, aligned with SDG 4 (Quality Education) and SDG 7 (Affordable and Clean Energy).",
-    cover_image_url: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=900&auto=format&fit=crop",
-    target_amount_usd: 250000, raised_amount_usd: 0, funding_pct: 0,
-    beneficiary_estimate: 3200, multilateral_tags: ["UNDP", "AfDB"], sdg_goals: [4, 7, 13],
-    is_featured: false, status: "coming_soon", applications_open: false, max_grant_usd: 5000,
-  },
-  {
-    id: "4", slug: "afcfta-micro-enterprise-fund", title: "AfCFTA Micro-Enterprise Fund",
-    category: "Trade & SME", country: "Pan-African", region: "Pan-African",
-    description: "Providing 20 African micro-enterprises with grants of $3,000–$8,000 to access AfCFTA cross-border trade — covering certification, compliance, digital storefronts, and AfDEC Hub memberships.",
-    cover_image_url: "https://images.unsplash.com/photo-1556740714-a8395b3bf30f?q=80&w=900&auto=format&fit=crop",
-    target_amount_usd: 100000, raised_amount_usd: 0, funding_pct: 0,
-    beneficiary_estimate: 20, multilateral_tags: ["AfCFTA", "IMF"], sdg_goals: [8, 10, 17],
-    is_featured: true, status: "coming_soon", applications_open: false, max_grant_usd: 8000,
-  },
-  {
-    id: "5", slug: "digital-talent-pipeline", title: "Digital Talent Pipeline",
-    category: "ICT & Youth", country: "Nigeria, Kenya, Ghana", region: "Pan-African",
-    description: "An intensive 6-month digital skills program training 500 African youth in software development, data analytics, and digital marketing — placing 70% into NC-affiliated remote roles.",
-    cover_image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=900&auto=format&fit=crop",
-    target_amount_usd: 80000, raised_amount_usd: 0, funding_pct: 0,
-    beneficiary_estimate: 500, multilateral_tags: ["IFC", "AfDB"], sdg_goals: [4, 8, 10],
-    is_featured: false, status: "coming_soon", applications_open: false, max_grant_usd: 3000,
-  },
-];
-
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  "Agriculture": Leaf,
-  "Health": Heart,
-  "Education & Energy": Zap,
-  "Trade & SME": TrendingUp,
-  "ICT & Youth": BookOpen,
-};
 
 const STATS = [
   { value: "$780K", label: "Total Fund Target", sub: "2026 Goal" },
@@ -162,29 +81,12 @@ const GOVERNANCE = [
 ];
 
 export default function DiasporaImpactFundPage() {
-  const [projects, setProjects] = useState<FundProject[]>([]);
-  const projectsRef = React.useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    async function loadProjects() {
-      try {
-        const { data } = await supabase.from("v_active_fund_projects").select("*").order("sort_order");
-        setProjects(data && data.length > 0 ? (data as FundProject[]) : SEED_PROJECTS);
-      } catch {
-        setProjects(SEED_PROJECTS);
-      }
-    }
-    loadProjects();
-  }, []);
-
   useGSAP(() => {
     gsap.fromTo(".stat-tile", { y: 30, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out",
         scrollTrigger: { trigger: ".stat-tile", start: "top 88%" } }
     );
   }, {});
-
-  const totalTarget = SEED_PROJECTS.reduce((sum, p) => sum + p.target_amount_usd, 0);
 
   return (
     <main className="min-h-screen bg-zinc-950 font-sans selection:bg-emerald-500/30 scroll-smooth">
@@ -222,7 +124,7 @@ export default function DiasporaImpactFundPage() {
               <Heart className="w-4 h-4" />
               Make a Contribution
             </Link>
-            <Link href="#projects" className="inline-flex items-center gap-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
+            <Link href="/diaspora-impact-fund/projects" className="inline-flex items-center gap-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
               View Projects
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -394,101 +296,7 @@ export default function DiasporaImpactFundPage() {
         </div>
       </section>
 
-      {/* ── Development Projects ── */}
-      <section id="projects" ref={projectsRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-14">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-amber-500" />
-              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-400 uppercase">Development Portfolio</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-black text-white">2026 Project Portfolio</h2>
-            <p className="text-zinc-400 mt-4 max-w-2xl text-[15px]">
-              Five named development initiatives across eight African countries — each with defined funding targets, impact metrics, and accountability frameworks.
-            </p>
-          </div>
 
-          <div className="space-y-6">
-            {(projects.length > 0 ? projects : SEED_PROJECTS).map((project, idx) => {
-              const Icon = CATEGORY_ICONS[project.category] ?? Leaf;
-              const pct = project.funding_pct ?? Math.round((project.raised_amount_usd / project.target_amount_usd) * 100);
-              return (
-                <div key={project.id}
-                  className="group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-0 border border-zinc-800/50 rounded-xl overflow-hidden hover:border-zinc-700 transition-all duration-300 bg-zinc-900/20">
-                  {project.cover_image_url && (
-                    <div className="overflow-hidden h-48 md:h-auto">
-                      <img src={project.cover_image_url} alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    </div>
-                  )}
-                  <div className="p-7 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 flex-wrap mb-4">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-950/40 border border-emerald-900/30 rounded-sm text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-                          <Icon className="w-3 h-3" />
-                          {project.category}
-                        </span>
-                        <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">{project.region}</span>
-                        {project.status === "coming_soon" && (
-                          <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">Coming Soon</span>
-                        )}
-                        {project.status === "active" && (
-                          <span className="inline-flex items-center gap-1 text-[9px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
-                            <span className="w-1 h-1 rounded-full bg-blue-400 animate-pulse" />Active
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-white font-black text-xl mb-2">{project.title}</h3>
-                      <p className="text-zinc-400 text-[13px] leading-relaxed mb-5">{project.description}</p>
-                      {project.multilateral_tags && project.multilateral_tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-4">
-                          {project.multilateral_tags.map((tag) => (
-                            <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">{tag}</span>
-                          ))}
-                          {project.sdg_goals?.map((sdg) => (
-                            <span key={sdg} className="text-[10px] font-bold text-indigo-400 bg-indigo-950/30 border border-indigo-900/30 px-2 py-0.5 rounded-sm uppercase tracking-wider">SDG {sdg}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      {/* Funding progress */}
-                      <div className="mb-4">
-                        <div className="flex items-center justify-between text-[11px] font-bold mb-2">
-                          <span className="text-zinc-400">Funding Progress</span>
-                          <span className="text-white">${project.raised_amount_usd.toLocaleString()} / ${project.target_amount_usd.toLocaleString()}</span>
-                        </div>
-                        <div className="w-full bg-zinc-800/60 rounded-full h-1.5">
-                          <div className="bg-emerald-500 h-1.5 rounded-full transition-all duration-500"
-                            style={{ width: `${Math.min(pct, 100)}%` }} />
-                        </div>
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-[10px] text-zinc-600">{pct}% funded</span>
-                          {project.beneficiary_estimate && (
-                            <span className="text-[10px] text-zinc-600">{project.beneficiary_estimate.toLocaleString()} target beneficiaries</span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-800/50">
-                        <Link href="/contact?inquiry=donor_institutional"
-                          className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-900/40 px-4 py-2.5 rounded-sm transition-colors uppercase tracking-widest">
-                          <Heart className="w-3 h-3" />
-                          Donate to this Project
-                        </Link>
-                        {project.max_grant_usd && (
-                          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-zinc-500 px-4 py-2.5">
-                            Max grant: ${project.max_grant_usd.toLocaleString()} per SME
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* ── How to Contribute ── */}
       <section id="section-contribute" className="bg-zinc-950 py-24 border-b border-zinc-800/30">

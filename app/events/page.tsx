@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,33 +11,39 @@ import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Calendar, MapPin, ArrowRight, Video, Target, Globe2, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const mockEvents = [
-  {
-    id: 1,
-    title: "The Africa Innovation & Trade Summit",
-    date: "December 12-14, 2026",
-    location: "Raleigh Convention Center, NC",
-    type: "In-Person Executive Summit",
-    description: "The premier bilateral convergence of Fortune 500 executives and African sovereign leaders. Features exclusive closed-door deal rooms and physical infrastructure procurement sessions.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: 2,
-    title: "Quarterly Diaspora Integrations Briefing",
-    date: "January 08, 2027",
-    location: "Global Broadcast (Secure Link)",
-    type: "Virtual Telemetry Stream",
-    description: "Live economic briefing from the Board of Directors detailing Q1 infrastructure forecasts and the latest regulatory shifts in the West African tech corridor.",
-    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?q=80&w=1000&auto=format&fit=crop"
-  }
-];
+type EventRecord = {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  event_date: string;
+  event_type: string;
+  image_url: string;
+  status: string;
+};
 
 export default function GlobalEventsPage() {
   const headerRef = useRef(null);
   const eventGridRef = useRef(null);
+  const [events, setEvents] = useState<EventRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      const { data, error } = await supabase
+        .from("events")
+        .select("id, title, description, location, event_date, event_type, image_url, status")
+        .eq("status", "published")
+        .order("event_date", { ascending: true });
+      if (!error && data) setEvents(data);
+      setIsLoading(false);
+    }
+    fetchEvents();
+  }, []);
 
   useGSAP(() => {
     gsap.from(headerRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" });
@@ -105,51 +111,72 @@ export default function GlobalEventsPage() {
           
           {/* Main List */}
           <div className="lg:w-2/3 space-y-12">
-            {mockEvents.map((event) => (
-              <Link key={event.id} href={`/events/${event.id}`} className="event-card group block bg-zinc-900/60 border border-zinc-800 rounded-lg overflow-hidden hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-300">
-                <div className="flex flex-col md:flex-row">
-                  {/* Event Hero */}
-                  <div className="md:w-5/12 h-64 md:h-auto relative overflow-hidden shrink-0">
-                    <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60"></div>
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <span className="inline-flex items-center px-3 py-1 bg-black/80 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest text-white rounded-sm">
-                        {event.type.includes('Virtual') ? <Video className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> : <Globe2 className="w-3.5 h-3.5 mr-1.5 text-blue-400" />}
-                        {event.type}
-                      </span>
+            {isLoading ? (
+              <div className="py-20 text-center text-zinc-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+                Syncing Event Registry...
+              </div>
+            ) : events.length === 0 ? (
+              <div className="py-24 text-center border border-zinc-800 border-dashed rounded-lg bg-zinc-900/30">
+                <h3 className="text-2xl font-bold text-white mb-4">No Upcoming Events</h3>
+                <p className="text-zinc-400 font-medium max-w-md mx-auto mb-8">
+                  The Secretariat is currently scheduling the next summit cycle. Register to be notified when events are published.
+                </p>
+                <Link href="/contact?topic=newsletter" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm uppercase tracking-widest rounded-sm transition-all">
+                  Register for Notifications
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </div>
+            ) : events.map((event) => {
+              const isVirtual = event.event_type === "virtual";
+              const formattedDate = event.event_date
+                ? new Date(event.event_date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+                : "Date TBA";
+              return (
+                <Link key={event.id} href={`/events/${event.id}`} className="event-card group block bg-zinc-900/60 border border-zinc-800 rounded-lg overflow-hidden hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-300">
+                  <div className="flex flex-col md:flex-row">
+                    {/* Event Hero */}
+                    <div className="md:w-5/12 h-64 md:h-auto relative overflow-hidden shrink-0">
+                      <img src={event.image_url || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60"></div>
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <span className="inline-flex items-center px-3 py-1 bg-black/80 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest text-white rounded-sm">
+                          {isVirtual ? <Video className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> : <Globe2 className="w-3.5 h-3.5 mr-1.5 text-blue-400" />}
+                          {isVirtual ? "Virtual Telemetry Stream" : "In-Person Executive Summit"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Event Data */}
+                    <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 text-sm font-bold text-zinc-500 mb-5">
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-2 text-zinc-600" />
+                          {formattedDate}
+                        </div>
+                        <div className="flex items-center">
+                          <MapPin className="w-4 h-4 mr-2 text-zinc-600" />
+                          {event.location}
+                        </div>
+                      </div>
+
+                      <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-4 group-hover:text-blue-400 transition-colors leading-tight">
+                        {event.title}
+                      </h2>
+
+                      <p className="text-zinc-400 font-medium leading-relaxed mb-8">
+                        {event.description}
+                      </p>
+
+                      <div className="mt-auto pt-6 border-t border-zinc-800 flex items-center justify-between">
+                        <span className="flex items-center text-sm font-black text-blue-500 uppercase tracking-widest group-hover:text-blue-400 transition-colors">
+                          Secure Early Registration <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Event Data */}
-                  <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
-                    <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 text-sm font-bold text-zinc-500 mb-5">
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-2 text-zinc-600" />
-                        {event.date}
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-2 text-zinc-600" />
-                        {event.location}
-                      </div>
-                    </div>
-
-                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-4 group-hover:text-blue-400 transition-colors leading-tight">
-                      {event.title}
-                    </h2>
-
-                    <p className="text-zinc-400 font-medium leading-relaxed mb-8">
-                      {event.description}
-                    </p>
-
-                    <div className="mt-auto pt-6 border-t border-zinc-800 flex items-center justify-between">
-                      <span className="flex items-center text-sm font-black text-blue-500 uppercase tracking-widest group-hover:text-blue-400 transition-colors">
-                        Secure Early Registration <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Support Rail */}

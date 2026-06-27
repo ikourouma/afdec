@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,58 +11,52 @@ import { Footer } from "@/components/ui/footer";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const mockBriefings = [
-  {
-    id: 1,
-    title: "AfDEC Announces $50M Transatlantic Ag-Tech Fund",
-    date: "October 12, 2026",
-    category: "Press Release",
-    excerpt: "The Council today finalized the deployment of a $50 million sovereign-backed fund to accelerate advanced agricultural technology transfers between North Carolina and the East African tech corridor.",
-    image: "https://images.unsplash.com/photo-1595804595822-1d48c8b45942?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: 2,
-    title: "North Carolina Megasite Selected for Continent-Level Battery Manufacturing",
-    date: "September 28, 2026",
-    category: "Press Release",
-    excerpt: "A major African EV conglomerate has partnered with AfDEC to establish a Tier 1 lithium processing and battery manufacturing hub in central North Carolina, creating 3,000 projected high-yield jobs.",
-    image: "https://images.unsplash.com/photo-1565893322194-e840003b0cbe?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: 3,
-    title: "AfDEC Hosted Sovereign Delegation Secures Fintech Corridor",
-    date: "September 04, 2026",
-    category: "Press Release",
-    excerpt: "Following a three-day summit in Raleigh, trade ministers from four West African nations signed the Fintech Corridor Agreement, drastically reducing cross-border banking friction for diaspora-led enterprises.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: 4,
-    title: "Q4 Continental Infrastructure Forecast",
-    date: "November 14, 2026",
-    category: "Macro Intelligence",
-    excerpt: "Analysis of the $1.2B direct investment inflows targeting the West African agritech and logistics corridors, heavily anchored by North Carolina 501(c)(4) deployment strategies.",
-    image: "https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: 5,
-    title: "Sovereign Debt Repositioning Strategies",
-    date: "October 22, 2026",
-    category: "Policy Framework",
-    excerpt: "Examining the impact of the latest bilateral tariff adjustments and their effect on US-Africa enterprise scalability through Q2 2027.",
-    image: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=1000&auto=format&fit=crop"
-  }
-];
+type NewsBriefing = {
+  id: string;
+  title: string;
+  excerpt: string;
+  image_url: string;
+  category: string;
+  valid_from: string;
+};
 
 export default function MarketBriefingsPage() {
   const headerRef = useRef(null);
   const gridRef = useRef(null);
+  
+  const [newsItems, setNewsItems] = useState<NewsBriefing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const { data, error } = await supabase
+          .from('news_briefings')
+          .select('id, title, excerpt, image_url, category, valid_from')
+          .eq('status', 'published')
+          .neq('category', 'Media Asset')
+          .order('valid_from', { ascending: false });
+
+        if (error) throw error;
+        setNewsItems(data || []);
+      } catch (err) {
+        console.error("Failed to load news briefings", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchNews();
+  }, []);
 
   useGSAP(() => {
     gsap.from(headerRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" });
+    
+    if (isLoading || newsItems.length === 0) return;
+    
     gsap.fromTo(".briefing-card",
       { y: 40, opacity: 0 },
       {
@@ -73,7 +67,7 @@ export default function MarketBriefingsPage() {
         scrollTrigger: { trigger: gridRef.current, start: "top 85%" }
       }
     );
-  }, { scope: undefined });
+  }, [isLoading, newsItems.length]);
 
   return (
     <div className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/30">
@@ -143,48 +137,70 @@ export default function MarketBriefingsPage() {
               <div className="text-sm font-bold text-blue-500 cursor-pointer hidden sm:block">View Data Room Policies</div>
             </div>
 
-            <div className="space-y-8">
-              {mockBriefings.map((brief) => (
-                <Link key={brief.id} href={`/news/${brief.id}`} className="briefing-card group block overflow-hidden bg-zinc-900/60 border border-zinc-800 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 rounded-lg cursor-pointer">
-                  <div className="flex flex-col sm:flex-row sm:h-[220px]">
-                    {/* Thumbnail */}
-                    <div className="sm:w-1/3 h-48 sm:h-full relative overflow-hidden shrink-0">
-                      <img src={brief.image} alt={brief.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                      <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest rounded-sm">
-                          {brief.category}
-                        </span>
-                      </div>
-                    </div>
+            {isLoading ? (
+               <div className="py-20 flex justify-center items-center text-zinc-500">
+                  <div className="animate-pulse font-bold tracking-widest uppercase text-sm">Syncing with Central DB...</div>
+               </div>
+            ) : newsItems.length === 0 ? (
+               <div className="py-24 text-center border border-zinc-800 border-dashed rounded-lg bg-zinc-900/30">
+                  <h3 className="text-2xl font-bold text-white mb-4">Market Briefings Coming Soon</h3>
+                  <p className="text-zinc-400 font-medium max-w-md mx-auto mb-8">
+                    The Board of Directors is currently compiling the next intelligence cycle. Be the first to receive embargoed macro intelligence and infrastructure deployment briefs when they are released.
+                  </p>
+                  <Link href="/contact?topic=newsletter" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm uppercase tracking-widest rounded-sm transition-all shadow-lg group">
+                    Register for Notifications
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+               </div>
+            ) : (
+              <div className="space-y-8">
+                {newsItems.map((brief) => {
+                  const dateObj = new Date(brief.valid_from);
+                  const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-                    {/* Content Payload */}
-                    <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center overflow-hidden">
-                      <div className="flex items-center text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3">
-                        <Calendar className="w-3.5 h-3.5 mr-1.5 shrink-0" />
-                        {brief.date}
+                  return (
+                    <Link key={brief.id} href={`/news/${brief.id}`} className="briefing-card opacity-0 group block overflow-hidden bg-zinc-900/60 border border-zinc-800 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 rounded-lg cursor-pointer">
+                      <div className="flex flex-col sm:flex-row sm:h-[220px]">
+                        {/* Thumbnail */}
+                        <div className="sm:w-1/3 h-48 sm:h-full relative overflow-hidden shrink-0">
+                          <img src={brief.image_url || 'https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=800&auto=format&fit=crop'} alt={brief.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                          <div className="absolute top-4 left-4">
+                            <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest rounded-sm">
+                              {brief.category || "Press Release"}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Content Payload */}
+                        <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center overflow-hidden">
+                          <div className="flex items-center text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3">
+                            <Calendar className="w-3.5 h-3.5 mr-1.5 shrink-0" />
+                            {formattedDate}
+                          </div>
+                          <h3 className="text-lg md:text-xl font-extrabold text-white tracking-tight mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
+                            {brief.title}
+                          </h3>
+                          <p className="text-zinc-400 text-sm leading-relaxed font-medium line-clamp-2">
+                            {brief.excerpt}
+                          </p>
+                          
+                          <div className="flex items-center text-sm font-black text-blue-500 uppercase tracking-widest mt-auto">
+                            Read Full Briefing <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-lg md:text-xl font-extrabold text-white tracking-tight mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
-                        {brief.title}
-                      </h3>
-                      <p className="text-zinc-400 text-sm leading-relaxed font-medium line-clamp-2">
-                        {brief.excerpt}
-                      </p>
-                      
-                      <div className="flex items-center text-sm font-black text-blue-500 uppercase tracking-widest mt-auto">
-                        Read Full Briefing <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
             
             {/* Pagination Standard */}
-            <div className="mt-12 flex justify-center space-x-2">
-              <button className="w-10 h-10 flex items-center justify-center bg-blue-600 text-white font-bold rounded-sm">1</button>
-              <button className="w-10 h-10 flex items-center justify-center border border-zinc-700 text-zinc-400 hover:bg-zinc-800 font-bold rounded-sm transition-colors">2</button>
-              <button className="w-10 h-10 flex items-center justify-center border border-zinc-700 text-zinc-400 hover:bg-zinc-800 font-bold rounded-sm transition-colors">3</button>
-            </div>
+            {!isLoading && newsItems.length > 0 && (
+              <div className="mt-12 flex justify-center space-x-2">
+                <button className="w-10 h-10 flex items-center justify-center bg-blue-600 text-white font-bold rounded-sm">1</button>
+              </div>
+            )}
           </div>
 
           {/* Institutional Sidebar */}

@@ -12,7 +12,8 @@ import {
   RefreshCcw,
   Plus,
   Trash2,
-  AlertTriangle
+  AlertTriangle,
+  Edit3
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -165,7 +166,7 @@ export default function ContentGovernancePage() {
                   Sovereign Pattern Overlay
                 </label>
                 <select 
-                  className="w-full bg-zinc-50 border border-zinc-300 px-4 py-3 rounded-sm text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none"
+                  className="w-full bg-zinc-50 border border-zinc-300 px-4 py-3 rounded-sm text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   value={content.hero_pattern}
                   onChange={(e) => setContent({...content, hero_pattern: e.target.value})}
                 >
@@ -205,6 +206,7 @@ export default function ContentGovernancePage() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="text-zinc-400 hover:text-blue-600 transition-colors"><Edit3 className="w-4 h-4" /></button>
                     <button className="text-zinc-400 hover:text-blue-600 transition-colors"><Save className="w-4 h-4" /></button>
                     <button className="text-zinc-400 hover:text-red-600 transition-colors"><Trash2 className="w-4 h-4" /></button>
                   </div>

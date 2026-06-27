@@ -189,7 +189,7 @@ export default function StaffManagerPage() {
                         name="name" 
                         defaultValue={currentMember?.name} 
                         required
-                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-bold"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm text-zinc-900 font-bold"
                      />
                   </div>
                   
@@ -200,7 +200,7 @@ export default function StaffManagerPage() {
                         defaultValue={currentMember?.title} 
                         required
                         placeholder="e.g. Board Chair"
-                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-bold"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm text-zinc-900 font-bold"
                      />
                   </div>
 
@@ -210,7 +210,7 @@ export default function StaffManagerPage() {
                         <select 
                            name="role_tier" 
                            defaultValue={currentMember?.role_tier || "council"} 
-                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm font-bold appearance-none"
+                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-bold appearance-none"
                         >
                            <option value="council">Sovereign Council (Blue)</option>
                            <option value="executive">Executive Mandate (Orange)</option>
@@ -223,7 +223,7 @@ export default function StaffManagerPage() {
                            name="sub_title" 
                            defaultValue={currentMember?.sub_title} 
                            placeholder="e.g. West Africa"
-                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm font-bold"
+                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-bold"
                         />
                      </div>
                   </div>
@@ -234,7 +234,7 @@ export default function StaffManagerPage() {
                         name="committees" 
                         defaultValue={currentMember?.committees?.join(", ")} 
                         placeholder="e.g. Audit, Oversight, Strategic"
-                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-medium"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm text-zinc-900 font-medium"
                      />
                   </div>
 
@@ -245,7 +245,7 @@ export default function StaffManagerPage() {
                            name="sort_order" 
                            type="number"
                            defaultValue={currentMember?.sort_order || 0}
-                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm font-bold"
+                           className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-bold"
                         />
                      </div>
                      <div className="space-y-4 pt-10">
@@ -267,7 +267,7 @@ export default function StaffManagerPage() {
                         name="image_url" 
                         defaultValue={currentMember?.image_url} 
                         placeholder="https://images.unsplash.com/..."
-                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm font-medium"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-medium"
                      />
                   </div>
 
@@ -278,7 +278,7 @@ export default function StaffManagerPage() {
                         rows={8}
                         defaultValue={currentMember?.bio} 
                         required
-                        className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm leading-relaxed"
+                        className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 leading-relaxed"
                      />
                   </div>
 

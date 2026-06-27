@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,6 +10,7 @@ import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { supabase } from "@/lib/supabase";
 import { 
   Megaphone, 
   Newspaper, 
@@ -21,48 +22,44 @@ import {
   Presentation
 } from "lucide-react";
 
-const newsItems = [
-  {
-    id: 1,
-    title: "AfDEC Facilitates $250M Infrastructure EPC for West African Logistics Hub",
-    date: "OCT 12, 2026",
-    category: "Infrastructure",
-    excerpt: "The agreement marks a pivotal moment in the bi-national trade narrative, connecting North Carolina's EPC excellence to West African development markets.",
-    image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a", // Logistics skyline
-    accent: "text-blue-500 bg-blue-500/5",
-    icon: Newspaper
-  },
-  {
-    id: 2,
-    title: "Sovereign Market: AfDEC Digital Portal Records 200% Growth in Registrations",
-    date: "OCT 08, 2026",
-    category: "Technology",
-    excerpt: "Institutional entities from 15 African nations and 24 NC counties are now fully onboarded into the Sovereign Digital Corridor.",
-    image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0", // Tech graph
-    accent: "text-emerald-500 bg-emerald-500/5",
-    icon: Megaphone
-  },
-  {
-    id: 3,
-    title: "Global Diaspora Summit: AfDEC Executive Secretariat Outlines Q4 Mandates",
-    date: "SEP 29, 2026",
-    category: "Engagement",
-    excerpt: "The Summit brought together board members and council leaders to harmonize policy advocacy across North Carolina and the African Union.",
-    image: "https://images.unsplash.com/photo-1528605248644-14dd04cb11c7", // Diversity event
-    accent: "text-amber-500 bg-amber-500/5",
-    icon: Presentation
-  }
-];
+type MediaAsset = {
+  id: string;
+  title: string;
+  excerpt: string;
+  image_url: string;
+  category: string;
+  valid_from: string;
+};
 
 export default function MediaPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mediaItems, setMediaItems] = useState<MediaAsset[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMedia() {
+      const { data, error } = await supabase
+        .from('news_briefings')
+        .select('id, title, excerpt, image_url, category, valid_from')
+        .eq('status', 'published')
+        .eq('category', 'Media Asset')
+        .order('valid_from', { ascending: false });
+
+      if (!error && data) {
+        setMediaItems(data);
+      }
+      setIsLoading(false);
+    }
+    fetchMedia();
+  }, []);
 
   useGSAP(() => {
+    if (isLoading) return;
     gsap.fromTo(".news-card", 
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power3.out" }
     );
-  }, { scope: containerRef });
+  }, [isLoading]);
 
   return (
     <main ref={containerRef} className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/30 selection:text-blue-200">
@@ -152,35 +149,46 @@ export default function MediaPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsItems.map((item) => (
-              <div key={item.id} className="news-card group flex flex-col bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 rounded-lg overflow-hidden transition-all duration-300">
-                <div className="relative h-64 overflow-hidden border-b border-zinc-800">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-zinc-950/20 group-hover:bg-zinc-950/0 transition-all duration-500" />
-                  <div className="absolute top-4 left-4 flex items-center space-x-2">
-                    <div className="px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-[10px] font-black text-blue-400 uppercase tracking-widest rounded-full">{item.category}</div>
-                  </div>
-                </div>
-                
-                <div className="p-10 flex flex-col flex-grow">
-                  <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-4 flex items-center">
-                    <item.icon className="w-3.5 h-3.5 mr-2 text-zinc-500" />
-                    Archive ID: {item.date}
-                  </div>
-                  <h3 className="text-2xl font-black text-white mb-4 leading-tight leading-tight block group-hover:text-blue-500 transition-colors">
-                    <Link href="#">{item.title}</Link>
-                  </h3>
-                  <p className="text-[14px] text-zinc-500 leading-relaxed mb-10 flex-grow">
-                    {item.excerpt}
-                  </p>
-                  
-                  <Link href="#" className="flex items-center space-x-2 text-[11px] font-black tracking-widest uppercase text-white group-hover:text-blue-500 transition-colors">
-                    <span>Full Transmission</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </Link>
-                </div>
+            {isLoading ? (
+              <div className="col-span-full py-20 flex justify-center text-zinc-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+                Syncing Media Assets...
               </div>
-            ))}
+            ) : mediaItems.length === 0 ? (
+              <div className="col-span-full text-center py-20">
+                <p className="text-zinc-500 font-bold tracking-widest uppercase">No Media Assets Currently Published</p>
+              </div>
+            ) : mediaItems.map((item) => {
+              const formattedDate = new Date(item.valid_from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+              return (
+                <div key={item.id} className="news-card group flex flex-col bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 rounded-lg overflow-hidden transition-all duration-300">
+                  <div className="relative h-64 overflow-hidden border-b border-zinc-800">
+                    <img src={item.image_url || 'https://images.unsplash.com/photo-1541872703-74c5e443d1f5?q=80&w=800&auto=format&fit=crop'} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-zinc-950/20 group-hover:bg-zinc-950/0 transition-all duration-500" />
+                    <div className="absolute top-4 left-4 flex items-center space-x-2">
+                      <div className="px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-[10px] font-black text-blue-400 uppercase tracking-widest rounded-full">{item.category}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-10 flex flex-col flex-grow">
+                    <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-4 flex items-center">
+                      <Presentation className="w-3.5 h-3.5 mr-2 text-zinc-500" />
+                      Archive ID: {formattedDate.toUpperCase()}
+                    </div>
+                    <h3 className="text-2xl font-black text-white mb-4 leading-tight leading-tight block group-hover:text-blue-500 transition-colors">
+                      <Link href={`/news/${item.id}`}>{item.title}</Link>
+                    </h3>
+                    <p className="text-[14px] text-zinc-500 leading-relaxed mb-10 flex-grow">
+                      {item.excerpt}
+                    </p>
+                    
+                    <Link href={`/news/${item.id}`} className="flex items-center space-x-2 text-[11px] font-black tracking-widest uppercase text-white group-hover:text-blue-500 transition-colors">
+                      <span>Full Transmission</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           
           <div className="mt-16 text-center">

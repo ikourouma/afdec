@@ -1,0 +1,7 @@
+AfDEC Test Users:
+
+1. Super Admin Account: Email: admin@afdecnc.org; PW: Password1! 
+2. Super Admin Backup Account: admin@afronovation.com; PW: Password1!
+2. Investor Account: Email: investor@afdecnc.org; PW: Password1! 
+3. Standard Member/Diapora/Citizen Account: Email: Member@afdecnc.org; PW: Password1! 
+

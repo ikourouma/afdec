@@ -17,7 +17,9 @@ import {
   ChevronLeft,
   MessageSquare,
   Briefcase,
-  ShieldCheck
+  ShieldCheck,
+  Globe,
+  Target
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -47,13 +49,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Global Overview", href: "/dashboard/admin", icon: LayoutDashboard },
     { name: "Market Pulse", href: "/dashboard/admin/telemetry", icon: Activity },
     { name: "Hero UI Engine", href: "/dashboard/admin/hero", icon: Layers },
-    { name: "Market Briefings", href: "/dashboard/admin/briefings", icon: FileText },
+    { name: "Policy Briefs", href: "/dashboard/admin/policy", icon: FileText },
+    { name: "Hub Network", href: "/dashboard/admin/hub", icon: Globe },
     { name: "Diaspora Registry", href: "/dashboard/admin/diaspora", icon: Users },
     { name: "Enterprise Entities", href: "/dashboard/admin/businesses", icon: Building2 },
     { name: "Communications Control", href: "/dashboard/admin/concierge", icon: MessageSquare },
     { name: "Deal Rooms", href: "/dashboard/admin/deal-room", icon: Briefcase },
     { name: "Sovereign Council", href: "/dashboard/admin/staff", icon: ShieldCheck },
     { name: "User Management", href: "/dashboard/admin/users", icon: Users },
+    { name: "Partner Requests", href: "/dashboard/admin/partner-requests", icon: Map },
+    { name: "Event Engine", href: "/dashboard/admin/events", icon: Layers },
+    { name: "Development Portfolio", href: "/dashboard/admin/portfolio", icon: Target },
+    { name: "Newsletter Captures", href: "/dashboard/admin/newsletter", icon: Mail },
+    { name: "Media & Press", href: "/dashboard/admin/media", icon: FileText },
   ];
 
   return (
@@ -114,12 +122,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="p-4 border-t border-zinc-900 flex flex-col space-y-2">
           {isSidebarOpen ? (
             <>
-              <button className="flex items-center px-3 py-2 text-sm text-zinc-400 hover:text-white rounded-sm hover:bg-zinc-900 transition-colors w-full">
+              <Link href="/" className="flex items-center px-3 py-2 text-sm text-zinc-400 hover:text-white rounded-sm hover:bg-zinc-900 transition-colors w-full">
+                <Globe className="w-4 h-4 mr-3" /> Return to Platform
+              </Link>
+              <Link href="/dashboard/admin/settings" className="flex items-center px-3 py-2 text-sm text-zinc-400 hover:text-white rounded-sm hover:bg-zinc-900 transition-colors w-full">
                 <Settings className="w-4 h-4 mr-3" /> Settings
-              </button>
+              </Link>
               <button 
-                onClick={() => window.location.href = '/auth'}
-                className="flex items-center px-3 py-2 text-sm text-red-400 hover:text-red-300 rounded-sm hover:bg-red-950/30 transition-colors w-full"
+                onClick={async () => { await supabase.auth.signOut(); window.location.href = '/auth'; }}
+                className="flex items-center px-3 py-2 mt-2 border-t border-zinc-900 pt-2 text-sm text-red-400 hover:text-red-300 rounded-sm hover:bg-red-950/30 transition-colors w-full"
               >
                 <LogOut className="w-4 h-4 mr-3" /> Terminate Session
               </button>

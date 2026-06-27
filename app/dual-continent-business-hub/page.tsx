@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -12,6 +12,7 @@ import { Newsletter } from "@/components/ui/newsletter";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SectionNav, type NavSection } from "@/components/ui/section-nav";
+import { supabase } from "@/lib/supabase";
 import {
   Building2, Globe, MapPin, Users, Wifi, ArrowRight,
   CheckCircle, Landmark, Network, Briefcase, Zap
@@ -146,6 +147,54 @@ export default function DualContinentBusinessHubPage() {
   const statsRef = useRef<HTMLDivElement>(null);
   const hubsRef = useRef<HTMLDivElement>(null);
 
+  const [hubLocations, setHubLocations] = useState(HUB_LOCATIONS);
+  const [services, setServices] = useState(SERVICES);
+  const [stats, setStats] = useState(STATS);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchHubData() {
+      try {
+        const [hubsRes, servicesRes, statsRes] = await Promise.all([
+          supabase.from("hub_locations").select("*").eq("is_visible", true).order("sort_order"),
+          supabase.from("hub_services").select("*").eq("is_visible", true).order("sort_order"),
+          supabase.from("hub_stats").select("*").order("sort_order")
+        ]);
+
+        if (hubsRes.data && hubsRes.data.length > 0) {
+          setHubLocations(hubsRes.data);
+        }
+        
+        if (servicesRes.data && servicesRes.data.length > 0) {
+          // Map DB icon names to lucide components
+          const iconMap: Record<string, any> = {
+            "Building2": Building2,
+            "Network": Network,
+            "Users": Users,
+            "Briefcase": Briefcase,
+            "Zap": Zap,
+            "Landmark": Landmark
+          };
+          
+          const mappedServices = servicesRes.data.map((svc: any) => ({
+            ...svc,
+            icon: iconMap[svc.icon_name] || Building2
+          }));
+          setServices(mappedServices);
+        }
+
+        if (statsRes.data && statsRes.data.length > 0) {
+          setStats(statsRes.data);
+        }
+      } catch (err) {
+        console.error("Failed to load hub CMS data", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchHubData();
+  }, []);
+
   useGSAP(() => {
     gsap.fromTo(".stat-item", { y: 30, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out",
@@ -155,7 +204,7 @@ export default function DualContinentBusinessHubPage() {
       { y: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out",
         scrollTrigger: { trigger: hubsRef.current, start: "top 80%" } }
     );
-  }, {});
+  }, { dependencies: [isLoading] });
 
   return (
     <main className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/30 selection:text-blue-200">
@@ -201,7 +250,7 @@ export default function DualContinentBusinessHubPage() {
       <section ref={statsRef} className="bg-zinc-900/30 border-b border-zinc-800/30 py-14">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {STATS.map((s) => (
+            {stats.map((s) => (
               <div key={s.label} className="stat-item text-center p-6 border border-zinc-800/50 rounded-sm bg-zinc-900/20">
                 <div className="text-4xl font-black text-blue-400 mb-1">{s.value}</div>
                 <div className="text-sm font-bold text-white mb-0.5">{s.label}</div>
@@ -226,7 +275,7 @@ export default function DualContinentBusinessHubPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {HUB_LOCATIONS.map((hub) => (
+            {hubLocations.map((hub: any) => (
               <div key={hub.city}
                 className="hub-card group bg-zinc-900/30 border border-zinc-800/50 rounded-sm p-7 hover:border-blue-500/20 transition-all duration-300 relative overflow-hidden"
               >
@@ -238,7 +287,7 @@ export default function DualContinentBusinessHubPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="text-3xl mb-2">{hub.flag}</div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">{hub.type}</div>
+                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">{hub.hub_type || hub.type}</div>
                     <h3 className="text-xl font-black text-white">{hub.city}</h3>
                     <div className="flex items-center gap-1.5 mt-1">
                       <MapPin className="w-3 h-3 text-zinc-600" />
@@ -248,7 +297,7 @@ export default function DualContinentBusinessHubPage() {
                 </div>
                 <p className="text-zinc-400 text-[13px] leading-relaxed mb-5">{hub.description}</p>
                 <div className="space-y-2">
-                  {hub.highlights.map((h) => (
+                  {hub.highlights.map((h: string) => (
                     <div key={h} className="flex items-center gap-2">
                       <CheckCircle className="w-3 h-3 text-emerald-500 shrink-0" />
                       <span className="text-[12px] text-zinc-400">{h}</span>
@@ -275,7 +324,7 @@ export default function DualContinentBusinessHubPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((svc) => {
+            {services.map((svc: any) => {
               const Icon = svc.icon;
               return (
                 <div key={svc.title} className="group bg-zinc-900/20 border border-zinc-800/40 p-7 rounded-sm hover:border-zinc-700 transition-all duration-300">
@@ -285,7 +334,7 @@ export default function DualContinentBusinessHubPage() {
                   <h3 className="text-white font-bold text-[16px] mb-2">{svc.title}</h3>
                   <p className="text-zinc-500 text-[13px] leading-relaxed mb-4">{svc.description}</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {svc.tags.map((tag) => (
+                    {svc.tags.map((tag: string) => (
                       <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">
                         {tag}
                       </span>

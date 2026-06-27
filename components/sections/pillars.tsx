@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Tractor, Zap, HeartPulse, Cpu, Plane, Factory } from "lucide-react";
 
@@ -18,37 +19,43 @@ export function SectorIntelligence() {
       title: t("verticals.agritech"),
       description: "Modernizing food security and agrarian infrastructure across the continent. Facilitating deep-tier agritech investments and supply chain resilience.",
       icon: Tractor,
-      metrics: "$2.4T Market by 2030"
+      metrics: "$2.4T Market by 2030",
+      link: "/sectors/agriculture"
     },
     {
       title: "Advanced Manufacturing",
       description: "Developing robust industrial processing and heavy machinery manufacturing capabilities to bypass supply chain bottlenecks.",
       icon: Factory,
-      metrics: "Tier 1 Mega-Hubs"
+      metrics: "Tier 1 Mega-Hubs",
+      link: "/sectors/manufacturing"
     },
     {
       title: t("verticals.energy"),
       description: "Accelerating the transition to localized, renewable grids. Maximizing vast solar and hydro portfolios for sovereign utility independence.",
       icon: Zap,
-      metrics: "Clean Power Mandate"
+      metrics: "Clean Power Mandate",
+      link: "/sectors/clean-energy"
     },
     {
       title: t("verticals.health"),
       description: "Building pharmaceutical independence and localized clinical research institutions to supply continental healthcare demands.",
       icon: HeartPulse,
-      metrics: "Bio-Informatics"
+      metrics: "Bio-Informatics",
+      link: "/sectors/life-sciences"
     },
     {
       title: t("verticals.digital"),
       description: "Powering the unbanked and streamlining cross-border transactions through decentralized banking and institutional capital corridors.",
       icon: Cpu,
-      metrics: "Digital Capitalization"
+      metrics: "Digital Capitalization",
+      link: "/sectors/fintech"
     },
     {
       title: t("verticals.defense"),
       description: "Strategic sector alignment focusing on secure drone logistics and modernized security technologies for stable sovereign growth.",
       icon: Plane,
-      metrics: "Strategic Security"
+      metrics: "Strategic Security",
+      link: "/sectors/defense"
     }
   ];
 
@@ -101,9 +108,10 @@ export function SectorIntelligence() {
           {sectors.map((sector, idx) => {
             const Icon = sector.icon;
             return (
-              <div 
+              <Link 
+                href={sector.link}
                 key={sector.title} 
-                className="sector-card group bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800 transition-colors p-8 flex flex-col h-full cursor-pointer"
+                className="sector-card group bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800 transition-colors p-8 flex flex-col h-full cursor-pointer block"
               >
                 <div className="mb-6 flex justify-between items-start">
                   <div className="p-3 bg-zinc-800 rounded text-zinc-300 group-hover:text-blue-400 group-hover:bg-blue-500/10 transition-colors">
@@ -129,7 +137,7 @@ export function SectorIntelligence() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

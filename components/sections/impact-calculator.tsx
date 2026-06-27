@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { formatCurrency, formatNumber } from "@/lib/formatters";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Users, 
@@ -117,7 +118,7 @@ export const ImpactCalculator = () => {
           <div className="space-y-6">
             <div className="flex justify-between items-end">
               <label className="text-[11px] font-black text-zinc-400 uppercase tracking-widest">Contribution Amount (USD)</label>
-              <div className="text-3xl font-black text-emerald-400">${amount.toLocaleString()}</div>
+              <div className="text-3xl font-black text-emerald-400">{formatCurrency(amount)}</div>
             </div>
             <input 
               type="range" 
@@ -178,12 +179,12 @@ export const ImpactCalculator = () => {
                 <div className="relative z-10">
                    <div className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] mb-4">Estimated Outcome</div>
                    <div className="flex items-baseline gap-3 mb-4">
-                      <div className={`text-6xl md:text-7xl font-black text-${currentCategory.color}-400 group-hover:scale-105 transition-transform duration-500`}>{impactCount.toLocaleString()}</div>
+                      <div className={`text-6xl md:text-7xl font-black text-${currentCategory.color}-400 group-hover:scale-105 transition-transform duration-500`}>{formatNumber(impactCount)}</div>
                       <div className="text-xl font-bold text-zinc-300 uppercase tracking-tight">{currentCategory.metricLabel}</div>
                    </div>
                    <div className="h-px w-24 bg-zinc-800 mb-6" />
                    <p className="text-zinc-400 font-medium leading-relaxed max-w-sm italic">
-                      "With a contribution of ${amount.toLocaleString()}, AfDEC will facilitate **{currentCategory.outcome}** for **{impactCount}** verified beneficiaries."
+                      "With a contribution of {formatCurrency(amount)}, AfDEC will facilitate **{currentCategory.outcome}** for **{formatNumber(impactCount)}** verified beneficiaries."
                    </p>
                 </div>
               </div>

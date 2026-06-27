@@ -24,11 +24,14 @@ import {
   Building2,
   Globe
 } from "lucide-react";
+import { BoardApplicationModal } from "@/components/ui/board-application-modal";
 import { motion, AnimatePresence } from "framer-motion";
+
+const SHOW_EXECUTIVE_MANDATE = false;
 
 const SECTIONS: NavSection[] = [
   { id: "council", label: "Sovereign Council" },
-  { id: "executive", label: "Executive Mandate" },
+  ...(SHOW_EXECUTIVE_MANDATE ? [{ id: "executive", label: "Executive Mandate" }] : []),
   { id: "advisor", label: "Board of Advisors" },
   { id: "governance", label: "Governance Structure" },
 ];
@@ -39,12 +42,17 @@ export default function LeadershipHubPage() {
   const [members, setMembers] = useState<any[]>([]);
   const [activeTier, setActiveTier] = useState<Tier>('council');
   const [selectedMember, setSelectedMember] = useState<any | null>(null);
+  const [isBioExpanded, setIsBioExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showApplicationModal, setShowApplicationModal] = useState(false);
 
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['council', 'executive', 'advisor', 'governance'].includes(hash)) {
+      const validHashes = ['council', 'advisor', 'governance'];
+      if (SHOW_EXECUTIVE_MANDATE) validHashes.push('executive');
+      
+      if (validHashes.includes(hash)) {
         setActiveTier(hash as Tier);
       }
     };
@@ -120,7 +128,7 @@ export default function LeadershipHubPage() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-900/80 border border-zinc-800 mb-8 rounded-full">
               <Shield className="w-3 h-3 text-blue-500" />
-              <span className="text-[10px] font-black tracking-[0.2em] text-zinc-400 uppercase">Institutional Identity Hub</span>
+              <span className="text-[10px] font-black tracking-[0.2em] text-zinc-400 uppercase">Institutional Identity</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[0.95] mb-8 text-glow-blue">
               Leadership &<br />Governance.
@@ -136,17 +144,20 @@ export default function LeadershipHubPage() {
       <section className="sticky top-[144px] z-50 bg-zinc-950 border-b border-zinc-900 backdrop-blur-md">
          <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
             <div className="flex flex-wrap items-center gap-8 -mb-px">
-               {(['council', 'executive', 'advisor', 'governance'] as Tier[]).map((tier) => (
+               {(SHOW_EXECUTIVE_MANDATE 
+                  ? ['council', 'executive', 'advisor', 'governance'] 
+                  : ['council', 'advisor', 'governance'] as Tier[]
+               ).map((tier) => (
                  <button
                    key={tier}
-                   onClick={() => setActiveTier(tier)}
+                   onClick={() => setActiveTier(tier as Tier)}
                    className={`py-6 text-[11px] font-black uppercase tracking-[0.2em] relative transition-all ${activeTier === tier ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
                  >
-                   {tierStyles[tier].label}
+                   {tierStyles[tier as Tier].label}
                    {activeTier === tier && (
                      <motion.div 
                         layoutId="activeTab" 
-                        className={`absolute bottom-0 left-0 right-0 h-1 ${tierStyles[tier].bg}`} 
+                        className={`absolute bottom-0 left-0 right-0 h-1 ${tierStyles[tier as Tier].bg}`} 
                      />
                    )}
                  </button>
@@ -214,18 +225,37 @@ export default function LeadershipHubPage() {
                    {isLoading ? (
                      <div className="col-span-full py-20 text-center text-zinc-600 font-bold uppercase tracking-[0.5em] animate-pulse">Synchronizing Data...</div>
                    ) : filteredMembers.length === 0 ? (
-                     <div className="col-span-full py-20 text-center text-zinc-700 italic">No appointments confirmed for this Mandate Tier.</div>
+                     <div className="col-span-full py-20 flex flex-col items-center">
+                       <p className="text-zinc-700 italic mb-8">No appointments confirmed for this Mandate Tier.</p>
+                       {activeTier === 'advisor' && (
+                         <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-lg max-w-lg mx-auto text-center">
+                           <h3 className="text-xl font-black text-white mb-2">Join the Board of Advisors</h3>
+                           <p className="text-sm text-zinc-400 mb-6">AfDEC is currently evaluating strategic counsel from leaders across transatlantic markets.</p>
+                           <button onClick={() => setShowApplicationModal(true)} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-sm transition-colors">Submit Candidacy</button>
+                         </div>
+                       )}
+                     </div>
                    ) : (
                      filteredMembers.map((member) => (
                        <div 
                          key={member.id}
-                         onClick={() => setSelectedMember(member)}
+                         onClick={() => {
+                           setSelectedMember(member);
+                           setIsBioExpanded(false);
+                         }}
                          className={`group bg-zinc-900/30 border ${tierStyles[activeTier].border} p-8 rounded-sm hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-[320px] shadow-sm hover:shadow-xl hover:bg-zinc-900/50`}
                        >
                          <div>
-                            <div className={`w-14 h-14 rounded-sm bg-gradient-to-br ${tierStyles[activeTier].gradient} flex items-center justify-center text-white font-black text-xl mb-6 shadow-inner`}>
-                               {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
-                            </div>
+                            {member.image_url ? (
+                              <div 
+                                className="w-40 h-40 rounded-full bg-cover bg-top mb-6 shadow-lg border-2 border-zinc-800"
+                                style={{ backgroundImage: `url('${member.image_url}')` }}
+                              />
+                            ) : (
+                              <div className={`w-40 h-40 rounded-sm bg-gradient-to-br ${tierStyles[activeTier].gradient} flex items-center justify-center text-white font-black text-3xl mb-6 shadow-inner`}>
+                                 {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+                              </div>
+                            )}
                             <h3 className="text-white font-bold text-lg mb-1 group-hover:text-blue-400 transition-colors">{member.name}</h3>
                             <p className={`${tierStyles[activeTier].accent} text-[11px] font-black uppercase tracking-[0.2em] mb-2`}>{member.title}</p>
                             <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest">{member.sub_title || ""}</p>
@@ -265,11 +295,25 @@ export default function LeadershipHubPage() {
             >
                <div className="p-12">
                   <button 
-                     onClick={() => setSelectedMember(null)}
+                     onClick={() => {
+                       setSelectedMember(null);
+                       setIsBioExpanded(false);
+                     }}
                      className="text-zinc-600 hover:text-white mb-12 flex items-center text-xs font-black uppercase tracking-widest"
                   >
                      <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Exit Profile
                   </button>
+
+                  {selectedMember.image_url ? (
+                     <div 
+                        className="w-64 h-64 rounded-full bg-cover bg-top mb-10 shadow-2xl border-4 border-zinc-800"
+                        style={{ backgroundImage: `url('${selectedMember.image_url}')` }}
+                     />
+                  ) : (
+                     <div className={`w-64 h-64 rounded-full bg-gradient-to-br ${tierStyles[selectedMember.role_tier as Tier || 'council'].gradient} flex items-center justify-center text-white font-black text-7xl mb-10 shadow-2xl border-4 border-zinc-800`}>
+                        {selectedMember.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+                     </div>
+                  )}
 
                   <div className="flex items-start justify-between mb-16">
                      <div>
@@ -282,12 +326,17 @@ export default function LeadershipHubPage() {
                         </div>
                      </div>
                      <div className="flex space-x-3">
-                        <button className="w-10 h-10 bg-zinc-950 border border-zinc-800 text-white flex items-center justify-center rounded-sm hover:border-blue-500 transition-colors shadow-lg">
-                           <ExternalLink className="w-4 h-4" />
-                        </button>
-                        <button className="w-10 h-10 bg-zinc-950 border border-zinc-800 text-white flex items-center justify-center rounded-sm hover:border-emerald-500 transition-colors shadow-lg">
-                           <Mail className="w-4 h-4" />
-                        </button>
+                        {selectedMember.linkedin_url && (
+                           <Link href={selectedMember.linkedin_url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-zinc-950 border border-zinc-800 text-white flex items-center justify-center rounded-sm hover:border-blue-500 transition-colors shadow-lg">
+                              <ExternalLink className="w-4 h-4" />
+                           </Link>
+                        )}
+                        {selectedMember.email && (
+                           <a href={`mailto:${selectedMember.email}`} className="px-4 h-10 bg-zinc-950 border border-zinc-800 text-white flex items-center justify-center rounded-sm hover:border-emerald-500 transition-colors shadow-lg space-x-2">
+                              <Mail className="w-4 h-4" />
+                              <span className="text-[10px] font-bold uppercase tracking-widest">Connect</span>
+                           </a>
+                        )}
                      </div>
                   </div>
 
@@ -309,12 +358,42 @@ export default function LeadershipHubPage() {
                            <span key={c} className="px-3 py-1.5 bg-zinc-950 border border-zinc-800 text-[10px] font-black text-zinc-400 uppercase tracking-widest rounded-sm">{c}</span>
                         ))}
                      </div>
+
+                     {selectedMember.full_bio && (
+                        <div className="mt-12 pt-12 border-t border-zinc-800/50">
+                           <div className="flex items-center justify-between mb-8 cursor-pointer group" onClick={() => setIsBioExpanded(!isBioExpanded)}>
+                              <div className="flex items-center gap-3">
+                                 <FileText className="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors" />
+                                 <h4 className="text-zinc-400 group-hover:text-white text-sm font-black uppercase tracking-[0.3em] m-0 transition-colors">Executive Biography</h4>
+                              </div>
+                              <span className="text-zinc-500 group-hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">
+                                 {isBioExpanded ? "Collapse" : "Expand"}
+                              </span>
+                           </div>
+                           <AnimatePresence>
+                              {isBioExpanded && (
+                                 <motion.div 
+                                    initial={{ height: 0, opacity: 0 }} 
+                                    animate={{ height: "auto", opacity: 1 }} 
+                                    exit={{ height: 0, opacity: 0 }}
+                                    className="overflow-hidden"
+                                 >
+                                    <div className="text-zinc-400 text-[15px] leading-relaxed whitespace-pre-wrap pb-8">
+                                       {selectedMember.full_bio}
+                                    </div>
+                                 </motion.div>
+                              )}
+                           </AnimatePresence>
+                        </div>
+                     )}
                   </div>
                </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      <BoardApplicationModal isOpen={showApplicationModal} onClose={() => setShowApplicationModal(false)} />
 
       <Footer />
     </main>

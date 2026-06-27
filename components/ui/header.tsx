@@ -17,14 +17,12 @@ const navigation = [
         links: [
           { name: "About AfDEC Mandate", href: "/about" },
           { name: "Sovereign Strategic Framework", href: "/about/strategic-framework" },
-          { name: "Leadership & Governance Hub", href: "/about/leadership" },
-          { name: "The Sovereign Council", href: "/about/leadership#council" },
+          { name: "Leadership & Governance", href: "/about/leadership" },
         ],
       },
       {
         title: "Operations",
         links: [
-          { name: "Staff & Committee Appointments", href: "/about/leadership#executive" },
           { name: "Board of Advisors", href: "/about/leadership#advisor" },
           { name: "Careers & Volunteer Corps", href: "/careers" },
           { name: "Media & Press Relations", href: "/media" },
@@ -33,9 +31,10 @@ const navigation = [
       {
         title: "Impact Capital",
         links: [
+          { name: "The Africa Center Initiative", href: "/initiatives/africa-center" },
           { name: "Diaspora Impact Fund", href: "/diaspora-impact-fund" },
-          { name: "SME Development Projects", href: "/diaspora-impact-fund#projects" },
-          { name: "Direct Contribution Portal", href: "/diaspora-impact-fund#contribute" },
+          { name: "SME Development Projects", href: "/diaspora-impact-fund/projects" },
+          { name: "Direct Contribution Portal", href: "/diaspora-impact-fund/contribute" },
           { name: "Launch SME Application", href: "/diaspora-impact-fund#apply" },
         ],
       },
@@ -45,6 +44,15 @@ const navigation = [
           { name: "Initiate Global Expansion", href: "/corridor/expansion" },
           { name: "Member Portal 'God Mode'", href: "/auth" },
           { name: "Sponsorship & Tenders", href: "/invest#sponsorship" },
+        ],
+      },
+      {
+        title: "Flagship Initiatives",
+        links: [
+          { name: "Grow with AfDEC", href: "/initiatives/grow" },
+          { name: "Africa Works Initiative", href: "/initiatives/africa-works" },
+          { name: "Standing Against Poverty", href: "/initiatives/poverty" },
+          { name: "Climate & Growth", href: "/initiatives/climate" },
         ],
       },
 
@@ -81,7 +89,7 @@ const navigation = [
         links: [
           { name: "Enterprise Expansion Suite", href: "/corridor/expansion" },
           { name: "Export & Trade Logistics", href: "/corridor/export-trade" },
-          { name: "Government Relations", href: "/corridor/partnerships" },
+          { name: "Government Relations", href: "/government-relations" },
         ],
       },
     ],
@@ -122,7 +130,7 @@ const navigation = [
       {
         title: "Institutional Research",
         links: [
-          { name: "Policy Briefs & White Papers", href: "/insights/policy" },
+          { name: "Policy Publications & Briefs", href: "/insights/policy" },
           { name: "Strategic Market Outlook", href: "/insights/market-outlook" },
         ],
       },
@@ -238,7 +246,7 @@ export function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center space-x-4 relative z-20">
-          <Link href="#" className="hidden md:block text-sm font-medium text-zinc-300 hover:text-zinc-100 transition-colors">
+          <Link href="/corridor/expansion" className="hidden md:block text-sm font-medium text-zinc-300 hover:text-zinc-100 transition-colors">
             Initiate Expansion
           </Link>
           <Link href="/auth" className="hidden sm:flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -284,8 +292,7 @@ export function Header() {
                     Access institutional resources, sector frameworks, and comprehensive guidance for the {item.name} sector of the council.
                   </p>
                 </div>
-                
-                <div className="col-span-8 grid grid-cols-2 gap-x-12 gap-y-8">
+                <div className="col-span-8 grid grid-cols-3 gap-x-12 gap-y-8">
                   {item.sections.map((section) => (
                     <div key={section.title}>
                       <h3 className="text-sm font-bold text-zinc-500 tracking-wider uppercase mb-4">

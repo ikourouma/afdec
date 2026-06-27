@@ -22,6 +22,7 @@ const SECTIONS: NavSection[] = [
   { id: "integration", label: "Continental Integration" },
 ];
 import { AfricaMap } from "@/components/sections/africa-map";
+import { supabase } from "@/lib/supabase";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,6 +97,18 @@ export default function WhyAfricaPage() {
   const statsRef = useRef<HTMLDivElement>(null);
   const regionsRef = useRef<HTMLDivElement>(null);
   const tradeRef = useRef<HTMLDivElement>(null);
+
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAuthLoading, setIsAuthLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+      setIsAuthLoading(false);
+    }
+    checkAuth();
+  }, []);
 
   useGSAP(() => {
     gsap.fromTo(".africa-stat",
@@ -270,14 +283,44 @@ export default function WhyAfricaPage() {
             <div className="mb-10">
               <div className="inline-flex items-center space-x-2 mb-4">
                 <div className="w-8 h-px bg-blue-500"></div>
-                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">AfDEC Intelligence Terminal</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Souvera Intelligence Terminal</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-white">Africa Investment Map</h2>
               <p className="text-zinc-400 mt-4 max-w-2xl text-[15px] leading-relaxed">
-                Click any country to access AfDEC&apos;s sovereign intelligence brief — economic indicators, sector opportunities, and bilateral assessment notes curated by the Board.
+                Powered by the <strong className="text-white">Souvera Intelligence Terminal</strong>, an Afronovation, Inc. intelligence product. Click any country to access AfDEC&apos;s sovereign intelligence brief — economic indicators, sector opportunities, and bilateral assessment notes curated by the Board.
               </p>
             </div>
-            <AfricaMap />
+            
+            {isAuthLoading ? (
+              <div className="w-full h-[600px] bg-zinc-900 animate-pulse rounded-lg flex items-center justify-center">
+                <span className="text-zinc-500 font-bold tracking-widest text-sm uppercase">Loading Terminal...</span>
+              </div>
+            ) : isAuthenticated ? (
+              <AfricaMap />
+            ) : (
+              <div className="relative w-full h-[600px] bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10 blur-md scale-105 pointer-events-none" />
+                <div className="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm flex flex-col items-center justify-center text-center px-6">
+                  <div className="w-16 h-16 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center mb-6">
+                    <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-black text-white mb-4">Intelligence Feed Locked</h3>
+                  <p className="text-zinc-400 max-w-md mb-8">
+                    Live macroeconomic data, the Top 10 Economies board, and sovereign intelligence maps are restricted. Register or log in to access the Souvera Intelligence Terminal.
+                  </p>
+                  <div className="flex gap-4">
+                    <Link href="/auth" className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm tracking-widest uppercase rounded-sm transition-colors">
+                      Member Login
+                    </Link>
+                    <Link href="/auth" className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-sm tracking-widest uppercase rounded-sm transition-colors">
+                      Request Access
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

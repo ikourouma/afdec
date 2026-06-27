@@ -1,14 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Mail, Building2, User, Phone, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useSearchParams } from "next/navigation";
 
-export default function ContactGatewayPage() {
+const DEFAULT_TOPICS = [
+  "Institutional Partnership",
+  "Sovereign Tourism Inquiry",
+  "Diaspora Impact Fund Investment",
+  "NC Africa Center Inquiry",
+  "Market Entry & Expansion",
+  "Government & Diplomatic Relations",
+  "Media & Press Inquiry",
+  "Sponsorship & Advertising",
+  "General Information",
+  "Human Capital & Careers",
+  "Member Services"
+];
+
+const TOPIC_MAP: Record<string, string> = {
+  "naming-rights": "NC Africa Center - Bid for Naming Rights",
+  "expansion": "Enterprise Expansion Inquiry",
+  "briefing": "Schedule a Strategic Briefing",
+  "donor_institutional": "Institutional Donation Inquiry",
+  "donor_individual": "Individual Donation Inquiry",
+  "program_partner": "Program Partnership Inquiry",
+  "newsletter": "Register for Market Briefing Notifications",
+};
+
+function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  
+  const searchParams = useSearchParams();
+  const urlTopic = searchParams.get("topic") || searchParams.get("inquiry");
+  
+  const initialTopic = urlTopic ? (TOPIC_MAP[urlTopic] || decodeURIComponent(urlTopic)) : "Institutional Partnership";
+  const [selectedTopic, setSelectedTopic] = useState(initialTopic);
+
+  // Re-sync if URL changes
+  useEffect(() => {
+    if (urlTopic) {
+      setSelectedTopic(TOPIC_MAP[urlTopic] || decodeURIComponent(urlTopic));
+    }
+  }, [urlTopic]);
+
+  const topicOptions = [...DEFAULT_TOPICS];
+  if (selectedTopic && !topicOptions.includes(selectedTopic)) {
+    topicOptions.unshift(selectedTopic);
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +85,120 @@ export default function ContactGatewayPage() {
     }
   };
 
+  return (
+    <div className="w-full max-w-md">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold text-white tracking-tight mb-2">Direct Outreach</h2>
+        <p className="text-sm font-medium text-zinc-400">Establish contact with the Central Authority.</p>
+      </div>
+
+      {success ? (
+        <div className="bg-emerald-950/30 border border-emerald-900/50 rounded-sm p-8 text-center animate-fade-in relative overflow-hidden">
+           <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
+           <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+           <h3 className="text-xl font-bold text-white mb-2 tracking-tight">Transmission Secured</h3>
+           <p className="text-zinc-400 text-sm leading-relaxed mb-6">Your institutional query has been logged securely under priority routing. The Board will review your credentials shortly.</p>
+           <button 
+             onClick={() => setSuccess(false)}
+             className="text-xs font-bold uppercase tracking-widest text-blue-500 hover:text-blue-400 transition-colors"
+           >
+             Submit Follow-up Transmission
+           </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          
+          {errorMsg && (
+            <div className="p-4 bg-red-950/50 border border-red-900/50 rounded-sm flex items-start">
+              <AlertCircle className="w-5 h-5 text-red-500 mr-3 shrink-0 mt-0.5" />
+              <p className="text-sm font-bold text-red-200">{errorMsg}</p>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">First Name</label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <input name="first_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="First" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Last Name</label>
+              <input name="last_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none" placeholder="Last" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+             <div className="space-y-2">
+              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Corporate Email</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <input name="email" required type="email" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="corp@domain.com" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Direct Phone</label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <input name="phone" required type="tel" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="+1..." />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Organization / Entity</label>
+            <div className="relative">
+              <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+              <input name="organization" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="Entity Name" />
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Transmission Topic</label>
+            <select 
+              name="topic" 
+              required 
+              value={selectedTopic}
+              onChange={(e) => setSelectedTopic(e.target.value)}
+              className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none appearance-none cursor-pointer"
+            >
+              {topicOptions.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Secure Message Payload</label>
+            <textarea name="message" required rows={4} className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none resize-none" placeholder="Provide institutional scope..." />
+          </div>
+
+          {/* Strict Privacy Compliance Toggle */}
+          <div className="bg-zinc-900/40 border border-zinc-800/50 p-4 rounded-sm flex items-start space-x-3">
+            <div className="flex items-center h-5 mt-0.5 shrink-0">
+              <input required id="privacy_consent" name="privacy_consent" type="checkbox" className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-blue-600 focus:ring-blue-600 focus:ring-2 cursor-pointer" />
+            </div>
+            <div className="text-[10px] leading-relaxed text-zinc-400">
+              <p className="mb-2">If I am a user outside the US, I understand AfDEC provides its services from the US, where privacy laws may differ from the laws in my jurisdiction. I consent to transfer my information to the US and to AfDEC's processing my information in accordance with the Privacy Policy.</p>
+              <label htmlFor="privacy_consent" className="font-bold text-zinc-300 cursor-pointer hover:text-white">*I consent to AfDEC’s Privacy Policy.</label>
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase text-sm py-4 rounded-sm transition-all focus:ring-4 focus:ring-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+          >
+            {isSubmitting ? "Encrypting Routing..." : "Execute Secure Transmission"}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
+export default function ContactGatewayPage() {
   return (
     <div className="h-screen bg-zinc-950 font-sans text-zinc-100 selection:bg-blue-500/30 selection:text-white overflow-hidden flex flex-col">
       <div className="flex-1 flex items-center justify-center py-8 lg:py-12">
@@ -97,116 +254,14 @@ export default function ContactGatewayPage() {
                 Gateway
               </Link>
 
-        <div className="w-full max-w-md">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white tracking-tight mb-2">Direct Outreach</h2>
-            <p className="text-sm font-medium text-zinc-400">Establish contact with the Central Authority.</p>
-          </div>
+              <Suspense fallback={<div className="text-zinc-500 text-sm animate-pulse w-full text-center">Initializing Secure Uplink...</div>}>
+                <ContactForm />
+              </Suspense>
 
-          {success ? (
-            <div className="bg-emerald-950/30 border border-emerald-900/50 rounded-sm p-8 text-center animate-fade-in relative overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
-               <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
-               <h3 className="text-xl font-bold text-white mb-2 tracking-tight">Transmission Secured</h3>
-               <p className="text-zinc-400 text-sm leading-relaxed mb-6">Your institutional query has been logged securely under priority routing. The Board will review your credentials shortly.</p>
-               <button 
-                 onClick={() => setSuccess(false)}
-                 className="text-xs font-bold uppercase tracking-widest text-blue-500 hover:text-blue-400 transition-colors"
-               >
-                 Submit Follow-up Transmission
-               </button>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              
-              {errorMsg && (
-                <div className="p-4 bg-red-950/50 border border-red-900/50 rounded-sm flex items-start">
-                  <AlertCircle className="w-5 h-5 text-red-500 mr-3 shrink-0 mt-0.5" />
-                  <p className="text-sm font-bold text-red-200">{errorMsg}</p>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">First Name</label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                    <input name="first_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="First" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Last Name</label>
-                  <input name="last_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none" placeholder="Last" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Corporate Email</label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                    <input name="email" required type="email" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="corp@domain.com" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Direct Phone</label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                    <input name="phone" required type="tel" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="+1..." />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Organization / Entity</label>
-                <div className="relative">
-                  <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                  <input name="organization" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="Entity Name" />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Transmission Topic</label>
-                <select name="topic" required className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none appearance-none cursor-pointer">
-                   <option value="Institutional Partnership">Institutional Partnership</option>
-                   <option value="Media & Press Inquiry">Media & Press Inquiry</option>
-                   <option value="Sponsorship & Advertising">Sponsorship & Advertising</option>
-                   <option value="General Information">General Information</option>
-                   <option value="Human Capital & Careers">Human Capital & Careers</option>
-                   <option value="Member Services">Member Services</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Secure Message Payload</label>
-                <textarea name="message" required rows={4} className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none resize-none" placeholder="Provide institutional scope..." />
-              </div>
-
-              {/* Strict Privacy Compliance Toggle */}
-              <div className="bg-zinc-900/40 border border-zinc-800/50 p-4 rounded-sm flex items-start space-x-3">
-                <div className="flex items-center h-5 mt-0.5 shrink-0">
-                  <input required id="privacy_consent" name="privacy_consent" type="checkbox" className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-blue-600 focus:ring-blue-600 focus:ring-2 cursor-pointer" />
-                </div>
-                <div className="text-[10px] leading-relaxed text-zinc-400">
-                  <p className="mb-2">If I am a user outside the US, I understand AfDEC provides its services from the US, where privacy laws may differ from the laws in my jurisdiction. I consent to transfer my information to the US and to AfDEC's processing my information in accordance with the Privacy Policy.</p>
-                  <label htmlFor="privacy_consent" className="font-bold text-zinc-300 cursor-pointer hover:text-white">*I consent to AfDEC’s Privacy Policy.</label>
-                </div>
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase text-sm py-4 rounded-sm transition-all focus:ring-4 focus:ring-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(37,99,235,0.2)]"
-              >
-                {isSubmitting ? "Encrypting Routing..." : "Execute Secure Transmission"}
-              </button>
-            </form>
-          )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
   );
 }

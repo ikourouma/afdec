@@ -91,7 +91,7 @@ export default function AboutPage() {
             The African Diaspora Economic Council
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl leading-relaxed font-medium">
-            A sovereign institution building permanent economic bridges between North Carolina and the African continent. We exist to connect capital, talent, and enterprise across both shores.
+            A sovereign institution building permanent economic bridges between North Carolina and the African continent. We exist to connect capital, talent, community development, and enterprise across both shores.
           </p>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
@@ -164,7 +164,7 @@ export default function AboutPage() {
                 We build the bridges that connect African and American enterprises to shared prosperity.
               </p>
               <p className="text-[15px] text-zinc-400 leading-relaxed">
-                AfDEC brings together investors, businesses, and government partners to open new markets, create jobs, and move capital across the Atlantic. Based in Raleigh, North Carolina, we work at the intersection of trade, investment, and diaspora-driven growth — turning relationships into lasting economic infrastructure.
+                AfDEC brings together investors, businesses, and government partners to open new markets, create jobs, and move capital across the Atlantic. Based in Raleigh, North Carolina, we work at the intersection of trade, investment, community development, and diaspora-driven growth — turning relationships into lasting economic infrastructure.
               </p>
             </div>
             <div>
@@ -176,7 +176,7 @@ export default function AboutPage() {
                 A world where the African diaspora leads its own economic future — on both continents.
               </p>
               <p className="text-[15px] text-zinc-400 leading-relaxed">
-                By 2030, AfDEC will be the leading platform connecting Africa and North America — deploying capital into high-growth sectors, empowering 10,000 enterprises with cross-border opportunity, and building policy pathways that create generational wealth for the diaspora.
+                By 2030, AfDEC will be the leading platform connecting Africa and North America — deploying capital into high-growth sectors, empowering 10,000 enterprises with cross-border opportunity, driving community development, and building policy pathways that create generational wealth for the diaspora.
               </p>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Link href="/about/leadership" className="inline-flex items-center gap-2 group bg-blue-600 hover:bg-blue-500 text-white text-xs font-black tracking-widest uppercase px-10 py-5 rounded-sm transition-all shadow-xl">
-                  Explore the Identity Hub
+                  Meet the Leadership
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link href="/about/leadership#governance" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
@@ -239,7 +239,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full lg:w-auto">
                {[
                  { label: "Sovereign Council", color: "text-blue-500", glow: "hover:border-blue-500/40", detail: "Fiduciary Oversight", href: "/about/leadership#council" },
-                 { label: "Executive Mandate", color: "text-amber-500", glow: "hover:border-amber-500/40", detail: "Operational Drive", href: "/about/leadership#executive" },
+                 { label: "Advisory Structure", color: "text-amber-500", glow: "hover:border-amber-500/40", detail: "Operational Drive", href: "/about/leadership#advisor" },
                  { label: "Board of Advisors", color: "text-emerald-500", glow: "hover:border-emerald-500/40", detail: "Strategic Counsel", href: "/about/leadership#advisor" }
                ].map((tier) => (
                  <Link 
@@ -269,7 +269,7 @@ export default function AboutPage() {
             Whether you are an investor, an entrepreneur, or a policy leader — there is a seat at this table.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/auth" className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
+            <Link href="/auth?view=register" className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
               <span>Become a Member</span>
               <ArrowRight className="w-4 h-4" />
             </Link>

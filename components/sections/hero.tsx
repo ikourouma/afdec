@@ -49,6 +49,18 @@ const mockSlides: SlideType[] = [
     secondary_cta_type: "event_details",
     event_date: "Sept 26-27, 2026",
     event_location: "Raleigh, NC"
+  },
+  {
+    id: "slide-3",
+    type: "single_image",
+    media_1: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2670&auto=format&fit=crop", 
+    title: "The NC Africa Center Initiative.",
+    subtitle: "North Carolina's First Sovereign Gateway for Transatlantic Commerce, Innovation & Community Development.",
+    primary_cta_text: "Explore The Blueprint",
+    primary_cta_link: "/initiatives/africa-center",
+    secondary_cta_type: "button",
+    secondary_cta_text: "Bid for Naming Rights",
+    secondary_cta_link: "/contact?topic=naming-rights"
   }
 ];
 

@@ -1069,7 +1069,7 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
               </div>
             ) : (
               /* Default — Top 10 Largest African Economies by GDP 2026 */
-              <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden">
+              <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden h-full flex flex-col">
                 <div className="px-6 py-5 border-b border-zinc-800">
                   <div className="flex items-center gap-2 mb-1">
                     <TrendingUp className="w-4 h-4 text-blue-400" />
@@ -1078,7 +1078,7 @@ export function AfricaMap({ compact = false }: { compact?: boolean }) {
                   <p className="text-[10px] text-zinc-600 font-medium">Largest African Economies by GDP · IMF 2026 Projections</p>
                 </div>
 
-                <div className="divide-y divide-zinc-800/60">
+                <div className="divide-y divide-zinc-800/60 flex-1 overflow-y-auto min-h-0">
                   {managedEconomies.map((entry) => {
                     const profile = profiles[entry.iso3] ?? null;
                     const colors = REGION_COLORS[entry.region as CountryRegion];

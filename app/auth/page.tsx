@@ -2,9 +2,10 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowRight, Lock, ShieldCheck, Mail, KeyRound, TrendingUp, Globe2, Building2, User, UserPlus } from "lucide-react";
+import { ArrowRight, ArrowLeft, Lock, ShieldCheck, Mail, KeyRound, TrendingUp, Globe2, Building2, User, UserPlus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 const marketingSlides = [
@@ -95,6 +96,14 @@ export default function AuthGateway() {
     return () => clearInterval(interval);
   }, [isTransitioning]);
 
+  // Check URL params for register view pre-select
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('view') === 'register') {
+      setView('register');
+    }
+  }, []);
+
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -121,6 +130,11 @@ export default function AuthGateway() {
         });
         if (error) throw error;
         if (!data.user) throw new Error("Registration failed. No user returned.");
+        if (!data.session) {
+           setErrorMsg("Registration successful! Please check your email to verify your account before accessing the terminal.");
+           setIsLoading(false);
+           return;
+        }
         activeUserId = data.user.id;
       }
 
@@ -129,7 +143,8 @@ export default function AuthGateway() {
       
       // Self-Healing System Bypass
       let role = profile?.role;
-      if (email.toLowerCase() === 'admin@afronovation.com' || email.toLowerCase() === 'afdecadmin@afronovation.com') {
+      const cleanEmail = email.toLowerCase();
+      if (cleanEmail === 'admin@afronovation.com' || cleanEmail === 'afdecadmin@afronovation.com' || cleanEmail === 'admin@afdecnc.org') {
         role = 'super_admin';
       } else if (!role) {
         role = 'member';
@@ -137,16 +152,15 @@ export default function AuthGateway() {
       
       if (role === 'super_admin' || role === 'admin') {
          setErrorMsg("Admin Clearance Verified. Booting Command Center...");
-         setTimeout(() => router.push('/dashboard/admin'), 500);
+         window.location.replace('/dashboard/admin');
       } else {
          setErrorMsg("Connecting to Member Portal...");
          const redirectPath = new URLSearchParams(window.location.search).get('redirect') || '/dashboard/member';
-         setTimeout(() => router.push(redirectPath), 1000);
+         router.push(redirectPath);
       }
       
     } catch (err: any) {
       setErrorMsg(err.message || "Authentication task failed. Verify credentials.");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -154,7 +168,10 @@ export default function AuthGateway() {
   const activeSlide = marketingSlides[currentSlide];
 
   return (
-    <main className="min-h-screen bg-zinc-950 flex flex-col md:flex-row overflow-hidden font-sans selection:bg-blue-500/30">
+    <main className="min-h-screen bg-zinc-950 flex flex-col md:flex-row overflow-hidden font-sans selection:bg-blue-500/30 relative">
+      <Link href="/" className="absolute top-6 left-6 z-50 flex items-center gap-2 text-white/50 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest bg-black/20 px-4 py-2 rounded-sm backdrop-blur-md border border-white/5">
+        <ArrowLeft className="w-4 h-4" /> Return to Platform
+      </Link>
       
       {/* LEFT SIDE: Marketing / Intelligence Display */}
       <div ref={leftPanelRef} className="w-full md:w-1/2 relative min-h-[40vh] md:min-h-screen hidden md:flex items-end p-12 lg:p-20 border-r border-zinc-800">
@@ -209,12 +226,12 @@ export default function AuthGateway() {
         <div ref={formWrapperRef} className="relative z-10 w-full max-w-[420px] my-auto">
           
           <div className="flex justify-between items-center mb-10">
-            <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 bg-blue-600/10 border border-blue-500/20 flex items-center justify-center rounded-sm">
                 <Globe2 className="w-5 h-5 text-blue-500" />
               </div>
               <span className="text-white font-bold tracking-widest uppercase">AfDEC Terminal</span>
-            </div>
+            </Link>
             
             <div className="flex bg-zinc-900 border border-zinc-800 p-1 rounded-sm">
               <button 

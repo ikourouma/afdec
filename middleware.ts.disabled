@@ -1,0 +1,74 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize a clean client for middleware (standard practice in Next.js 15/16)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
+
+export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // 1. Get Session from Cookies (Supabase Standard Cookie)
+  // Note: auth.getSession() in middleware triggers a session refresh if needed
+  const { data: { session } } = await supabase.auth.getSession();
+
+  // 2. Protect Dashboard Routes
+  if (pathname.startsWith('/dashboard')) {
+    
+    // Unauthenticated: Redirect to login
+    if (!session) {
+      return NextResponse.redirect(new URL('/auth', request.url));
+    }
+
+    // Role-Based Authorization
+    const role = session.user.user_metadata?.role || 'member';
+
+    // Admin Security: Force re-auth every 24 hours
+    if (role === 'admin' && session.user.last_sign_in_at) {
+        const lastSignIn = new Date(session.user.last_sign_in_at).getTime();
+        const now = new Date().getTime();
+        const hoursPassed = (now - lastSignIn) / (1000 * 60 * 60);
+
+        if (hoursPassed > 24) {
+            // Force Sign-out and redirect
+            await supabase.auth.signOut();
+            return NextResponse.redirect(new URL('/auth?session_expired=true', request.url));
+        }
+    }
+
+    // Protect Admin Dashboard from Members
+    if (pathname.startsWith('/dashboard/admin')) {
+      const email = session.user.email?.toLowerCase();
+      if (role !== 'admin' && role !== 'super_admin' && email !== 'afdecadmin@afronovation.com' && email !== 'admin@afronovation.com' && email !== 'admin@afdecnc.org') {
+        return NextResponse.redirect(new URL('/dashboard/member', request.url));
+      }
+    }
+  }
+
+
+  // 3. Protect Africa Intelligence Map
+  if (pathname.startsWith('/africa-intelligence')) {
+    if (!session) {
+      return NextResponse.redirect(new URL('/auth?redirect=/africa-intelligence', request.url));
+    }
+    
+    // Attempt to log audit access asynchronously (fire and forget)
+    // Note: Edge middleware doesn't fully support all Supabase insertions perfectly without a full client, 
+    // but we can make a lightweight fetch call to the REST API if needed, 
+    // or rely on client-side/server-action telemetry. For now, we'll ensure auth.
+  }
+
+  return NextResponse.next();
+}
+
+// Ensure middleware only runs on relevant paths for performance
+export const config = {
+  matcher: [
+    '/dashboard/:path*',
+    '/auth/:path*',
+    '/africa-intelligence/:path*',
+  ],
+};

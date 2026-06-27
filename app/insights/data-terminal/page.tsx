@@ -11,6 +11,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import {
   Database, Globe, BarChart2, TrendingUp, Lock, Zap, ArrowRight, Bell
 } from "lucide-react";
+import { DiasporaRegistrationForm } from "@/components/ui/diaspora-registration-form";
 
 const COMING_FEATURES = [
   {
@@ -153,30 +154,11 @@ export default function DataTerminalComingSoonPage() {
         </div>
       </section>
 
-      {/* ── Access CTA ── */}
-      <section className="bg-zinc-950 py-24">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="bg-gradient-to-br from-blue-950/20 to-zinc-900/40 border border-blue-900/20 rounded-xl p-10 md:p-14 text-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.03]"
-              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Cpath d='M0 20h40M20 0v40'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "40px 40px" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px]" />
-            <div className="relative z-10">
-              <Zap className="w-8 h-8 text-blue-400 mx-auto mb-4" />
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-4">Request Early Access</h2>
-              <p className="text-zinc-400 text-[15px] max-w-xl mx-auto mb-8 leading-relaxed">
-                AfDEC institutional members, government partners, and accredited research organizations can request early access to the Diaspora Data Terminal beta program launching Q3 2026.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
-                  Request Early Access
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link href="/insights" className="inline-flex items-center justify-center gap-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
-                  Browse Insights
-                </Link>
-              </div>
-            </div>
-          </div>
+      {/* ── Diaspora Registry Form ── */}
+      <section className="bg-zinc-950 py-24 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-600/5 rounded-full blur-[120px]" />
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
+          <DiasporaRegistrationForm />
         </div>
       </section>
 

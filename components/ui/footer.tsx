@@ -34,12 +34,12 @@ const footerLinks = {
     { name: "Financial Technology", href: "/sectors/fintech" },
     { name: "Defense & Security", href: "/sectors/defense" },
   ],
-  initiatives: [
-    { name: "Grow with AfDEC", href: "/initiatives/grow", highlight: true },
-    { name: "Impact Projects", href: "/diaspora-impact-fund#projects" },
-    { name: "Africa Works Initiative", href: "/initiatives/africa-works" },
-    { name: "Standing Against Poverty", href: "/initiatives/poverty" },
-    { name: "Climate & Growth", href: "/initiatives/climate" },
+  nextSteps: [
+    { name: "Become a Member", href: "/auth?view=register", highlight: true },
+    { name: "Launch SME Application", href: "/diaspora-impact-fund#apply" },
+    { name: "Schedule a Briefing", href: "/contact?topic=briefing" },
+    { name: "Open Expansion Inquiry", href: "/corridor/expansion" },
+    { name: "Invest in Africa Center", href: "/initiatives/africa-center" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/compliance/privacy-policy" },
@@ -129,11 +129,11 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* ── 5. Initiatives ── */}
+          {/* ── 5. Next Steps ── */}
           <div>
-            <h4 className="text-[11px] font-bold text-zinc-100 mb-5 uppercase tracking-[0.15em]">Initiatives</h4>
+            <h4 className="text-[11px] font-bold text-zinc-100 mb-5 uppercase tracking-[0.15em]">Recommended Next Steps</h4>
             <ul className="space-y-2.5">
-              {footerLinks.initiatives.map((link) => (
+              {footerLinks.nextSteps.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className={`text-[13px] transition-colors ${link.highlight ? 'text-emerald-400 font-semibold hover:text-emerald-300' : 'text-zinc-500 hover:text-blue-400'}`}>
                     {link.name}

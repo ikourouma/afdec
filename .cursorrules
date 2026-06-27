@@ -1,0 +1,83 @@
+# ============================================================================
+# AFDEC MASTER ENGINEERING DIRECTIVES & STABILIZATION CONTEXT
+# ============================================================================
+# TARGET CONFIGURATION FILE: .cursorrules
+# DEVELOPMENT TARGET: afdecnc.org (Staging / Development Phase)
+# LOCAL ENVIRONMENT: localhost:3001
+# VERCEL TARGET: afdec-staging.vercel.app & GitHub Dev Pipelines
+# FRAMEWORK CONTEXT: Tailwind CSS (Strict Transatlantic Theme & Dark Mode Compliance)
+# PHASE: Dev Phase Ingestion Optimization, Regional Alignment, & UI Polish
+# RISK LEVEL: Critical (Platform institutional integrity depends on accurate data)
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# MANDATORY PHASE 0: DIAGNOSTIC SELF-CHECK & CODEBASE ALIGNMENT
+# ----------------------------------------------------------------------------
+# BEFORE presenting any implementation plan or modifying any files, Antigravity/AI MUST:
+# 1. Scan the repository using file search and grep tools to locate the files 
+#    controlling the data formatting models, canvas scripts, and UI wrappers.
+# 2. Print out a comprehensive diagnostic report in the chat interface listing:
+#    - Precise file paths for global currency/numeric formatters, regional data hooks, 
+#      and layout components.
+#    - The specific lines of code or Tailwind utility classes that manage theme context,
+#      dark mode classes, and data truncation parameters.
+#    - Explicit confirmation verifying if data model keys align correctly with upstream 
+#      JSON payloads or API endpoints.
+# 3. Present this diagnostic analysis along with the updated execution plan. 
+#    Do NOT modify or create any files until the user explicitly types "APPROVED".
+
+# ----------------------------------------------------------------------------
+# INTEGRATION, TESTING, & STAGING DEPLOYMENT PIPELINE
+# ----------------------------------------------------------------------------
+# Once fixes are coded and verified locally on localhost:3001, follow this process:
+# 1. Run local automated test suites to ensure zero regressions across all active markets.
+# 2. Stage and commit the surgical modifications using clean, descriptive commit messages.
+# 3. Push the finalized branch to GitHub to trigger the Vercel Staging Build pipeline.
+# 4. Extract and provide the generated Vercel Staging URL in the chat interface for human QA.
+# 5. Do NOT merge to main/production until the staging link is thoroughly verified.
+
+# ----------------------------------------------------------------------------
+# PART 1: CORE BEHAVIOR & STABILIZATION DIRECTIVES
+# ----------------------------------------------------------------------------
+
+## 1. Think Before Coding
+* Never guess data schemas, API contract structures, or transatlantic policy text.
+* If a data pipeline or regional ingestion flow is ambiguous, ask clarifying questions before proposing a fix.
+* Analyze existing database models, Typescript types, and constraints fully before touching code.
+
+## 2. Simplicity First
+* Write the absolute minimum code necessary to resolve data or UI inconsistencies.
+* Strictly enforce a zero over-engineering policy. 
+* Use Tailwind CSS utility classes directly for UI fixes. Do not add custom raw CSS selectors unless entirely necessary.
+
+## 3. Hyper-Surgical Changes
+* You are in a critical stabilization window. Target only the exact lines causing data loss, incorrect formatting, or visual layout bugs.
+* Do NOT rewrite adjacent code, reformat untouched functions, or perform passive "clean-ups."
+* Fewer lines of code changed is always the superior solution. Minimize the blast radius of every commit.
+
+## 4. Goal-Driven Execution & Verification
+* Isolate, fix, and verify each bug sequentially. 
+* Every numeric rendering change must be checked programmatically or logically across all active markets before completion.
+
+# ----------------------------------------------------------------------------
+# PART 2: POST-STABILIZATION PLATFORM AUDIT DIRECTIVES
+# ----------------------------------------------------------------------------
+# IMMEDIATELY following successful file updates, verification on localhost:3001, 
+# and deployment to the Vercel staging site, Antigravity MUST execute a comprehensive 
+# end-to-end Platform Audit.
+
+## 1. Data Integrity & Ingestion Review
+* Audit every regional data mapper and ingestion endpoint across all active global markets.
+* Ensure no values are dropped, unmapped, or truncated incorrectly by the data ingestion backend.
+* Cross-verify that all frontend dashboard statistics strictly mirror the underlying database schemas.
+
+## 2. Global UI/UX & Tailwind Consistency Audit
+* Manually click through and review every dashboard tab, form page, and data grid layout.
+* Check layout components across both strict Light Mode and Dark Mode settings.
+* Eliminate all instances of unreadable text, broken contrast ratios, element clipping, overlapping boundaries, and dead clickable nodes.
+* Standardize layout margins, card roundedness, padding depths, and typographic hierarchies to ensure an uncompromised institutional user experience.
+
+## 3. Audit Logging & Verification Export
+* Generate a comprehensive, markdown-formatted Comprehensive Audit Report upon completion.
+* Log all discovered design discrepancies, corrected elements, and verified operational statuses.
+* Present the complete review report in this chat log file for final user sign-off.

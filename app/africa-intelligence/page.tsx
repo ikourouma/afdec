@@ -11,6 +11,7 @@ import { AfricaMap } from "@/components/sections/africa-map";
 import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { BrandLogo } from "@/components/ui/brand-logo";
+import { supabase } from "@/lib/supabase";
 import {
   Globe, ArrowLeft, ExternalLink, Database, Shield, Zap,
   TrendingUp, Building2, ChevronDown
@@ -26,6 +27,23 @@ const API_FEATURES = [
 
 export default function AfricaIntelligencePage() {
   const [showApiSection, setShowApiSection] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        if (session.user.email?.toLowerCase() === 'afdecadmin@afronovation.com' || session.user.email?.toLowerCase() === 'admin@afronovation.com') {
+          setUserRole('super_admin');
+        } else {
+          // Extract role from JWT or default to member
+          const jwtRole = session.user.app_metadata?.role;
+          setUserRole(jwtRole || 'member');
+        }
+      }
+    }
+    checkAuth();
+  }, []);
 
   return (
     <div className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/20">
@@ -72,13 +90,31 @@ export default function AfricaIntelligencePage() {
               API Access
               <ChevronDown className={`w-3 h-3 transition-transform ${showApiSection ? "rotate-180" : ""}`} />
             </button>
-            <Link
-              href="/contact"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Request Access</span>
-            </Link>
+            {userRole === 'super_admin' || userRole === 'admin' ? (
+              <Link
+                href="/dashboard/admin"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Command Center</span>
+              </Link>
+            ) : userRole === 'member' ? (
+              <Link
+                href="/dashboard/member"
+                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Member Portal</span>
+              </Link>
+            ) : (
+              <Link
+                href="/contact"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Request Access</span>
+              </Link>
+            )}
           </div>
         </div>
 
