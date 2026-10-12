@@ -224,7 +224,7 @@ export function Header() {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="relative z-20 shrink-0 mr-8">
+        <div className="relative z-20 shrink-0 mr-4 lg:mr-8">
           <BrandLogo isDarkTheme={true} />
         </div>
 

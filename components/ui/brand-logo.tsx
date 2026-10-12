@@ -29,9 +29,15 @@ export function BrandLogo({ customLogoUrl, className = "", isDarkTheme = true, v
         </div>
       ) : (
         <div className="flex items-center space-x-3">
-          {/* Default Shield/Symbol - Now fits AfDEC */}
-          <div className="h-10 px-3 bg-blue-600/10 border border-blue-500/30 flex justify-center items-center rounded-sm shrink-0 group-hover:bg-blue-600/20 transition-colors duration-300">
-            <span className="text-blue-500 font-bold text-sm tracking-tight">AfDEC</span>
+          {/* AfDEC Seal Mark */}
+          <div className="relative h-10 w-10 shrink-0">
+            <Image
+              src="/logo/afdec-mark.png"
+              alt="AfDEC Seal"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
           
           {/* Text Lockup Options */}
@@ -49,15 +55,23 @@ export function BrandLogo({ customLogoUrl, className = "", isDarkTheme = true, v
               
               {/* Mobile Fallback - Hides the long text */}
               <div className="flex lg:hidden flex-col justify-center">
-                 <span className={`font-bold tracking-widest text-lg leading-none ${textColor}`}>
-                  AfDEC
+                <span className={`font-bold tracking-tight text-[10px] min-[360px]:text-[11px] sm:text-sm leading-none mb-1 whitespace-nowrap ${textColor}`}>
+                  African Diaspora Economic Council
+                </span>
+                <span className={`text-[9px] sm:text-[10px] uppercase font-semibold tracking-widest leading-none ${subTextColor}`}>
+                  North Carolina
                 </span>
               </div>
             </>
           ) : (
-             <span className={`text-lg font-bold tracking-tight ${textColor}`}>
-                AfDEC
-             </span>
+            <div className="flex flex-col justify-center">
+              <span className={`font-bold tracking-tight text-base leading-none mb-1 ${textColor}`}>
+                African Diaspora Economic Council
+              </span>
+              <span className={`text-[11px] uppercase font-semibold tracking-widest leading-none ${subTextColor}`}>
+                North Carolina
+              </span>
+            </div>
           )}
         </div>
       )}
