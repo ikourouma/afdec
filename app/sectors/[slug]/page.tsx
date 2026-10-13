@@ -57,7 +57,7 @@ function TextColumnsSection({ section, colors }: { section: PageSection; colors:
               <DynamicIcon name={col.icon} className={`w-6 h-6 ${colors.text}`} />
             </div>
             <h3 className={`font-black text-white mb-3 tracking-tight group-hover:${colors.text} transition-colors`}>{col.title}</h3>
-            <p className="text-sm text-zinc-500 leading-relaxed font-medium">{col.body}</p>
+            <p className="text-sm text-zinc-400 leading-relaxed font-medium">{col.body}</p>
           </div>
         ))}
       </div>
@@ -74,7 +74,7 @@ function HeroStatsSection({ section, colors }: { section: PageSection; colors: t
           <div key={i} className="bg-zinc-950 p-10 text-center">
             <div className={`text-4xl md:text-5xl font-black mb-2 ${colors.stat}`}>{stat.value}</div>
             <div className="text-white font-bold text-lg mb-1">{stat.label}</div>
-            <div className="text-zinc-500 text-sm font-medium">{stat.sub}</div>
+            <div className="text-zinc-400 text-sm font-medium">{stat.sub}</div>
           </div>
         ))}
       </div>
@@ -102,15 +102,15 @@ function PipelineGridSection({ section, colors }: { section: PageSection; colors
               <div className={`w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center shrink-0`}>
                 <DynamicIcon name={item.icon} className={`w-5 h-5 ${colors.text}`} />
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${statusColor[item.status] ?? statusColor.Monitoring}`}>
+              <span className={`text-xs font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${statusColor[item.status] ?? statusColor.Monitoring}`}>
                 {item.status}
               </span>
             </div>
             <h3 className={`font-black text-white mb-1 group-hover:${colors.text} transition-colors`}>{item.title}</h3>
-            <p className="text-xs text-zinc-500 font-medium mb-3">{item.sub}</p>
+            <p className="text-xs text-zinc-400 font-medium mb-3">{item.sub}</p>
             <div className="flex items-center gap-1.5">
-              <Globe className="w-3 h-3 text-zinc-700" />
-              <span className="text-[10px] text-zinc-600 font-medium">{item.markets}</span>
+              <Globe className="w-3 h-3 text-zinc-400" />
+              <span className="text-xs text-zinc-400 font-medium">{item.markets}</span>
             </div>
           </div>
         ))}
@@ -179,7 +179,7 @@ export default function SectorPage({ params }: { params: Promise<{ slug: string 
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
 
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-28 md:py-36 relative z-10" ref={heroRef}>
-          <div className="flex items-center space-x-2 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-8">
+          <div className="flex items-center space-x-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-8">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <Link href="/sectors" className="hover:text-zinc-400 transition-colors">Sector Intelligence</Link>

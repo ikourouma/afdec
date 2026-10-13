@@ -62,7 +62,7 @@ const PILLARS = [
   {
     icon: Pickaxe,
     title: "Critical Minerals & Processing Corridors",
-    description: "Developing sovereign bilateral supply chains for rare-earth elements and critical minerals, moving value-addition to source-proximate processing hubs.",
+    description: "Developing strategic bilateral supply chains for rare-earth elements and critical minerals, moving value-addition to source-proximate processing hubs.",
     metrics: ["Bilateral Minerals Agreement", "Refining Capacity Investment"]
   }
 ];
@@ -91,7 +91,7 @@ const METHODOLOGY = [
   { 
     step: "05", 
     label: "Monitoring & Impact", 
-    description: "Continuous tracking of economic yield, social impact, and compliance through our sovereign reporting framework." 
+    description: "Continuous tracking of economic yield, social impact, and compliance through our strategic reporting framework." 
   }
 ];
 
@@ -149,13 +149,13 @@ export default function StrategicFrameworkPage() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-28 md:py-40 relative z-10">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-950/40 border border-blue-900/30 mb-8 rounded-full backdrop-blur-md">
             <Shield className="w-3 h-3 text-blue-400" />
-            <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">Institutional Mandate</span>
+            <span className="text-xs font-bold tracking-[0.2em] text-blue-400 uppercase">Institutional Mandate</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-4xl mb-6">
             AfDEC Strategic<br />Framework (2026-2030)
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 font-medium leading-relaxed max-w-2xl mb-12">
-            The sovereign blueprint for transatlantic economic integration — driving prosperity between North Carolina and the African continent through structured, high-impact pillars.
+            The strategic blueprint for transatlantic economic integration — driving prosperity between North Carolina and the African continent through structured, high-impact pillars.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/corridor/expansion" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-lg group">
@@ -174,7 +174,7 @@ export default function StrategicFrameworkPage() {
               <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Strategic Pillars</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white">The "Bilateral Six"</h2>
-            <p className="text-zinc-500 mt-4 max-w-2xl text-[15px]">Six foundational vectors through which AfDEC operationalizes transatlantic growth.</p>
+            <p className="text-zinc-400 mt-4 max-w-2xl text-[15px]">Six foundational vectors through which AfDEC operationalizes transatlantic growth.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -191,7 +191,7 @@ export default function StrategicFrameworkPage() {
                     {p.metrics.map(m => (
                       <div key={m} className="flex items-center space-x-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-blue-500/60" />
-                        <span className="text-[12px] font-bold text-zinc-500 uppercase tracking-widest">{m}</span>
+                        <span className="text-[12px] font-bold text-zinc-400 uppercase tracking-widest">{m}</span>
                       </div>
                     ))}
                   </div>
@@ -209,7 +209,7 @@ export default function StrategicFrameworkPage() {
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-10 h-px bg-zinc-500" />
-                <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Process Transparency</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Process Transparency</span>
               </div>
               <h2 className="text-3xl font-black text-white mb-6">Global Framework<br />Methodology</h2>
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-8">
@@ -217,7 +217,7 @@ export default function StrategicFrameworkPage() {
               </p>
               <div className="p-6 bg-zinc-900/30 border border-zinc-800/50 rounded-xl">
                 <h4 className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-3">Institutional Training</h4>
-                <p className="text-zinc-500 text-[13px] leading-relaxed">
+                <p className="text-zinc-400 text-[13px] leading-relaxed">
                   This methodology is used to train all AfDEC Regional Coordinators and Deal Team members, ensuring a consistent standard of excellence globally.
                 </p>
               </div>
@@ -229,7 +229,7 @@ export default function StrategicFrameworkPage() {
                   <div className="text-3xl font-black text-zinc-800 group-hover:text-blue-500/40 transition-colors self-center">{m.step}</div>
                   <div>
                     <h3 className="text-lg font-bold text-white mb-2">{m.label}</h3>
-                    <p className="text-zinc-500 text-sm leading-relaxed">{m.description}</p>
+                    <p className="text-zinc-400 text-sm leading-relaxed">{m.description}</p>
                   </div>
                 </div>
               ))}
@@ -242,9 +242,9 @@ export default function StrategicFrameworkPage() {
       <section id="section-milestones" className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Track Record</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Track Record</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Strategic Milestones</h2>
-            <p className="text-zinc-500 mt-4 max-w-xl mx-auto text-sm">Realized outcomes of the AfDEC Strategic Framework across global corridors.</p>
+            <p className="text-zinc-400 mt-4 max-w-xl mx-auto text-sm">Realized outcomes of the AfDEC Strategic Framework across global corridors.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -253,23 +253,22 @@ export default function StrategicFrameworkPage() {
                 {m.image_url && <img src={m.image_url} alt={m.title} className="w-full h-48 object-cover opacity-60 group-hover:opacity-100 transition-opacity" />}
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold text-blue-400 bg-blue-900/20 border border-blue-900/30 px-2.5 py-1 rounded-full uppercase tracking-widest">
+                    <span className="text-xs font-bold text-blue-400 bg-blue-900/20 border border-blue-900/30 px-2.5 py-1 rounded-full uppercase tracking-widest">
                       {m.category.replace(/_/g, " ")}
                     </span>
-                    <span className="text-[10px] text-zinc-600 font-medium">{new Date(m.accomplishment_date).toLocaleDateString()}</span>
+                    <span className="text-xs text-zinc-400 font-medium">{new Date(m.accomplishment_date).toLocaleDateString()}</span>
                   </div>
                   <h3 className="text-white font-bold text-lg mb-3 leading-tight">{m.title}</h3>
-                  <p className="text-zinc-500 text-[13px] leading-relaxed mb-6">{m.description}</p>
+                  <p className="text-zinc-400 text-[13px] leading-relaxed mb-6">{m.description}</p>
                   <div className="flex items-center justify-between pt-6 border-t border-zinc-800/60">
-                    <span className="text-[11px] text-zinc-600 font-bold uppercase tracking-widest">{m.location}</span>
-                    <Link href="#" className="text-blue-500 text-[11px] font-black uppercase tracking-widest hover:text-blue-400 transition-colors">Documentation →</Link>
+                    <span className="text-[11px] text-zinc-400 font-bold uppercase tracking-widest">{m.location}</span>
                   </div>
                 </div>
               </div>
             )) : (
               // Empty State / Loading State
               <div className="col-span-full py-20 text-center border border-dashed border-zinc-800 rounded-xl">
-                 <p className="text-zinc-600 font-medium">Tracking the next milestone of the 2026-2030 Mandate...</p>
+                 <p className="text-zinc-400 font-medium">Tracking the next milestone of the 2026-2030 Mandate...</p>
               </div>
             )}
           </div>

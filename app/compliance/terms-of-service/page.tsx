@@ -18,7 +18,7 @@ export default function TermsOfServicePage() {
       <Breadcrumb />
 
       <div className="flex-1 max-w-4xl mx-auto w-full px-6 py-24 pb-40">
-        <Link href="/compliance" className="inline-flex items-center text-xs font-bold text-zinc-500 hover:text-blue-400 mb-12 transition-colors uppercase tracking-widest">
+        <Link href="/compliance" className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-blue-400 mb-12 transition-colors uppercase tracking-widest">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Compliance Vault
         </Link>
@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
         <div className="mb-16">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-950/40 border border-amber-900/30 rounded-full mb-6">
             <BookOpen className="w-3 h-3 text-amber-500" />
-            <span className="text-[10px] font-bold tracking-[0.2em] text-amber-500 uppercase">Operating Mandate</span>
+            <span className="text-xs font-bold tracking-[0.2em] text-amber-500 uppercase">Operating Mandate</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
             Terms of Sovereignty<br />& Institutional Conduct
@@ -57,10 +57,10 @@ export default function TermsOfServicePage() {
           </ul>
 
           <h3>2. Bilateral Trade Ethics</h3>
-          <p>Entities utilizing the AfDEC Transatlantic Corridors must adhere to all FCPA (U.S.) and relevant African sovereign anti-corruption regulations. AfDEC serves as a transparent bridge; we do not facilitate or tolerate illicit capital movement or non-certified supply chain activity.</p>
+          <p>Entities utilizing the AfDEC Transatlantic Corridors must adhere to all FCPA (U.S.) and relevant African strategic anti-corruption regulations. AfDEC serves as a transparent bridge; we do not facilitate or tolerate illicit capital movement or non-certified supply chain activity.</p>
 
           <h3>3. Board Interventions</h3>
-          <p>The AfDEC Executive Board reserves the absolute right to terminate platform access, revoke grant applications, or suspend corridor clearance for any entity that breaches trade ethics or acts against the strategic interests of North Carolina or our sovereign African partner states.</p>
+          <p>The AfDEC Executive Board reserves the absolute right to terminate platform access, revoke grant applications, or suspend corridor clearance for any entity that breaches trade ethics or acts against the strategic interests of North Carolina or our strategic African partner states.</p>
 
           <h3>4. Intellectual Property of the Mandate</h3>
           <p>The "Strategic Framework 2026-2030," "Africa Intelligence Terminal," and all associated methodology are the exclusive intellectual property of the African Diaspora Economic Council. Unauthorized reproduction of these strategic blueprints is strictly prohibited.</p>

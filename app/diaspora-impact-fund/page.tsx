@@ -116,7 +116,7 @@ export default function DiasporaImpactFundPage() {
           <p className="text-lg md:text-xl text-zinc-300 max-w-2xl leading-relaxed font-medium mb-4">
             Channeling the power of the African diaspora economy into transformational development initiatives across the continent — through grants, donations, and strategic partnerships.
           </p>
-          <p className="text-sm text-zinc-500 max-w-xl mb-10 leading-relaxed">
+          <p className="text-sm text-zinc-400 max-w-xl mb-10 leading-relaxed">
             Aligned with African Development Bank, World Bank, and IMF development pillars. 100% of net donations deployed to named development projects. Zero ambiguity. Maximum impact.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -141,7 +141,7 @@ export default function DiasporaImpactFundPage() {
               <div key={s.label} className="stat-tile text-center p-6 border border-zinc-800/40 rounded-sm bg-zinc-900/20">
                 <div className="text-3xl md:text-4xl font-black text-emerald-400 mb-1">{s.value}</div>
                 <div className="text-white font-bold text-sm mb-0.5">{s.label}</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wide font-medium">{s.sub}</div>
+                <div className="text-zinc-400 text-xs uppercase tracking-wide font-medium">{s.sub}</div>
               </div>
             ))}
           </div>
@@ -163,7 +163,7 @@ export default function DiasporaImpactFundPage() {
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-5">
                 The AfDEC Diaspora Impact Fund is a strategic fundraising initiative of the Africa-Focused Diaspora Economic Council — designed to mobilize capital from the North Carolina African diaspora community, corporate partners, and institutional donors for high-impact development projects across Africa.
               </p>
-              <p className="text-zinc-500 text-[14px] leading-relaxed mb-8">
+              <p className="text-zinc-400 text-[14px] leading-relaxed mb-8">
                 Unlike traditional charity, every fund project is selected for alignment with proven multilateral frameworks — African Development Bank sector priorities, World Bank development indicators, and IMF economic growth targets. Impact is measured, reported, and independently verified.
               </p>
               <div className="space-y-3">
@@ -184,7 +184,7 @@ export default function DiasporaImpactFundPage() {
             </div>
             {/* Multilateral Alignment Visual */}
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-xl p-8">
-              <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-6">Multilateral Alignment Framework</div>
+              <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-6">Multilateral Alignment Framework</div>
               <div className="space-y-4">
                 {[
                   { org: "African Development Bank (AfDB)", focus: "Agriculture, Energy, Industrialization, Integration, Quality of Life", color: "emerald" },
@@ -196,7 +196,7 @@ export default function DiasporaImpactFundPage() {
                     <div className={`w-2 shrink-0 rounded-full bg-${item.color}-500/40 self-stretch`} />
                     <div>
                       <div className={`text-${item.color}-400 text-xs font-bold mb-1`}>{item.org}</div>
-                      <div className="text-zinc-500 text-[11px] leading-relaxed">{item.focus}</div>
+                      <div className="text-zinc-400 text-[11px] leading-relaxed">{item.focus}</div>
                     </div>
                   </div>
                 ))}
@@ -206,7 +206,7 @@ export default function DiasporaImpactFundPage() {
         </div>
       </section>
 
-      {/* ── Sovereign Impact Simulator (Fortress Feature) ── */}
+      {/* ── Strategic Impact Simulator (Fortress Feature) ── */}
       <section id="impact" className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
            <div className="mb-14">
@@ -215,7 +215,7 @@ export default function DiasporaImpactFundPage() {
                 <span className="text-[11px] font-bold tracking-[0.2em] text-emerald-400 uppercase">Interactive Telemetry</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                Sovereign Impact<br />Simulator.
+                Strategic Impact<br />Simulator.
               </h2>
            </div>
            
@@ -234,7 +234,7 @@ export default function DiasporaImpactFundPage() {
                 <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Institutional logic</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-white mb-8">
-                The Methodology of<br />Sovereign Deployment
+                The Methodology of<br />Strategic Deployment
               </h2>
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-8">
                 Our deployment strategy is not merely philanthropic — it is a calculated economic intervention. By aligning every grant with the **AfCFTA (African Continental Free Trade Area)**, we ensure that micro-investments contribute to macro-economic supply chain resilience.
@@ -245,7 +245,7 @@ export default function DiasporaImpactFundPage() {
                   <Globe className="w-5 h-5 text-blue-400" />
                   <h3 className="text-blue-100 font-bold text-sm">AfCFTA Strategic Nexus</h3>
                 </div>
-                <p className="text-zinc-500 text-[13px] leading-relaxed">
+                <p className="text-zinc-400 text-[13px] leading-relaxed">
                   We categorize projects based on their ability to facilitate cross-border trade. A grant to a Ghanain farmer is weighted by its potential to export to neighboring Ivory Coast or Senegal under the AfCFTA tariff-reduction protocols.
                 </p>
               </div>
@@ -260,7 +260,7 @@ export default function DiasporaImpactFundPage() {
                     <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
                     <div>
                       <div className="text-white text-xs font-bold uppercase tracking-widest">{item.title}</div>
-                      <div className="text-zinc-500 text-xs mt-1">{item.desc}</div>
+                      <div className="text-zinc-400 text-xs mt-1">{item.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -269,12 +269,12 @@ export default function DiasporaImpactFundPage() {
 
             <div className="lg:col-span-7">
               <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-8 md:p-12">
-                <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-10">7-Step Deployment Lifecycle</div>
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-10">7-Step Deployment Lifecycle</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                   {[
                     { step: "01", label: "Vetting", sub: "KYC/AML checks on all applicants via NC legal nodes." },
                     { step: "02", label: "Alignment", sub: "Matching project goals to SDG 2030 and AfCFTA pillars." },
-                    { step: "03", label: "Simulated ROI", sub: "Running the data through our Sovereign Impact Simulator." },
+                    { step: "03", label: "Simulated ROI", sub: "Running the data through our Strategic Impact Simulator." },
                     { step: "04", label: "Funding", sub: "Capital escrowed in the Diaspora Impact Fund vault." },
                     { step: "05", label: "Execution", sub: "Milestone-based disbursement to on-the-ground SMEs." },
                     { step: "06", label: "Monitoring", sub: "Telemetry check-ins every 30 days via AfDEC field reps." },
@@ -284,9 +284,9 @@ export default function DiasporaImpactFundPage() {
                       <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-950 border border-zinc-700 flex items-center justify-center">
                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
                       </div>
-                      <div className="text-[10px] font-black text-zinc-700 mb-1">{item.step}</div>
+                      <div className="text-xs font-black text-zinc-400 mb-1">{item.step}</div>
                       <div className="text-zinc-200 text-xs font-bold uppercase tracking-widest">{item.label}</div>
-                      <div className="text-zinc-500 text-[11px] mt-1 leading-relaxed">{item.sub}</div>
+                      <div className="text-zinc-400 text-[11px] mt-1 leading-relaxed">{item.sub}</div>
                     </div>
                   ))}
                 </div>
@@ -335,7 +335,7 @@ export default function DiasporaImpactFundPage() {
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${iconAccent[path.accent]}`}>
                     <Icon className={`w-6 h-6 ${iconAccent[path.accent].split(" ")[0]}`} />
                   </div>
-                  <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">{path.subtitle}</div>
+                  <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{path.subtitle}</div>
                   <h3 className="text-white font-black text-xl mb-1">{path.title}</h3>
                   <div className="text-2xl font-black text-white/60 mb-4">{path.amount}</div>
                   <p className="text-zinc-400 text-[13px] leading-relaxed mb-5 flex-1">{path.description}</p>
@@ -372,7 +372,7 @@ export default function DiasporaImpactFundPage() {
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-5">
                 African micro and small enterprises — including NC-based African-led businesses — are invited to apply for development grants through the AfDEC Diaspora Impact Fund. Grants range from $3,000 to $10,000 depending on the project.
               </p>
-              <p className="text-zinc-500 text-[14px] leading-relaxed mb-8">
+              <p className="text-zinc-400 text-[14px] leading-relaxed mb-8">
                 Applications are reviewed by a full Fund Committee in a procurement-grade process: submission → review → shortlisting → approval → announcement. All applicants receive a reference number and can track their status through their AfDEC account.
               </p>
               <div className="bg-amber-950/20 border border-amber-900/30 rounded-xl p-6 mb-8">
@@ -407,7 +407,7 @@ export default function DiasporaImpactFundPage() {
 
             {/* Lifecycle visual */}
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-xl p-8">
-              <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-6">Grant Application Lifecycle</div>
+              <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-6">Grant Application Lifecycle</div>
               <div className="space-y-1">
                 {[
                   { step: "01", label: "Online Application Submitted", sub: "Applicant receives reference number via email", color: "border-zinc-600 text-zinc-400" },
@@ -419,10 +419,10 @@ export default function DiasporaImpactFundPage() {
                   { step: "07", label: "Grant Disbursement", sub: "Funds transferred per agreed milestone schedule", color: "border-amber-900/50 text-amber-400" },
                 ].map((item) => (
                   <div key={item.step} className={`flex gap-4 p-4 border-l-2 ${item.color} ml-4`}>
-                    <div className="text-[10px] font-black text-zinc-700 w-6 shrink-0 mt-0.5">{item.step}</div>
+                    <div className="text-xs font-black text-zinc-400 w-6 shrink-0 mt-0.5">{item.step}</div>
                     <div>
                       <div className="text-zinc-200 text-[13px] font-bold">{item.label}</div>
-                      <div className="text-zinc-600 text-[11px] mt-0.5">{item.sub}</div>
+                      <div className="text-zinc-400 text-[11px] mt-0.5">{item.sub}</div>
                     </div>
                   </div>
                 ))}
@@ -450,9 +450,9 @@ export default function DiasporaImpactFundPage() {
                   <div key={g.role} className="flex items-start justify-between gap-4 py-3 border-b border-zinc-800/50">
                     <div>
                       <div className="text-white text-sm font-bold">{g.role}</div>
-                      <div className="text-zinc-500 text-[11px] mt-0.5">{g.note}</div>
+                      <div className="text-zinc-400 text-[11px] mt-0.5">{g.note}</div>
                     </div>
-                    <Award className="w-4 h-4 text-zinc-700 shrink-0 mt-0.5" />
+                    <Award className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   </div>
                 ))}
               </div>
@@ -466,7 +466,7 @@ export default function DiasporaImpactFundPage() {
                   ].map((r) => (
                     <div key={r.period} className="flex gap-3 text-[12px]">
                       <span className="font-bold text-emerald-400 w-28 shrink-0">{r.period}</span>
-                      <span className="text-zinc-500">{r.desc}</span>
+                      <span className="text-zinc-400">{r.desc}</span>
                     </div>
                   ))}
                 </div>
@@ -482,19 +482,19 @@ export default function DiasporaImpactFundPage() {
               <div className="space-y-3">
                 <Link href="/diaspora-impact-fund/interest?inquiry=donor_institutional" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Institutional Donation</span>
-                  <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
+                  <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400" />
                 </Link>
                 <Link href="/diaspora-impact-fund/interest?inquiry=donor_individual" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Individual Donation</span>
-                  <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
+                  <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400" />
                 </Link>
                 <Link href="/diaspora-impact-fund/interest?inquiry=program_partner" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">Program Partnership</span>
-                  <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400" />
+                  <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400" />
                 </Link>
                 <Link href="/diaspora-impact-fund/apply" className="flex items-center justify-between w-full bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-amber-900/40 px-5 py-3.5 rounded-sm transition-all group">
                   <span className="text-zinc-300 text-sm font-bold group-hover:text-white">SME Grant Application</span>
-                  <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-amber-400" />
+                  <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-amber-400" />
                 </Link>
               </div>
             </div>

@@ -48,7 +48,7 @@ const reports = [
     icon: BarChart3
   },
   {
-    year: "2025 Sovereign Telemetry",
+    year: "2025 Strategic Telemetry",
     title: "The Digital Corridor & EPC Mandates",
     type: "Quarterly Review",
     size: "3.1 MB",
@@ -78,13 +78,13 @@ export default function AnnualReportPage() {
       </div>
       <Breadcrumb />
 
-      {/* ── Hero: Sovereign Telemetry ── */}
+      {/* ── Hero: Strategic Telemetry ── */}
       <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
         {/* Layer 1: Data Depth */}
         <div
           className="absolute inset-0 opacity-[0.25]"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bbdac8a28a1e?q=80&w=2070&auto=format&fit=crop')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2070&auto=format&fit=crop')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -102,7 +102,7 @@ export default function AnnualReportPage() {
             <span className="text-[11px] font-bold tracking-[0.2em] text-blue-500 uppercase">Executive Telemetry</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-4xl">
-            Bi-National Impact &<br/>Sovereign Telemetry
+            Bi-National Impact &<br/>Strategic Telemetry
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 mt-8 max-w-2xl leading-relaxed font-medium">
             We operate with radical transparency at the institutional level. Access the official record of AfDEC&apos;s impact on global capital movement, industrial growth, and diaspora engagement.
@@ -120,7 +120,7 @@ export default function AnnualReportPage() {
                 <Building2 className="w-6 h-6 text-blue-500" />
               </div>
               <h3 className="text-xl font-black text-white tracking-tight">Institutional Stability</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 AfDEC facilitates the sovereign-level risk mitigation needed for institutional capital to flow safely into emerging high-growth markets.
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function AnnualReportPage() {
                 <Globe2 className="w-6 h-6 text-emerald-500" />
               </div>
               <h3 className="text-xl font-black text-white tracking-tight">Trade Lane Optimization</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 Reducing the friction of crossing borders through the AfDEC Digital Corridor, yielding an average 24% reduction in logistics timelines.
               </p>
             </div>
@@ -138,7 +138,7 @@ export default function AnnualReportPage() {
                 <ShieldCheck className="w-6 h-6 text-purple-500" />
               </div>
               <h3 className="text-xl font-black text-white tracking-tight">Governance & Compliance</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 Operating under the highest standards of international governance mandated by the African Union and State of North Carolina.
               </p>
             </div>
@@ -151,7 +151,7 @@ export default function AnnualReportPage() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
             <div className="max-w-2xl">
-              <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-600 uppercase">Official Document Repository</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Official Document Repository</span>
               <h2 className="text-3xl md:text-5xl font-black text-white mt-4 tracking-tight leading-tight">Historical Briefings & Reviews</h2>
             </div>
             <Link href="/dashboard/admin/hero" className="flex items-center space-x-2 text-[12px] font-black tracking-widest uppercase text-blue-500 transition-all hover:text-blue-400">
@@ -170,27 +170,27 @@ export default function AnnualReportPage() {
                   <div className={`w-12 h-12 rounded-sm flex items-center justify-center ${report.accent}`}>
                     <report.icon className="w-6 h-6" />
                   </div>
-                  <div className="text-[10px] font-black text-zinc-500 tracking-widest uppercase">{report.year}</div>
+                  <div className="text-xs font-black text-zinc-400 tracking-widest uppercase">{report.year}</div>
                 </div>
                 
                 <h3 className="text-2xl font-black text-white mb-2 leading-tight group-hover:text-blue-400 transition-colors">
                   {report.title}
                 </h3>
-                <div className="text-[11px] font-bold text-zinc-600 uppercase tracking-widest mb-6">{report.type} • {report.size}</div>
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-6">{report.type} • {report.size}</div>
                 
-                <p className="text-[14px] text-zinc-500 leading-relaxed mb-10 flex-grow">
+                <p className="text-[14px] text-zinc-400 leading-relaxed mb-10 flex-grow">
                   {report.description}
                 </p>
                 
                 <Link 
-                  href="#" 
+                  href="/contact?topic=annual-report" 
                   className="w-full flex items-center justify-between py-4 border-t border-zinc-800 group/link transition-all"
                 >
                   <span className="text-[11px] font-black tracking-[0.25em] text-white uppercase flex items-center">
-                    <Download className="w-3.5 h-3.5 mr-2 text-zinc-500 group-hover/link:text-blue-500" />
-                    Download Briefing
+                    <Download className="w-3.5 h-3.5 mr-2 text-zinc-400 group-hover/link:text-blue-500" />
+                    Request Briefing
                   </span>
-                  <ArrowRight className="w-4 h-4 text-zinc-700 group-hover/link:translate-x-1 group-hover/link:text-blue-500 transition-all" />
+                  <ArrowRight className="w-4 h-4 text-zinc-400 group-hover/link:translate-x-1 group-hover/link:text-blue-500 transition-all" />
                 </Link>
               </div>
             ))}
@@ -209,7 +209,7 @@ export default function AnnualReportPage() {
               <Presentation className="w-12 h-12 text-blue-500 mx-auto mb-8" />
               <h2 className="text-3xl md:text-5xl font-black text-white mb-8 tracking-tight">Q4 Bi-National Stakeholder Briefing</h2>
               <p className="text-lg text-zinc-400 leading-relaxed mb-10">
-                Are you a sovereign stakeholder, board member, or institutional partner? Access the upcoming live quarterly presentation to review market telemetry for next quarter.
+                Are you a strategic stakeholder, board member, or institutional partner? Access the upcoming live quarterly presentation to review market telemetry for next quarter.
               </p>
               <Link href="/contact" className="inline-flex items-center px-10 py-5 bg-white text-zinc-950 text-[13px] font-black tracking-[0.25em] uppercase hover:bg-zinc-200 transition-all rounded-sm shadow-xl">
                 Register for Briefing Access

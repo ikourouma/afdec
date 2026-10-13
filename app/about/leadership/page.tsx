@@ -30,7 +30,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const SHOW_EXECUTIVE_MANDATE = false;
 
 const SECTIONS: NavSection[] = [
-  { id: "council", label: "Sovereign Council" },
+  { id: "council", label: "Strategic Council" },
   ...(SHOW_EXECUTIVE_MANDATE ? [{ id: "executive", label: "Executive Mandate" }] : []),
   { id: "advisor", label: "Board of Advisors" },
   { id: "governance", label: "Governance Structure" },
@@ -88,7 +88,7 @@ export default function LeadershipHubPage() {
       bg: "bg-blue-600", 
       border: "border-blue-500/30", 
       gradient: "from-blue-600 to-blue-900",
-      label: "Sovereign Council" 
+      label: "Strategic Council" 
     },
     executive: { 
       accent: "text-amber-500", 
@@ -128,13 +128,13 @@ export default function LeadershipHubPage() {
           <div className="max-w-4xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-900/80 border border-zinc-800 mb-8 rounded-full">
               <Shield className="w-3 h-3 text-blue-500" />
-              <span className="text-[10px] font-black tracking-[0.2em] text-zinc-400 uppercase">Institutional Identity</span>
+              <span className="text-xs font-black tracking-[0.2em] text-zinc-400 uppercase">Institutional Identity</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[0.95] mb-8 text-glow-blue">
               Leadership &<br />Governance.
             </h1>
-            <p className="text-xl text-zinc-500 font-medium leading-relaxed max-w-2xl">
-              The Sovereign Council provides the vision, the Executive Mandate drives the operations, and the Advisors provide the strategic counsel for transatlantic trade.
+            <p className="text-xl text-zinc-400 font-medium leading-relaxed max-w-2xl">
+              The Strategic Council provides the vision, the Executive Mandate drives the operations, and the Advisors provide the strategic counsel for transatlantic trade.
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function LeadershipHubPage() {
                  <button
                    key={tier}
                    onClick={() => setActiveTier(tier as Tier)}
-                   className={`py-6 text-[11px] font-black uppercase tracking-[0.2em] relative transition-all ${activeTier === tier ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                   className={`py-6 text-[11px] font-black uppercase tracking-[0.2em] relative transition-all ${activeTier === tier ? 'text-white' : 'text-zinc-400 hover:text-zinc-300'}`}
                  >
                    {tierStyles[tier as Tier].label}
                    {activeTier === tier && (
@@ -186,14 +186,14 @@ export default function LeadershipHubPage() {
                        <div className="grid grid-cols-2 gap-4">
                           {[
                             { icon: Landmark, label: "501(c)(4) Status", detail: "Social Welfare Mandate" },
-                            { icon: Shield, label: "Fiduciary Trust", detail: "Sovereign Audit Trail" },
+                            { icon: Shield, label: "Fiduciary Trust", detail: "Strategic Audit Trail" },
                             { icon: Target, label: "Bilateral Impact", detail: "Africa-US Integration" },
                             { icon: Zap, label: "Operational Agility", detail: "Management Mandate" }
                           ].map(item => (
                             <div key={item.label} className="p-4 border border-zinc-900 bg-zinc-900/20 rounded-sm">
                                <item.icon className="w-5 h-5 text-blue-500 mb-2" />
-                               <div className="text-[10px] font-black text-zinc-300 uppercase tracking-widest">{item.label}</div>
-                               <div className="text-[10px] text-zinc-500 font-bold mt-1">{item.detail}</div>
+                               <div className="text-xs font-black text-zinc-300 uppercase tracking-widest">{item.label}</div>
+                               <div className="text-xs text-zinc-400 font-bold mt-1">{item.detail}</div>
                             </div>
                           ))}
                        </div>
@@ -201,15 +201,15 @@ export default function LeadershipHubPage() {
                     <div className="p-12 bg-white/5 border border-white/10 rounded-sm">
                        {/* Visual Placeholder for Organogram */}
                        <div className="space-y-6">
-                          <div className="w-full h-12 border border-blue-500/50 flex items-center justify-center text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] bg-blue-500/5">Sovereign Council (Board)</div>
+                          <div className="w-full h-12 border border-blue-500/50 flex items-center justify-center text-xs font-black text-blue-400 uppercase tracking-[0.3em] bg-blue-500/5">Strategic Council (Board)</div>
                           <div className="flex justify-center h-12"><div className="w-px h-full bg-zinc-800"></div></div>
                           <div className="grid grid-cols-3 gap-6">
-                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-500 uppercase tracking-widest">Audit</div>
-                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-500 uppercase tracking-widest">Governance</div>
-                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-500 uppercase tracking-widest">Programs</div>
+                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-400 uppercase tracking-widest">Audit</div>
+                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-400 uppercase tracking-widest">Governance</div>
+                             <div className="h-12 border border-zinc-800 flex items-center justify-center text-[8px] font-black text-zinc-400 uppercase tracking-widest">Programs</div>
                           </div>
                           <div className="flex justify-center h-12"><div className="w-px h-full bg-zinc-800"></div></div>
-                          <div className="w-full h-12 border border-amber-500/50 flex items-center justify-center text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] bg-amber-500/5">Executive Secretariat</div>
+                          <div className="w-full h-12 border border-amber-500/50 flex items-center justify-center text-xs font-black text-amber-500 uppercase tracking-[0.3em] bg-amber-500/5">Executive Secretariat</div>
                        </div>
                     </div>
                  </div>
@@ -223,10 +223,10 @@ export default function LeadershipHubPage() {
                 {/* ── Recycled Card Grid (Goldman Structure) ── */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                    {isLoading ? (
-                     <div className="col-span-full py-20 text-center text-zinc-600 font-bold uppercase tracking-[0.5em] animate-pulse">Synchronizing Data...</div>
+                     <div className="col-span-full py-20 text-center text-zinc-400 font-bold uppercase tracking-[0.5em] animate-pulse">Synchronizing Data...</div>
                    ) : filteredMembers.length === 0 ? (
                      <div className="col-span-full py-20 flex flex-col items-center">
-                       <p className="text-zinc-700 italic mb-8">No appointments confirmed for this Mandate Tier.</p>
+                       <p className="text-zinc-400 italic mb-8">No appointments confirmed for this Mandate Tier.</p>
                        {activeTier === 'advisor' && (
                          <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-lg max-w-lg mx-auto text-center">
                            <h3 className="text-xl font-black text-white mb-2">Join the Board of Advisors</h3>
@@ -258,15 +258,15 @@ export default function LeadershipHubPage() {
                             )}
                             <h3 className="text-white font-bold text-lg mb-1 group-hover:text-blue-400 transition-colors">{member.name}</h3>
                             <p className={`${tierStyles[activeTier].accent} text-[11px] font-black uppercase tracking-[0.2em] mb-2`}>{member.title}</p>
-                            <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest">{member.sub_title || ""}</p>
+                            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest">{member.sub_title || ""}</p>
                          </div>
                          
                          <div className="flex items-center justify-between pt-6 border-t border-zinc-800">
-                            <div className="flex space-x-3 text-zinc-700">
+                            <div className="flex space-x-3 text-zinc-400">
                                <ExternalLink className="w-4 h-4 hover:text-blue-400 transition-colors" />
                                <Mail className="w-4 h-4 hover:text-white transition-colors" />
                             </div>
-                            <span className="text-[9px] font-black text-zinc-700 uppercase tracking-widest group-hover:text-zinc-400">View Bio →</span>
+                            <span className="text-xs font-black text-zinc-400 uppercase tracking-widest group-hover:text-zinc-400">View Bio →</span>
                          </div>
                        </div>
                      ))
@@ -299,7 +299,7 @@ export default function LeadershipHubPage() {
                        setSelectedMember(null);
                        setIsBioExpanded(false);
                      }}
-                     className="text-zinc-600 hover:text-white mb-12 flex items-center text-xs font-black uppercase tracking-widest"
+                     className="text-zinc-400 hover:text-white mb-12 flex items-center text-xs font-black uppercase tracking-widest"
                   >
                      <ArrowRight className="w-4 h-4 mr-2 rotate-180" /> Exit Profile
                   </button>
@@ -319,10 +319,10 @@ export default function LeadershipHubPage() {
                      <div>
                         <h2 className="text-4xl font-black text-white mb-2 leading-tight">{selectedMember.name}</h2>
                         <div className="flex items-center gap-2">
-                           <span className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest rounded-sm ${tierStyles[selectedMember.role_tier as Tier || 'council'].bg} text-white`}>
+                           <span className={`px-2 py-0.5 text-xs font-black uppercase tracking-widest rounded-sm ${tierStyles[selectedMember.role_tier as Tier || 'council'].bg} text-white`}>
                               {tierStyles[selectedMember.role_tier as Tier || 'council'].label}
                            </span>
-                           <span className="text-zinc-500 font-bold uppercase tracking-[0.2em] text-xs">· {selectedMember.title}</span>
+                           <span className="text-zinc-400 font-bold uppercase tracking-[0.2em] text-xs">· {selectedMember.title}</span>
                         </div>
                      </div>
                      <div className="flex space-x-3">
@@ -334,7 +334,7 @@ export default function LeadershipHubPage() {
                         {selectedMember.email && (
                            <a href={`mailto:${selectedMember.email}`} className="px-4 h-10 bg-zinc-950 border border-zinc-800 text-white flex items-center justify-center rounded-sm hover:border-emerald-500 transition-colors shadow-lg space-x-2">
                               <Mail className="w-4 h-4" />
-                              <span className="text-[10px] font-bold uppercase tracking-widest">Connect</span>
+                              <span className="text-xs font-bold uppercase tracking-widest">Connect</span>
                            </a>
                         )}
                      </div>
@@ -350,12 +350,12 @@ export default function LeadershipHubPage() {
                      </div>
                      
                      <div className="flex items-center gap-3 mb-8">
-                        <Landmark className="w-5 h-5 text-zinc-500" />
+                        <Landmark className="w-5 h-5 text-zinc-400" />
                         <h4 className="text-zinc-400 text-sm font-black uppercase tracking-[0.3em] m-0">Institutional Mandates</h4>
                      </div>
                      <div className="flex flex-wrap gap-2">
                         {selectedMember.committees?.map((c: string) => (
-                           <span key={c} className="px-3 py-1.5 bg-zinc-950 border border-zinc-800 text-[10px] font-black text-zinc-400 uppercase tracking-widest rounded-sm">{c}</span>
+                           <span key={c} className="px-3 py-1.5 bg-zinc-950 border border-zinc-800 text-xs font-black text-zinc-400 uppercase tracking-widest rounded-sm">{c}</span>
                         ))}
                      </div>
 
@@ -363,10 +363,10 @@ export default function LeadershipHubPage() {
                         <div className="mt-12 pt-12 border-t border-zinc-800/50">
                            <div className="flex items-center justify-between mb-8 cursor-pointer group" onClick={() => setIsBioExpanded(!isBioExpanded)}>
                               <div className="flex items-center gap-3">
-                                 <FileText className="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors" />
+                                 <FileText className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
                                  <h4 className="text-zinc-400 group-hover:text-white text-sm font-black uppercase tracking-[0.3em] m-0 transition-colors">Executive Biography</h4>
                               </div>
-                              <span className="text-zinc-500 group-hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">
+                              <span className="text-zinc-400 group-hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">
                                  {isBioExpanded ? "Collapse" : "Expand"}
                               </span>
                            </div>

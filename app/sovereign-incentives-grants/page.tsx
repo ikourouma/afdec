@@ -191,7 +191,7 @@ export default function SovereignIncentivesPage() {
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Strategic Footprint · Incentives</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] max-w-4xl mb-6">
-            Sovereign Incentives<br className="hidden md:block" /> & Grants
+            Strategic Incentives<br className="hidden md:block" /> & Grants
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed font-medium mb-10">
             A comprehensive navigator to North Carolina state incentives, U.S. federal programs, and African investment promotion authority grants — curated and facilitated by AfDEC for transatlantic enterprise expansion.
@@ -228,7 +228,7 @@ export default function SovereignIncentivesPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-sm mb-1">{item.title}</h3>
-                    <p className="text-zinc-500 text-[13px] leading-relaxed">{item.body}</p>
+                    <p className="text-zinc-400 text-[13px] leading-relaxed">{item.body}</p>
                   </div>
                 </div>
               );
@@ -255,7 +255,7 @@ export default function SovereignIncentivesPage() {
               <div key={item.name} className="nc-card bg-zinc-900/30 border border-zinc-800/50 rounded-sm p-7 hover:border-blue-500/20 transition-all duration-300">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">{item.type} · {item.authority}</div>
+                    <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{item.type} · {item.authority}</div>
                     <h3 className="text-white font-bold text-[16px]">{item.name}</h3>
                   </div>
                   <Star className="w-4 h-4 text-blue-400/40 shrink-0" />
@@ -277,7 +277,7 @@ export default function SovereignIncentivesPage() {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {item.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">{tag}</span>
+                    <span key={tag} className="text-xs font-bold text-zinc-400 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function SovereignIncentivesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {FEDERAL_PROGRAMS.map((prog) => (
               <div key={prog.name} className="bg-zinc-900/30 border border-zinc-800/50 rounded-sm p-7 hover:border-purple-500/20 transition-all duration-300">
-                <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">{prog.authority}</div>
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{prog.authority}</div>
                 <h3 className="text-white font-bold text-[16px] mb-3">{prog.name}</h3>
                 <p className="text-zinc-400 text-[13px] leading-relaxed mb-4">{prog.description}</p>
                 <div className="bg-purple-950/30 border border-purple-900/30 rounded-sm px-4 py-3 mb-4">
@@ -313,7 +313,7 @@ export default function SovereignIncentivesPage() {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {prog.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">{tag}</span>
+                    <span key={tag} className="text-xs font-bold text-zinc-400 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -330,7 +330,7 @@ export default function SovereignIncentivesPage() {
               <div className="w-8 h-px bg-emerald-500" />
               <span className="text-[11px] font-bold tracking-[0.2em] text-emerald-400 uppercase">Africa-Side</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-white">African Sovereign Incentives</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-white">African Strategic Incentives</h2>
             <p className="text-zinc-400 mt-4 max-w-2xl text-[15px]">
               AfDEC maps Africa-side incentives — from AfCFTA trade preferences to country-specific investment promotion authority grants — and facilitates applications on behalf of NC enterprises expanding into Africa.
             </p>
@@ -339,8 +339,8 @@ export default function SovereignIncentivesPage() {
             {AFRICA_INCENTIVES.map((item) => (
               <div key={item.name} className="africa-card bg-zinc-900/20 border border-zinc-800/40 rounded-sm p-7 hover:border-emerald-500/20 transition-all duration-300">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">{item.authority}</div>
-                  <span className="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">{item.region}</span>
+                  <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{item.authority}</div>
+                  <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">{item.region}</span>
                 </div>
                 <h3 className="text-white font-bold text-[15px] mb-3">{item.name}</h3>
                 <p className="text-zinc-400 text-[13px] leading-relaxed mb-4">{item.description}</p>
@@ -367,7 +367,7 @@ export default function SovereignIncentivesPage() {
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-white mb-6">We Navigate the System for You</h2>
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-8">
-                Sovereign incentives and grant programs are complex, time-sensitive, and jurisdiction-specific. AfDEC's Navigator Service acts as your dedicated incentives consultant — identifying, stacking, and applying for every applicable program on your behalf.
+                Strategic Incentives and grant programs are complex, time-sensitive, and jurisdiction-specific. AfDEC's Navigator Service acts as your dedicated incentives consultant — identifying, stacking, and applying for every applicable program on your behalf.
               </p>
               <div className="space-y-4 mb-8">
                 {[
@@ -390,7 +390,7 @@ export default function SovereignIncentivesPage() {
               </Link>
             </div>
             <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-xl p-8">
-              <div className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-6">Typical Incentive Package (NC Enterprise Expansion)</div>
+              <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-6">Typical Incentive Package (NC Enterprise Expansion)</div>
               <div className="space-y-4">
                 {[
                   { label: "JDIG Grant (12-year, 50 jobs)", value: "$4.2M", color: "text-blue-400" },
@@ -409,7 +409,7 @@ export default function SovereignIncentivesPage() {
                   <span className="font-black text-2xl text-white">$6.0M+</span>
                 </div>
               </div>
-              <p className="text-zinc-700 text-[10px] mt-4">*Illustrative example based on a 50-job, $10M capital investment project in a Tier 2 NC county. Actual amounts vary.</p>
+              <p className="text-zinc-400 text-xs mt-4">*Illustrative example based on a 50-job, $10M capital investment project in a Tier 2 NC county. Actual amounts vary.</p>
             </div>
           </div>
         </div>

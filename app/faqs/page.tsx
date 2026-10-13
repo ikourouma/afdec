@@ -10,7 +10,7 @@ import gsap from "gsap";
 
 const faqs = [
   {
-    category: "Sovereign Logistics",
+    category: "Strategic Logistics",
     q: "How does AfDEC integrate with the North Carolina deep-water pipeline?",
     a: "We established direct data corridors linking Raleigh's industrial logistics output to key West African port terminals. AfDEC functions to expedite clearing protocols and align corporate cargo vectors natively into African macro-development plans."
   },
@@ -22,7 +22,7 @@ const faqs = [
   {
     category: "Capital Tranches",
     q: "Are the investment portfolios syndicated or direct injections?",
-    a: "AfDEC prioritizes direct sovereign capital injections into vetted infrastructure. We bypass bloated syndications whenever possible to ensure our North Carolina corporate partners secure dominant equity and highly expedited ROI."
+    a: "AfDEC prioritizes direct Institutional capital injections into vetted infrastructure. We bypass bloated syndications whenever possible to ensure our North Carolina corporate partners secure dominant equity and highly expedited ROI."
   },
   {
     category: "Global Compliance",
@@ -69,7 +69,7 @@ export default function FAQHubPage() {
           </p>
           
           <div className="mt-10 relative max-w-xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-600" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
             <input 
               type="text" 
               value={searchQuery}
@@ -83,7 +83,7 @@ export default function FAQHubPage() {
         <div className="space-y-4" ref={listRef}>
           {filteredFaqs.length === 0 ? (
             <div className="text-center py-12 p-8 border border-dashed border-zinc-800 rounded-sm">
-              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500">Zero Query Matches Found in the Data Lake.</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">Zero Query Matches Found in the Data Lake.</span>
             </div>
           ) : (
             filteredFaqs.map((faq, idx) => {
@@ -98,12 +98,12 @@ export default function FAQHubPage() {
                     className="w-full text-left px-6 py-6 flex items-start justify-between focus:outline-none"
                   >
                     <div className="pr-8">
-                       <span className="block text-[10px] font-bold text-blue-500 tracking-widest uppercase mb-2">{faq.category}</span>
+                       <span className="block text-xs font-bold text-blue-500 tracking-widest uppercase mb-2">{faq.category}</span>
                        <h3 className={`text-lg font-bold tracking-tight transition-colors ${isOpen ? 'text-white' : 'text-zinc-300'}`}>
                          {faq.q}
                        </h3>
                     </div>
-                    <div className={`mt-1 w-6 h-6 flex shrink-0 items-center justify-center rounded-full border transition-all ${isOpen ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-zinc-700 text-zinc-500'}`}>
+                    <div className={`mt-1 w-6 h-6 flex shrink-0 items-center justify-center rounded-full border transition-all ${isOpen ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-zinc-700 text-zinc-400'}`}>
                       {isOpen ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
                     </div>
                   </button>

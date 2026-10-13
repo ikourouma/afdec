@@ -18,7 +18,7 @@ export default function CookiePolicyPage() {
       <Breadcrumb />
 
       <div className="flex-1 max-w-4xl mx-auto w-full px-6 py-24 pb-40">
-        <Link href="/compliance" className="inline-flex items-center text-xs font-bold text-zinc-500 hover:text-blue-400 mb-12 transition-colors uppercase tracking-widest">
+        <Link href="/compliance" className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-blue-400 mb-12 transition-colors uppercase tracking-widest">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Compliance Vault
         </Link>
@@ -26,7 +26,7 @@ export default function CookiePolicyPage() {
         <div className="mb-16">
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-950/40 border border-emerald-900/30 rounded-full mb-6">
             <Cookie className="w-3 h-3 text-emerald-500" />
-            <span className="text-[10px] font-bold tracking-[0.2em] text-emerald-500 uppercase">Telemetry Governance</span>
+            <span className="text-xs font-bold tracking-[0.2em] text-emerald-500 uppercase">Telemetry Governance</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
             Telemetry & Cookie<br />Usage Mandate

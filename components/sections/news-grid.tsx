@@ -75,7 +75,7 @@ export function NewsGrid() {
           </div>
           <Link href="/news" className="hidden md:flex items-center text-sm font-bold text-zinc-300 hover:text-white group">
             <span className="pb-1 border-b border-zinc-700 group-hover:border-blue-500 transition-colors">View All Press Releases</span>
-            <ArrowRight className="w-4 h-4 ml-2 text-zinc-500 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
+            <ArrowRight className="w-4 h-4 ml-2 text-zinc-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
           </Link>
         </div>
         
@@ -83,7 +83,7 @@ export function NewsGrid() {
           <div className="flex justify-center py-20">
             <div className="animate-pulse flex items-center space-x-3">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <span className="text-zinc-500 text-sm font-bold uppercase tracking-widest">Syncing Intelligence DB...</span>
+              <span className="text-zinc-400 text-sm font-bold uppercase tracking-widest">Syncing Intelligence DB...</span>
             </div>
           </div>
         ) : newsItems.length === 0 ? (

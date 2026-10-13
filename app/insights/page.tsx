@@ -113,28 +113,28 @@ function ArticleCard({ article, featured = false }: { article: Article; featured
         )}
         <div className="p-7">
           <div className="flex items-center gap-3 mb-4">
-            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest border ${meta.bg} ${meta.border} ${meta.color}`}>
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold uppercase tracking-widest border ${meta.bg} ${meta.border} ${meta.color}`}>
               <Icon className="w-3 h-3" />
               {meta.label}
             </span>
             {article.is_featured && <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />}
           </div>
           <h3 className="text-white font-black text-xl mb-2 leading-tight group-hover:text-blue-300 transition-colors">{article.title}</h3>
-          {article.subtitle && <p className="text-zinc-500 text-sm mb-3 font-medium">{article.subtitle}</p>}
+          {article.subtitle && <p className="text-zinc-400 text-sm mb-3 font-medium">{article.subtitle}</p>}
           {article.excerpt && <p className="text-zinc-400 text-[13px] leading-relaxed mb-5 line-clamp-3">{article.excerpt}</p>}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 text-[10px] text-zinc-600 font-medium uppercase tracking-widest">
+            <div className="flex items-center gap-4 text-xs text-zinc-400 font-medium uppercase tracking-widest">
               <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{date}</span>
               {article.reading_time_min && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{article.reading_time_min} min</span>}
             </div>
             <div className="flex items-center gap-2">
               {article.allow_download && (
-                <a href={article.download_url ?? "#"} className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-widest">
+                <a href={article.download_url ?? "#"} className="flex items-center gap-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-widest">
                   <Download className="w-3 h-3" />
                   PDF
                 </a>
               )}
-              <Link href={`/insights/${article.category}/${article.slug}`} className="flex items-center gap-1 text-[10px] font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-widest">
+              <Link href={`/insights/${article.category}/${article.slug}`} className="flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-widest">
                 Read <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -153,15 +153,15 @@ function ArticleCard({ article, featured = false }: { article: Article; featured
       )}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1.5">
-          <span className={`text-[9px] font-bold uppercase tracking-widest ${meta.color}`}>{meta.label}</span>
-          <span className="text-zinc-700 text-[9px]">·</span>
-          <span className="text-zinc-600 text-[9px] font-medium">{date}</span>
+          <span className={`text-xs font-bold uppercase tracking-widest ${meta.color}`}>{meta.label}</span>
+          <span className="text-zinc-400 text-xs">·</span>
+          <span className="text-zinc-400 text-xs font-medium">{date}</span>
         </div>
         <h4 className="text-zinc-200 font-bold text-sm leading-snug group-hover:text-white transition-colors line-clamp-2">{article.title}</h4>
-        {article.reading_time_min && <span className="text-[10px] text-zinc-600 mt-1 block">{article.reading_time_min} min read</span>}
+        {article.reading_time_min && <span className="text-xs text-zinc-400 mt-1 block">{article.reading_time_min} min read</span>}
       </div>
       <Link href={`/insights/${article.category}/${article.slug}`} className="shrink-0 self-center">
-        <ArrowRight className="w-4 h-4 text-zinc-700 group-hover:text-blue-400 transition-colors" />
+        <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-blue-400 transition-colors" />
       </Link>
     </div>
   );
@@ -237,7 +237,7 @@ export default function InsightsPage() {
           <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
             <div className="flex items-center gap-3 mb-8">
               <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Featured Publications</span>
+              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Featured Publications</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featured.map((a) => <ArticleCard key={a.id} article={a} featured />)}
@@ -252,12 +252,12 @@ export default function InsightsPage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
             <h2 className="text-2xl font-black text-white">All Publications</h2>
             <div className="flex items-center gap-2 flex-wrap">
-              <Filter className="w-4 h-4 text-zinc-600" />
+              <Filter className="w-4 h-4 text-zinc-400" />
               {FILTERS.map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setActiveFilter(f.id)}
-                  className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border transition-all ${
+                  className={`text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border transition-all ${
                     activeFilter === f.id
                       ? "bg-blue-600 border-blue-500 text-white"
                       : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
@@ -271,8 +271,8 @@ export default function InsightsPage() {
           <div className="max-w-3xl">
             {filtered.length === 0 ? (
               <div className="py-16 text-center">
-                <BookOpen className="w-8 h-8 text-zinc-700 mx-auto mb-4" />
-                <p className="text-zinc-600 text-sm">No articles in this category yet. Check back soon.</p>
+                <BookOpen className="w-8 h-8 text-zinc-400 mx-auto mb-4" />
+                <p className="text-zinc-400 text-sm">No articles in this category yet. Check back soon.</p>
               </div>
             ) : (
               filtered.map((a) => <ArticleCard key={a.id} article={a} />)

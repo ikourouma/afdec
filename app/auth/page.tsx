@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ArrowRight, ArrowLeft, Lock, ShieldCheck, Mail, KeyRound, TrendingUp, Globe2, Building2, User, UserPlus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { homeForRole, normalizeRole } from "@/lib/roles";
 
 const marketingSlides = [
   {
@@ -15,7 +16,7 @@ const marketingSlides = [
     stat_1_val: "$500M+",
     stat_1_label: "Capital Volume",
     stat_2_val: "54",
-    stat_2_label: "Sovereign Markets",
+    stat_2_label: "Strategic Markets",
     bg_image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
   },
   {
@@ -25,11 +26,11 @@ const marketingSlides = [
     stat_1_label: "US Business State",
     stat_2_val: "1.4B",
     stat_2_label: "Emerging Consumers",
-    bg_image: "https://images.unsplash.com/photo-1575883833722-e1903ba8fe39?q=80&w=2070&auto=format&fit=crop"
+    bg_image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop"
   },
   {
     title: "Securing the transatlantic supply chain via direct investment.",
-    subtitle: "We bypass legacy bottlenecks. AfDEC connects sovereign infrastructure demands directly with tier-1 enterprise developers across the East and West African trade corridors.",
+    subtitle: "We bypass legacy bottlenecks. AfDEC connects Strategic Infrastructure demands directly with tier-1 enterprise developers across the East and West African trade corridors.",
     stat_1_val: "300+",
     stat_1_label: "Verified Partners",
     stat_2_val: "12",
@@ -102,7 +103,27 @@ export default function AuthGateway() {
     if (params.get('view') === 'register') {
       setView('register');
     }
+    const err = params.get('error');
+    if (err === 'suspended' || err === 'revoked') {
+      setErrorMsg(`This account is ${err}. Please contact AfDEC support.`);
+    }
+    if (params.get('reset') === 'done') {
+      setErrorMsg('Password updated successfully. Please sign in.');
+    }
   }, []);
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setErrorMsg('Enter your email address first, then choose "Forgot password".');
+      return;
+    }
+    setIsLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset`,
+    });
+    setIsLoading(false);
+    setErrorMsg(error ? error.message : 'If that account exists, a password reset link has been sent. Check your inbox (successful request).');
+  };
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,27 +159,22 @@ export default function AuthGateway() {
         activeUserId = data.user.id;
       }
 
-      // Check Profile regardless of Login or Register
-      const { data: profile } = await supabase.from('profiles').select('role').eq('id', activeUserId).maybeSingle();
-      
-      // Self-Healing System Bypass
-      let role = profile?.role;
-      const cleanEmail = email.toLowerCase();
-      if (cleanEmail === 'admin@afronovation.com' || cleanEmail === 'afdecadmin@afronovation.com' || cleanEmail === 'admin@afdecnc.org') {
-        role = 'super_admin';
-      } else if (!role) {
-        role = 'member';
+      // Role comes from the database (profiles.role) only - never from metadata or hard-coded emails.
+      const { data: profile } = await supabase.from('profiles').select('role, status').eq('id', activeUserId).maybeSingle();
+
+      if (profile && profile.status && profile.status !== 'active') {
+        await supabase.auth.signOut();
+        throw new Error(`This account is ${profile.status}. Please contact AfDEC support.`);
       }
-      
-      if (role === 'super_admin' || role === 'admin') {
-         setErrorMsg("Admin Clearance Verified. Booting Command Center...");
-         window.location.replace('/dashboard/admin');
-      } else {
-         setErrorMsg("Connecting to Member Portal...");
-         const redirectPath = new URLSearchParams(window.location.search).get('redirect') || '/dashboard/member';
-         router.push(redirectPath);
-      }
-      
+
+      const role = normalizeRole(profile?.role);
+      const requested = new URLSearchParams(window.location.search).get('redirect');
+      const safeRedirect = requested && requested.startsWith('/') && !requested.startsWith('//') ? requested : null;
+
+      setErrorMsg("Welcome! Redirecting...");
+      router.replace(safeRedirect ?? homeForRole(role));
+      router.refresh();
+
     } catch (err: any) {
       setErrorMsg(err.message || "Authentication task failed. Verify credentials.");
       setIsLoading(false);
@@ -199,11 +215,11 @@ export default function AuthGateway() {
           <div className="grid grid-cols-2 gap-6 border-t border-zinc-800 pt-8">
             <div>
               <div className="text-3xl font-black text-white mb-1">{activeSlide.stat_1_val}</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">{activeSlide.stat_1_label}</div>
+              <div className="text-sm font-medium text-zinc-400 uppercase tracking-wider">{activeSlide.stat_1_label}</div>
             </div>
             <div>
               <div className="text-3xl font-black text-white mb-1">{activeSlide.stat_2_val}</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">{activeSlide.stat_2_label}</div>
+              <div className="text-sm font-medium text-zinc-400 uppercase tracking-wider">{activeSlide.stat_2_label}</div>
             </div>
           </div>
         </div>
@@ -237,14 +253,14 @@ export default function AuthGateway() {
               <button 
                 type="button"
                 onClick={() => setView('login')}
-                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors rounded-sm ${view === 'login' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors rounded-sm ${view === 'login' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-zinc-300'}`}
               >
                 Sign In
               </button>
               <button 
                 type="button"
                 onClick={() => setView('register')}
-                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors rounded-sm ${view === 'register' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors rounded-sm ${view === 'register' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-zinc-300'}`}
               >
                 Register
               </button>
@@ -265,7 +281,7 @@ export default function AuthGateway() {
           <form onSubmit={handleAuth} className="space-y-4">
             
             {errorMsg && (
-              <div className={`p-4 border text-sm font-semibold rounded-sm flex items-start ${errorMsg.includes('successful') ? 'bg-emerald-950/30 border-emerald-900/50 text-emerald-400' : 'bg-red-950/30 border-red-900/50 text-red-400'}`}>
+              <div className={`p-4 border text-sm font-semibold rounded-sm flex items-start ${(errorMsg.includes('successful') || errorMsg.startsWith('Welcome')) ? 'bg-emerald-950/30 border-emerald-900/50 text-emerald-400' : 'bg-red-950/30 border-red-900/50 text-red-400'}`}>
                 <span className="text-xl mr-2 leading-none">•</span>
                 {errorMsg}
               </div>
@@ -277,7 +293,7 @@ export default function AuthGateway() {
                   <div>
                     <label className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">First Name</label>
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input 
                         type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}
                         className="w-full bg-zinc-900/50 border border-zinc-800 text-white pl-12 pr-4 py-3.5 focus:outline-none focus:border-blue-500 focus:bg-zinc-900 transition-colors rounded-sm"
@@ -288,7 +304,7 @@ export default function AuthGateway() {
                   <div>
                     <label className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Last Name</label>
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input 
                         type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}
                         className="w-full bg-zinc-900/50 border border-zinc-800 text-white pl-12 pr-4 py-3.5 focus:outline-none focus:border-blue-500 focus:bg-zinc-900 transition-colors rounded-sm"
@@ -300,7 +316,7 @@ export default function AuthGateway() {
                 <div>
                   <label className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Organization</label>
                   <div className="relative">
-                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                     <input 
                       type="text" value={organization} onChange={(e) => setOrganization(e.target.value)}
                       placeholder="Corporate Entity"
@@ -313,11 +329,11 @@ export default function AuthGateway() {
             )}
 
             <div>
-              <label className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Corporate Identity</label>
+              <label htmlFor="auth-email" className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Corporate Identity</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input 
-                  type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                  id="auth-email" autoComplete="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@organization.com"
                   className="w-full bg-zinc-900/50 border border-zinc-800 text-white pl-12 pr-4 py-3.5 focus:outline-none focus:border-blue-500 focus:bg-zinc-900 transition-colors rounded-sm"
                   required
@@ -326,22 +342,28 @@ export default function AuthGateway() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Secure Passcode</label>
+              <label htmlFor="auth-password" className="block text-xs font-bold text-zinc-300 uppercase tracking-widest mb-2">Secure Passcode</label>
               <div className="relative">
-                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input 
+                  id="auth-password" autoComplete={view === 'login' ? 'current-password' : 'new-password'}
                   type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
+                  placeholder="••••••••••••" minLength={8}
                   className="w-full bg-zinc-900/50 border border-zinc-800 text-white pl-12 pr-4 py-3.5 focus:outline-none focus:border-blue-500 focus:bg-zinc-900 transition-colors tracking-widest rounded-sm"
                   required
                 />
               </div>
+              {view === 'login' && (
+                <button type="button" onClick={handleForgotPassword} className="mt-2 text-xs font-semibold text-blue-400 hover:text-blue-300 underline-offset-2 hover:underline">
+                  Forgot password?
+                </button>
+              )}
             </div>
 
             <button 
               type="submit" 
               disabled={isLoading}
-              className="w-full bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-500 text-zinc-950 font-bold py-4 px-6 transition-colors shadow-lg flex items-center justify-center space-x-2 group mt-6 rounded-sm"
+              className="w-full bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-400 text-zinc-950 font-bold py-4 px-6 transition-colors shadow-lg flex items-center justify-center space-x-2 group mt-6 rounded-sm"
             >
               {isLoading ? (
                 <Lock className="w-5 h-5 animate-pulse" />
@@ -356,7 +378,7 @@ export default function AuthGateway() {
           </form>
           
           <div className="mt-8 pt-6 border-t border-zinc-800">
-            <p className="text-xs text-zinc-500 leading-relaxed font-medium text-center">
+            <p className="text-xs text-zinc-400 leading-relaxed font-medium text-center">
               Connection secured via 256-bit encryption. Protocol strictly monitored.
             </p>
           </div>

@@ -31,7 +31,7 @@ export function SectorIntelligence() {
     },
     {
       title: t("verticals.energy"),
-      description: "Accelerating the transition to localized, renewable grids. Maximizing vast solar and hydro portfolios for sovereign utility independence.",
+      description: "Accelerating the transition to localized, renewable grids. Maximizing vast solar and hydro portfolios for strategic utility independence.",
       icon: Zap,
       metrics: "Clean Power Mandate",
       link: "/sectors/clean-energy"
@@ -52,7 +52,7 @@ export function SectorIntelligence() {
     },
     {
       title: t("verticals.defense"),
-      description: "Strategic sector alignment focusing on secure drone logistics and modernized security technologies for stable sovereign growth.",
+      description: "Strategic sector alignment focusing on secure drone logistics and modernized security technologies for stable strategic growth.",
       icon: Plane,
       metrics: "Strategic Security",
       link: "/sectors/defense"
@@ -99,7 +99,7 @@ export function SectorIntelligence() {
             </p>
           </div>
           <div className="mt-8 md:mt-0">
-            <div className="text-sm font-medium text-zinc-500 uppercase tracking-widest">Core Mandate</div>
+            <div className="text-sm font-medium text-zinc-400 uppercase tracking-widest">Core Mandate</div>
             <div className="text-xl font-bold text-blue-500 mt-1">6 Priority Vertical Portfolios</div>
           </div>
         </div>
@@ -117,7 +117,7 @@ export function SectorIntelligence() {
                   <div className="p-3 bg-zinc-800 rounded text-zinc-300 group-hover:text-blue-400 group-hover:bg-blue-500/10 transition-colors">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-semibold text-zinc-500 tracking-wider">
+                  <span className="text-xs font-semibold text-zinc-400 tracking-wider">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -130,10 +130,10 @@ export function SectorIntelligence() {
                 </p>
 
                 <div className="pt-6 border-t border-zinc-800/50 mt-auto flex items-center justify-between">
-                  <span className="text-xs font-medium text-zinc-500 uppercase tracking-wide">
+                  <span className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
                     {sector.metrics}
                   </span>
-                  <div className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-700 text-zinc-500 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-500 transition-all">
+                  <div className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-700 text-zinc-400 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-500 transition-all">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </div>
                 </div>

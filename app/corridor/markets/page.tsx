@@ -32,13 +32,13 @@ export default function MarketAccessPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-900/40 border border-blue-900/30 mb-8 rounded-full">
               <Globe2 className="w-3 h-3 text-blue-400" />
-              <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">Trade Intelligence</span>
+              <span className="text-xs font-bold tracking-[0.2em] text-blue-400 uppercase">Trade Intelligence</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[0.95] mb-8">
               Market Access<br />by Region.
             </h1>
             <p className="text-lg text-zinc-400 font-medium leading-relaxed mb-12">
-              Analyzing sovereign data and AfCFTA integration layers to provide North Carolina enterprise partners with frictionless market entry trajectories across the African continent.
+              Analyzing Strategic data and AfCFTA integration layers to provide North Carolina enterprise partners with frictionless market entry trajectories across the African continent.
             </p>
             <div className="flex flex-wrap gap-4">
                <Link href="/insights/data-terminal" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase tracking-widest rounded-sm transition-all shadow-lg">
@@ -61,15 +61,15 @@ export default function MarketAccessPage() {
                    </div>
                    <div className="space-y-6">
                       <div>
-                         <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">GDP Growth (Avg)</div>
+                         <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">GDP Growth (Avg)</div>
                          <div className="text-2xl font-black text-white">{region.growth}</div>
                       </div>
                       <div>
-                         <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Active AfDEC Projects</div>
+                         <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">Active AfDEC Projects</div>
                          <div className="text-2xl font-black text-blue-500">{region.projects}</div>
                       </div>
                       <div className="pt-6 border-t border-zinc-900">
-                         <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Primary Trade Hub</div>
+                         <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">Primary Trade Hub</div>
                          <div className="text-sm font-bold text-zinc-300">{region.hub}</div>
                       </div>
                    </div>
@@ -85,7 +85,7 @@ export default function MarketAccessPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
              <div>
                 <h2 className="text-3xl font-black text-white mb-6">Frictionless Compliance Architecture</h2>
-                <p className="text-zinc-500 text-[15px] leading-relaxed mb-8">
+                <p className="text-zinc-400 text-[15px] leading-relaxed mb-8">
                    AfDEC bridges the historical gap between US regulatory standards and African diverse market regulations. Our market access protocol reduces the risk profile of transatlantic expansion by 60%.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -93,21 +93,21 @@ export default function MarketAccessPage() {
                       <ShieldCheck className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
                       <div>
                          <h4 className="text-white font-bold text-sm mb-1">Regulatory Mapping</h4>
-                         <p className="text-xs text-zinc-600">Aligning NC-based contracts with sovereign civil laws.</p>
+                         <p className="text-xs text-zinc-400">Aligning NC-based contracts with strategic civil laws.</p>
                       </div>
                    </div>
                    <div className="flex items-start space-x-4">
                       <BarChart3 className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
                       <div>
                          <h4 className="text-white font-bold text-sm mb-1">Duty-Free Routing</h4>
-                         <p className="text-xs text-zinc-600">Maximizing AfCFTA and AGOA tariff benefits.</p>
+                         <p className="text-xs text-zinc-400">Maximizing AfCFTA and AGOA tariff benefits.</p>
                       </div>
                    </div>
                 </div>
              </div>
              
              <div className="relative aspect-video rounded-sm overflow-hidden border border-zinc-800 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1554224155-1677a28a1908?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" />
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" />
                 <div className="absolute inset-0 bg-blue-900/10 mix-blend-overlay" />
                 <div className="absolute inset-0 flex items-center justify-center p-12 text-center">
                    <div>

@@ -129,7 +129,7 @@ function DonorInterestForm() {
                 
                 {/* Inquiry Type */}
                 <div className="space-y-4">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Inquiry Type</label>
+                  <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Inquiry Type</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
                       { id: "donor_individual", label: "Individual Donor", icon: Heart },
@@ -144,10 +144,10 @@ function DonorInterestForm() {
                           key={t.id} type="button"
                           onClick={() => setValue("inquiry_type", t.id as any)}
                           className={`flex items-center gap-3 p-4 border rounded-lg transition-all text-left ${
-                            isActive ? 'bg-emerald-950/20 border-emerald-500 text-white' : 'bg-zinc-950 border-zinc-800/60 text-zinc-500 hover:border-zinc-700'
+                            isActive ? 'bg-emerald-950/20 border-emerald-500 text-white' : 'bg-zinc-950 border-zinc-800/60 text-zinc-400 hover:border-zinc-700'
                           }`}
                         >
-                          <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-400' : 'text-zinc-600'}`} />
+                          <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-400' : 'text-zinc-400'}`} />
                           <span className="text-sm font-bold">{t.label}</span>
                         </button>
                       );
@@ -158,32 +158,32 @@ function DonorInterestForm() {
                 {/* Contact Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Full Name / Key Contact</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Full Name / Key Contact</label>
                     <div className="relative">
-                      <User className="absolute left-3 top-3.5 w-4 h-4 text-zinc-600" />
+                      <User className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                       <input {...register("full_name")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 pl-10 text-white outline-none transition-all" />
                     </div>
-                    {errors.full_name && <p className="text-red-400 text-[10px] font-bold">{errors.full_name.message}</p>}
+                    {errors.full_name && <p className="text-red-400 text-xs font-bold">{errors.full_name.message}</p>}
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Organization (If applicable)</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Organization (If applicable)</label>
                     <div className="relative">
-                      <Building2 className="absolute left-3 top-3.5 w-4 h-4 text-zinc-600" />
+                      <Building2 className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                       <input {...register("organization")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 pl-10 text-white outline-none transition-all" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Email Address</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Email Address</label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3.5 w-4 h-4 text-zinc-600" />
+                      <Mail className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                       <input {...register("email")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 pl-10 text-white outline-none transition-all" />
                     </div>
-                    {errors.email && <p className="text-red-400 text-[10px] font-bold">{errors.email.message}</p>}
+                    {errors.email && <p className="text-red-400 text-xs font-bold">{errors.email.message}</p>}
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Country</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Country</label>
                     <div className="relative">
-                      <Globe className="absolute left-3 top-3.5 w-4 h-4 text-zinc-600" />
+                      <Globe className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                       <input {...register("country")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 pl-10 text-white outline-none transition-all" />
                     </div>
                   </div>
@@ -191,7 +191,7 @@ function DonorInterestForm() {
 
                 {/* Flexible Linkage */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Target Project (Optional)</label>
+                  <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Target Project (Optional)</label>
                   <select 
                     {...register("preferred_project_id")} 
                     className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 text-white outline-none appearance-none"
@@ -202,17 +202,17 @@ function DonorInterestForm() {
                       <option key={p.id} value={p.id}>{p.title} ({p.category})</option>
                     ))}
                   </select>
-                  <p className="text-[10px] text-zinc-600 font-medium">Select a specific project or leave as General Fund.</p>
+                  <p className="text-xs text-zinc-400 font-medium">Select a specific project or leave as General Fund.</p>
                 </div>
 
                 {/* Message */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Contribution Details / Message</label>
+                  <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Contribution Details / Message</label>
                   <div className="relative">
-                    <MessageSquare className="absolute left-3 top-3.5 w-4 h-4 text-zinc-600" />
+                    <MessageSquare className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                     <textarea {...register("message")} rows={5} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/40 rounded-sm p-3 pl-10 text-white outline-none resize-none transition-all" placeholder="Tell us more about your interest..." />
                   </div>
-                  {errors.message && <p className="text-red-400 text-[10px] font-bold">{errors.message.message}</p>}
+                  {errors.message && <p className="text-red-400 text-xs font-bold">{errors.message.message}</p>}
                 </div>
 
                 <button 
@@ -248,7 +248,7 @@ function DonorInterestForm() {
 
             <div className="p-8 bg-zinc-900/40 border border-zinc-800 rounded-xl">
               <h3 className="text-sm font-bold text-white mb-2">Institutional Inquiries</h3>
-              <p className="text-xs text-zinc-500 leading-relaxed mb-4">
+              <p className="text-xs text-zinc-400 leading-relaxed mb-4">
                 For complex matching fund inquiries or bilateral government partnerships, you may contact the Fund Chair directly.
               </p>
               <div className="text-emerald-400 text-xs font-bold font-mono">office@afdec-co.org</div>

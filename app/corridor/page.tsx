@@ -30,7 +30,7 @@ const accentColors: Record<string, { text: string; bg: string; border: string; b
 
 const corridorStats = [
   { value: "$2.1B", label: "Annual Trade Volume", sub: "NC–Africa corridor", icon: TrendingUp, color: "text-blue-400" },
-  { value: "54",    label: "Sovereign Markets",   sub: "Active bilateral coverage", icon: Globe,      color: "text-emerald-400" },
+  { value: "54",    label: "Strategic Markets",   sub: "Active bilateral coverage", icon: Globe,      color: "text-emerald-400" },
   { value: "$600B+",label: "Gov't Procurement",   sub: "African public sector p.a.", icon: Award,   color: "text-amber-400" },
   { value: "$108B", label: "Infrastructure Gap",  sub: "AfDB annual estimate",  icon: Zap,           color: "text-purple-400" },
 ];
@@ -98,7 +98,7 @@ export default function CorridorHubPage() {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 font-medium leading-relaxed max-w-3xl mb-12">
-            A sovereign-grade bilateral integration framework — connecting North Carolina&apos;s $680 billion economy to 54 African markets through trade architecture, procurement access, institutional investment, and infrastructure development.
+            A Enterprise-grade bilateral integration framework — connecting North Carolina&apos;s $680 billion economy to 54 African markets through trade architecture, procurement access, institutional investment, and infrastructure development.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
@@ -141,7 +141,7 @@ export default function CorridorHubPage() {
                   <Icon className={`w-5 h-5 ${stat.color} mx-auto mb-3`} />
                   <div className={`text-3xl md:text-4xl font-black ${stat.color} mb-1`}>{stat.value}</div>
                   <div className="text-white font-bold text-sm mb-0.5">{stat.label}</div>
-                  <div className="text-zinc-600 text-xs font-medium">{stat.sub}</div>
+                  <div className="text-zinc-400 text-xs font-medium">{stat.sub}</div>
                 </div>
               );
             })}
@@ -159,7 +159,7 @@ export default function CorridorHubPage() {
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Four Integration Pillars</h2>
             <p className="text-zinc-400 max-w-2xl text-[15px] leading-relaxed">
-              Each corridor program addresses a distinct dimension of transatlantic integration — from commercial trade to sovereign capital deployment.
+              Each corridor program addresses a distinct dimension of transatlantic integration — from commercial trade to Institutional capital deployment.
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function CorridorHubPage() {
 
                   <div className="relative z-10 p-8 lg:p-10 flex flex-col h-full min-h-[280px]">
                     {/* Tag */}
-                    <div className={`inline-flex items-center px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest mb-6 w-fit ${colors.badge}`}>
+                    <div className={`inline-flex items-center px-3 py-1 rounded-full border text-xs font-black uppercase tracking-widest mb-6 w-fit ${colors.badge}`}>
                       {program.tag}
                     </div>
 
@@ -219,7 +219,7 @@ export default function CorridorHubPage() {
           <div className="mb-16">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-px bg-zinc-500" />
-              <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Process</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Process</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white">How the Corridor Works</h2>
           </div>
@@ -228,13 +228,13 @@ export default function CorridorHubPage() {
             {[
               { step: "01", title: "Apply & Qualify", body: "Submit your enterprise profile. AfDEC conducts a 72-hour institutional review to qualify your organization for corridor participation.", color: "text-blue-400" },
               { step: "02", title: "Match & Certify", body: "Receive your AfDEC Corridor Certification and be matched with verified counterparts in your target markets across all 54 nations.", color: "text-emerald-400" },
-              { step: "03", title: "Deal Facilitation", body: "AfDEC's sovereign deal desk supports documentation, compliance, and negotiation through your first bilateral transaction.", color: "text-amber-400" },
+              { step: "03", title: "Deal Facilitation", body: "AfDEC's strategic deal desk supports documentation, compliance, and negotiation through your first bilateral transaction.", color: "text-amber-400" },
               { step: "04", title: "Scale & Report", body: "Access ongoing deal flow, trade intelligence briefings, and quarterly bilateral summits to scale your transatlantic enterprise.", color: "text-purple-400" },
             ].map((step) => (
               <div key={step.step} className="bg-zinc-900/40 border border-zinc-800 rounded-lg p-8">
                 <div className={`text-5xl font-black ${step.color} opacity-30 mb-4 font-mono`}>{step.step}</div>
                 <h3 className="text-white font-black text-lg mb-3">{step.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed font-medium">{step.body}</p>
+                <p className="text-zinc-400 text-sm leading-relaxed font-medium">{step.body}</p>
               </div>
             ))}
           </div>

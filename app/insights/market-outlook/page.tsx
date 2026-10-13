@@ -96,7 +96,7 @@ const SECTOR_BRIEFS = [
     accent: { text: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20", hoverBorder: "hover:border-purple-900/40", header: "from-purple-950/60" },
     description: "Silicon Savannah meets Research Triangle — fintech, AI, and deep-tech bilateral corridor mapping.",
     q1: { title: "Kenya-Nigeria-Ghana Tech Hub Ecosystem: Investment & Partnership Map for NC Deep-Tech", slug: "innovation-q1-2026" },
-    q2: { title: "AI & Sovereign Data Infrastructure — Africa Regulatory Landscape for NC Cloud Cos." },
+    q2: { title: "AI & Strategic data Infrastructure — Africa Regulatory Landscape for NC Cloud Cos." },
   },
   {
     emoji: "🛡️",
@@ -149,7 +149,7 @@ export default function MarketOutlookPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/30" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-20 md:py-28 relative z-10">
-          <nav className="flex items-center gap-2 text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-8">
+          <nav className="flex items-center gap-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-8">
             <Link href="/insights" className="hover:text-blue-400 transition-colors">Insights</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-zinc-400">Transatlantic Market Outlook</span>
@@ -162,9 +162,9 @@ export default function MarketOutlookPage() {
             Transatlantic<br className="hidden md:block" /> Market Outlook
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed font-medium mb-6">
-            Quarterly sovereign intelligence on GDP trajectories, FDI flows, sector opportunities, and bilateral trade trends across all five African regions — benchmarked against North Carolina's export economy.
+            Quarterly Market Intelligence on GDP trajectories, FDI flows, sector opportunities, and bilateral trade trends across all five African regions — benchmarked against North Carolina's export economy.
           </p>
-          <p className="text-[13px] text-zinc-600 font-medium">
+          <p className="text-[13px] text-zinc-400 font-medium">
             Published quarterly · Sourced from IMF, World Bank, UNCTAD, and AfDEC proprietary intelligence
           </p>
         </div>
@@ -174,13 +174,13 @@ export default function MarketOutlookPage() {
       {/* ── Key Metrics ── */}
       <section className="bg-zinc-900/30 border-b border-zinc-800/30 py-12">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-6">Q1 2026 Headline Metrics</div>
+          <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-6">Q1 2026 Headline Metrics</div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Q1_METRICS.map((m) => (
               <div key={m.label} className="bg-zinc-900/30 border border-zinc-800/50 rounded-sm p-5">
                 <div className={`text-3xl font-black mb-1 ${m.color}`}>{m.value}</div>
                 <div className="text-white text-[12px] font-bold">{m.label}</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wider font-medium mt-0.5">{m.context}</div>
+                <div className="text-zinc-400 text-xs uppercase tracking-wider font-medium mt-0.5">{m.context}</div>
               </div>
             ))}
           </div>
@@ -205,15 +205,15 @@ export default function MarketOutlookPage() {
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-black text-white">{issue.quarter}</span>
-                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                  <span className={`text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
                     issue.status === "published"
                       ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
-                      : "bg-zinc-800/50 border border-zinc-700/30 text-zinc-500"
+                      : "bg-zinc-800/50 border border-zinc-700/30 text-zinc-400"
                   }`}>
                     {issue.status === "published" ? "📄 Published" : "🔜 Upcoming"}
                   </span>
                 </div>
-                <div className="text-[10px] text-zinc-600 uppercase tracking-wider font-medium mb-2">{issue.period}</div>
+                <div className="text-xs text-zinc-400 uppercase tracking-wider font-medium mb-2">{issue.period}</div>
                 <div className="text-zinc-400 text-[12px] leading-relaxed">{issue.theme}</div>
               </div>
             ))}
@@ -237,26 +237,26 @@ export default function MarketOutlookPage() {
               <div className="p-8 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-5">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest border bg-emerald-950/30 border-emerald-900/30 text-emerald-400">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold uppercase tracking-widest border bg-emerald-950/30 border-emerald-900/30 text-emerald-400">
                       <TrendingUp className="w-3 h-3" />
                       Quarterly Report
                     </span>
-                    <span className="text-[10px] text-zinc-600 font-medium">
+                    <span className="text-xs text-zinc-400 font-medium">
                       {new Date(featured.published_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                     </span>
                     {featured.reading_time_min && (
-                      <span className="flex items-center gap-1 text-[10px] text-zinc-600 font-medium">
+                      <span className="flex items-center gap-1 text-xs text-zinc-400 font-medium">
                         <Clock className="w-3 h-3" />{featured.reading_time_min} min read
                       </span>
                     )}
                   </div>
                   <h3 className="text-white font-black text-2xl md:text-3xl leading-tight mb-3 group-hover:text-emerald-300 transition-colors">{featured.title}</h3>
-                  {featured.subtitle && <p className="text-zinc-500 text-base font-medium mb-4">{featured.subtitle}</p>}
+                  {featured.subtitle && <p className="text-zinc-400 text-base font-medium mb-4">{featured.subtitle}</p>}
                   {featured.excerpt && <p className="text-zinc-400 text-[14px] leading-relaxed mb-6">{featured.excerpt}</p>}
                   {featured.tags && (
                     <div className="flex flex-wrap gap-1.5 mb-6">
                       {featured.tags.map((tag) => (
-                        <span key={tag} className="flex items-center gap-1 text-[9px] font-bold text-zinc-500 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
+                        <span key={tag} className="flex items-center gap-1 text-xs font-bold text-zinc-400 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
                           <Tag className="w-2.5 h-2.5" />{tag}
                         </span>
                       ))}
@@ -281,8 +281,8 @@ export default function MarketOutlookPage() {
             </div>
           ) : (
             <div className="py-16 text-center border border-zinc-800/50 rounded-xl">
-              <TrendingUp className="w-8 h-8 text-zinc-700 mx-auto mb-3" />
-              <p className="text-zinc-600 text-sm">The Q1 2026 edition is being finalized. Subscribe to receive it upon publication.</p>
+              <TrendingUp className="w-8 h-8 text-zinc-400 mx-auto mb-3" />
+              <p className="text-zinc-400 text-sm">The Q1 2026 edition is being finalized. Subscribe to receive it upon publication.</p>
             </div>
           )}
         </div>
@@ -302,7 +302,7 @@ export default function MarketOutlookPage() {
                 AfDEC Intelligence publishes quarterly sector briefs on the four highest-impact transatlantic trade sectors — tracking opportunities, risks, and bilateral corridor data every quarter.
               </p>
             </div>
-            <Link href="/insights" className="flex items-center gap-1 text-[10px] font-bold text-zinc-500 hover:text-zinc-300 transition-colors uppercase tracking-widest shrink-0">
+            <Link href="/insights" className="flex items-center gap-1 text-xs font-bold text-zinc-400 hover:text-zinc-300 transition-colors uppercase tracking-widest shrink-0">
               <ExternalLink className="w-3 h-3" /> All Insights
             </Link>
           </div>
@@ -313,34 +313,30 @@ export default function MarketOutlookPage() {
                 {/* Header */}
                 <div className={`bg-gradient-to-br ${s.accent.header} to-zinc-900/40 px-6 pt-6 pb-4 border-b border-zinc-800/40`}>
                   <div className="text-3xl mb-3">{s.emoji}</div>
-                  <div className={`text-[10px] font-bold ${s.accent.text} uppercase tracking-widest mb-1`}>Sector Brief</div>
+                  <div className={`text-xs font-bold ${s.accent.text} uppercase tracking-widest mb-1`}>Sector Brief</div>
                   <h3 className="text-white font-black text-lg leading-tight">{s.label}</h3>
-                  <p className="text-zinc-500 text-[12px] mt-1.5 leading-relaxed">{s.description}</p>
+                  <p className="text-zinc-400 text-[12px] mt-1.5 leading-relaxed">{s.description}</p>
                 </div>
                 {/* Q1 Published */}
                 <div className="flex-1 p-5 space-y-3">
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-widest font-bold">
-                    <span className="text-zinc-600">Q1 2026</span>
+                  <div className="flex items-center justify-between text-xs uppercase tracking-widest font-bold">
+                    <span className="text-zinc-400">Q1 2026</span>
                     <span className={`${s.accent.text} ${s.accent.bg} border ${s.accent.border} px-2 py-0.5 rounded-full`}>Published</span>
                   </div>
                   <p className="text-zinc-400 text-[12px] leading-relaxed">{s.q1.title}</p>
                   <div className="flex gap-2 pt-1">
-                    <Link href={`/insights/market-outlook/${s.q1.slug}`} className={`flex items-center gap-1 text-[10px] font-bold ${s.accent.text} hover:opacity-80 uppercase tracking-widest`}>
+                    <Link href={`/insights/market-outlook/${s.q1.slug}`} className={`flex items-center gap-1 text-xs font-bold ${s.accent.text} hover:opacity-80 uppercase tracking-widest`}>
                       Read <ArrowRight className="w-3 h-3" />
                     </Link>
-                    <span className="text-zinc-700 text-[10px]">·</span>
-                    <a href="#" className="flex items-center gap-1 text-[10px] font-bold text-zinc-500 hover:text-zinc-300 uppercase tracking-widest">
-                      <Download className="w-2.5 h-2.5" /> PDF
-                    </a>
                   </div>
                 </div>
                 {/* Q2 Upcoming */}
                 <div className="px-5 pb-5 border-t border-zinc-800/40 pt-4">
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-widest font-bold mb-1.5">
-                    <span className="text-zinc-600">Q2 2026</span>
-                    <span className="text-zinc-500 bg-zinc-800/60 border border-zinc-700/30 px-2 py-0.5 rounded-full">Coming Jun 2026</span>
+                  <div className="flex items-center justify-between text-xs uppercase tracking-widest font-bold mb-1.5">
+                    <span className="text-zinc-400">Q2 2026</span>
+                    <span className="text-zinc-400 bg-zinc-800/60 border border-zinc-700/30 px-2 py-0.5 rounded-full">Coming Jun 2026</span>
                   </div>
-                  <p className="text-zinc-600 text-[11px]">{s.q2.title}</p>
+                  <p className="text-zinc-400 text-[11px]">{s.q2.title}</p>
                 </div>
               </div>
             ))}

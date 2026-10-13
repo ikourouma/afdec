@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 
 const DEFAULT_TOPICS = [
   "Institutional Partnership",
-  "Sovereign Tourism Inquiry",
+  "Tourism & Hospitality Inquiry",
   "Diaspora Impact Fund Investment",
   "NC Africa Center Inquiry",
   "Market Entry & Expansion",
@@ -117,45 +117,45 @@ function ContactForm() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">First Name</label>
+              <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">First Name</label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input name="first_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="First" />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Last Name</label>
+              <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Last Name</label>
               <input name="last_name" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none" placeholder="Last" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
              <div className="space-y-2">
-              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Corporate Email</label>
+              <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Corporate Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input name="email" required type="email" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="corp@domain.com" />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Direct Phone</label>
+              <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Direct Phone</label>
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input name="phone" required type="tel" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="+1..." />
               </div>
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Organization / Entity</label>
+            <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Organization / Entity</label>
             <div className="relative">
-              <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
+              <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
               <input name="organization" required type="text" className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 pl-10 pr-4 text-white text-sm transition-colors outline-none" placeholder="Entity Name" />
             </div>
           </div>
           
           <div className="space-y-2">
-            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Transmission Topic</label>
+            <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Transmission Topic</label>
             <select 
               name="topic" 
               required 
@@ -170,7 +170,7 @@ function ContactForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Secure Message Payload</label>
+            <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Secure Message Payload</label>
             <textarea name="message" required rows={4} className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-sm py-3 px-4 text-white text-sm transition-colors outline-none resize-none" placeholder="Provide institutional scope..." />
           </div>
 
@@ -179,7 +179,7 @@ function ContactForm() {
             <div className="flex items-center h-5 mt-0.5 shrink-0">
               <input required id="privacy_consent" name="privacy_consent" type="checkbox" className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-blue-600 focus:ring-blue-600 focus:ring-2 cursor-pointer" />
             </div>
-            <div className="text-[10px] leading-relaxed text-zinc-400">
+            <div className="text-xs leading-relaxed text-zinc-400">
               <p className="mb-2">If I am a user outside the US, I understand AfDEC provides its services from the US, where privacy laws may differ from the laws in my jurisdiction. I consent to transfer my information to the US and to AfDEC's processing my information in accordance with the Privacy Policy.</p>
               <label htmlFor="privacy_consent" className="font-bold text-zinc-300 cursor-pointer hover:text-white">*I consent to AfDEC’s Privacy Policy.</label>
             </div>
@@ -205,13 +205,13 @@ export default function ContactGatewayPage() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 w-full h-full flex items-center justify-center">
           <div className="flex w-full h-full max-h-[850px] bg-[#000a14] border border-zinc-800/50 rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
             
-            {/* LEFT: Sovereign Branding Block */}
+            {/* LEFT: Strategic Branding Block */}
             <div className="hidden lg:flex lg:w-1/2 relative bg-[#001428] flex-col justify-between overflow-hidden border-r border-zinc-800/30">
               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-[#001428] via-transparent to-[#001428]/80"></div>
               
               <div className="relative z-10 p-10 xl:p-14">
-                <Link href="/" className="inline-flex items-center text-[10px] font-black text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-[0.3em]">
+                <Link href="/" className="inline-flex items-center text-xs font-black text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-[0.3em]">
                   <ArrowLeft className="w-3.5 h-3.5 mr-2" />
                   Terminate & Return
                 </Link>
@@ -221,15 +221,15 @@ export default function ContactGatewayPage() {
                       <span className="text-blue-500 font-bold text-base">AfDEC</span>
                     </div>
                     <div>
-                      <p className="text-white font-bold tracking-[0.2em] uppercase text-[10px]">African Diaspora Economic Council</p>
-                      <p className="text-zinc-500 font-semibold text-[9px] uppercase tracking-widest">North Carolina</p>
+                      <p className="text-white font-bold tracking-[0.2em] uppercase text-xs">African Diaspora Economic Council</p>
+                      <p className="text-zinc-400 font-semibold text-xs uppercase tracking-widest">North Carolina</p>
                     </div>
                   </div>
                   <h1 className="text-3xl xl:text-5xl font-black text-white tracking-tight leading-[1.1]">
-                    Sovereign <br /> Communications.
+                    Strategic <br /> Communications.
                   </h1>
                   <p className="mt-6 text-zinc-400 text-[13px] max-w-sm leading-relaxed font-medium">
-                    The Council (AfDEC) is a sovereign institution representing diaspora enterprises before government agencies and global markets. Submit inquiries directly to the Executive Board via Tier-1 encrypted protocols.
+                    The Council (AfDEC) is a strategic institution representing diaspora enterprises before government agencies and global markets. Submit inquiries directly to the Executive Board via Tier-1 encrypted protocols.
                   </p>
                 </div>
               </div>
@@ -237,9 +237,9 @@ export default function ContactGatewayPage() {
               <div className="relative z-10 p-10 xl:p-14 border-t border-zinc-900/50">
                 <div className="flex items-center space-x-3 mb-4">
                   <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Encrypted pipeline Active</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-emerald-500">Encrypted pipeline Active</span>
                 </div>
-                <p className="text-zinc-600 text-[11px] leading-relaxed max-w-sm font-medium">
+                <p className="text-zinc-400 text-[11px] leading-relaxed max-w-sm font-medium">
                   Expect a response mapping within 24-48 global hours depending on security clearance.
                 </p>
               </div>
@@ -249,12 +249,12 @@ export default function ContactGatewayPage() {
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8 xl:p-16 relative bg-zinc-950 overflow-y-auto custom-scrollbar">
               
               {/* Mobile-only back button */}
-              <Link href="/" className="lg:hidden absolute top-8 left-8 inline-flex items-center text-[10px] font-bold text-blue-500 uppercase tracking-widest">
+              <Link href="/" className="lg:hidden absolute top-8 left-8 inline-flex items-center text-xs font-bold text-blue-500 uppercase tracking-widest">
                 <ArrowLeft className="w-3.5 h-3.5 mr-2" />
                 Gateway
               </Link>
 
-              <Suspense fallback={<div className="text-zinc-500 text-sm animate-pulse w-full text-center">Initializing Secure Uplink...</div>}>
+              <Suspense fallback={<div className="text-zinc-400 text-sm animate-pulse w-full text-center">Initializing Secure Uplink...</div>}>
                 <ContactForm />
               </Suspense>
 

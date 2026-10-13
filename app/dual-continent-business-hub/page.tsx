@@ -254,7 +254,7 @@ export default function DualContinentBusinessHubPage() {
               <div key={s.label} className="stat-item text-center p-6 border border-zinc-800/50 rounded-sm bg-zinc-900/20">
                 <div className="text-4xl font-black text-blue-400 mb-1">{s.value}</div>
                 <div className="text-sm font-bold text-white mb-0.5">{s.label}</div>
-                <div className="text-[10px] text-zinc-600 uppercase tracking-wider font-medium">{s.sublabel}</div>
+                <div className="text-xs text-zinc-400 uppercase tracking-wider font-medium">{s.sublabel}</div>
               </div>
             ))}
           </div>
@@ -280,18 +280,18 @@ export default function DualContinentBusinessHubPage() {
                 className="hub-card group bg-zinc-900/30 border border-zinc-800/50 rounded-sm p-7 hover:border-blue-500/20 transition-all duration-300 relative overflow-hidden"
               >
                 {hub.status !== "Active" && (
-                  <div className="absolute top-4 right-4 px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 rounded-full text-[9px] font-bold text-amber-400 uppercase tracking-widest">
+                  <div className="absolute top-4 right-4 px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs font-bold text-amber-400 uppercase tracking-widest">
                     {hub.status}
                   </div>
                 )}
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="text-3xl mb-2">{hub.flag}</div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">{hub.hub_type || hub.type}</div>
+                    <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{hub.hub_type || hub.type}</div>
                     <h3 className="text-xl font-black text-white">{hub.city}</h3>
                     <div className="flex items-center gap-1.5 mt-1">
-                      <MapPin className="w-3 h-3 text-zinc-600" />
-                      <span className="text-xs text-zinc-500">{hub.country}</span>
+                      <MapPin className="w-3 h-3 text-zinc-400" />
+                      <span className="text-xs text-zinc-400">{hub.country}</span>
                     </div>
                   </div>
                 </div>
@@ -332,10 +332,10 @@ export default function DualContinentBusinessHubPage() {
                     <Icon className="w-5 h-5 text-zinc-400 group-hover:text-blue-400 transition-colors" />
                   </div>
                   <h3 className="text-white font-bold text-[16px] mb-2">{svc.title}</h3>
-                  <p className="text-zinc-500 text-[13px] leading-relaxed mb-4">{svc.description}</p>
+                  <p className="text-zinc-400 text-[13px] leading-relaxed mb-4">{svc.description}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {svc.tags.map((tag: string) => (
-                      <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">
+                      <span key={tag} className="text-xs font-bold text-zinc-400 bg-zinc-800/60 px-2 py-0.5 rounded-sm border border-zinc-700/50 uppercase tracking-wider">
                         {tag}
                       </span>
                     ))}
@@ -382,7 +382,7 @@ export default function DualContinentBusinessHubPage() {
                   style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Cpath d='M0 20h40M20 0v40'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "40px 40px" }} />
                 <div className="relative z-10 flex flex-col gap-4">
                   {/* NC Hubs */}
-                  <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-2">🇺🇸 North Carolina</div>
+                  <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">🇺🇸 North Carolina</div>
                   <div className="grid grid-cols-2 gap-3">
                     {["Raleigh-Durham HQ", "Charlotte Finance"].map((hub) => (
                       <div key={hub} className="bg-blue-950/40 border border-blue-900/30 rounded-sm px-4 py-3">
@@ -394,11 +394,11 @@ export default function DualContinentBusinessHubPage() {
                   {/* Connection line */}
                   <div className="flex items-center gap-2 my-2">
                     <div className="flex-1 h-px bg-gradient-to-r from-blue-500/50 to-emerald-500/50" />
-                    <Globe className="w-4 h-4 text-zinc-600" />
+                    <Globe className="w-4 h-4 text-zinc-400" />
                     <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/50 to-blue-500/50" />
                   </div>
                   {/* Africa Hubs */}
-                  <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-2">🌍 Africa</div>
+                  <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">🌍 Africa</div>
                   <div className="grid grid-cols-2 gap-3">
                     {["Nairobi, Kenya", "Lagos, Nigeria", "Accra, Ghana", "Abidjan, CI"].map((hub) => (
                       <div key={hub} className="bg-emerald-950/40 border border-emerald-900/30 rounded-sm px-4 py-3">

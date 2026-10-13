@@ -173,7 +173,7 @@ export default function GrantApplicationWizard() {
               Your grant application has been successfully logged into the AfDEC Procurement Gateway. You will receive an official acknowledgement via email within 48 hours.
             </p>
             <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl mb-10 text-left">
-              <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Grant Reference Number</div>
+              <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">Grant Reference Number</div>
               <div className="text-2xl font-black text-emerald-400 tracking-tight">{successData.ref}</div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -220,11 +220,11 @@ export default function GrantApplicationWizard() {
                 <div key={step.id} className="flex items-center gap-2 group">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border transition-all ${
                     isActive ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 
-                    isCompleted ? 'bg-emerald-950/40 border-emerald-900/50 text-emerald-500' : 'bg-zinc-900 border-zinc-800 text-zinc-600'
+                    isCompleted ? 'bg-emerald-950/40 border-emerald-900/50 text-emerald-500' : 'bg-zinc-900 border-zinc-800 text-zinc-400'
                   }`}>
                     {isCompleted ? <CheckCircle2 className="w-4 h-4" /> : step.id}
                   </div>
-                  <span className={`text-[11px] font-bold uppercase tracking-widest hidden sm:block ${isActive ? 'text-white' : 'text-zinc-600'}`}>
+                  <span className={`text-[11px] font-bold uppercase tracking-widest hidden sm:block ${isActive ? 'text-white' : 'text-zinc-400'}`}>
                     {step.label}
                   </span>
                   {step.id < 3 && <div className="w-12 h-px bg-zinc-800 mx-2" />}
@@ -245,22 +245,22 @@ export default function GrantApplicationWizard() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Legal Business Name</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Legal Business Name</label>
                        <input {...register("business_name")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" placeholder="e.g. AgriLink Solutions Ltd" />
-                       {errors.business_name && <p className="text-red-400 text-[10px] font-bold">{errors.business_name.message}</p>}
+                       {errors.business_name && <p className="text-red-400 text-xs font-bold">{errors.business_name.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Registration Number</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Registration Number</label>
                        <input {...register("business_registration_no")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" placeholder="e.g. RC-1234567" />
-                       {errors.business_registration_no && <p className="text-red-400 text-[10px] font-bold">{errors.business_registration_no.message}</p>}
+                       {errors.business_registration_no && <p className="text-red-400 text-xs font-bold">{errors.business_registration_no.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Country of Operation</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Country of Operation</label>
                        <input {...register("country")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" placeholder="e.g. Ghana, Kenya" />
-                       {errors.country && <p className="text-red-400 text-[10px] font-bold">{errors.country.message}</p>}
+                       {errors.country && <p className="text-red-400 text-xs font-bold">{errors.country.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Industry Sector</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Industry Sector</label>
                        <select {...register("sector")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none appearance-none">
                          <option value="">Select Sector</option>
                          <option value="Agriculture">Agriculture</option>
@@ -270,27 +270,27 @@ export default function GrantApplicationWizard() {
                          <option value="Tech/ICT">Tech & ICT</option>
                          <option value="Manufacturing">Manufacturing</option>
                        </select>
-                       {errors.sector && <p className="text-red-400 text-[10px] font-bold">{errors.sector.message}</p>}
+                       {errors.sector && <p className="text-red-400 text-xs font-bold">{errors.sector.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Primary Contact Name</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Primary Contact Name</label>
                        <input {...register("contact_name")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" />
-                       {errors.contact_name && <p className="text-red-400 text-[10px] font-bold">{errors.contact_name.message}</p>}
+                       {errors.contact_name && <p className="text-red-400 text-xs font-bold">{errors.contact_name.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Contact Phone</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Contact Phone</label>
                        <input {...register("contact_phone")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" placeholder="+233..." />
-                       {errors.contact_phone && <p className="text-red-400 text-[10px] font-bold">{errors.contact_phone.message}</p>}
+                       {errors.contact_phone && <p className="text-red-400 text-xs font-bold">{errors.contact_phone.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Years in Operation</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Years in Operation</label>
                        <input {...register("years_in_operation", { valueAsNumber: true })} type="number" className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" />
-                       {errors.years_in_operation && <p className="text-red-400 text-[10px] font-bold">{errors.years_in_operation.message}</p>}
+                       {errors.years_in_operation && <p className="text-red-400 text-xs font-bold">{errors.years_in_operation.message}</p>}
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Employee Count</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Employee Count</label>
                        <input {...register("employee_count", { valueAsNumber: true })} type="number" className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white transition-all outline-none" />
-                       {errors.employee_count && <p className="text-red-400 text-[10px] font-bold">{errors.employee_count.message}</p>}
+                       {errors.employee_count && <p className="text-red-400 text-xs font-bold">{errors.employee_count.message}</p>}
                     </div>
                   </div>
                 </motion.div>
@@ -303,7 +303,7 @@ export default function GrantApplicationWizard() {
                 >
                   <div className="space-y-6">
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Target Development Project</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Target Development Project</label>
                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                          {projects.map((proj) => (
                            <button 
@@ -312,41 +312,41 @@ export default function GrantApplicationWizard() {
                              className={`p-4 text-left border rounded-lg transition-all ${watch("project_id") === proj.id ? 'bg-emerald-950/20 border-emerald-500' : 'bg-zinc-950 border-zinc-800'}`}
                            >
                              <div className="text-white font-bold text-sm">{proj.title}</div>
-                             <div className="text-[10px] text-zinc-500 mt-1 uppercase tracking-wider">{proj.category} — Max Grant ${proj.max_grant_usd?.toLocaleString()}</div>
+                             <div className="text-xs text-zinc-400 mt-1 uppercase tracking-wider">{proj.category} — Max Grant ${proj.max_grant_usd?.toLocaleString()}</div>
                            </button>
                          ))}
                        </div>
-                       {errors.project_id && <p className="text-red-400 text-[10px] font-bold">{errors.project_id.message}</p>}
+                       {errors.project_id && <p className="text-red-400 text-xs font-bold">{errors.project_id.message}</p>}
                     </div>
 
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Proposal Title</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Proposal Title</label>
                        <input {...register("project_title")} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white outline-none" placeholder="e.g. Extension of Maize Processing Plant" />
-                       {errors.project_title && <p className="text-red-400 text-[10px] font-bold">{errors.project_title.message}</p>}
+                       {errors.project_title && <p className="text-red-400 text-xs font-bold">{errors.project_title.message}</p>}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Requested Grant (USD)</label>
+                        <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Requested Grant (USD)</label>
                         <div className="relative">
-                          <DollarSign className="absolute left-3 top-3.5 w-4 h-4 text-zinc-500" />
+                          <DollarSign className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                           <input {...register("requested_amount_usd", { valueAsNumber: true })} type="number" className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 pl-10 text-white outline-none" />
                         </div>
-                        {errors.requested_amount_usd && <p className="text-red-400 text-[10px] font-bold">{errors.requested_amount_usd.message}</p>}
+                        {errors.requested_amount_usd && <p className="text-red-400 text-xs font-bold">{errors.requested_amount_usd.message}</p>}
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Execution Timeline (Months)</label>
+                        <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Execution Timeline (Months)</label>
                         <div className="relative">
-                          <Clock className="absolute left-3 top-3.5 w-4 h-4 text-zinc-500" />
+                          <Clock className="absolute left-3 top-3.5 w-4 h-4 text-zinc-400" />
                           <input {...register("timeline_months", { valueAsNumber: true })} type="number" className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 pl-10 text-white outline-none" />
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                       <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Impact Statement</label>
+                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Impact Statement</label>
                        <textarea {...register("impact_statement")} rows={4} className="w-full bg-zinc-950 border border-zinc-800 focus:border-emerald-500/50 rounded-sm p-3 text-white outline-none resize-none" placeholder="Describe the socio-economic impact of this grant..." />
-                       {errors.impact_statement && <p className="text-red-400 text-[10px] font-bold">{errors.impact_statement.message}</p>}
+                       {errors.impact_statement && <p className="text-red-400 text-xs font-bold">{errors.impact_statement.message}</p>}
                     </div>
                   </div>
                 </motion.div>
@@ -360,7 +360,7 @@ export default function GrantApplicationWizard() {
                   <div className="bg-emerald-950/20 border border-emerald-900/30 p-6 rounded-xl flex items-start gap-4 mb-8">
                     <Shield className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                     <p className="text-xs text-zinc-400 leading-relaxed">
-                      All documents are encrypted and stored in AfDEC's Sovereign Data Vault. Only the Fund Committee and authorized procurement officers can access these artifacts. Max 10MB per file.
+                      All documents are encrypted and stored in AfDEC's Strategic data Vault. Only the Fund Committee and authorized procurement officers can access these artifacts. Max 10MB per file.
                     </p>
                   </div>
 
@@ -373,7 +373,7 @@ export default function GrantApplicationWizard() {
                       <div key={doc.id} className="p-6 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                           <div className="text-sm font-bold text-white mb-1">{doc.label}</div>
-                          <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Required PDF / Docx</div>
+                          <div className="text-xs text-zinc-400 uppercase tracking-wider">Required PDF / Docx</div>
                         </div>
                         <div className="relative">
                           <input 
@@ -406,7 +406,7 @@ export default function GrantApplicationWizard() {
             <div className="flex items-center justify-between mt-12 pt-8 border-t border-zinc-800/40">
               <button 
                 type="button" onClick={prevStep} disabled={currentStep === 1 || isSubmitting}
-                className={`flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-all ${currentStep === 1 ? 'opacity-0' : 'text-zinc-500 hover:text-white'}`}
+                className={`flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-all ${currentStep === 1 ? 'opacity-0' : 'text-zinc-400 hover:text-white'}`}
               >
                 <ChevronLeft className="w-4 h-4" />
                 Back

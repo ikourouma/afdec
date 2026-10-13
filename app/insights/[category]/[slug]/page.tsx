@@ -122,9 +122,9 @@ function ContentGate({ category, slug }: { category: string; slug: string }) {
               Sign In to Continue
             </Link>
           </div>
-          <p className="text-zinc-700 text-[11px] mt-5">
+          <p className="text-zinc-400 text-[11px] mt-5">
             Already a Sponsorship Partner or Council Member?{" "}
-            <Link href="/contact" className="text-zinc-500 hover:text-zinc-300 underline">Contact AfDEC</Link> for enterprise access.
+            <Link href="/contact" className="text-zinc-400 hover:text-zinc-300 underline">Contact AfDEC</Link> for enterprise access.
           </p>
         </div>
       </div>
@@ -158,8 +158,8 @@ function RelatedCard({ article }: { article: RelatedArticle }) {
       )}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className={`text-[9px] font-bold uppercase tracking-widest ${meta.color}`}>{meta.label}</span>
-          {article.is_premium && <Lock className="w-2.5 h-2.5 text-zinc-600" />}
+          <span className={`text-xs font-bold uppercase tracking-widest ${meta.color}`}>{meta.label}</span>
+          {article.is_premium && <Lock className="w-2.5 h-2.5 text-zinc-400" />}
         </div>
         <h4 className="text-zinc-300 font-bold text-xs leading-snug group-hover:text-white transition-colors line-clamp-2">{article.title}</h4>
       </div>
@@ -194,7 +194,7 @@ export default function InsightBriefDetailPage() {
           .select("*")
           .eq("category", category)
           .eq("slug", slug)
-          .single();
+          .maybeSingle();
 
         if (articleError || !articleData) {
           setError("Article not found. It may have been removed or the URL is incorrect.");
@@ -259,9 +259,9 @@ export default function InsightBriefDetailPage() {
         </div>
         <Breadcrumb />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-32 text-center">
-          <FileText className="w-12 h-12 text-zinc-700 mx-auto mb-4" />
+          <FileText className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
           <h2 className="text-2xl font-black text-white mb-3">Article Not Found</h2>
-          <p className="text-zinc-500 text-[15px] mb-8 max-w-sm mx-auto">{error ?? "This article could not be found."}</p>
+          <p className="text-zinc-400 text-[15px] mb-8 max-w-sm mx-auto">{error ?? "This article could not be found."}</p>
           <Link href="/insights" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
             <ArrowLeft className="w-4 h-4" /> Back to Insights
           </Link>
@@ -287,7 +287,7 @@ export default function InsightBriefDetailPage() {
 
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
           {/* Breadcrumb trail */}
-          <nav className="flex items-center gap-2 text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-8 flex-wrap">
+          <nav className="flex items-center gap-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-8 flex-wrap">
             <Link href="/insights" className="hover:text-blue-400 transition-colors">Insights</Link>
             <ChevronRight className="w-3 h-3" />
             <Link href={`/insights/${category}`} className="hover:text-blue-400 transition-colors capitalize">{meta.label}</Link>
@@ -299,17 +299,17 @@ export default function InsightBriefDetailPage() {
             {/* LEFT: Metadata + CTAs */}
             <div>
               <div className="flex items-center gap-3 flex-wrap mb-5">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-widest border ${meta.bg} ${meta.border} ${meta.color}`}>
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-widest border ${meta.bg} ${meta.border} ${meta.color}`}>
                   <BookOpen className="w-3 h-3" />
                   {meta.label}
                 </span>
                 {article.is_featured && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-yellow-950/30 border border-yellow-900/30 rounded-sm text-[10px] font-bold text-yellow-400 uppercase tracking-widest">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-yellow-950/30 border border-yellow-900/30 rounded-sm text-xs font-bold text-yellow-400 uppercase tracking-widest">
                     <Star className="w-3 h-3 fill-yellow-400" /> Featured
                   </span>
                 )}
                 {article.is_premium && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-purple-950/30 border border-purple-900/30 rounded-sm text-[10px] font-bold text-purple-400 uppercase tracking-widest">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-purple-950/30 border border-purple-900/30 rounded-sm text-xs font-bold text-purple-400 uppercase tracking-widest">
                     <Lock className="w-3 h-3" /> Members Only
                   </span>
                 )}
@@ -326,7 +326,7 @@ export default function InsightBriefDetailPage() {
               )}
 
               {/* Meta row */}
-              <div className="flex items-center gap-5 flex-wrap text-[11px] text-zinc-500 font-medium mb-6">
+              <div className="flex items-center gap-5 flex-wrap text-[11px] text-zinc-400 font-medium mb-6">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5" />
                   {publishDate}
@@ -350,7 +350,7 @@ export default function InsightBriefDetailPage() {
               {article.tags && article.tags.length > 0 && article.tags[0] !== null && (
                 <div className="flex flex-wrap gap-1.5 mb-8">
                   {article.tags.map((tag) => (
-                    <span key={tag} className="flex items-center gap-1 text-[9px] font-bold text-zinc-500 bg-zinc-800/60 border border-zinc-700/50 px-2.5 py-1 rounded-sm uppercase tracking-wider">
+                    <span key={tag} className="flex items-center gap-1 text-xs font-bold text-zinc-400 bg-zinc-800/60 border border-zinc-700/50 px-2.5 py-1 rounded-sm uppercase tracking-wider">
                       <Tag className="w-2.5 h-2.5" />{tag}
                     </span>
                   ))}
@@ -373,7 +373,7 @@ export default function InsightBriefDetailPage() {
                 </a>
                 <button
                   onClick={() => { if (navigator.share) navigator.share({ title: article.title, url: window.location.href }); }}
-                  className="inline-flex items-center justify-center gap-2 border border-zinc-800 hover:border-zinc-700 text-zinc-500 hover:text-zinc-300 text-xs font-bold tracking-widest uppercase px-4 py-3.5 rounded-sm transition-all"
+                  className="inline-flex items-center justify-center gap-2 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-300 text-xs font-bold tracking-widest uppercase px-4 py-3.5 rounded-sm transition-all"
                   aria-label="Share"
                 >
                   <Share2 className="w-4 h-4" />
@@ -393,7 +393,7 @@ export default function InsightBriefDetailPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/30 to-transparent" />
                 </div>
                 {/* Category badge on image */}
-                <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest border backdrop-blur-md ${meta.bg} ${meta.border} ${meta.color}`}>
+                <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold uppercase tracking-widest border backdrop-blur-md ${meta.bg} ${meta.border} ${meta.color}`}>
                   {meta.label}
                 </div>
               </div>
@@ -451,9 +451,9 @@ export default function InsightBriefDetailPage() {
               ) : (
                 // Body not yet added (admin hasn't populated it)
                 <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-xl p-10 text-center">
-                  <FileText className="w-8 h-8 text-zinc-700 mx-auto mb-3" />
+                  <FileText className="w-8 h-8 text-zinc-400 mx-auto mb-3" />
                   <h3 className="text-white font-bold text-base mb-2">Full Report Coming Soon</h3>
-                  <p className="text-zinc-500 text-sm max-w-sm mx-auto mb-6">
+                  <p className="text-zinc-400 text-sm max-w-sm mx-auto mb-6">
                     The full text of this report is being prepared for publication. Download the PDF version or register to be notified when it goes live.
                   </p>
                   {article.allow_download && (
@@ -513,7 +513,7 @@ export default function InsightBriefDetailPage() {
                   <span className="text-[11px] font-bold text-blue-400 uppercase tracking-widest">Intelligence Briefings</span>
                 </div>
                 <h3 className="text-white font-black text-base mb-2">Stay Ahead of the Market</h3>
-                <p className="text-zinc-500 text-xs leading-relaxed mb-4">
+                <p className="text-zinc-400 text-xs leading-relaxed mb-4">
                   Receive AfDEC policy briefs, market outlooks, and quarterly sector intelligence directly — free for NC and Africa business leaders.
                 </p>
                 <div className="space-y-2">
@@ -534,7 +534,7 @@ export default function InsightBriefDetailPage() {
               {/* Contact AfDEC */}
               <div className="bg-zinc-900/20 border border-zinc-800/40 rounded-xl p-5">
                 <h3 className="text-white font-bold text-sm mb-2">Discuss This Brief</h3>
-                <p className="text-zinc-500 text-xs leading-relaxed mb-4">
+                <p className="text-zinc-400 text-xs leading-relaxed mb-4">
                   Connect with AfDEC Intelligence Desk to explore how this brief applies to your expansion or investment strategy.
                 </p>
                 <Link href="/contact"
@@ -548,8 +548,8 @@ export default function InsightBriefDetailPage() {
               {related.length > 0 && (
                 <div className="bg-zinc-900/20 border border-zinc-800/40 rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-4">
-                    <BookOpen className="w-4 h-4 text-zinc-500" />
-                    <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Related Briefs</span>
+                    <BookOpen className="w-4 h-4 text-zinc-400" />
+                    <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Related Briefs</span>
                   </div>
                   <div className="divide-y divide-zinc-800/40">
                     {related.map((a) => (
@@ -557,7 +557,7 @@ export default function InsightBriefDetailPage() {
                     ))}
                   </div>
                   <Link href={`/insights/${category}`}
-                    className="flex items-center gap-1.5 text-[10px] font-bold text-zinc-600 hover:text-zinc-300 uppercase tracking-widest mt-4 transition-colors">
+                    className="flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-zinc-300 uppercase tracking-widest mt-4 transition-colors">
                     View All {meta.label}s
                     <ExternalLink className="w-3 h-3" />
                   </Link>
@@ -566,7 +566,7 @@ export default function InsightBriefDetailPage() {
 
               {/* Explore Sector */}
               <div className="bg-zinc-900/20 border border-zinc-800/40 rounded-xl p-5">
-                <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-2">Explore Sector</div>
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Explore Sector</div>
                 <div className="space-y-1.5">
                   <Link href="/sectors/agriculture" className="flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-white transition-colors py-1">
                     <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> Agriculture &amp; Farming
@@ -594,7 +594,7 @@ export default function InsightBriefDetailPage() {
           <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl font-black text-white">More {meta.label}s</h2>
-              <Link href={`/insights/${category}`} className="flex items-center gap-1 text-[10px] font-bold text-zinc-500 hover:text-zinc-300 uppercase tracking-widest transition-colors">
+              <Link href={`/insights/${category}`} className="flex items-center gap-1 text-xs font-bold text-zinc-400 hover:text-zinc-300 uppercase tracking-widest transition-colors">
                 View All <ExternalLink className="w-3 h-3" />
               </Link>
             </div>
@@ -611,8 +611,8 @@ export default function InsightBriefDetailPage() {
                     )}
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className={`text-[9px] font-bold uppercase tracking-widest ${relMeta.color}`}>{relMeta.label}</span>
-                        {a.is_premium && <Lock className="w-2.5 h-2.5 text-zinc-600" />}
+                        <span className={`text-xs font-bold uppercase tracking-widest ${relMeta.color}`}>{relMeta.label}</span>
+                        {a.is_premium && <Lock className="w-2.5 h-2.5 text-zinc-400" />}
                       </div>
                       <h3 className="text-zinc-200 font-bold text-sm leading-snug group-hover:text-white transition-colors line-clamp-2">{a.title}</h3>
                     </div>

@@ -103,7 +103,7 @@ export default function ExpansionPage() {
             Enterprise Expansion Support
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 font-medium leading-relaxed max-w-2xl mb-10">
-            AfDEC removes the operational barriers between North Carolina enterprises and the 1.4 billion person African market through a single, sovereign-grade expansion program.
+            AfDEC removes the operational barriers between North Carolina enterprises and the 1.4 billion person African market through a single, Enterprise-grade expansion program.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button onClick={() => document.getElementById('section-apply')?.scrollIntoView({ behavior: 'smooth' })} className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-lg group">
@@ -122,7 +122,7 @@ export default function ExpansionPage() {
               <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">The Protocol</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white">Institutional Roadmap</h2>
-            <p className="text-zinc-500 mt-4 max-w-2xl text-[15px]">
+            <p className="text-zinc-400 mt-4 max-w-2xl text-[15px]">
               Managed by the <strong>AfDEC Institutional Deal Team</strong>, our 5-phase execution model ensures your expansion is built on data, compliance, and capital security.
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function ExpansionPage() {
               return (
                 <div key={s.step} className="roadmap-card relative group">
                   <div className="flex flex-col items-center lg:items-start">
-                    <div className="w-12 h-12 rounded-full bg-zinc-950 border-2 border-zinc-800 flex items-center justify-center text-sm font-black text-zinc-500 mb-8 relative z-10 group-hover:border-blue-500/50 group-hover:text-blue-400 transition-all duration-500">
+                    <div className="w-12 h-12 rounded-full bg-zinc-950 border-2 border-zinc-800 flex items-center justify-center text-sm font-black text-zinc-400 mb-8 relative z-10 group-hover:border-blue-500/50 group-hover:text-blue-400 transition-all duration-500">
                       {s.step}
                     </div>
                     <div className="p-6 bg-zinc-900/30 border border-zinc-900 hover:border-zinc-800 rounded-xl transition-all h-full">
@@ -144,7 +144,7 @@ export default function ExpansionPage() {
                         <Icon className="w-5 h-5 text-blue-400" />
                       </div>
                       <h3 className="text-white font-bold text-lg mb-3">{s.title}</h3>
-                      <p className="text-zinc-500 text-[13px] leading-relaxed">{s.description}</p>
+                      <p className="text-zinc-400 text-[13px] leading-relaxed">{s.description}</p>
                     </div>
                   </div>
                 </div>
@@ -169,12 +169,12 @@ export default function ExpansionPage() {
           <div className="max-w-2xl mx-auto">
             <Landmark className="w-12 h-12 text-blue-500 mx-auto mb-8 opacity-50" />
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">Direct Expansion Intake</h2>
-            <p className="text-zinc-500 text-lg mb-12 leading-relaxed">
+            <p className="text-zinc-400 text-lg mb-12 leading-relaxed">
               Submit your institution's profile to the AfDEC Deal Team for enrollment in the 2026-2027 Expansion Mandate.
             </p>
             <div className="p-8 md:p-12 bg-zinc-900/40 border border-zinc-800 rounded-2xl text-left">
                <h4 className="text-white font-bold mb-6">Institutional Profile Submission</h4>
-               <p className="text-zinc-500 text-sm mb-10">
+               <p className="text-zinc-400 text-sm mb-10">
                  Upon submission, an AfDEC Senior Advisor will contact your leadership team within 48 hours for a preliminary directive briefing.
                </p>
                <Link href="/contact?topic=expansion" className="w-full inline-flex items-center justify-center px-8 py-5 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-xl group">

@@ -9,7 +9,8 @@ import { Footer } from "@/components/ui/footer";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { supabase } from "@/lib/supabase";
 
-export default function NewsArticlePage({ params }: { params: { id: string } }) {
+export default function NewsArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const [article, setArticle] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,8 +19,8 @@ export default function NewsArticlePage({ params }: { params: { id: string } }) 
       const { data, error } = await supabase
         .from("news_briefings")
         .select("*")
-        .eq("id", params.id)
-        .single();
+        .eq("id", id)
+        .maybeSingle();
       
       if (!error && data) {
         setArticle(data);
@@ -27,7 +28,7 @@ export default function NewsArticlePage({ params }: { params: { id: string } }) 
       setLoading(false);
     }
     fetchArticle();
-  }, [params.id]);
+  }, [id]);
 
   if (loading) {
     return (
@@ -84,10 +85,10 @@ export default function NewsArticlePage({ params }: { params: { id: string } }) 
         <article>
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className="px-3 py-1 bg-zinc-900 text-zinc-300 text-[10px] font-bold uppercase tracking-widest rounded-sm border border-zinc-800">
+              <span className="px-3 py-1 bg-zinc-900 text-zinc-300 text-xs font-bold uppercase tracking-widest rounded-sm border border-zinc-800">
                 {article.category || "Press Release"}
               </span>
-              <div className="flex items-center text-xs font-bold text-zinc-500 uppercase tracking-widest">
+              <div className="flex items-center text-xs font-bold text-zinc-400 uppercase tracking-widest">
                 <Calendar className="w-3.5 h-3.5 mr-1.5" />
                 {formattedDate}
               </div>
@@ -115,7 +116,7 @@ export default function NewsArticlePage({ params }: { params: { id: string } }) 
                 <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-lg">
                   <ShieldCheck className="w-8 h-8 text-blue-500 mb-4" />
                   <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-2">Verified Briefing</h4>
-                  <p className="text-xs text-zinc-500 leading-relaxed">This transmission has been verified by the Secretariat. Distribution is public.</p>
+                  <p className="text-xs text-zinc-400 leading-relaxed">This transmission has been verified by the Secretariat. Distribution is public.</p>
                 </div>
                 <button className="flex items-center justify-center w-full px-4 py-3 border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-800 text-white rounded text-sm font-bold tracking-widest uppercase transition-colors">
                   <Share2 className="w-4 h-4 mr-2" /> Share Release
@@ -132,7 +133,7 @@ export default function NewsArticlePage({ params }: { params: { id: string } }) 
                     {/* Fallback to excerpt if full content is missing */}
                     {article.excerpt}
                     <br/><br/>
-                    Detailed intelligence metrics and full documentation are restricted to the Member Portal. For comprehensive analysis, please login to the Sovereign Terminal.
+                    Detailed intelligence metrics and full documentation are restricted to the Member Portal. For comprehensive analysis, please login to the Intelligence Terminal.
                   </p>
                 )}
               </div>

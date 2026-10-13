@@ -6,7 +6,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ChevronDown, ArrowRight, Globe, TrendingUp, Building2, Shield, Landmark, Menu, X } from "lucide-react";
 import { BrandLogo } from "@/components/ui/brand-logo";
-
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/lib/auth";
+import { homeForRole } from "@/lib/roles";
+import { useRouter } from "next/navigation";
 const navigation = [
   {
     name: "The Council",
@@ -16,7 +19,7 @@ const navigation = [
         title: "Institutional Identity",
         links: [
           { name: "About AfDEC Mandate", href: "/about" },
-          { name: "Sovereign Strategic Framework", href: "/about/strategic-framework" },
+          { name: "Strategic Strategic Framework", href: "/about/strategic-framework" },
           { name: "Leadership & Governance", href: "/about/leadership" },
         ],
       },
@@ -74,8 +77,8 @@ const navigation = [
         title: "Infrastructure",
         links: [
           { name: "Dual-Continent Business Hubs", href: "/dual-continent-business-hub" },
-          { name: "Sovereign Incentives & Grants", href: "/sovereign-incentives-grants" },
-          { name: "Sovereign Tourism Strategy", href: "/tourism" },
+          { name: "Strategic Incentives & Grants", href: "/sovereign-incentives-grants" },
+          { name: "Tourism & Hospitality", href: "/tourism" },
         ],
       },
     ],
@@ -150,6 +153,9 @@ export function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const { user, role: userRole } = useAuth();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const router = useRouter();
   const panelRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLElement>(null);
   const mobileOverlayRef = useRef<HTMLDivElement>(null);
@@ -178,7 +184,7 @@ export function Header() {
     });
   });
 
-  // Mobile overlay animations
+
   useGSAP(() => {
     if (mobileOpen && mobileOverlayRef.current) {
       // Lock body scroll
@@ -224,7 +230,7 @@ export function Header() {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="relative z-20 shrink-0 mr-8">
+        <div className="relative z-20 shrink-0 mr-4 lg:mr-8">
           <BrandLogo isDarkTheme={true} />
         </div>
 
@@ -238,7 +244,7 @@ export function Header() {
             >
               <span className={`text-sm font-medium transition-colors flex items-center group ${activeMenu === item.name ? 'text-blue-400' : 'text-zinc-300 hover:text-zinc-100'}`}>
                 {item.name}
-                <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${activeMenu === item.name ? 'rotate-180 text-blue-400' : 'text-zinc-500'}`} />
+                <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${activeMenu === item.name ? 'rotate-180 text-blue-400' : 'text-zinc-400'}`} />
               </span>
             </div>
           ))}
@@ -249,10 +255,60 @@ export function Header() {
           <Link href="/corridor/expansion" className="hidden md:block text-sm font-medium text-zinc-300 hover:text-zinc-100 transition-colors">
             Initiate Expansion
           </Link>
-          <Link href="/auth" className="hidden sm:flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <span>Member Portal</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          {user ? (
+            <div className="relative hidden sm:block">
+              <button 
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white text-sm font-medium px-4 py-2 transition-colors focus:outline-none rounded-sm"
+              >
+                <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+                  {user.email?.charAt(0).toUpperCase() || 'U'}
+                </div>
+                <span className="truncate max-w-[120px]">{user.user_metadata?.full_name || user.email?.split('@')[0]}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {userMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-zinc-950 border border-zinc-800 rounded-sm shadow-xl z-50 py-1">
+                  <div className="px-4 py-2 border-b border-zinc-800/50 mb-1">
+                    <p className="text-xs text-zinc-400 uppercase tracking-widest font-bold">Signed in as</p>
+                    <p className="text-sm text-zinc-300 truncate font-medium mt-0.5">{user.email}</p>
+                  </div>
+                  <Link 
+                    href={homeForRole(userRole ?? 'registered') === '/' ? '/dashboard/member' : homeForRole(userRole ?? 'registered')}
+                    onClick={() => setUserMenuOpen(false)}
+                    className="block px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors"
+                  >
+                    My Dashboard
+                  </Link>
+                  <Link 
+                    href="/dashboard/settings"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="block px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors"
+                  >
+                    Account Settings
+                  </Link>
+                  <div className="border-t border-zinc-800/50 mt-1 pt-1">
+                    <button 
+                      onClick={async () => {
+                        await supabase.auth.signOut();
+                        setUserMenuOpen(false);
+                        router.push('/');
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-zinc-900 hover:text-red-300 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/auth" className="hidden sm:flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <span>Member Portal</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
 
           {/* ── Mobile Hamburger ── visible below lg */}
           <button 
@@ -295,7 +351,7 @@ export function Header() {
                 <div className="col-span-8 grid grid-cols-3 gap-x-12 gap-y-8">
                   {item.sections.map((section) => (
                     <div key={section.title}>
-                      <h3 className="text-sm font-bold text-zinc-500 tracking-wider uppercase mb-4">
+                      <h3 className="text-sm font-bold text-zinc-400 tracking-wider uppercase mb-4">
                         {section.title}
                       </h3>
                       <ul className="space-y-3">
@@ -354,11 +410,11 @@ export function Header() {
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`p-1.5 rounded-sm ${isOpen ? 'bg-blue-500/10' : 'bg-zinc-800/50'}`}>
-                        <Icon className={`w-4 h-4 ${isOpen ? 'text-blue-400' : 'text-zinc-500'}`} />
+                        <Icon className={`w-4 h-4 ${isOpen ? 'text-blue-400' : 'text-zinc-400'}`} />
                       </div>
                       <span className="text-[15px] font-semibold tracking-wide">{item.name}</span>
                     </div>
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-400' : 'text-zinc-600'}`} />
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-400' : 'text-zinc-400'}`} />
                   </button>
 
                   {/* Accordion Content */}
@@ -369,7 +425,7 @@ export function Header() {
                     <div className="pl-12 pr-4 pb-4 pt-2 space-y-6">
                       {item.sections.map((section) => (
                         <div key={section.title}>
-                          <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-3">{section.title}</h4>
+                          <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-[0.15em] mb-3">{section.title}</h4>
                           <ul className="space-y-2.5">
                             {section.links.map((link) => (
                               <li key={link.name}>
@@ -394,7 +450,7 @@ export function Header() {
 
           {/* Utility Links */}
           <div className="border-t border-zinc-800 pt-8 mb-8">
-            <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.15em] mb-5 px-3">Quick Access</h4>
+            <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-[0.15em] mb-5 px-3">Quick Access</h4>
             <div className="grid grid-cols-2 gap-2">
               {mobileUtilityLinks.map((link) => (
                 <Link
@@ -412,15 +468,15 @@ export function Header() {
           {/* Mobile CTA */}
           <div className="space-y-3 px-3">
             <Link
-              href="/auth"
+              href={user ? (homeForRole(userRole ?? 'registered') === '/' ? '/dashboard/member' : homeForRole(userRole ?? 'registered')) : "/auth"}
               onClick={() => setMobileOpen(false)}
               className="mobile-utility-item flex items-center justify-center space-x-2 w-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase py-4 rounded-sm transition-all"
             >
-              <span>Member Portal</span>
+              <span>{user ? 'My Dashboard' : 'Member Portal'}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="#"
+              href="/corridor/expansion"
               onClick={() => setMobileOpen(false)}
               className="mobile-utility-item flex items-center justify-center w-full border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 text-sm font-bold tracking-widest uppercase py-4 rounded-sm transition-all"
             >

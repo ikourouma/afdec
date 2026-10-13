@@ -44,13 +44,14 @@ export function TopNav() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 w-full flex justify-between items-center">
           
           {/* Tagline / System Status */}
-          <div className="hidden md:flex items-center space-x-2 text-zinc-500 font-medium tracking-wide">
+          <div className="hidden md:flex items-center space-x-2 text-zinc-300 font-medium tracking-wide">
             <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
-            <span>Sovereign Economic Council • Transatlantic Operations</span>
+            <span>Strategic Economic Council • Transatlantic Operations</span>
           </div>
 
           {/* Utility Links */}
-          <div className="flex items-center space-x-6 text-[10px] md:text-xs tracking-widest font-bold text-zinc-300">
+          <div className="flex items-center space-x-6 text-xs md:text-xs tracking-widest font-bold text-zinc-300">
+            <Link href="/diaspora-registry" className="inline-flex items-center gap-1.5 text-emerald-300 hover:text-emerald-200 transition-colors"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" /><span className="sm:hidden">REGISTRY</span><span className="hidden sm:inline">DIASPORA REGISTRY</span></Link>
             <Link href="/faqs" className="hover:text-blue-400 transition-colors hidden sm:block">FAQS</Link>
             <Link href="/contact" className="hover:text-blue-400 transition-colors hidden sm:block">CONTACT</Link>
             <Link href="/contact" className="text-amber-500 hover:text-amber-400 transition-colors hidden lg:block">ADVERTISE WITH US</Link>
@@ -112,23 +113,23 @@ export function TopNav() {
       >
         <button 
           onClick={() => setIsSearchOpen(false)}
-          className="absolute top-10 right-10 text-zinc-500 hover:text-white transition-colors p-2"
+          className="absolute top-10 right-10 text-zinc-400 hover:text-white transition-colors p-2"
         >
           <X className="w-8 h-8" />
         </button>
 
         <div className="search-content w-full max-w-3xl">
           <div className="relative">
-            <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 text-zinc-500" />
+            <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 text-zinc-400" />
             <input 
               ref={searchInputRef}
               type="text" 
               placeholder="Search reports, mandates, or sectors..." 
-              className="w-full bg-transparent border-b-2 border-zinc-700 text-3xl md:text-5xl text-white font-bold py-6 pl-14 pr-4 focus:outline-none focus:border-blue-500 placeholder:text-zinc-700 transition-colors"
+              className="w-full bg-transparent border-b-2 border-zinc-700 text-3xl md:text-5xl text-white font-bold py-6 pl-14 pr-4 focus:outline-none focus:border-blue-500 placeholder:text-zinc-400 transition-colors"
             />
           </div>
           <div className="mt-8 flex items-center space-x-4">
-            <span className="text-sm font-medium text-zinc-500 uppercase tracking-widest">Popular:</span>
+            <span className="text-sm font-medium text-zinc-400 uppercase tracking-widest">Popular:</span>
             <span className="text-sm border border-zinc-800 text-zinc-400 px-3 py-1 rounded-full cursor-pointer hover:bg-zinc-800">2026 Strategy</span>
             <span className="text-sm border border-zinc-800 text-zinc-400 px-3 py-1 rounded-full cursor-pointer hover:bg-zinc-800">Megasites</span>
             <span className="text-sm border border-zinc-800 text-zinc-400 px-3 py-1 rounded-full cursor-pointer hover:bg-zinc-800">Agritech Report</span>

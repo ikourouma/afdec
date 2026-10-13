@@ -95,7 +95,7 @@ export default function ImpactProjectsPage() {
           <p className="text-lg md:text-xl text-zinc-300 max-w-2xl leading-relaxed font-medium mb-4">
             Five named development initiatives across eight African countries — each with defined funding targets, impact metrics, and full accountability frameworks aligned with AfDB, World Bank, and IMF pillars.
           </p>
-          <p className="text-sm text-zinc-500 max-w-xl mb-10">
+          <p className="text-sm text-zinc-400 max-w-xl mb-10">
             All projects are Super Admin managed. New initiatives are published through the AfDEC Secretariat and reviewed by the Fund Committee.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -122,7 +122,7 @@ export default function ImpactProjectsPage() {
               <div key={s.label} className="text-center p-5 border border-zinc-800/40 rounded-sm bg-zinc-900/20">
                 <div className="text-3xl md:text-4xl font-black text-emerald-400 mb-1">{s.value}</div>
                 <div className="text-white font-bold text-sm mb-0.5">{s.label}</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wide font-medium">{s.sub}</div>
+                <div className="text-zinc-400 text-xs uppercase tracking-wide font-medium">{s.sub}</div>
               </div>
             ))}
           </div>
@@ -149,11 +149,11 @@ export default function ImpactProjectsPage() {
           </div>
 
           {isLoading ? (
-            <div className="py-20 text-center text-zinc-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+            <div className="py-20 text-center text-zinc-400 font-bold uppercase tracking-widest text-sm animate-pulse">
               Syncing Project Ledger...
             </div>
           ) : filtered.length === 0 ? (
-            <div className="py-20 text-center text-zinc-500 font-bold uppercase tracking-widest">
+            <div className="py-20 text-center text-zinc-400 font-bold uppercase tracking-widest">
               No Projects in this Category
             </div>
           ) : (
@@ -180,18 +180,18 @@ export default function ImpactProjectsPage() {
                       <div>
                         {/* Badges */}
                         <div className="flex items-center gap-3 flex-wrap mb-4">
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-950/40 border border-emerald-900/30 rounded-sm text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-950/40 border border-emerald-900/30 rounded-sm text-xs font-bold text-emerald-400 uppercase tracking-widest">
                             <Icon className="w-3 h-3" />
                             {project.category}
                           </span>
-                          <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">{project.region}</span>
+                          <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{project.region}</span>
                           {project.status === "coming_soon" && (
-                            <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
+                            <span className="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
                               Coming Soon
                             </span>
                           )}
                           {project.status === "active" && (
-                            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
+                            <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
                               <span className="w-1 h-1 rounded-full bg-blue-400 animate-pulse" />Active
                             </span>
                           )}
@@ -207,10 +207,10 @@ export default function ImpactProjectsPage() {
                         {project.multilateral_tags && project.multilateral_tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mb-4">
                             {project.multilateral_tags.map((tag) => (
-                              <span key={tag} className="text-[10px] font-bold text-zinc-500 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">{tag}</span>
+                              <span key={tag} className="text-xs font-bold text-zinc-400 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">{tag}</span>
                             ))}
                             {project.sdg_goals?.map((sdg) => (
-                              <span key={sdg} className="text-[10px] font-bold text-indigo-400 bg-indigo-950/30 border border-indigo-900/30 px-2 py-0.5 rounded-sm uppercase tracking-wider">SDG {sdg}</span>
+                              <span key={sdg} className="text-xs font-bold text-indigo-400 bg-indigo-950/30 border border-indigo-900/30 px-2 py-0.5 rounded-sm uppercase tracking-wider">SDG {sdg}</span>
                             ))}
                           </div>
                         )}
@@ -228,9 +228,9 @@ export default function ImpactProjectsPage() {
                               style={{ width: `${Math.min(pct, 100)}%` }} />
                           </div>
                           <div className="flex items-center justify-between mt-1">
-                            <span className="text-[10px] text-zinc-600">{pct}% funded</span>
+                            <span className="text-xs text-zinc-400">{pct}% funded</span>
                             {project.beneficiary_estimate && (
-                              <span className="text-[10px] text-zinc-600">{project.beneficiary_estimate.toLocaleString()} target beneficiaries</span>
+                              <span className="text-xs text-zinc-400">{project.beneficiary_estimate.toLocaleString()} target beneficiaries</span>
                             )}
                           </div>
                         </div>
@@ -238,17 +238,17 @@ export default function ImpactProjectsPage() {
                         {/* Actions */}
                         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-800/50">
                           <Link href={`/diaspora-impact-fund/projects/${project.slug}`}
-                            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-white hover:text-emerald-400 border border-zinc-700 hover:border-emerald-900/40 px-4 py-2.5 rounded-sm transition-colors uppercase tracking-widest">
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-emerald-400 border border-zinc-700 hover:border-emerald-900/40 px-4 py-2.5 rounded-sm transition-colors uppercase tracking-widest">
                             <ArrowUpRight className="w-3.5 h-3.5" />
                             Project Dossier
                           </Link>
                           <Link href="/diaspora-impact-fund/contribute"
-                            className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-900/40 px-4 py-2.5 rounded-sm transition-colors uppercase tracking-widest">
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-900/40 px-4 py-2.5 rounded-sm transition-colors uppercase tracking-widest">
                             <Heart className="w-3 h-3" />
                             Donate to this Project
                           </Link>
                           {project.max_grant_usd && (
-                            <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-zinc-500 px-4 py-2.5">
+                            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 px-4 py-2.5">
                               Max grant: ${project.max_grant_usd.toLocaleString()} per SME
                             </span>
                           )}

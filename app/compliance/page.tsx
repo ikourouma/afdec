@@ -39,10 +39,10 @@ export default function ComplianceVaultPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center px-6 py-3 text-sm font-bold tracking-wide transition-all group ${isActive ? 'text-white bg-zinc-900/50' : 'text-zinc-500 hover:text-zinc-300'}`}
+                    className={`relative flex items-center px-6 py-3 text-sm font-bold tracking-wide transition-all group ${isActive ? 'text-white bg-zinc-900/50' : 'text-zinc-400 hover:text-zinc-300'}`}
                   >
                     {isActive && <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-blue-500 rounded-r-md"></div>}
-                    <Icon className={`w-4 h-4 mr-3 ${isActive ? 'text-blue-500' : 'text-zinc-600 group-hover:text-zinc-400'}`} />
+                    <Icon className={`w-4 h-4 mr-3 ${isActive ? 'text-blue-500' : 'text-zinc-400 group-hover:text-zinc-400'}`} />
                     {tab.label}
                   </button>
                 );
@@ -63,13 +63,13 @@ export default function ComplianceVaultPage() {
                 <div className="prose prose-invert prose-zinc max-w-none prose-h3:text-blue-400 prose-h3:text-lg prose-h3:tracking-wide prose-p:leading-relaxed prose-p:text-zinc-400 prose-li:text-zinc-400">
                   <p className="mb-8">The African Diaspora Economic Council (AfDEC) operates under Tier-1 data sovereignty regulations. This protocol dictates the absolute safeguarding of enterprise and delegate telemetry traversing our international network corridors.</p>
                   
-                  <h3>1. The Sovereign Data Gateway</h3>
+                  <h3>1. The Strategic data Gateway</h3>
                   <p>Information submitted through our Contact and Dashboard portals is encrypted instantly at the perimeter using asymmetrical cryptography. AfDEC does not retain personal telemetry outside of explicit mandate clearance.</p>
                   
                   <ul className="space-y-4 list-none pl-0 my-8">
                     {[
                       "AES-256 endpoint encryption at the institutional perimeter.",
-                      "Zero-knowledge storage architecture for sovereign trade documents.",
+                      "Zero-knowledge storage architecture for strategic trade documents.",
                       "Biometric audit trails for all executive-level data access."
                     ].map((item, idx) => (
                       <li key={idx} className="flex items-start gap-4">
@@ -80,7 +80,7 @@ export default function ComplianceVaultPage() {
                   </ul>
 
                   <h3>2. Intercontinental Data Routing</h3>
-                  <p>Given our dual mandate across North Carolina and active African sovereign states, your data may traverse transatlantic fiber corridors. We utilize localized node structures ensuring compliance with both federal US regulations and continental African Union data protection directives.</p>
+                  <p>Given our dual mandate across North Carolina and active African strategic states, your data may traverse transatlantic fiber corridors. We utilize localized node structures ensuring compliance with both federal US regulations and continental African Union data protection directives.</p>
                 </div>
             </div>
           )}
@@ -111,7 +111,7 @@ export default function ComplianceVaultPage() {
                   </ul>
 
                   <h3>2. Board Interventions</h3>
-                  <p>The AfDEC Executive Board reserves the absolute right to terminate platform access to any entity that breaches transatlantic trade ethics or acts against the interests of North Carolina or our sovereign African partner states.</p>
+                  <p>The AfDEC Executive Board reserves the absolute right to terminate platform access to any entity that breaches transatlantic trade ethics or acts against the interests of North Carolina or our strategic African partner states.</p>
                 </div>
             </div>
           )}

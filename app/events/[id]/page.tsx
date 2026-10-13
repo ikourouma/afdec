@@ -9,7 +9,8 @@ import { Footer } from "@/components/ui/footer";
 import { FlashBanner } from "@/components/ui/flash-banner";
 import { supabase } from "@/lib/supabase";
 
-export default function EventDetailPage({ params }: { params: { id: string } }) {
+export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,8 +28,8 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
       const { data, error } = await supabase
         .from("events")
         .select("*")
-        .eq("id", params.id)
-        .single();
+        .eq("id", id)
+        .maybeSingle();
       
       if (!error && data) {
         setEvent(data);
@@ -36,7 +37,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
       setLoading(false);
     }
     fetchEvent();
-  }, [params.id]);
+  }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
       .from("event_registrations")
       .insert([
         {
-          event_id: params.id,
+          event_id: id,
           form_data: formData,
           status: "registered"
         }
@@ -89,7 +90,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
             {/* Left Column: Details */}
             <div className="lg:col-span-2 space-y-12">
               <div>
-                <div className="inline-flex items-center px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-6">
+                <div className="inline-flex items-center px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs font-bold text-blue-400 uppercase tracking-widest mb-6">
                   <ShieldCheck className="w-3.5 h-3.5 mr-2" />
                   Admin Managed Template
                 </div>
@@ -142,24 +143,24 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">First Name</label>
+                        <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">First Name</label>
                         <input required name="firstName" onChange={handleInputChange} value={formData.firstName} type="text" className="w-full bg-zinc-950 border border-zinc-800 rounded px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Last Name</label>
+                        <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Last Name</label>
                         <input required name="lastName" onChange={handleInputChange} value={formData.lastName} type="text" className="w-full bg-zinc-950 border border-zinc-800 rounded px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Email Address</label>
+                      <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Email Address</label>
                       <input required name="email" onChange={handleInputChange} value={formData.email} type="email" className="w-full bg-zinc-950 border border-zinc-800 rounded px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Organization</label>
+                      <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Organization</label>
                       <input required name="organization" onChange={handleInputChange} value={formData.organization} type="text" className="w-full bg-zinc-950 border border-zinc-800 rounded px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Job Title</label>
+                      <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Job Title</label>
                       <input required name="title" onChange={handleInputChange} value={formData.title} type="text" className="w-full bg-zinc-950 border border-zinc-800 rounded px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                     
@@ -170,7 +171,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                     >
                       {isSubmitting ? "Processing..." : "Submit Registration"}
                     </button>
-                    <p className="text-[11px] text-zinc-600 mt-4 text-center leading-relaxed">
+                    <p className="text-[11px] text-zinc-400 mt-4 text-center leading-relaxed">
                       By submitting, you agree to the AfDEC security protocols and event terms.
                     </p>
                   </form>

@@ -63,7 +63,7 @@ export function DualMandate() {
             {/* Contextual Image Background */}
             <div 
               className="absolute inset-0 grayscale opacity-10 mix-blend-overlay transition-transform duration-1000 group-hover:scale-105 bg-cover bg-center"
-              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?q=80&w=1000&auto=format&fit=crop')" }}
+              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1000&auto=format&fit=crop')" }}
             />
             {/* Primary Gradient Overlay to protect text */}
             <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-950/90 to-blue-900/10" />
@@ -85,16 +85,16 @@ export function DualMandate() {
                 <div className="mandate-stat border-l-2 border-zinc-800 pl-4">
                   <Factory className="w-5 h-5 text-blue-400 mb-3" />
                   <div className="font-bold text-white text-lg">Megasites</div>
-                  <div className="text-sm text-zinc-500 mt-1">Tier 1 Industrial Zones</div>
+                  <div className="text-sm text-zinc-400 mt-1">Tier 1 Industrial Zones</div>
                 </div>
                 <div className="mandate-stat border-l-2 border-zinc-800 pl-4">
                   <Cpu className="w-5 h-5 text-blue-400 mb-3" />
                   <div className="font-bold text-white text-lg">Tech Talent</div>
-                  <div className="text-sm text-zinc-500 mt-1">Research Triangle Park</div>
+                  <div className="text-sm text-zinc-400 mt-1">Research Triangle Park</div>
                 </div>
               </div>
 
-              <Link href="#" className="inline-flex items-center text-zinc-300 font-semibold hover:text-white transition-colors group/link mt-auto">
+              <Link href="/why-nc" className="inline-flex items-center text-zinc-300 font-semibold hover:text-white transition-colors group/link mt-auto">
                 Explore NC Expansion Criteria 
                 <div className="ml-3 p-1.5 rounded-full bg-zinc-800 group-hover/link:bg-blue-600 transition-colors">
                   <ArrowRight className="w-4 h-4" />
@@ -130,16 +130,16 @@ export function DualMandate() {
                 <div className="mandate-stat border-l-2 border-zinc-800 pl-4">
                   <TrendingUp className="w-5 h-5 text-emerald-400 mb-3" />
                   <div className="font-bold text-white text-lg">6 of Top 10</div>
-                  <div className="text-sm text-zinc-500 mt-1">Fastest Growing Economies</div>
+                  <div className="text-sm text-zinc-400 mt-1">Fastest Growing Economies</div>
                 </div>
                 <div className="mandate-stat border-l-2 border-zinc-800 pl-4">
                   <Users className="w-5 h-5 text-emerald-400 mb-3" />
                   <div className="font-bold text-white text-lg">1.4 Billion</div>
-                  <div className="text-sm text-zinc-500 mt-1">Market Population Base</div>
+                  <div className="text-sm text-zinc-400 mt-1">Market Population Base</div>
                 </div>
               </div>
 
-              <Link href="#" className="inline-flex items-center text-zinc-300 font-semibold hover:text-white transition-colors group/link mt-auto">
+              <Link href="/why-africa" className="inline-flex items-center text-zinc-300 font-semibold hover:text-white transition-colors group/link mt-auto">
                 Explore The Africa Portfolio 
                 <div className="ml-3 p-1.5 rounded-full bg-zinc-800 group-hover/link:bg-emerald-600 transition-colors">
                   <ArrowRight className="w-4 h-4" />

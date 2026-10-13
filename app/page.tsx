@@ -3,6 +3,7 @@ import { Header } from "@/components/ui/header";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Hero } from "@/components/sections/hero";
 import { DualMandate } from "@/components/sections/dual-mandate";
+import { DiasporaRegistryStrip } from "@/components/sections/diaspora-registry-strip";
 import { ImpactReport } from "@/components/sections/impact-report";
 import { SectorIntelligence } from "@/components/sections/pillars";
 import { NewsGrid } from "@/components/sections/news-grid";
@@ -23,6 +24,7 @@ export default function AfDECBoardPage() {
       
       <Hero />
       <DualMandate />
+      <DiasporaRegistryStrip />
       <ImpactReport />
       <SectorIntelligence />
       <NewsGrid />

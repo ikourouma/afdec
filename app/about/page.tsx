@@ -19,7 +19,7 @@ import { motion } from "framer-motion";
 const SECTIONS: NavSection[] = [
   { id: "hero", label: "The Council" },
   { id: "mission", label: "Mission & Vision" },
-  { id: "mandate", label: "Sovereign Mandate" },
+  { id: "mandate", label: "Strategic Mandate" },
   { id: "values", label: "Core Values" },
   { id: "governance", label: "Governance" },
   { id: "committees", label: "Committees" },
@@ -30,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── Values ───
 const values = [
-  { icon: Target, title: "Sovereign Purpose", description: "Every initiative exists to create tangible economic pathways between Africa and North Carolina." },
+  { icon: Target, title: "Strategic Purpose", description: "Every initiative exists to create tangible economic pathways between Africa and North Carolina." },
   { icon: Users, title: "Diaspora-First", description: "The African diaspora is not a demographic — it is an economic force. We center their capital, talent, and vision." },
   { icon: Handshake, title: "Bilateral Integrity", description: "All partnerships are structured for mutual benefit. We reject extractive models." },
   { icon: Award, title: "Institutional Excellence", description: "We operate at the highest standard — in transparency, data, and accountability." },
@@ -59,7 +59,7 @@ export default function AboutPage() {
       <SideNav sections={SECTIONS} accentColor="blue" />
       {/* Page Content Begins */}
 
-      {/* ── Hero with Dual-Layer Background (Photo + Sovereign Pattern) ── */}
+      {/* ── Hero with Dual-Layer Background (Photo + Strategic Pattern) ── */}
       <section id="section-hero" className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
         {/* Layer 1: Photorealistic Depth (Strategic Leadership) */}
         <div
@@ -71,7 +71,7 @@ export default function AboutPage() {
           }}
         />
         
-        {/* Layer 2: Sovereign Geometric Pattern Overlay — African Institutional Style */}
+        {/* Layer 2: Strategic Geometric Pattern Overlay — African Institutional Style */}
         <div className="absolute inset-0 opacity-[0.045] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0l40 40L0 80zM80 0L40 40l40 40z'/%3E%3Cpath d='M20 0l20 20L20 40zM60 0L40 20l20 20zM20 40l20 20L20 80zM60 40L40 60l20 20z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "80px 80px" }} />
 
         {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
@@ -91,13 +91,13 @@ export default function AboutPage() {
             The African Diaspora Economic Council
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl leading-relaxed font-medium">
-            A sovereign institution building permanent economic bridges between North Carolina and the African continent. We exist to connect capital, talent, community development, and enterprise across both shores.
+            A strategic institution building permanent economic bridges between North Carolina and the African continent. We exist to connect capital, talent, community development, and enterprise across both shores.
           </p>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
       </section>
 
-      {/* ── Sovereign Mandate (Fortune 5 Style Segment) ── */}
+      {/* ── Strategic Mandate (Fortune 5 Style Segment) ── */}
       <section id="section-mandate" className="bg-zinc-950 py-12">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="relative bg-zinc-900/30 border border-zinc-800/50 rounded-2xl overflow-hidden p-8 md:p-12">
@@ -108,20 +108,20 @@ export default function AboutPage() {
               <div className="max-w-2xl text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-950/40 border border-blue-900/30 mb-6 rounded-full">
                   <Shield className="w-3.5 h-3.5 text-blue-400" />
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">Strategic Directive</span>
+                  <span className="text-xs font-bold tracking-[0.2em] text-blue-400 uppercase">Strategic Directive</span>
                 </div>
                 <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">
                   The AfDEC Strategic<br />Framework (2026-2030)
                 </h2>
                 <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-                  A sovereign blueprint for transatlantic economic integration — driving prosperity between North Carolina and the African continent through structured, high-impact pillars.
+                  A strategic blueprint for transatlantic economic integration — driving prosperity between North Carolina and the African continent through structured, high-impact pillars.
                 </p>
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                   <Link href="/about/strategic-framework" className="inline-flex items-center gap-2 group bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-black tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-xl">
                     Explore the 2030 Blueprint
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <Link href="/insights/policy" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
+                  <Link href="/insights/policy" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
                     <FileText className="w-4 h-4" />
                     Policy Publications
                   </Link>
@@ -187,7 +187,7 @@ export default function AboutPage() {
       <section id="section-values" ref={valuesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Foundational Principles</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Foundational Principles</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">What We Stand For</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -199,7 +199,7 @@ export default function AboutPage() {
                     <Icon className="w-6 h-6 text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold text-white mb-3">{v.title}</h3>
-                  <p className="text-[13px] text-zinc-500 leading-relaxed">{v.description}</p>
+                  <p className="text-[13px] text-zinc-400 leading-relaxed">{v.description}</p>
                 </div>
               );
             })}
@@ -215,20 +215,20 @@ export default function AboutPage() {
             <div className="max-w-2xl text-center lg:text-left">
               <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-900 border border-zinc-800 mb-8 rounded-full">
                 <Users className="w-3 h-3 text-blue-500" />
-                <span className="text-[10px] font-black tracking-[0.2em] text-zinc-500 uppercase">Institutional Governance</span>
+                <span className="text-xs font-black tracking-[0.2em] text-zinc-400 uppercase">Institutional Governance</span>
               </div>
               <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[0.95] mb-8">
                 The Sovereign<br />Mandate.
               </h2>
               <p className="text-xl text-zinc-400 font-medium leading-relaxed mb-10">
-                Our leadership hierarchy is structured across three distinct pillars: The Sovereign Council (Fiduciary), the Executive Mandate (Operations), and the Board of Advisors (Strategy). 
+                Our leadership hierarchy is structured across three distinct pillars: The Strategic Council (Fiduciary), the Executive Mandate (Operations), and the Board of Advisors (Strategy). 
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Link href="/about/leadership" className="inline-flex items-center gap-2 group bg-blue-600 hover:bg-blue-500 text-white text-xs font-black tracking-widest uppercase px-10 py-5 rounded-sm transition-all shadow-xl">
                   Meet the Leadership
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link href="/about/leadership#governance" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
+                <Link href="/about/leadership#governance" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white text-xs font-bold tracking-widest uppercase px-6 py-4 transition-colors">
                   <Landmark className="w-4 h-4" />
                   Institutional Framework
                 </Link>
@@ -238,7 +238,7 @@ export default function AboutPage() {
             {/* Visual Abstract: The Trinity Tiers */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full lg:w-auto">
                {[
-                 { label: "Sovereign Council", color: "text-blue-500", glow: "hover:border-blue-500/40", detail: "Fiduciary Oversight", href: "/about/leadership#council" },
+                 { label: "Strategic Council", color: "text-blue-500", glow: "hover:border-blue-500/40", detail: "Fiduciary Oversight", href: "/about/leadership#council" },
                  { label: "Advisory Structure", color: "text-amber-500", glow: "hover:border-amber-500/40", detail: "Operational Drive", href: "/about/leadership#advisor" },
                  { label: "Board of Advisors", color: "text-emerald-500", glow: "hover:border-emerald-500/40", detail: "Strategic Counsel", href: "/about/leadership#advisor" }
                ].map((tier) => (
@@ -248,8 +248,8 @@ export default function AboutPage() {
                    className={`p-10 border border-zinc-800 bg-zinc-900/40 rounded-sm text-center group transition-all duration-500 flex flex-col justify-center min-h-[240px] ${tier.glow}`}
                  >
                     <motion.div whileHover={{ scale: 1.05 }}>
-                      <div className={`text-[10px] font-black ${tier.color} uppercase tracking-[0.4em] mb-4`}>{tier.label}</div>
-                      <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest group-hover:text-zinc-300 transition-colors">{tier.detail}</div>
+                      <div className={`text-xs font-black ${tier.color} uppercase tracking-[0.4em] mb-4`}>{tier.label}</div>
+                      <div className="text-[11px] text-zinc-400 font-bold uppercase tracking-widest group-hover:text-zinc-300 transition-colors">{tier.detail}</div>
                       <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
                         <ArrowRight className={`w-5 h-5 mx-auto ${tier.color}`} />
                       </div>

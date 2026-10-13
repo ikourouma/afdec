@@ -58,7 +58,7 @@ function TextColumnsSection({ section, colors }: { section: InitiativeSection; c
               <DynamicIcon name={col.icon} className={`w-6 h-6 ${colors.text}`} />
             </div>
             <h3 className={`font-black text-white mb-3 tracking-tight group-hover:${colors.text} transition-colors`}>{col.title}</h3>
-            <p className="text-sm text-zinc-500 leading-relaxed font-medium">{col.body}</p>
+            <p className="text-sm text-zinc-400 leading-relaxed font-medium">{col.body}</p>
           </div>
         ))}
       </div>
@@ -75,7 +75,7 @@ function HeroStatsSection({ section, colors }: { section: InitiativeSection; col
           <div key={i} className="bg-zinc-950 p-10 text-center">
             <div className={`text-4xl md:text-5xl font-black mb-2 ${colors.stat}`}>{stat.value}</div>
             <div className="text-white font-bold text-lg mb-1">{stat.label}</div>
-            <div className="text-zinc-500 text-sm font-medium">{stat.sub}</div>
+            <div className="text-zinc-400 text-sm font-medium">{stat.sub}</div>
           </div>
         ))}
       </div>
@@ -119,7 +119,7 @@ function ComingSoonSection({ section, colors }: { section: InitiativeSection; co
               <Lock className={`w-4 h-4 ${colors.text}`} />
               <span className={`text-sm font-black uppercase tracking-widest ${colors.text}`}>Initiative In Development</span>
             </div>
-            <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Coming Soon</span>
+            <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Coming Soon</span>
           </div>
 
           {/* Preview content — blurred for non-members */}
@@ -184,7 +184,7 @@ function DotNav({ sections, colors }: { sections: InitiativeSection[]; colors: t
           className="flex items-center group"
           title={s.label}
         >
-          <span className={`text-[10px] font-bold uppercase tracking-widest mr-3 transition-all duration-200 ${active === s.id ? colors.text : "text-zinc-600 group-hover:text-zinc-400"} opacity-0 group-hover:opacity-100`}>
+          <span className={`text-xs font-bold uppercase tracking-widest mr-3 transition-all duration-200 ${active === s.id ? colors.text : "text-zinc-400 group-hover:text-zinc-400"} opacity-0 group-hover:opacity-100`}>
             {s.label}
           </span>
           <div className={`rounded-full transition-all duration-200 ${active === s.id ? `w-3 h-3 ${colors.text.replace("text-", "bg-")}` : "w-2 h-2 bg-zinc-700 group-hover:bg-zinc-500"}`} />
@@ -241,10 +241,10 @@ export default function InitiativePage({ params }: { params: Promise<{ slug: str
 
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-28 md:py-36 relative z-10" ref={heroRef}>
           {/* Breadcrumb trail */}
-          <div className="flex items-center space-x-2 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-8">
+          <div className="flex items-center space-x-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-8">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-zinc-500">Initiatives</span>
+            <span className="text-zinc-400">Initiatives</span>
             <ChevronRight className="w-3 h-3" />
             <span className={colors.text}>{initiative.label}</span>
           </div>

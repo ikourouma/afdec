@@ -28,7 +28,7 @@ const mockSlides: SlideType[] = [
   {
     id: "slide-1",
     type: "dual_image",
-    media_1: "https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?q=80&w=2000&auto=format&fit=crop", 
+    media_1: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop", 
     media_2: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2000&auto=format&fit=crop", 
     title: "The Bridge Between North Carolina and Africa.",
     subtitle: "The African Diaspora Economic Council (AfDEC) drives bilateral trade, infrastructure development, and policy advocacy across the Atlantic.",
@@ -43,7 +43,7 @@ const mockSlides: SlideType[] = [
     type: "single_image",
     media_1: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2000&auto=format&fit=crop", 
     title: "The Africa Innovation & Trade Summit.",
-    subtitle: "Join global trade leaders, sovereign delegates, and enterprise innovators to forge the next era of transatlantic partnerships.",
+    subtitle: "Join global trade leaders, strategic delegates, and enterprise innovators to forge the next era of transatlantic partnerships.",
     primary_cta_text: "Secure Early Registration",
     primary_cta_link: "#",
     secondary_cta_type: "event_details",
@@ -55,7 +55,7 @@ const mockSlides: SlideType[] = [
     type: "single_image",
     media_1: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2670&auto=format&fit=crop", 
     title: "The NC Africa Center Initiative.",
-    subtitle: "North Carolina's First Sovereign Gateway for Transatlantic Commerce, Innovation & Community Development.",
+    subtitle: "North Carolina's First Strategic Gateway for Transatlantic Commerce, Innovation & Community Development.",
     primary_cta_text: "Explore The Blueprint",
     primary_cta_link: "/initiatives/africa-center",
     secondary_cta_type: "button",
@@ -249,7 +249,7 @@ export function Hero() {
                   <span className="text-sm font-bold tracking-widest uppercase">{slide.event_date}</span>
                 </div>
                 <div className="flex items-center text-zinc-400">
-                  <MapPin className="w-3.5 h-3.5 mr-2 text-zinc-500" />
+                  <MapPin className="w-3.5 h-3.5 mr-2 text-zinc-400" />
                   <span className="text-xs font-semibold">{slide.event_location}</span>
                 </div>
               </div>
@@ -264,7 +264,7 @@ export function Hero() {
                 <span className="text-xs font-bold tracking-widest uppercase">{slide.event_date}</span>
               </div>
               <div className="flex items-center text-zinc-400">
-                <MapPin className="w-4 h-4 mr-2 text-zinc-500" />
+                <MapPin className="w-4 h-4 mr-2 text-zinc-400" />
                 <span className="text-xs font-bold">{slide.event_location}</span>
               </div>
             </div>

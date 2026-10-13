@@ -98,7 +98,7 @@ export default function TourismPage() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-28 md:py-36 relative z-10 w-full" ref={heroRef}>
           <div className="flex items-center space-x-3 mb-8">
             <Plane className="w-5 h-5 text-amber-400" />
-            <span className="text-[11px] font-black tracking-[0.25em] text-amber-400 uppercase">Sovereign Tourism</span>
+            <span className="text-[11px] font-black tracking-[0.25em] text-amber-400 uppercase">Tourism & Hospitality</span>
           </div>
 
           <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-amber-800/50 bg-amber-900/30 text-amber-300 text-xs font-bold uppercase tracking-widest mb-8">
@@ -106,7 +106,7 @@ export default function TourismPage() {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-4xl mb-6">
-            Sovereign Tourism<br />
+            Tourism & Hospitality<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
               Africa Awaits You
             </span>
@@ -161,7 +161,7 @@ export default function TourismPage() {
                       {pillar.stats.map((s: { value: string; label: string }, j: number) => (
                         <div key={j} className={`${ac.bg} rounded-lg p-3 border ${ac.border}`}>
                           <div className={`text-lg font-black ${ac.text} mb-0.5`}>{s.value}</div>
-                          <div className="text-zinc-500 text-[11px] font-medium">{s.label}</div>
+                          <div className="text-zinc-400 text-[11px] font-medium">{s.label}</div>
                         </div>
                       ))}
                     </div>
@@ -182,7 +182,7 @@ export default function TourismPage() {
                 <div key={i} className="tourism-stat px-8 py-8 text-center">
                   <div className="text-3xl md:text-4xl font-black text-amber-400 mb-1">{s.value}</div>
                   <div className="text-white font-bold text-sm mb-0.5">{s.label}</div>
-                  <div className="text-zinc-600 text-xs font-medium">{s.sub}</div>
+                  <div className="text-zinc-400 text-xs font-medium">{s.sub}</div>
                 </div>
               ))}
             </div>
@@ -211,15 +211,15 @@ export default function TourismPage() {
                       <div className="w-10 h-10 bg-amber-600/10 rounded-lg flex items-center justify-center shrink-0 border border-amber-500/20">
                         <Icon className="w-5 h-5 text-amber-400" />
                       </div>
-                      <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${statusColor[item.status] ?? statusColor.Growing}`}>
+                      <span className={`text-xs font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${statusColor[item.status] ?? statusColor.Growing}`}>
                         {item.status}
                       </span>
                     </div>
                     <h3 className="font-black text-white mb-1 group-hover:text-amber-400 transition-colors">{item.title}</h3>
-                    <p className="text-xs text-zinc-500 font-medium mb-3">{item.sub}</p>
+                    <p className="text-xs text-zinc-400 font-medium mb-3">{item.sub}</p>
                     <div className="flex items-center gap-1.5">
                       <Star className="w-3 h-3 text-amber-600/60" />
-                      <span className="text-[10px] text-zinc-600 font-medium">{item.markets}</span>
+                      <span className="text-xs text-zinc-400 font-medium">{item.markets}</span>
                     </div>
                   </div>
                 );

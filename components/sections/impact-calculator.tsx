@@ -73,7 +73,7 @@ const CATEGORIES: CategoryData[] = [
     label: "SME Trade", 
     icon: TrendingUp, 
     multiplier: 3, 
-    metricLabel: "Sovereign Enterprises", 
+    metricLabel: "Strategic Enterprises", 
     outcome: "AfCFTA market access & certification",
     color: "purple"
   }
@@ -100,13 +100,13 @@ export const ImpactCalculator = () => {
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 mb-4 rounded-full">
             <Calculator className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-[10px] font-black tracking-[0.2em] text-emerald-400 uppercase">Sovereign Impact Simulator</span>
+            <span className="text-xs font-black tracking-[0.2em] text-emerald-400 uppercase">Strategic Impact Simulator</span>
           </div>
           <h3 className="text-2xl font-black text-white tracking-tight">AfDEC Diaspora Return</h3>
-          <p className="text-zinc-500 text-sm mt-1">Simulate the social and economic impact of your contribution.</p>
+          <p className="text-zinc-400 text-sm mt-1">Simulate the social and economic impact of your contribution.</p>
         </div>
         <div className="flex flex-col items-end">
-           <div className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] mb-1">Total Impact Multiplier</div>
+           <div className="text-xs font-black text-zinc-400 uppercase tracking-[0.3em] mb-1">Total Impact Multiplier</div>
            <div className="text-3xl font-black text-white">{currentCategory.multiplier}x</div>
         </div>
       </div>
@@ -129,7 +129,7 @@ export const ImpactCalculator = () => {
               onChange={(e) => setAmount(Number(e.target.value))}
               className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
             />
-            <div className="flex justify-between text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
+            <div className="flex justify-between text-xs font-bold text-zinc-400 uppercase tracking-widest">
               <span>$1,000</span>
               <span>$100,000+</span>
             </div>
@@ -152,8 +152,8 @@ export const ImpactCalculator = () => {
                       : `border-zinc-800 bg-zinc-900/40 hover:border-zinc-700`
                     }`}
                   >
-                    <Icon className={`w-5 h-5 mb-2 ${isActive ? 'text-emerald-400' : 'text-zinc-600'}`} />
-                    <span className={`text-[9px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-white' : 'text-zinc-500'}`}>{cat.label}</span>
+                    <Icon className={`w-5 h-5 mb-2 ${isActive ? 'text-emerald-400' : 'text-zinc-400'}`} />
+                    <span className={`text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-white' : 'text-zinc-400'}`}>{cat.label}</span>
                   </button>
                 );
               })}
@@ -177,7 +177,7 @@ export const ImpactCalculator = () => {
                 </div>
                 
                 <div className="relative z-10">
-                   <div className="text-[11px] font-black text-zinc-600 uppercase tracking-[0.3em] mb-4">Estimated Outcome</div>
+                   <div className="text-[11px] font-black text-zinc-400 uppercase tracking-[0.3em] mb-4">Estimated Outcome</div>
                    <div className="flex items-baseline gap-3 mb-4">
                       <div className={`text-6xl md:text-7xl font-black text-${currentCategory.color}-400 group-hover:scale-105 transition-transform duration-500`}>{formatNumber(impactCount)}</div>
                       <div className="text-xl font-bold text-zinc-300 uppercase tracking-tight">{currentCategory.metricLabel}</div>
@@ -193,14 +193,14 @@ export const ImpactCalculator = () => {
                  <div className="p-4 border border-zinc-900 bg-zinc-900/40 rounded-sm flex items-center space-x-3">
                     <Target className="w-4 h-4 text-emerald-500" />
                     <div>
-                      <div className="text-[9px] font-black text-zinc-600 uppercase mb-0.5">Strategy Alignment</div>
+                      <div className="text-xs font-black text-zinc-400 uppercase mb-0.5">Strategy Alignment</div>
                       <div className="text-[11px] font-bold text-zinc-300">AfCFTA Blueprint</div>
                     </div>
                  </div>
                  <div className="p-4 border border-zinc-900 bg-zinc-900/40 rounded-sm flex items-center space-x-3">
                     <Award className="w-4 h-4 text-emerald-500" />
                     <div>
-                      <div className="text-[9px] font-black text-zinc-600 uppercase mb-0.5">Accountability</div>
+                      <div className="text-xs font-black text-zinc-400 uppercase mb-0.5">Accountability</div>
                       <div className="text-[11px] font-bold text-zinc-300">Audited Portfolio</div>
                     </div>
                  </div>
@@ -230,10 +230,10 @@ export const ImpactCalculator = () => {
       {/* Disclaimer Footer */}
       <div className="bg-[#0c0c0c] border-t border-zinc-800 p-6 flex items-center justify-between">
          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-zinc-700" />
-            <span className="text-[10px] text-zinc-700 font-bold uppercase tracking-widest">Institutional Estimates Only · Non-Binding</span>
+            <Shield className="w-4 h-4 text-zinc-400" />
+            <span className="text-xs text-zinc-400 font-bold uppercase tracking-widest">Institutional Estimates Only · Non-Binding</span>
          </div>
-         <div className="text-[10px] font-black text-zinc-800 uppercase tracking-widest">
+         <div className="text-xs font-black text-zinc-800 uppercase tracking-widest">
             AfDEC Intelligence Division © 2026
          </div>
       </div>

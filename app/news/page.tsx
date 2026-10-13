@@ -86,7 +86,7 @@ export default function MarketBriefingsPage() {
           <div
             className="absolute inset-0 opacity-[0.45]"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1504711434969-e33886168d6c?q=80&w=2670&auto=format&fit=crop')",
+              backgroundImage: "url('https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=2670&auto=format&fit=crop')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -112,11 +112,11 @@ export default function MarketBriefingsPage() {
             {/* Search Terminal */}
             <div className="w-full md:w-80 bg-zinc-900 p-1 rounded-sm border border-zinc-800 flex items-center">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input 
                   type="text" 
                   placeholder="Search intelligence..." 
-                  className="w-full pl-9 pr-4 py-3 bg-transparent text-white text-sm focus:outline-none placeholder:text-zinc-600"
+                  className="w-full pl-9 pr-4 py-3 bg-transparent text-white text-sm focus:outline-none placeholder:text-zinc-400"
                 />
               </div>
               <button className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-sm transition-colors">
@@ -138,7 +138,7 @@ export default function MarketBriefingsPage() {
             </div>
 
             {isLoading ? (
-               <div className="py-20 flex justify-center items-center text-zinc-500">
+               <div className="py-20 flex justify-center items-center text-zinc-400">
                   <div className="animate-pulse font-bold tracking-widest uppercase text-sm">Syncing with Central DB...</div>
                </div>
             ) : newsItems.length === 0 ? (
@@ -165,7 +165,7 @@ export default function MarketBriefingsPage() {
                         <div className="sm:w-1/3 h-48 sm:h-full relative overflow-hidden shrink-0">
                           <img src={brief.image_url || 'https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=800&auto=format&fit=crop'} alt={brief.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                           <div className="absolute top-4 left-4">
-                            <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest rounded-sm">
+                            <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest rounded-sm">
                               {brief.category || "Press Release"}
                             </span>
                           </div>
@@ -173,7 +173,7 @@ export default function MarketBriefingsPage() {
 
                         {/* Content Payload */}
                         <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center overflow-hidden">
-                          <div className="flex items-center text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3">
+                          <div className="flex items-center text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">
                             <Calendar className="w-3.5 h-3.5 mr-1.5 shrink-0" />
                             {formattedDate}
                           </div>
@@ -213,7 +213,7 @@ export default function MarketBriefingsPage() {
               <ShieldCheck className="w-10 h-10 text-blue-300 mb-6 relative z-10" />
               <h3 className="text-2xl font-black tracking-tight mb-4 relative z-10 leading-tight">Require Deep Institutional Analytics?</h3>
               <p className="text-blue-100 text-sm mb-8 leading-relaxed font-medium relative z-10">
-                Sovereign partners and registered 501(c)(4) entities can access deeply restricted data-sets, including embargoed physical infrastructure RFPs, via the highly-secure Partner Portal.
+                Institutional partners and registered 501(c)(4) entities can access deeply restricted data-sets, including embargoed physical infrastructure RFPs, via the highly-secure Partner Portal.
               </p>
               
               <Link href="/auth" className="inline-flex items-center justify-center w-full bg-white hover:bg-zinc-100 text-[#002f6c] px-6 py-4 rounded-sm font-black text-sm uppercase tracking-widest transition-colors shadow-lg relative z-10 group">
@@ -237,7 +237,7 @@ export default function MarketBriefingsPage() {
                 ].map((file, i) => (
                   <li key={i} className="flex flex-col group cursor-pointer border border-zinc-800 p-4 rounded-sm hover:border-blue-500/50 transition-colors bg-zinc-900/40 hover:bg-zinc-800/40">
                     <span className="text-sm font-bold text-zinc-300 group-hover:text-blue-400 transition-colors truncate">{file.name}</span>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-600 mt-2">.{file.ext} FORMAT · {file.size}</span>
+                    <span className="text-xs uppercase font-bold tracking-widest text-zinc-400 mt-2">.{file.ext} FORMAT · {file.size}</span>
                   </li>
                 ))}
               </ul>

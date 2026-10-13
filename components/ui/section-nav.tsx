@@ -103,7 +103,7 @@ export function SectionNav({ sections, accentColor = "blue" }: Props) {
             {/* Tooltip — appears to the left of the dot */}
             <div
               className={`
-                absolute right-full mr-3 px-2.5 py-1 rounded-sm border text-[10px] font-bold uppercase tracking-widest
+                absolute right-full mr-3 px-2.5 py-1 rounded-sm border text-xs font-bold uppercase tracking-widest
                 whitespace-nowrap pointer-events-none transition-all duration-200
                 ${colors.tooltip}
                 ${hoveredId === id ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"}

@@ -10,7 +10,8 @@ import { FlashBanner } from "@/components/ui/flash-banner";
 import { supabase } from "@/lib/supabase";
 import ReactMarkdown from "react-markdown";
 
-export default function ImpactProjectDetailPage({ params }: { params: { slug: string } }) {
+export default function ImpactProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = React.use(params);
   const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -19,8 +20,8 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
       const { data, error } = await supabase
         .from("impact_fund_projects")
         .select("*")
-        .eq("slug", params.slug)
-        .single();
+        .eq("slug", slug)
+        .maybeSingle();
       
       if (!error && data) {
         // Map impact_fund_projects fields to the UI's expected format
@@ -38,7 +39,7 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
       setLoading(false);
     }
     fetchProject();
-  }, [params.slug]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -95,11 +96,11 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
         <article>
           <header className="mb-16">
             <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className="px-3 py-1 bg-zinc-900 text-zinc-300 text-[10px] font-bold uppercase tracking-widest rounded-sm border border-zinc-800">
+              <span className="px-3 py-1 bg-zinc-900 text-zinc-300 text-xs font-bold uppercase tracking-widest rounded-sm border border-zinc-800">
                 {project.type === 'flagship_initiative' ? 'Flagship Initiative' : 'Impact Capital Project'}
               </span>
               {project.location && (
-                <div className="flex items-center text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                <div className="flex items-center text-xs font-bold text-zinc-400 uppercase tracking-widest">
                   <MapPin className="w-3.5 h-3.5 mr-1.5" />
                   {project.location}
                 </div>
@@ -141,7 +142,7 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
                     
                     <div className="mb-4">
                       <div className="text-3xl font-black text-white">${(project.funding_raised / 1000000).toFixed(1)}M</div>
-                      <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mt-1">Raised of ${(project.funding_goal / 1000000).toFixed(1)}M</div>
+                      <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mt-1">Raised of ${(project.funding_goal / 1000000).toFixed(1)}M</div>
                     </div>
                     
                     <div className="w-full h-2 bg-zinc-950 border border-zinc-800 rounded-full overflow-hidden mb-6">
@@ -155,10 +156,10 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
                 )}
 
                 <div className="bg-zinc-900/30 border border-zinc-800 p-6 rounded-lg">
-                  <ShieldCheck className="w-6 h-6 text-zinc-500 mb-4" />
+                  <ShieldCheck className="w-6 h-6 text-zinc-400 mb-4" />
                   <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-2">Verified Framework</h4>
-                  <p className="text-xs text-zinc-500 leading-relaxed mb-6">This infrastructure project is directly managed and audited by the Secretariat under the AfDEC Sovereign Mandate.</p>
-                  <button className="flex items-center justify-center w-full px-4 py-3 border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-800 text-white rounded text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <p className="text-xs text-zinc-400 leading-relaxed mb-6">This infrastructure project is directly managed and audited by the Secretariat under the AfDEC Strategic Mandate.</p>
+                  <button className="flex items-center justify-center w-full px-4 py-3 border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-800 text-white rounded text-xs font-bold tracking-widest uppercase transition-colors">
                     <Share2 className="w-3.5 h-3.5 mr-2" /> Share Dossier
                   </button>
                 </div>
@@ -175,12 +176,12 @@ export default function ImpactProjectDetailPage({ params }: { params: { slug: st
                   <>
                     <h2 className="text-2xl font-bold text-white mb-6">Strategic Intelligence</h2>
                     <p className="text-zinc-300 leading-relaxed text-lg mb-8">
-                      Detailed feasibility reports, spatial zoning schematics, and bi-national tariff models for the {project.title} are currently restricted. Registered partners may request the complete data-room package via the Sovereign Gateway.
+                      Detailed feasibility reports, spatial zoning schematics, and bi-national tariff models for the {project.title} are currently restricted. Registered partners may request the complete data-room package via the Strategic Gateway.
                     </p>
                     <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-lg mt-8 text-center">
-                       <ShieldCheck className="w-12 h-12 text-zinc-600 mx-auto mb-4" />
+                       <ShieldCheck className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
                        <h3 className="text-xl font-bold text-white mb-2">Data Room Locked</h3>
-                       <p className="text-zinc-400 mb-6 text-sm max-w-md mx-auto">Full technical documentation is restricted to cleared Sovereign Network institutional members.</p>
+                       <p className="text-zinc-400 mb-6 text-sm max-w-md mx-auto">Full technical documentation is restricted to cleared Strategic Network institutional members.</p>
                        <Link href="/auth" className="inline-flex items-center justify-center border border-zinc-700 hover:border-zinc-500 text-white px-6 py-3 text-sm font-bold tracking-widest uppercase rounded transition-colors">
                          Login to Member Portal
                        </Link>

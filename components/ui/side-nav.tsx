@@ -79,9 +79,9 @@ export function SideNav({ sections, accentColor = "blue" }: SideNavProps) {
             aria-label={`Scroll to ${s.label}`}
           >
             <span 
-              className={`text-[9px] font-black uppercase tracking-[0.2em] mr-4 transition-all duration-300 transform
+              className={`text-xs font-black uppercase tracking-[0.2em] mr-4 transition-all duration-300 transform
                 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
-                ${isActive ? colors.text : "text-zinc-600"}
+                ${isActive ? colors.text : "text-zinc-400"}
               `}
             >
               {s.label}

@@ -67,14 +67,14 @@ const MOCK_POLICY: Article[] = [
   },
   {
     id: "5", slug: "sovereign-incentives-guide-2026", category: "policy", content_type: "brief",
-    title: "Sovereign Incentives Navigator: NC & Africa — 2026 Edition",
+    title: "Strategic Incentives Navigator: NC & Africa — 2026 Edition",
     subtitle: "The complete guide to stacking NC state grants, federal programs, and Africa-side IPA incentives",
     excerpt: "A practical guide for enterprise decision-makers navigating the full incentive landscape — from NC JDIG grants and Opportunity Zones to AfCFTA preferential tariffs and Afreximbank trade finance instruments.",
     cover_image_url: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop",
     reading_time_min: 15, published_at: new Date(Date.now() - 21 * 86400000).toISOString(),
     is_featured: false, allow_download: true, download_label: "Download Navigator Guide",
     view_count: 892, author_name: "AfDEC Intelligence Desk", author_title: "Editorial Team",
-    tags: ["Sovereign Incentives", "JDIG", "AfCFTA", "Policy", "North Carolina"],
+    tags: ["Strategic Incentives", "JDIG", "AfCFTA", "Policy", "North Carolina"],
   },
 ];
 
@@ -92,26 +92,26 @@ function PolicyCard({ article }: { article: Article }) {
       <div className="p-7 flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest border bg-blue-950/30 border-blue-900/30 text-blue-400">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold uppercase tracking-widest border bg-blue-950/30 border-blue-900/30 text-blue-400">
               <FileText className="w-3 h-3" />
               {typeLabel}
             </span>
-            <span className="flex items-center gap-1 text-[10px] text-zinc-600 font-medium">
+            <span className="flex items-center gap-1 text-xs text-zinc-400 font-medium">
               <Calendar className="w-3 h-3" />{date}
             </span>
             {article.reading_time_min && (
-              <span className="flex items-center gap-1 text-[10px] text-zinc-600 font-medium">
+              <span className="flex items-center gap-1 text-xs text-zinc-400 font-medium">
                 <Clock className="w-3 h-3" />{article.reading_time_min} min read
               </span>
             )}
           </div>
           <h2 className="text-white font-black text-xl mb-2 leading-tight group-hover:text-blue-300 transition-colors">{article.title}</h2>
-          {article.subtitle && <p className="text-zinc-500 text-sm font-medium mb-3">{article.subtitle}</p>}
+          {article.subtitle && <p className="text-zinc-400 text-sm font-medium mb-3">{article.subtitle}</p>}
           {article.excerpt && <p className="text-zinc-400 text-[13px] leading-relaxed mb-5 line-clamp-3">{article.excerpt}</p>}
           {article.tags && article.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-5">
               {article.tags.map((tag) => (
-                <span key={tag} className="flex items-center gap-1 text-[9px] font-bold text-zinc-500 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
+                <span key={tag} className="flex items-center gap-1 text-xs font-bold text-zinc-400 bg-zinc-800/60 border border-zinc-700/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">
                   <Tag className="w-2.5 h-2.5" />{tag}
                 </span>
               ))}
@@ -121,14 +121,14 @@ function PolicyCard({ article }: { article: Article }) {
         <div className="flex items-center gap-4 pt-4 border-t border-zinc-800/50">
           {article.author_name && (
             <div className="flex-1">
-              <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">By {article.author_name}</p>
+              <p className="text-xs text-zinc-400 uppercase tracking-widest font-bold">By {article.author_name}</p>
             </div>
           )}
           <div className="flex items-center gap-3">
             {article.allow_download && (
               <a
                 href={article.download_url ?? "#"}
-                className="inline-flex items-center gap-1.5 text-[10px] font-black text-emerald-400 hover:text-emerald-300 border border-emerald-900/40 px-3 py-1.5 rounded-sm transition-colors uppercase tracking-widest"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-400 hover:text-emerald-300 border border-emerald-900/40 px-3 py-1.5 rounded-sm transition-colors uppercase tracking-widest"
               >
                 <Download className="w-3 h-3" />
                 {article.download_label ?? "Download PDF"}
@@ -136,7 +136,7 @@ function PolicyCard({ article }: { article: Article }) {
             )}
             <Link
               href={`/insights/policy/${article.slug}`}
-              className="inline-flex items-center gap-1.5 text-[10px] font-black text-blue-400 hover:text-blue-300 border border-blue-900/40 px-3 py-1.5 rounded-sm transition-colors uppercase tracking-widest"
+              className="inline-flex items-center gap-1.5 text-xs font-black text-blue-400 hover:text-blue-300 border border-blue-900/40 px-3 py-1.5 rounded-sm transition-colors uppercase tracking-widest"
             >
               Read Full Brief
               <ArrowRight className="w-3 h-3" />
@@ -187,7 +187,7 @@ export default function PolicyInsightsPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/88 to-zinc-950/30" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent" />
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-20 md:py-28 relative z-10">
-          <nav className="flex items-center gap-2 text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-8">
+          <nav className="flex items-center gap-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-8">
             <Link href="/insights" className="hover:text-blue-400 transition-colors">Insights</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-zinc-400">Policy Publications</span>
@@ -212,9 +212,9 @@ export default function PolicyInsightsPage() {
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-2xl font-black text-white">Policy Publications</h2>
-              <p className="text-zinc-500 text-sm mt-1">{articles.length} publication{articles.length !== 1 ? "s" : ""} available</p>
+              <p className="text-zinc-400 text-sm mt-1">{articles.length} publication{articles.length !== 1 ? "s" : ""} available</p>
             </div>
-            <Link href="/insights" className="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 hover:text-zinc-300 transition-colors uppercase tracking-widest">
+            <Link href="/insights" className="flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-zinc-300 transition-colors uppercase tracking-widest">
               <ExternalLink className="w-3 h-3" />
               All Insights
             </Link>
@@ -228,9 +228,9 @@ export default function PolicyInsightsPage() {
             </div>
           ) : articles.length === 0 ? (
             <div className="py-24 text-center">
-              <BookOpen className="w-10 h-10 text-zinc-700 mx-auto mb-4" />
+              <BookOpen className="w-10 h-10 text-zinc-400 mx-auto mb-4" />
               <h3 className="text-white font-bold text-lg mb-2">No publications yet</h3>
-              <p className="text-zinc-500 text-sm max-w-sm mx-auto">The AfDEC Policy Research Division will publish briefs and reports here. Check back soon or subscribe to our newsletter.</p>
+              <p className="text-zinc-400 text-sm max-w-sm mx-auto">The AfDEC Policy Research Division will publish briefs and reports here. Check back soon or subscribe to our newsletter.</p>
             </div>
           ) : (
             <div className="space-y-6">

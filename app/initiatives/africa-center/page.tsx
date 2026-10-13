@@ -21,8 +21,6 @@ gsap.registerPlugin(ScrollTrigger);
 const PAGE_SECTIONS: NavSection[] = [
   { id: "overview", label: "Strategic Imperative" },
   { id: "blueprint", label: "The Blueprint" },
-  { id: "financials", label: "Sustainability" },
-  { id: "capital", label: "Capital Structure" },
   { id: "pillars", label: "Strategic Pillars" },
   { id: "invest", label: "Invest" },
 ];
@@ -78,7 +76,7 @@ export default function AfricaCenterPage() {
           <div className="max-w-4xl">
             <div className="reveal-hero inline-flex items-center gap-2 px-3 py-1 bg-zinc-900/60 backdrop-blur-md border border-zinc-800/50 mb-6 rounded-full">
               <Building2 className="w-3.5 h-3.5 text-amber-500" />
-              <span className="text-[10px] font-black tracking-[0.2em] text-zinc-300 uppercase">AfDEC Flagship Infrastructure Initiative</span>
+              <span className="text-xs font-black tracking-[0.2em] text-zinc-300 uppercase">AfDEC Flagship Infrastructure Initiative</span>
             </div>
             
             <h1 className="reveal-hero text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[0.9] mb-8">
@@ -87,13 +85,13 @@ export default function AfricaCenterPage() {
             </h1>
             
             <p className="reveal-hero text-xl md:text-2xl text-zinc-300 font-medium leading-relaxed max-w-3xl mb-10">
-              North Carolina's First Sovereign Gateway for Transatlantic Commerce, Innovation & Community Development.
+              North Carolina's First Strategic Gateway for Transatlantic Commerce, Innovation & Community Development.
             </p>
 
             <div className="reveal-hero flex flex-wrap items-center gap-4 mb-12">
               <div className="px-4 py-2 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-sm flex items-center gap-3">
                 <Landmark className="w-4 h-4 text-emerald-400" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider">$15M Capital Initiative · Wake County, NC</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider">Capital Initiative · Wake County, NC</span>
               </div>
               <div className="px-4 py-2 bg-amber-950/30 backdrop-blur-md border border-amber-900/50 rounded-sm flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
@@ -102,8 +100,8 @@ export default function AfricaCenterPage() {
             </div>
 
             <div className="reveal-hero flex flex-col sm:flex-row gap-4">
-              <Link href="/diaspora-impact-fund" className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]">
-                <span>Invest in the Vision</span>
+              <Link href="/deal-room" className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]">
+                <span>Request Deal Room Access</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/contact?topic=naming-rights" className="inline-flex items-center justify-center gap-2 bg-zinc-900/80 hover:bg-zinc-800 backdrop-blur-md border border-zinc-700 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
@@ -118,13 +116,13 @@ export default function AfricaCenterPage() {
           <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-6">
             <div className="flex flex-wrap items-center justify-between gap-6 md:gap-12">
               {[
-                { label: "Target Cap Raise", value: "$15M" },
+                { label: "Capital Details", value: "Deal Room (NDA)" },
                 { label: "Facility Size", value: "35,000 Sq Ft" },
                 { label: "Structural Levels", value: "2 Strategic Floors" },
-                { label: "Target NOI Break-Even", value: "Month 14" },
+                { label: "Campaign", value: "Active 2026" },
               ].map((stat, i) => (
                 <div key={i} className="reveal-hero flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1">{stat.label}</span>
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1">{stat.label}</span>
                   <span className="text-xl md:text-2xl font-black text-white tracking-tight">{stat.value}</span>
                 </div>
               ))}
@@ -147,12 +145,12 @@ export default function AfricaCenterPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 mb-2">
-                <ShieldCheck className="w-5 h-5 text-zinc-500" />
-                <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">The Gap</span>
+                <ShieldCheck className="w-5 h-5 text-zinc-400" />
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">The Gap</span>
               </div>
               <h3 className="text-2xl font-bold text-white leading-snug">North Carolina lacks a centralized institutional gateway for African economic development.</h3>
               <p className="text-zinc-400 leading-relaxed text-[15px]">
-                Despite housing one of the nation's fastest-growing African diaspora populations and maintaining a powerhouse economy, NC enterprises operate without a dedicated, sovereign-grade facility to orchestrate transatlantic trade, host bilateral summits, or incubate cross-border startups. The diaspora's institutional capital remains fragmented.
+                Despite housing one of the nation's fastest-growing African diaspora populations and maintaining a powerhouse economy, NC enterprises operate without a dedicated, Enterprise-grade facility to orchestrate transatlantic trade, host bilateral summits, or incubate cross-border startups. The diaspora's institutional capital remains fragmented.
               </p>
             </div>
             
@@ -161,9 +159,9 @@ export default function AfricaCenterPage() {
                 <Globe className="w-5 h-5 text-amber-500" />
                 <span className="text-xs font-bold text-amber-500 uppercase tracking-widest">The Opportunity</span>
               </div>
-              <h3 className="text-2xl font-bold text-white leading-snug">A $15M physical infrastructure capturing a share of Africa's $180B digital economy.</h3>
+              <h3 className="text-2xl font-bold text-white leading-snug">A physical gateway positioned to capture a share of Africa's fast-growing digital economy.</h3>
               <p className="text-zinc-400 leading-relaxed text-[15px]">
-                The Africa Center bridges this gap. By centralizing AfCFTA navigation, enterprise incubation, and sovereign relations under one roof in the Research Triangle corridor, we create a gravity well for transatlantic capital—positioning NC as the premier US entry point for African enterprise.
+                The Africa Center bridges this gap. By centralizing AfCFTA navigation, enterprise incubation, and strategic relations under one roof in the Research Triangle corridor, we create a gravity well for transatlantic capital—positioning NC as the premier US entry point for African enterprise.
               </p>
             </div>
           </div>
@@ -188,7 +186,7 @@ export default function AfricaCenterPage() {
                 </div>
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-zinc-800/80 border border-zinc-700 rounded-sm mb-4">
                   <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-                  <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">Floor 1 · 17,500 Sq Ft</span>
+                  <span className="text-xs font-bold text-zinc-300 uppercase tracking-widest">Floor 1 · 17,500 Sq Ft</span>
                 </div>
                 <h3 className="text-3xl font-black text-white mb-3 tracking-tight">The Public Face</h3>
                 <p className="text-zinc-400 leading-relaxed mb-8">Designed for scale, diplomacy, and cultural preservation. The ground floor serves as the premier hosting facility for bilateral summits and community gathering.</p>
@@ -218,7 +216,7 @@ export default function AfricaCenterPage() {
                 </div>
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-zinc-800/80 border border-zinc-700 rounded-sm mb-4">
                   <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-                  <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">Floor 2 · 17,500 Sq Ft</span>
+                  <span className="text-xs font-bold text-zinc-300 uppercase tracking-widest">Floor 2 · 17,500 Sq Ft</span>
                 </div>
                 <h3 className="text-3xl font-black text-white mb-3 tracking-tight">The Business Engine</h3>
                 <p className="text-zinc-400 leading-relaxed mb-8">A highly secured, enterprise-grade operations center driving daily economic impact, startup incubation, and policy formulation.</p>
@@ -228,7 +226,7 @@ export default function AfricaCenterPage() {
                     "Transatlantic B2B Trade Desk (AfCFTA Navigation)",
                     "Startup \"Soft-Landing\" Incubator (40 desks)",
                     "Pan-African Policy & Research Lab",
-                    "AfDEC Sovereign Command Center"
+                    "AfDEC Strategic Command Center"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
@@ -242,131 +240,7 @@ export default function AfricaCenterPage() {
         </div>
       </section>
 
-      {/* ── SECTION 4: FINANCIAL SUSTAINABILITY ── */}
-      <section id="financials" className="py-24 bg-zinc-950 border-b border-zinc-900">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="mb-16 reveal-section flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="max-w-2xl">
-              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-500 uppercase">Operational Economics</span>
-              <h2 className="text-4xl md:text-5xl font-black text-white mt-4 tracking-tight">Financial Sustainability</h2>
-              <p className="text-zinc-400 mt-6 text-lg">The Africa Center is modeled as a self-sustaining asset. By layering premium enterprise services, facility leasing, and corporate sponsorships, we achieve net-positive operating income by Month 14.</p>
-            </div>
-            <div className="px-5 py-3 bg-emerald-500/10 border border-emerald-500/30 rounded-sm inline-flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-sm font-bold text-emerald-400">Operational Self-Sustainability by Month 14</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 reveal-section">
-            {[
-              { year: "Year 1", gross: "$585K", noi: "$165K", phase: "Launch & Lease-Up Phase" },
-              { year: "Year 2", gross: "$910K", noi: "$445K", phase: "Stabilized Operations" },
-              { year: "Year 3", gross: "$1.175M", noi: "$665K", phase: "Peak Capacity" },
-            ].map((proj) => (
-              <div key={proj.year} className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-8 text-center">
-                <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-6">{proj.year} Projection</div>
-                <div className="text-4xl font-black text-white mb-2">{proj.gross}</div>
-                <div className="text-sm text-zinc-400 font-medium mb-6">Gross Revenue</div>
-                <div className="w-12 h-px bg-zinc-800 mx-auto mb-6" />
-                <div className="text-2xl font-bold text-emerald-400 mb-1">{proj.noi}</div>
-                <div className="text-xs text-zinc-500 uppercase tracking-wider font-bold mb-4">Net Operating Income</div>
-                <div className="inline-block px-3 py-1 bg-zinc-800 rounded text-[10px] font-medium text-zinc-300">{proj.phase}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="bg-zinc-900/20 border border-zinc-800 rounded-lg overflow-hidden reveal-section">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-zinc-900 text-xs font-bold text-zinc-400 uppercase tracking-widest border-b border-zinc-800">
-                    <th className="px-6 py-5">Revenue Stream</th>
-                    <th className="px-6 py-5 text-right">Year 1</th>
-                    <th className="px-6 py-5 text-right">Year 2</th>
-                    <th className="px-6 py-5 text-right">Year 3</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-800/50 text-sm font-medium">
-                  <tr className="hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-6 py-4 text-zinc-300">Private Office Leases</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$96K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$144K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$160K</td>
-                  </tr>
-                  <tr className="hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-6 py-4 text-zinc-300">Startup Desk Memberships</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$57.6K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$108K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$129.6K</td>
-                  </tr>
-                  <tr className="hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-6 py-4 text-zinc-300">Corporate Partner Sponsorships</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$150K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$250K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$350K</td>
-                  </tr>
-                  <tr className="hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-6 py-4 text-zinc-300">Trade Desk Consulting</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$120K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$210K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$290K</td>
-                  </tr>
-                  <tr className="hover:bg-zinc-800/20 transition-colors">
-                    <td className="px-6 py-4 text-zinc-300">Event Hall Allocations</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$161.4K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$198K</td>
-                    <td className="px-6 py-4 text-right text-zinc-400">$245.4K</td>
-                  </tr>
-                  <tr className="bg-zinc-900/50 border-t-2 border-zinc-800">
-                    <td className="px-6 py-5 text-white font-bold">TOTAL GROSS REVENUE</td>
-                    <td className="px-6 py-5 text-right text-white font-bold">$585K</td>
-                    <td className="px-6 py-5 text-right text-white font-bold">$910K</td>
-                    <td className="px-6 py-5 text-right text-white font-bold">$1.175M</td>
-                  </tr>
-                  <tr className="bg-zinc-950">
-                    <td className="px-6 py-4 text-red-400 font-medium">Estimated OPEX</td>
-                    <td className="px-6 py-4 text-right text-red-400">($420K)</td>
-                    <td className="px-6 py-4 text-right text-red-400">($465K)</td>
-                    <td className="px-6 py-4 text-right text-red-400">($510K)</td>
-                  </tr>
-                  <tr className="bg-emerald-950/20 border-t border-emerald-900/30">
-                    <td className="px-6 py-5 text-emerald-400 font-black">NET OPERATING INCOME</td>
-                    <td className="px-6 py-5 text-right text-emerald-400 font-black">$165K</td>
-                    <td className="px-6 py-5 text-right text-emerald-400 font-black">$445K</td>
-                    <td className="px-6 py-5 text-right text-emerald-400 font-black">$665K</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 5: CAPITAL STRUCTURE ── */}
-      <section id="capital" className="py-24 bg-[#080808] border-b border-zinc-900">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 text-center reveal-section">
-          <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Funding Model</span>
-          <h2 className="text-3xl md:text-5xl font-black text-white mt-4 mb-16 tracking-tight">$15M Capital Structure</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { pct: "32%", amount: "$4.8M", label: "Public Appropriations", sub: "NC General Assembly + Wake County Grants", color: "border-t-blue-500" },
-              { pct: "28%", amount: "$4.2M", label: "Corporate Pre-Leases", sub: "RTP Anchor Tenant Commitments", color: "border-t-emerald-500" },
-              { pct: "20%", amount: "$3.0M", label: "Naming Endowments", sub: "Philanthropic & Institutional Naming Rights", color: "border-t-amber-500" },
-              { pct: "20%", amount: "$3.0M", label: "Land & Contingency", sub: "Municipal Land Appropriation & Reserves", color: "border-t-purple-500" },
-            ].map((cap, i) => (
-              <div key={i} className={`bg-zinc-900/40 border border-zinc-800 border-t-2 ${cap.color} rounded-sm p-8 text-left`}>
-                <div className="text-3xl font-black text-white mb-1">{cap.pct}</div>
-                <div className="text-xl font-bold text-zinc-400 mb-4">{cap.amount}</div>
-                <h4 className="text-sm font-bold text-white mb-2">{cap.label}</h4>
-                <p className="text-xs text-zinc-500 leading-relaxed">{cap.sub}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 6: STRATEGIC PILLARS ── */}
+{/* ── SECTION 6: STRATEGIC PILLARS ── */}
       <section id="pillars" className="py-24 bg-zinc-950 border-b border-zinc-900">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16 reveal-section">
@@ -420,7 +294,7 @@ export default function AfricaCenterPage() {
                   <td className="p-6 border border-zinc-800 text-zinc-400 text-sm">Students & Scholars</td>
                   <td className="p-6 border border-zinc-800 text-zinc-400 text-sm">Local Micro-businesses</td>
                   <td className="p-6 border border-zinc-800 text-zinc-400 text-sm">Community Members</td>
-                  <td className="p-6 border border-amber-900/30 text-amber-100 font-medium text-sm bg-amber-950/10">Sovereign Funds, Enterprise SMEs, Investors</td>
+                  <td className="p-6 border border-amber-900/30 text-amber-100 font-medium text-sm bg-amber-950/10">Strategic Funds, Enterprise SMEs, Investors</td>
                 </tr>
                 <tr>
                   <td className="p-6 border border-zinc-800 font-bold text-white">Primary Output</td>
@@ -431,9 +305,9 @@ export default function AfricaCenterPage() {
                 </tr>
                 <tr>
                   <td className="p-6 border border-zinc-800 font-bold text-white">The Gap</td>
-                  <td className="p-6 border border-zinc-800 text-zinc-500 text-sm italic">Lacks commercial execution</td>
-                  <td className="p-6 border border-zinc-800 text-zinc-500 text-sm italic">Lacks international scope</td>
-                  <td className="p-6 border border-zinc-800 text-zinc-500 text-sm italic">Lacks institutional capital</td>
+                  <td className="p-6 border border-zinc-800 text-zinc-400 text-sm italic">Lacks commercial execution</td>
+                  <td className="p-6 border border-zinc-800 text-zinc-400 text-sm italic">Lacks international scope</td>
+                  <td className="p-6 border border-zinc-800 text-zinc-400 text-sm italic">Lacks institutional capital</td>
                   <td className="p-6 border border-amber-900/30 text-amber-500 font-bold text-sm bg-amber-950/10">Comprehensive Enterprise Solution</td>
                 </tr>
               </tbody>
@@ -459,7 +333,7 @@ export default function AfricaCenterPage() {
                   "Proximity to NC State, Duke, and UNC Chapel Hill"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-zinc-600 shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
                     <span className="text-zinc-300">{item}</span>
                   </li>
                 ))}
@@ -483,7 +357,7 @@ export default function AfricaCenterPage() {
                         <div className="pb-6">
                            <div className="flex items-baseline gap-3 mb-1">
                               <h4 className="font-bold text-white text-lg">{step.phase}: {step.title}</h4>
-                              <span className="text-xs font-bold text-zinc-500 uppercase">{step.time}</span>
+                              <span className="text-xs font-bold text-zinc-400 uppercase">{step.time}</span>
                            </div>
                            <p className="text-sm text-zinc-400 leading-relaxed">{step.desc}</p>
                         </div>
@@ -506,9 +380,9 @@ export default function AfricaCenterPage() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] group-hover:bg-amber-500/20 transition-colors" />
               <div className="relative z-10">
                 <h3 className="text-3xl font-black text-white mb-4 tracking-tight">Invest in the Vision</h3>
-                <p className="text-zinc-400 leading-relaxed mb-8 max-w-sm">Join the capital campaign to establish North Carolina's transatlantic gateway. Open to institutional investors, sovereign funds, and accredited diaspora members.</p>
-                <Link href="/diaspora-impact-fund" className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-md">
-                  <span>View Impact Fund</span>
+                <p className="text-zinc-400 leading-relaxed mb-8 max-w-sm">Capital details are shared in our confidential Deal Room after review and NDA. Help establish North Carolina's transatlantic gateway. Open to institutional investors, strategic funds, and accredited diaspora members.</p>
+                <Link href="/deal-room" className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all shadow-md">
+                  <span>Request Deal Room Access</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

@@ -115,7 +115,7 @@ export default function SectorsHubPage() {
               <div key={s.label} className="sector-stat px-8 py-7 text-center">
                 <div className={`text-3xl md:text-4xl font-black mb-1 ${s.color}`}>{s.value}</div>
                 <div className="text-white font-bold text-sm mb-0.5">{s.label}</div>
-                <div className="text-zinc-600 text-xs font-medium">{s.sub}</div>
+                <div className="text-zinc-400 text-xs font-medium">{s.sub}</div>
               </div>
             ))}
           </div>
@@ -155,11 +155,11 @@ export default function SectorsHubPage() {
                     <div className={`w-11 h-11 ${colors.bgFrom.replace("from-", "bg-").replace("/10", "/20")} rounded-lg flex items-center justify-center mb-5 border ${colors.border}`}>
                       <Icon className={`w-5 h-5 ${colors.text}`} />
                     </div>
-                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full border text-[9px] font-black uppercase tracking-widest mb-4 w-fit ${colors.badge}`}>
+                    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full border text-xs font-black uppercase tracking-widest mb-4 w-fit ${colors.badge}`}>
                       {sector.tag}
                     </div>
                     <h3 className={`text-lg font-black text-white mb-2 group-hover:${colors.text} transition-colors`}>{sector.label}</h3>
-                    <p className="text-zinc-500 text-[13px] leading-relaxed font-medium flex-1 line-clamp-2">
+                    <p className="text-zinc-400 text-[13px] leading-relaxed font-medium flex-1 line-clamp-2">
                       {sector.hero_subtitle.split("—")[0].trim()}
                     </p>
                     <div className={`flex items-center gap-2 mt-5 ${colors.text} text-[11px] font-black uppercase tracking-widest`}>

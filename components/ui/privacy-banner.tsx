@@ -20,7 +20,7 @@ export function PrivacyBanner() {
 
   React.useEffect(() => {
     async function loadManaged() {
-      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'privacy_banner_config').single();
+      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'privacy_banner_config').maybeSingle();
       if (data?.content) {
         setManaged(data.content as any);
       }
@@ -82,7 +82,7 @@ export function PrivacyBanner() {
         </div>
         <button 
           onClick={handleDismiss}
-          className="text-zinc-500 hover:text-white transition-colors p-1"
+          className="text-zinc-400 hover:text-white transition-colors p-1"
           aria-label="Dismiss banner"
         >
           <X className="w-4 h-4" />

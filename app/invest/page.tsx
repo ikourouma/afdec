@@ -29,10 +29,10 @@ const investmentTiers = [
     tier: "Founding Partner",
     capacity: "Limited to 5 Entities",
     fee: "Contact for Institutional Pricing",
-    description: "The highest level of sovereign engagement. Founding partners hold a permanent seat on the Global Strategy Board and oversee the execution of Tier-1 infrastructure mandates.",
+    description: "The highest level of strategic engagement. Founding partners hold a permanent seat on the Global Strategy Board and oversee the execution of Tier-1 infrastructure mandates.",
     benefits: [
       "Permanent seat on the Global Strategy Board",
-      "First-priority access to Sovereign EPC contracts",
+      "First-priority access to Strategic EPC contracts",
       "Direct Ministerial-level networking access",
       "Executive branding on all Global Briefings",
       "Private concierge for cross-border logistics"
@@ -49,7 +49,7 @@ const investmentTiers = [
     benefits: [
       "Quarterly Market Intelligence reports",
       "Priority registration for Trade Missions",
-      "Sovereign Guarantee advisory services",
+      "Government Guarantee advisory services",
       "Policy advocacy representation (NC & AU)",
       "Access to the AfDEC Vendor Registry"
     ],
@@ -113,7 +113,7 @@ export default function InvestPage() {
       </div>
       <Breadcrumb />
 
-      {/* ── Hero: The Sovereign Investment Thesis ── */}
+      {/* ── Hero: The Strategic Investment Thesis ── */}
       <section className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
         {/* Layer 1: Photorealistic Institutional Depth */}
         <div
@@ -125,7 +125,7 @@ export default function InvestPage() {
           }}
         />
         
-        {/* Layer 2: Sovereign Infrastructure Grid Pattern */}
+        {/* Layer 2: Strategic Infrastructure Grid Pattern */}
         <div className="absolute inset-0 opacity-[0.045] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Cpath d='M0 30h60M30 0v60'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "60px 60px" }} />
 
         {/* Layer 3: Cinematic Reveal Gradient */}
@@ -164,7 +164,7 @@ export default function InvestPage() {
                 <div key={m.label} className="impact-card bg-zinc-900/30 border border-zinc-800/40 p-10 rounded-sm text-center">
                   <Icon className="w-8 h-8 text-amber-400 mx-auto mb-4" />
                   <div className="text-3xl md:text-5xl font-black text-white mb-2">{m.value}</div>
-                  <div className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">{m.label}</div>
+                  <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">{m.label}</div>
                 </div>
               );
             })}
@@ -176,9 +176,9 @@ export default function InvestPage() {
       <section id="tiers" ref={tiersRef} className="bg-[#080808] py-24 md:py-32">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16 md:mb-24">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-600 uppercase">Governance & Participation</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Governance & Participation</span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-4 tracking-tight">Institutional Engagement Models</h2>
-            <p className="text-zinc-500 mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-zinc-400 mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
               We offer three tiers of structural partnership — each designed to provide specific levels of market access, policy influence, and operational support.
             </p>
           </div>
@@ -190,17 +190,17 @@ export default function InvestPage() {
                 className={`tier-card group relative border p-10 rounded-sm transition-all duration-500 flex flex-col ${tier.accent}`}
               >
                 <div className="mb-8">
-                  <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.25em] mb-2">{tier.capacity}</div>
+                  <div className="text-xs font-bold text-zinc-400 uppercase tracking-[0.25em] mb-2">{tier.capacity}</div>
                   <h3 className="text-2xl font-black text-white mb-1">{tier.tier}</h3>
                   <div className="text-lg font-bold text-zinc-400">{tier.fee}</div>
                 </div>
                 
-                <p className="text-[14px] text-zinc-500 leading-relaxed mb-8 border-b border-zinc-800 pb-8">
+                <p className="text-[14px] text-zinc-400 leading-relaxed mb-8 border-b border-zinc-800 pb-8">
                   {tier.description}
                 </p>
                 
                 <div className="space-y-4 mb-10 flex-grow">
-                  <div className="text-[11px] font-black text-zinc-600 uppercase tracking-widest mb-4 flex items-center">
+                  <div className="text-[11px] font-black text-zinc-400 uppercase tracking-widest mb-4 flex items-center">
                     <Award className="w-3.5 h-3.5 mr-2" />
                     Key Executive Benefits
                   </div>
@@ -241,7 +241,7 @@ export default function InvestPage() {
                 Is your organization currently reviewing African market expansion or NC industrial development?
               </h2>
               <p className="text-zinc-400 text-lg leading-relaxed mb-10">
-                Beyond standard membership, AfDEC facilitates private, bilateral institutional partnerships. We provide the policy corridors and sovereign risk mitigation needed for high-scale enterprise mandates.
+                Beyond standard membership, AfDEC facilitates private, bilateral institutional partnerships. We provide the policy corridors and Institutional risk mitigation needed for high-scale enterprise mandates.
               </p>
               <Link href="/contact" className="inline-flex items-center space-x-3 group text-white text-lg font-bold border-b-2 border-blue-600 pb-2 hover:border-blue-400 transition-all">
                 <span>Engage the Executive Secretariat</span>

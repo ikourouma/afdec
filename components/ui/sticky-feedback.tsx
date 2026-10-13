@@ -25,7 +25,7 @@ export function StickyFeedback() {
 
   React.useEffect(() => {
     async function loadManaged() {
-      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'sticky_pulse_config').single();
+      const { data } = await supabase.from('managed_content').select('content').eq('slug', 'sticky_pulse_config').maybeSingle();
       if (data?.content) {
         setManaged(data.content as any);
       }
@@ -112,7 +112,7 @@ export function StickyFeedback() {
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="text-zinc-500 hover:text-white p-1 transition-colors"
+            className="text-zinc-400 hover:text-white p-1 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -137,7 +137,7 @@ export function StickyFeedback() {
                   
                   {/* Score Question */}
                   <div className="space-y-4">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500">
+                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-400">
                       {managed.question_1}
                     </label>
                     <div className="flex justify-between items-center bg-zinc-900/50 p-3 rounded-sm border border-zinc-800">
@@ -146,7 +146,7 @@ export function StickyFeedback() {
                           key={star}
                           type="button"
                           onClick={() => setScore(star)}
-                          className={`p-2 transition-all duration-300 rounded ${score >= star ? 'text-amber-400 bg-amber-400/10 scale-110' : 'text-zinc-600 hover:text-zinc-400'}`}
+                          className={`p-2 transition-all duration-300 rounded ${score >= star ? 'text-amber-400 bg-amber-400/10 scale-110' : 'text-zinc-400 hover:text-zinc-400'}`}
                         >
                           <Star className="w-6 h-6 fill-current" />
                         </button>
@@ -156,7 +156,7 @@ export function StickyFeedback() {
 
                   {/* Feedback Text Area */}
                   <div className="space-y-4">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500">
+                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-400">
                       {managed.question_2}
                     </label>
                     <textarea 

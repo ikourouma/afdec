@@ -99,9 +99,9 @@ export function BoardApplicationModal({ isOpen, onClose }: { isOpen: boolean; on
           <div className="p-6 border-b border-zinc-800 flex items-center justify-between shrink-0">
             <div>
               <h2 className="text-xl font-black text-white">Board of Advisors Application</h2>
-              <p className="text-zinc-400 text-xs mt-1">Submit your candidacy for the Sovereign Council's advisory board.</p>
+              <p className="text-zinc-400 text-xs mt-1">Submit your candidacy for the Strategic Council's advisory board.</p>
             </div>
-            <button onClick={onClose} className="p-2 text-zinc-500 hover:text-white transition-colors rounded-lg hover:bg-zinc-800">
+            <button onClick={onClose} className="p-2 text-zinc-400 hover:text-white transition-colors rounded-lg hover:bg-zinc-800">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -146,16 +146,16 @@ export function BoardApplicationModal({ isOpen, onClose }: { isOpen: boolean; on
                   <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-5">
                     <div>
                       <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Justification Statement</label>
-                      <p className="text-[10px] text-zinc-500 mb-2">Why would you like to join the Board of Advisors?</p>
+                      <p className="text-xs text-zinc-400 mb-2">Why would you like to join the Board of Advisors?</p>
                       <textarea required value={formData.justification} onChange={e => setFormData({...formData, justification: e.target.value})} rows={4} className="w-full bg-zinc-950 border border-zinc-800 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none" placeholder="Provide your statement here..." />
                     </div>
                     
                     <div>
                       <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Resume / CV (PDF)</label>
                       <div className="w-full bg-zinc-950 border border-zinc-800 border-dashed rounded-sm px-4 py-6 text-center flex flex-col items-center">
-                        <Upload className="w-6 h-6 text-zinc-500 mb-2" />
+                        <Upload className="w-6 h-6 text-zinc-400 mb-2" />
                         <p className="text-xs text-zinc-400 mb-4">{resumeFile ? resumeFile.name : "Upload a secure copy of your CV"}</p>
-                        <label className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-sm cursor-pointer transition-colors">
+                        <label className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-sm cursor-pointer transition-colors">
                           Select File
                           <input type="file" accept=".pdf,.doc,.docx" onChange={e => e.target.files && setResumeFile(e.target.files[0])} className="hidden" />
                         </label>
@@ -164,7 +164,7 @@ export function BoardApplicationModal({ isOpen, onClose }: { isOpen: boolean; on
 
                     <div>
                       <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Additional URLs</label>
-                      <p className="text-[10px] text-zinc-500 mb-2">Business site, YouTube channel, Portfolio, etc.</p>
+                      <p className="text-xs text-zinc-400 mb-2">Business site, YouTube channel, Portfolio, etc.</p>
                       <div className="space-y-3">
                         {secondaryLinks.map((link, idx) => (
                           <div key={idx} className="flex gap-2">
@@ -177,7 +177,7 @@ export function BoardApplicationModal({ isOpen, onClose }: { isOpen: boolean; on
                           </div>
                         ))}
                       </div>
-                      <button type="button" onClick={addLink} className="mt-3 flex items-center text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors">
+                      <button type="button" onClick={addLink} className="mt-3 flex items-center text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors">
                         <Plus className="w-3 h-3 mr-1" /> Add Another Link
                       </button>
                     </div>

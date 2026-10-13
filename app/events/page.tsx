@@ -87,7 +87,7 @@ export default function GlobalEventsPage() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-800/80 border border-zinc-700/50 mb-6 rounded-full backdrop-blur-md">
                 <Target className="w-4 h-4 text-purple-400" />
-                <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Sovereign Engagements</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Strategic Engagements</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] max-w-4xl mb-6">
                 Summits & Direct Briefings
@@ -112,7 +112,7 @@ export default function GlobalEventsPage() {
           {/* Main List */}
           <div className="lg:w-2/3 space-y-12">
             {isLoading ? (
-              <div className="py-20 text-center text-zinc-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+              <div className="py-20 text-center text-zinc-400 font-bold uppercase tracking-widest text-sm animate-pulse">
                 Syncing Event Registry...
               </div>
             ) : events.length === 0 ? (
@@ -139,7 +139,7 @@ export default function GlobalEventsPage() {
                       <img src={event.image_url || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60"></div>
                       <div className="absolute bottom-6 left-6 right-6">
-                        <span className="inline-flex items-center px-3 py-1 bg-black/80 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest text-white rounded-sm">
+                        <span className="inline-flex items-center px-3 py-1 bg-black/80 backdrop-blur-md text-xs font-bold uppercase tracking-widest text-white rounded-sm">
                           {isVirtual ? <Video className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> : <Globe2 className="w-3.5 h-3.5 mr-1.5 text-blue-400" />}
                           {isVirtual ? "Virtual Telemetry Stream" : "In-Person Executive Summit"}
                         </span>
@@ -148,13 +148,13 @@ export default function GlobalEventsPage() {
 
                     {/* Event Data */}
                     <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
-                      <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 text-sm font-bold text-zinc-500 mb-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-6 text-sm font-bold text-zinc-400 mb-5">
                         <div className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-2 text-zinc-600" />
+                          <Calendar className="w-4 h-4 mr-2 text-zinc-400" />
                           {formattedDate}
                         </div>
                         <div className="flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-zinc-600" />
+                          <MapPin className="w-4 h-4 mr-2 text-zinc-400" />
                           {event.location}
                         </div>
                       </div>
@@ -194,7 +194,7 @@ export default function GlobalEventsPage() {
                 <div className="space-y-4">
                   <h3 className="text-white font-extrabold text-lg tracking-tight">Advertise With Us</h3>
                   <p className="text-sm text-zinc-400 font-medium leading-relaxed">
-                    Showcase your industrial capabilities to a curated audience of sovereign leaders and Fortune 500 decision makers.
+                    Showcase your industrial capabilities to a curated audience of Government leaders and Fortune 500 decision makers.
                   </p>
                   <Link href="/contact" className="text-blue-500 text-sm font-bold hover:text-blue-400 transition-colors">Download Media Kit →</Link>
                 </div>

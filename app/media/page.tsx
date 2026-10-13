@@ -76,7 +76,7 @@ export default function MediaPage() {
         <div
           className="absolute inset-0 opacity-[0.2]"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1492619334760-22730bf1832d?q=80&w=2070&auto=format&fit=crop')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -94,7 +94,7 @@ export default function MediaPage() {
             <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Press & Intelligence</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] max-w-4xl">
-            Sovereign Intelligence:<br/>The Global Briefing
+            Market Intelligence:<br/>The Global Briefing
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 mt-8 max-w-2xl leading-relaxed font-medium">
             Stay aligned with the official narrative of bi-national development. Access institutional press releases, market data, and executive briefings from our global media desk.
@@ -110,13 +110,13 @@ export default function MediaPage() {
             {/* Featured Image Canvas */}
             <div className="w-full lg:w-1/2 relative group rounded-lg overflow-hidden border border-zinc-800 flex shrink-0 h-[400px]">
               <img 
-                src="https://images.unsplash.com/photo-1541872703-74c5e443d1f5?q=80&w=2038&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2038&auto=format&fit=crop" 
                 alt="AfDEC Conference" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent" />
               <div className="absolute bottom-8 left-8 right-8 p-6 bg-zinc-900/60 backdrop-blur-md border border-zinc-700/50 rounded-sm">
-                <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2 flex items-center">
+                <div className="text-xs font-black text-blue-500 uppercase tracking-widest mb-2 flex items-center">
                   <MonitorPlay className="w-3.5 h-3.5 mr-2" />
                   Live Event: Executive Secretariat 2026 Review
                 </div>
@@ -126,8 +126,8 @@ export default function MediaPage() {
             
             {/* Featured Narrative */}
             <div className="w-full lg:w-1/2">
-              <span className="text-[11px] font-bold tracking-[0.3em] text-zinc-600 uppercase">Featured Intelligence</span>
-              <h2 className="text-3xl md:text-5xl font-black text-white mt-4 tracking-tight leading-tight">Outlining the Global Sovereign Mandate</h2>
+              <span className="text-[11px] font-bold tracking-[0.3em] text-zinc-400 uppercase">Featured Intelligence</span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mt-4 tracking-tight leading-tight">Outlining the Global Strategic Mandate</h2>
               <p className="text-zinc-400 mt-8 text-lg leading-relaxed font-medium">
                 Our Executive Secretariat has successfully coordinated with the N.C. Department of Commerce and the African Continental Free Trade Area (AfCFTA) secretariats to harmonize trade policy mandates.
               </p>
@@ -144,40 +144,40 @@ export default function MediaPage() {
       <section className="bg-[#080808] py-24 md:py-32">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16 md:mb-24">
-            <span className="text-[11px] font-bold tracking-[0.25em] text-zinc-600 uppercase underline decoration-blue-500 underline-offset-8">Press & Intelligence Feed</span>
+            <span className="text-[11px] font-bold tracking-[0.25em] text-zinc-400 uppercase underline decoration-blue-500 underline-offset-8">Press & Intelligence Feed</span>
             <h2 className="text-3xl md:text-5xl font-black text-white mt-8 tracking-tight">Institutional Briefing Archives</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {isLoading ? (
-              <div className="col-span-full py-20 flex justify-center text-zinc-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+              <div className="col-span-full py-20 flex justify-center text-zinc-400 font-bold uppercase tracking-widest text-sm animate-pulse">
                 Syncing Media Assets...
               </div>
             ) : mediaItems.length === 0 ? (
               <div className="col-span-full text-center py-20">
-                <p className="text-zinc-500 font-bold tracking-widest uppercase">No Media Assets Currently Published</p>
+                <p className="text-zinc-400 font-bold tracking-widest uppercase">No Media Assets Currently Published</p>
               </div>
             ) : mediaItems.map((item) => {
               const formattedDate = new Date(item.valid_from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
               return (
                 <div key={item.id} className="news-card group flex flex-col bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 rounded-lg overflow-hidden transition-all duration-300">
                   <div className="relative h-64 overflow-hidden border-b border-zinc-800">
-                    <img src={item.image_url || 'https://images.unsplash.com/photo-1541872703-74c5e443d1f5?q=80&w=800&auto=format&fit=crop'} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={item.image_url || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop'} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-zinc-950/20 group-hover:bg-zinc-950/0 transition-all duration-500" />
                     <div className="absolute top-4 left-4 flex items-center space-x-2">
-                      <div className="px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-[10px] font-black text-blue-400 uppercase tracking-widest rounded-full">{item.category}</div>
+                      <div className="px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-xs font-black text-blue-400 uppercase tracking-widest rounded-full">{item.category}</div>
                     </div>
                   </div>
                   
                   <div className="p-10 flex flex-col flex-grow">
-                    <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-4 flex items-center">
-                      <Presentation className="w-3.5 h-3.5 mr-2 text-zinc-500" />
+                    <div className="text-xs font-black text-zinc-400 uppercase tracking-widest mb-4 flex items-center">
+                      <Presentation className="w-3.5 h-3.5 mr-2 text-zinc-400" />
                       Archive ID: {formattedDate.toUpperCase()}
                     </div>
                     <h3 className="text-2xl font-black text-white mb-4 leading-tight leading-tight block group-hover:text-blue-500 transition-colors">
                       <Link href={`/news/${item.id}`}>{item.title}</Link>
                     </h3>
-                    <p className="text-[14px] text-zinc-500 leading-relaxed mb-10 flex-grow">
+                    <p className="text-[14px] text-zinc-400 leading-relaxed mb-10 flex-grow">
                       {item.excerpt}
                     </p>
                     
@@ -203,7 +203,7 @@ export default function MediaPage() {
           <div>
             <span className="text-[11px] font-black tracking-[0.2em] text-blue-500 uppercase">Bi-National Media Desk</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mt-4 tracking-tight leading-tight">High-Scale Media Partnerships & Institutional Press Kits</h2>
-            <p className="text-zinc-500 mt-8 text-lg leading-relaxed">
+            <p className="text-zinc-400 mt-8 text-lg leading-relaxed">
               AfDEC provides the bi-national press kits, market data visuals, and executive statements for global media partners. We manage the official narrative of binational development.
             </p>
           </div>
@@ -212,12 +212,12 @@ export default function MediaPage() {
             <div className="p-8 bg-zinc-900/40 border border-zinc-800 rounded-lg group transition-all hover:border-blue-500/50">
               <Tv className="w-8 h-8 text-blue-500 mb-6" />
               <h4 className="text-white font-bold mb-2">Video Archive</h4>
-              <p className="text-xs text-zinc-600">4K Broadcast Institutional Assets</p>
+              <p className="text-xs text-zinc-400">4K Broadcast Institutional Assets</p>
             </div>
             <div className="p-8 bg-zinc-900/40 border border-zinc-800 rounded-lg group transition-all hover:border-blue-500/50">
               <Radio className="w-8 h-8 text-emerald-500 mb-6" />
               <h4 className="text-white font-bold mb-2">Press Statements</h4>
-              <p className="text-xs text-zinc-600">Verified Bi-national Releases</p>
+              <p className="text-xs text-zinc-400">Verified Bi-national Releases</p>
             </div>
           </div>
         </div>

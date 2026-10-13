@@ -20,7 +20,7 @@ const SECTIONS: NavSection[] = [
   { id: "infrastructure", label: "Infrastructure" },
   { id: "workforce", label: "Workforce" },
   { id: "industries", label: "Industry Corridors" },
-  { id: "tourism", label: "Sovereign Tourism" },
+  { id: "tourism", label: "Tourism & Hospitality" },
   { id: "quality", label: "Quality of Life" },
 ];
 
@@ -123,13 +123,13 @@ export default function WhyNCPage() {
         <div
           className="absolute inset-0 opacity-[0.45]"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1569344445347-1941656f5ef1?q=80&w=2670&auto=format&fit=crop')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?q=80&w=2670&auto=format&fit=crop')",
             backgroundSize: "cover",
             backgroundPosition: "center right",
           }}
         />
         
-        {/* Layer 2: Sovereign Infrastructure Grid Overlay */}
+        {/* Layer 2: Strategic Infrastructure Grid Overlay */}
         <div className="absolute inset-0 opacity-[0.035] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Cpath d='M0 30h60M30 0v60'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "60px 60px" }} />
 
         {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
@@ -150,7 +150,7 @@ export default function WhyNCPage() {
       <section id="section-stats" ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">NC at a Glance</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">NC at a Glance</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">The Numbers That Matter</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -158,7 +158,7 @@ export default function WhyNCPage() {
               <div key={s.label} className="stat-card bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-sm text-center hover:border-blue-500/30 transition-all duration-300">
                 <div className="text-3xl md:text-4xl font-black text-blue-400 mb-2">{s.value}</div>
                 <div className="text-[13px] text-white font-semibold mb-1">{s.label}</div>
-                <div className="text-[10px] text-zinc-500 uppercase tracking-wider">{s.source}</div>
+                <div className="text-xs text-zinc-400 uppercase tracking-wider">{s.source}</div>
               </div>
             ))}
           </div>
@@ -188,7 +188,7 @@ export default function WhyNCPage() {
                     <div>
                       <div className="flex items-center space-x-3 mb-2">
                         <h3 className="text-white font-bold text-lg">{item.title}</h3>
-                        <span className="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">{item.count}</span>
+                        <span className="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">{item.count}</span>
                       </div>
                       <p className="text-zinc-400 text-[14px] leading-relaxed">{item.description}</p>
                     </div>
@@ -224,7 +224,7 @@ export default function WhyNCPage() {
                   <div className="text-3xl font-black text-emerald-400 shrink-0 w-16 text-center">{w.value}</div>
                   <div>
                     <h3 className="text-white font-semibold text-[15px]">{w.label}</h3>
-                    <p className="text-zinc-500 text-[13px] mt-1 leading-relaxed">{w.detail}</p>
+                    <p className="text-zinc-400 text-[13px] mt-1 leading-relaxed">{w.detail}</p>
                   </div>
                 </div>
               ))}
@@ -237,7 +237,7 @@ export default function WhyNCPage() {
       <section id="section-industries" ref={industriesRef} className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Sector Strength</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Sector Strength</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Industry Corridors</h2>
             <p className="text-zinc-400 mt-4 max-w-2xl text-[15px]">Six high-growth sectors anchoring North Carolina&apos;s position as the premier destination for enterprise investment, talent acquisition, and innovation.</p>
           </div>
@@ -250,7 +250,7 @@ export default function WhyNCPage() {
                     <Icon className="w-5 h-5 text-zinc-400 group-hover:text-blue-400 transition-colors" />
                   </div>
                   <h3 className="text-white font-bold text-[16px] mb-2">{ind.title}</h3>
-                  <p className="text-zinc-500 text-[13px] leading-relaxed">{ind.description}</p>
+                  <p className="text-zinc-400 text-[13px] leading-relaxed">{ind.description}</p>
                 </div>
               );
             })}
@@ -275,7 +275,7 @@ export default function WhyNCPage() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-px bg-amber-500"></div>
-              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-400 uppercase">Sovereign Tourism</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-400 uppercase">Tourism & Hospitality</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-6">A $34 Billion Visitor Economy</h2>
             <p className="text-zinc-300 text-[15px] leading-relaxed mb-4">
@@ -298,7 +298,7 @@ export default function WhyNCPage() {
       <section id="section-quality" className="bg-[#080808] py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Beyond Business</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Beyond Business</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">Quality of Life</h2>
             <p className="text-zinc-400 mt-4 max-w-lg mx-auto text-[15px]">The best talent doesn&apos;t just follow jobs — they follow quality of life. North Carolina delivers both.</p>
           </div>

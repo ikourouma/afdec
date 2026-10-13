@@ -19,12 +19,12 @@ export function SponsorshipStrip() {
         </div>
         
         <div className="flex items-center space-x-6">
-          <Link href="/events" className="text-[10px] font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors flex items-center">
+          <Link href="/events" className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors flex items-center">
             Advertise With Us
             <ArrowRight className="w-3 h-3 ml-2" />
           </Link>
           <div className="w-px h-3 bg-zinc-800" />
-          <Link href="/invest" className="text-[10px] font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors flex items-center">
+          <Link href="/invest" className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors flex items-center">
             Become a Sponsor
             <ArrowRight className="w-3 h-3 ml-2" />
           </Link>

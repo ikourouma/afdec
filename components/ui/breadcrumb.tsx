@@ -20,7 +20,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   "why-nc": "Why North Carolina",
   "why-africa": "Why Africa",
   "dual-continent-business-hub": "Dual-Continent Business Hub",
-  "sovereign-incentives-grants": "Sovereign Incentives & Grants",
+  "sovereign-incentives-grants": "Strategic Incentives & Grants",
   "annual-report": "Annual Report",
   "life-sciences": "Life Sciences",
   "clean-energy": "Clean Energy",
@@ -30,6 +30,14 @@ const SEGMENT_LABELS: Record<string, string> = {
 
 function formatSegment(seg: string): string {
   return SEGMENT_LABELS[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, " ");
+}
+
+// Parent paths that have no page of their own: render as plain text instead of a dead link.
+const KNOWN_INSIGHT_CATEGORIES = new Set(["policy", "market-outlook", "data-terminal"]);
+function hasPage(segments: string[], i: number): boolean {
+  if (segments[0] === "initiatives" && i === 0) return false;
+  if (segments[0] === "insights" && segments.length === 3 && i === 1) return KNOWN_INSIGHT_CATEGORIES.has(segments[1]);
+  return true;
 }
 
 export function Breadcrumb() {
@@ -89,7 +97,7 @@ export function Breadcrumb() {
         transition: "opacity 200ms cubic-bezier(0.4,0,0.2,1), transform 200ms cubic-bezier(0.4,0,0.2,1)",
       }}
     >
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center gap-1.5 text-[10px] font-bold text-zinc-600 uppercase tracking-widest overflow-hidden">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center gap-1.5 text-xs font-bold text-zinc-400 uppercase tracking-widest overflow-hidden min-w-0">
         <Link href="/" className="hover:text-blue-400 transition-colors flex items-center gap-1 shrink-0 py-0.5">
           <Home className="w-3 h-3" />
           <span className="hidden sm:inline">Home</span>
@@ -99,13 +107,15 @@ export function Breadcrumb() {
           const isLast = i === formatted.length - 1;
           return (
             <React.Fragment key={href}>
-              <ChevronRight className="w-3 h-3 text-zinc-800 shrink-0" />
+              <ChevronRight className={`w-3 h-3 text-zinc-500 shrink-0 ${isLast ? "" : "hidden sm:block"}`} aria-hidden="true" />
               {isLast ? (
-                <span className="text-zinc-300 truncate max-w-[200px] sm:max-w-none">{label}</span>
-              ) : (
-                <Link href={href} className="hover:text-blue-400 transition-colors shrink-0 truncate max-w-[120px] sm:max-w-none">
+                <span aria-current="page" className="text-zinc-300 truncate min-w-0">{label}</span>
+              ) : hasPage(segments, i) ? (
+                <Link href={href} className="hidden sm:inline hover:text-blue-400 transition-colors shrink-0 truncate max-w-[200px]">
                   {label}
                 </Link>
+              ) : (
+                <span className="hidden sm:inline shrink-0 truncate max-w-[200px]">{label}</span>
               )}
             </React.Fragment>
           );

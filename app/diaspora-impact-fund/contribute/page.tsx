@@ -52,14 +52,14 @@ export default function ContributePage() {
               </div>
               
               <h1 className="reveal-hero text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] mb-8">
-                Deploy Sovereign <br/>Capital.
+                Deploy Strategic <br/>Capital.
               </h1>
               
               <p className="reveal-hero text-lg md:text-xl text-zinc-400 font-medium leading-relaxed mb-10">
-                Support the AfDEC Diaspora Impact Fund. Your contribution directly capitalizes verified cross-border infrastructure, ag-tech deployment, and sovereign enterprise expansion between North Carolina and the African continent.
+                Support the AfDEC Diaspora Impact Fund. Your contribution directly capitalizes verified cross-border infrastructure, ag-tech deployment, and strategic enterprise expansion between North Carolina and the African continent.
               </p>
               
-              <div className="reveal-hero flex items-center space-x-6 text-sm font-bold text-zinc-500 uppercase tracking-widest">
+              <div className="reveal-hero flex items-center space-x-6 text-sm font-bold text-zinc-400 uppercase tracking-widest">
                 <div className="flex items-center"><ShieldCheck className="w-4 h-4 text-emerald-500 mr-2" /> Audited</div>
                 <div className="flex items-center"><Lock className="w-4 h-4 text-emerald-500 mr-2" /> Encrypted</div>
               </div>
@@ -83,23 +83,23 @@ export default function ContributePage() {
                     ))}
                   </div>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 font-black text-lg">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 font-black text-lg">$</span>
                     <input type="text" placeholder="Custom Amount" className="w-full bg-zinc-950 border border-zinc-800 rounded-lg py-4 pl-8 pr-4 text-white font-black text-lg focus:outline-none focus:border-amber-500 transition-colors" />
                   </div>
                 </div>
 
                 <div className="space-y-4 relative z-10">
-                  <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Payment Method</h4>
+                  <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Payment Method</h4>
                   <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center justify-center opacity-50 cursor-not-allowed">
-                     <CreditCard className="w-5 h-5 text-zinc-500 mr-3" />
-                     <span className="text-sm font-bold text-zinc-500">Stripe Terminal Offline (Pre-Launch)</span>
+                     <CreditCard className="w-5 h-5 text-zinc-400 mr-3" />
+                     <span className="text-sm font-bold text-zinc-400">Stripe Terminal Offline (Pre-Launch)</span>
                   </div>
                 </div>
 
-                <button disabled className="w-full mt-8 bg-zinc-800 text-zinc-500 font-black tracking-widest uppercase py-5 rounded-lg border border-zinc-700 cursor-not-allowed transition-all relative z-10">
+                <button disabled className="w-full mt-8 bg-zinc-800 text-zinc-400 font-black tracking-widest uppercase py-5 rounded-lg border border-zinc-700 cursor-not-allowed transition-all relative z-10">
                   Secure Processing Unavailable
                 </button>
-                <p className="text-xs text-zinc-600 mt-4 text-center">
+                <p className="text-xs text-zinc-400 mt-4 text-center">
                   Live payment gateway integration (Stripe for Nonprofits) will be activated upon formal Secretariat deployment.
                 </p>
               </div>
@@ -117,17 +117,17 @@ export default function ContributePage() {
                <div className="p-8 border border-zinc-800 rounded-lg bg-zinc-900/30">
                   <div className="text-4xl font-black text-amber-500 mb-4">100%</div>
                   <h4 className="text-white font-bold text-lg mb-2">Deployed Capital</h4>
-                  <p className="text-zinc-500 text-sm">Direct capital allocation into structural assets and active tech corridors. Overhead is subsidized by corporate underwriting.</p>
+                  <p className="text-zinc-400 text-sm">Direct capital allocation into structural assets and active tech corridors. Overhead is subsidized by corporate underwriting.</p>
                </div>
                <div className="p-8 border border-zinc-800 rounded-lg bg-zinc-900/30">
                   <div className="text-4xl font-black text-emerald-500 mb-4">501(c)(4)</div>
-                  <h4 className="text-white font-bold text-lg mb-2">Sovereign Compliance</h4>
-                  <p className="text-zinc-500 text-sm">Contributions empower bold, structural policy advocacy at the intersection of US and African Union legislative chambers.</p>
+                  <h4 className="text-white font-bold text-lg mb-2">Strategic Compliance</h4>
+                  <p className="text-zinc-400 text-sm">Contributions empower bold, structural policy advocacy at the intersection of US and African Union legislative chambers.</p>
                </div>
                <div className="p-8 border border-zinc-800 rounded-lg bg-zinc-900/30">
                   <div className="text-4xl font-black text-blue-500 mb-4">$1.2B</div>
                   <h4 className="text-white font-bold text-lg mb-2">Market Multiplier</h4>
-                  <p className="text-zinc-500 text-sm">The projected downstream economic output triggered by AfDEC's initial strategic corridor development.</p>
+                  <p className="text-zinc-400 text-sm">The projected downstream economic output triggered by AfDEC's initial strategic corridor development.</p>
                </div>
             </div>
          </div>

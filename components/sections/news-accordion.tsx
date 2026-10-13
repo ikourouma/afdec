@@ -24,7 +24,7 @@ const newsItems = [
   {
     id: 3,
     date: "SEPTEMBER 04, 2026",
-    title: "AfDEC Hosted Sovereign Delegation Secures Fintech Corridor",
+    title: "AfDEC Hosted Strategic Delegation Secures Fintech Corridor",
     excerpt: "Following a three-day summit in Raleigh, trade ministers from four West African nations signed the Fintech Corridor Agreement, drastically reducing cross-border banking friction for diaspora-led enterprises.",
   }
 ];
@@ -75,7 +75,7 @@ export function NewsAccordion() {
                       {item.title}
                     </h3>
                   </div>
-                  <div className={`p-2 rounded-full border transition-colors flex-shrink-0 ${isOpen ? 'border-blue-500 text-blue-400' : 'border-zinc-700 text-zinc-500'}`}>
+                  <div className={`p-2 rounded-full border transition-colors flex-shrink-0 ${isOpen ? 'border-blue-500 text-blue-400' : 'border-zinc-700 text-zinc-400'}`}>
                     {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                   </div>
                 </button>

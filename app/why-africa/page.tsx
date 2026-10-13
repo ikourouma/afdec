@@ -18,7 +18,7 @@ const SECTIONS: NavSection[] = [
   { id: "hero", label: "The Mandate" },
   { id: "growth", label: "Growth Engine" },
   { id: "corridors", label: "Regional Corridors" },
-  { id: "tourism", label: "Sovereign Tourism" },
+  { id: "tourism", label: "Tourism & Hospitality" },
   { id: "integration", label: "Continental Integration" },
 ];
 import { AfricaMap } from "@/components/sections/africa-map";
@@ -31,7 +31,7 @@ const continentalStats = [
   { value: "1.4B", label: "Population (2024)", source: "World Bank" },
   { value: "3.7%", label: "Avg. GDP Growth", source: "AfDB, 2024 Outlook" },
   { value: "$3.4T", label: "Combined GDP", source: "World Bank" },
-  { value: "54", label: "Sovereign Nations", source: "African Union" },
+  { value: "54", label: "Strategic Nations", source: "African Union" },
   { value: "$80B+", label: "Annual Diaspora Remittances", source: "World Bank" },
   { value: "43%", label: "Internet Penetration", source: "ITU 2024" },
 ];
@@ -141,19 +141,19 @@ export default function WhyAfricaPage() {
       <Breadcrumb />
       <SideNav sections={SECTIONS} accentColor="emerald" />
 
-      {/* ── Hero with Dual-Layer Background (Savanna + Sovereign Pattern) ── */}
+      {/* ── Hero with Dual-Layer Background (Savanna + Strategic Pattern) ── */}
       <section id="section-hero" className="relative bg-zinc-950 border-b border-zinc-800/50 overflow-hidden">
         {/* Layer 1: Photorealistic Depth (Savanna Sunset) */}
         <div
           className="absolute inset-0 opacity-[0.45]"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1516026672322-bc52d61a9d41?q=80&w=2070&auto=format&fit=crop')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2070&auto=format&fit=crop')",
             backgroundSize: "cover",
             backgroundPosition: "center right",
           }}
         />
         
-        {/* Layer 2: Sovereign Geometric Pattern Overlay — African Institutional Style */}
+        {/* Layer 2: Strategic Geometric Pattern Overlay — African Institutional Style */}
         <div className="absolute inset-0 opacity-[0.045] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.8'%3E%3Cpath d='M0 50h100M50 0v100'/%3E%3Cpath d='M25 0l25 25L25 50 0 25zM75 0l25 25L75 50 50 25zM25 50l25 25L25 100 0 75zM75 50l25 25L75 100 50 75z'/%3E%3Ccircle cx='50' cy='50' r='12'/%3E%3Ccircle cx='50' cy='50' r='6'/%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "100px 100px" }} />
 
         {/* Layer 3: Cinematic Left-Dark / Right-Reveal Gradient */}
@@ -179,7 +179,7 @@ export default function WhyAfricaPage() {
       <section id="section-growth" ref={statsRef} className="bg-zinc-950 py-24 border-b border-zinc-800/30">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Continental Overview</span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">Continental Overview</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-3">The Growth Engine</h2>
             <p className="text-zinc-400 mt-4 max-w-2xl text-[15px] leading-relaxed">
               Africa is home to the world&apos;s youngest workforce, six of the ten fastest-growing economies, and a consumer class projected to spend $2.1 trillion annually by 2030. For investors and enterprises seeking the next frontier of sustainable growth, the data speaks for itself.
@@ -190,7 +190,7 @@ export default function WhyAfricaPage() {
               <div key={s.label} className="africa-stat bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-sm text-center hover:border-emerald-500/30 transition-all duration-300">
                 <div className="text-3xl md:text-4xl font-black text-emerald-400 mb-2">{s.value}</div>
                 <div className="text-[13px] text-white font-semibold mb-1">{s.label}</div>
-                <div className="text-[10px] text-zinc-500 uppercase tracking-wider">{s.source}</div>
+                <div className="text-xs text-zinc-400 uppercase tracking-wider">{s.source}</div>
               </div>
             ))}
           </div>
@@ -222,8 +222,8 @@ export default function WhyAfricaPage() {
               </p>
               <p className="text-zinc-400 text-[15px] leading-relaxed mb-5">{regions[0].keyStats}</p>
               <div className="flex items-center space-x-2 mb-6">
-                <Users className="w-3.5 h-3.5 text-zinc-500" />
-                <span className="text-[12px] text-zinc-500 font-medium">{regions[0].population} population</span>
+                <Users className="w-3.5 h-3.5 text-zinc-400" />
+                <span className="text-[12px] text-zinc-400 font-medium">{regions[0].population} population</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {regions[0].opportunities.map((opp) => (
@@ -237,19 +237,19 @@ export default function WhyAfricaPage() {
               <div key={region.name} className={`region-card bg-gradient-to-br ${region.colorScheme.bg} border ${region.colorScheme.border} p-6 lg:p-7 rounded-sm`}>
                 <div className="flex items-center justify-between mb-3">
                   <h3 className={`text-lg font-black ${region.colorScheme.text}`}>{region.name}</h3>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${region.colorScheme.tag}`}>{region.gdp}</span>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${region.colorScheme.tag}`}>{region.gdp}</span>
                 </div>
                 <p className="text-zinc-400 text-[12px] font-medium mb-2">
                   <MapPin className="w-3 h-3 inline mr-1" />{region.anchor}
                 </p>
-                <p className="text-zinc-500 text-[13px] leading-relaxed mb-3">{region.keyStats}</p>
+                <p className="text-zinc-400 text-[13px] leading-relaxed mb-3">{region.keyStats}</p>
                 <div className="flex items-center space-x-2 mb-4">
-                  <Users className="w-3 h-3 text-zinc-600" />
-                  <span className="text-[11px] text-zinc-500">{region.population}</span>
+                  <Users className="w-3 h-3 text-zinc-400" />
+                  <span className="text-[11px] text-zinc-400">{region.population}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {region.opportunities.map((opp) => (
-                    <span key={opp} className="text-[10px] font-bold text-zinc-400 bg-zinc-800/80 px-2 py-1 rounded-full uppercase tracking-wider">{opp}</span>
+                    <span key={opp} className="text-xs font-bold text-zinc-400 bg-zinc-800/80 px-2 py-1 rounded-full uppercase tracking-wider">{opp}</span>
                   ))}
                 </div>
               </div>
@@ -260,19 +260,19 @@ export default function WhyAfricaPage() {
               <div key={region.name} className={`region-card bg-gradient-to-br ${region.colorScheme.bg} border ${region.colorScheme.border} p-6 lg:p-7 rounded-sm ${region.name === "Southern Africa" ? "md:col-span-2" : ""}`}>
                 <div className="flex items-center justify-between mb-3">
                   <h3 className={`text-lg font-black ${region.colorScheme.text}`}>{region.name}</h3>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${region.colorScheme.tag}`}>{region.gdp}</span>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${region.colorScheme.tag}`}>{region.gdp}</span>
                 </div>
                 <p className="text-zinc-400 text-[12px] font-medium mb-2">
                   <MapPin className="w-3 h-3 inline mr-1" />{region.anchor}
                 </p>
-                <p className="text-zinc-500 text-[13px] leading-relaxed mb-3">{region.keyStats}</p>
+                <p className="text-zinc-400 text-[13px] leading-relaxed mb-3">{region.keyStats}</p>
                 <div className="flex items-center space-x-2 mb-4">
-                  <Users className="w-3 h-3 text-zinc-600" />
-                  <span className="text-[11px] text-zinc-500">{region.population}</span>
+                  <Users className="w-3 h-3 text-zinc-400" />
+                  <span className="text-[11px] text-zinc-400">{region.population}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {region.opportunities.map((opp) => (
-                    <span key={opp} className="text-[10px] font-bold text-zinc-400 bg-zinc-800/80 px-2 py-1 rounded-full uppercase tracking-wider">{opp}</span>
+                    <span key={opp} className="text-xs font-bold text-zinc-400 bg-zinc-800/80 px-2 py-1 rounded-full uppercase tracking-wider">{opp}</span>
                   ))}
                 </div>
               </div>
@@ -283,17 +283,17 @@ export default function WhyAfricaPage() {
             <div className="mb-10">
               <div className="inline-flex items-center space-x-2 mb-4">
                 <div className="w-8 h-px bg-blue-500"></div>
-                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">Souvera Intelligence Terminal</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-blue-400 uppercase">AfDEC Intelligence Terminal</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-white">Africa Investment Map</h2>
               <p className="text-zinc-400 mt-4 max-w-2xl text-[15px] leading-relaxed">
-                Powered by the <strong className="text-white">Souvera Intelligence Terminal</strong>, an Afronovation, Inc. intelligence product. Click any country to access AfDEC&apos;s sovereign intelligence brief — economic indicators, sector opportunities, and bilateral assessment notes curated by the Board.
+                Powered by the <strong className="text-white">AfDEC Intelligence Terminal</strong>, an Afronovation, Inc. intelligence product. Click any country to access AfDEC&apos;s Market Intelligence brief — economic indicators, sector opportunities, and bilateral assessment notes curated by the Board.
               </p>
             </div>
             
             {isAuthLoading ? (
               <div className="w-full h-[600px] bg-zinc-900 animate-pulse rounded-lg flex items-center justify-center">
-                <span className="text-zinc-500 font-bold tracking-widest text-sm uppercase">Loading Terminal...</span>
+                <span className="text-zinc-400 font-bold tracking-widest text-sm uppercase">Loading Terminal...</span>
               </div>
             ) : isAuthenticated ? (
               <AfricaMap />
@@ -308,7 +308,7 @@ export default function WhyAfricaPage() {
                   </div>
                   <h3 className="text-2xl font-black text-white mb-4">Intelligence Feed Locked</h3>
                   <p className="text-zinc-400 max-w-md mb-8">
-                    Live macroeconomic data, the Top 10 Economies board, and sovereign intelligence maps are restricted. Register or log in to access the Souvera Intelligence Terminal.
+                    Live macroeconomic data, the Top 10 Economies board, and Market Intelligence maps are restricted. Register or log in to access the AfDEC Intelligence Terminal.
                   </p>
                   <div className="flex gap-4">
                     <Link href="/auth" className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm tracking-widest uppercase rounded-sm transition-colors">
@@ -342,7 +342,7 @@ export default function WhyAfricaPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-px bg-amber-500"></div>
-              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-400 uppercase">Sovereign Tourism</span>
+              <span className="text-[11px] font-bold tracking-[0.2em] text-amber-400 uppercase">Tourism & Hospitality</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-black text-white mb-6 whitespace-nowrap">Africa&apos;s $200 Billion Tourism Economy</h2>
             <p className="text-zinc-300 text-[15px] leading-relaxed mb-4">
