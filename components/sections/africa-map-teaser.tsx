@@ -132,7 +132,7 @@ export function MapTeaser({
                   <span className="relative inline-flex rounded-full h-2 w-2"
                     style={{ backgroundColor: ac.silhouette }} />
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-[0.22em]">
+                <span className="text-xs font-black uppercase tracking-[0.22em]">
                   Africa Intelligence Terminal · Live
                 </span>
               </div>
@@ -143,7 +143,7 @@ export function MapTeaser({
               </h2>
 
               {/* Subtext */}
-              <p className="text-zinc-500 text-sm font-medium leading-relaxed mb-7 max-w-sm">
+              <p className="text-zinc-400 text-sm font-medium leading-relaxed mb-7 max-w-sm">
                 {subtext}
               </p>
 
@@ -155,7 +155,7 @@ export function MapTeaser({
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border text-xs font-bold ${ac.statBg} ${ac.statText}`}
                   >
                     <span className="font-black">{s.value}</span>
-                    <span className="text-zinc-600 font-medium">{s.label}</span>
+                    <span className="text-zinc-400 font-medium">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -169,7 +169,7 @@ export function MapTeaser({
                   {ctaLabel}
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <p className="text-zinc-700 text-[10px] font-medium mt-3 flex items-center gap-1.5">
+                <p className="text-zinc-400 text-xs font-medium mt-3 flex items-center gap-1.5">
                   <ExternalLink className="w-2.5 h-2.5" />
                   Opens the full interactive intelligence terminal
                 </p>
@@ -246,7 +246,7 @@ export function MapTeaser({
               {/* Corner label */}
               <div className="absolute bottom-4 right-5 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" style={{ animation: "ping 2s ease-in-out infinite" }} />
-                <span className="text-[9px] font-bold text-zinc-700 uppercase tracking-widest">54 AU Nations</span>
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">54 AU Nations</span>
               </div>
             </div>
 
@@ -254,7 +254,7 @@ export function MapTeaser({
         </div>
 
         {/* Attribution */}
-        <p className="text-[10px] text-zinc-800 font-medium mt-3 text-right">
+        <p className="text-xs text-zinc-800 font-medium mt-3 text-right">
           Source: IMF World Economic Outlook 2026 · World Bank · AfDEC Intelligence Desk
         </p>
       </div>

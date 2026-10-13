@@ -11,7 +11,6 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import {
   Database, Globe, BarChart2, TrendingUp, Lock, Zap, ArrowRight, Bell
 } from "lucide-react";
-import { DiasporaRegistrationForm } from "@/components/ui/diaspora-registration-form";
 
 const COMING_FEATURES = [
   {
@@ -94,14 +93,14 @@ export default function DataTerminalComingSoonPage() {
                 <span className="text-amber-400 text-xs font-black uppercase tracking-widest">In Development</span>
               </div>
               <div className="w-px h-4 bg-zinc-700" />
-              <span className="text-zinc-500 text-xs font-medium">Launching to AfDEC Partners — Q3 2026</span>
+              <span className="text-zinc-400 text-xs font-medium">Launching to AfDEC Partners — Q3 2026</span>
             </div>
 
-            {/* Notify CTA */}
+            {/* Register CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
+              <Link href="/auth?view=register" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
                 <Bell className="w-4 h-4" />
-                Notify Me at Launch
+                Register
               </Link>
               <Link href="/africa-intelligence" className="inline-flex items-center gap-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-sm transition-all">
                 <span className="relative flex h-1.5 w-1.5">
@@ -137,8 +136,8 @@ export default function DataTerminalComingSoonPage() {
                 <div key={f.title} className={`relative flex gap-5 p-7 rounded-xl border ${f.bg} overflow-hidden`}>
                   {/* Coming soon badge */}
                   <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-zinc-900/60 border border-zinc-700/40 px-2 py-0.5 rounded-full">
-                    <Lock className="w-2.5 h-2.5 text-zinc-500" />
-                    <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Q3 2026</span>
+                    <Lock className="w-2.5 h-2.5 text-zinc-400" />
+                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Q3 2026</span>
                   </div>
                   <div className={`w-10 h-10 rounded-sm flex items-center justify-center shrink-0 bg-zinc-900/60 border border-zinc-800`}>
                     <Icon className={`w-5 h-5 ${f.color}`} />
@@ -151,14 +150,6 @@ export default function DataTerminalComingSoonPage() {
               );
             })}
           </div>
-        </div>
-      </section>
-
-      {/* ── Diaspora Registry Form ── */}
-      <section className="bg-zinc-950 py-24 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-600/5 rounded-full blur-[120px]" />
-        <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
-          <DiasporaRegistrationForm />
         </div>
       </section>
 

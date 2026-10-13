@@ -42,13 +42,13 @@ export function AfricaMapEmbed({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
               </span>
-              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Live Intelligence</span>
+              <span className="text-xs font-black text-emerald-400 uppercase tracking-widest">Live Intelligence</span>
               <div className="w-px h-4 bg-zinc-700" />
               <Globe className={`w-3.5 h-3.5 ${ac.text}`} />
-              <span className={`text-[10px] font-black ${ac.text} uppercase tracking-widest`}>Africa Intelligence Terminal</span>
+              <span className={`text-xs font-black ${ac.text} uppercase tracking-widest`}>Africa Intelligence Terminal</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">{heading}</h2>
-            <p className="text-zinc-500 text-sm font-medium mt-2 max-w-xl leading-relaxed">{subtext}</p>
+            <p className="text-zinc-400 text-sm font-medium mt-2 max-w-xl leading-relaxed">{subtext}</p>
           </div>
           <Link
             href="/africa-intelligence"
@@ -69,7 +69,7 @@ export function AfricaMapEmbed({
 
         {/* Footer bar */}
         <div className="flex items-center justify-between mt-4">
-          <p className="text-[10px] text-zinc-700 font-medium">
+          <p className="text-xs text-zinc-400 font-medium">
             Source: IMF · World Bank · Supabase Live · AfDEC Intelligence Desk · 2026
           </p>
           <Link

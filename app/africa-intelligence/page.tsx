@@ -11,39 +11,22 @@ import { AfricaMap } from "@/components/sections/africa-map";
 import { Footer } from "@/components/ui/footer";
 import { Newsletter } from "@/components/ui/newsletter";
 import { BrandLogo } from "@/components/ui/brand-logo";
-import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/lib/auth";
 import {
   Globe, ArrowLeft, ExternalLink, Database, Shield, Zap,
   TrendingUp, Building2, ChevronDown
 } from "lucide-react";
 
-
 const API_FEATURES = [
   { icon: Database, title: "Real-Time Data API",   body: "RESTful endpoints for country profiles, GDP data, FDI inflows, and sector intelligence updated from IMF and World Bank feeds." },
-  { icon: Shield,   title: "Sovereign Security",   body: "Enterprise-grade authentication, audit logs, and role-based access control for institutional API consumers." },
+  { icon: Shield,   title: "Strategic Security",   body: "Enterprise-grade authentication, audit logs, and role-based access control for institutional API consumers." },
   { icon: Zap,      title: "Embeddable Widget",    body: "White-label the intelligence map as a standalone widget — deployable on any partner or government organization's platform." },
   { icon: TrendingUp, title: "Analytics Dashboard", body: "Full admin dashboard with usage analytics, data refresh scheduling, and country profile management." },
 ];
 
 export default function AfricaIntelligencePage() {
+  const { isSignedIn: isAuthenticated, isAdmin } = useAuth();
   const [showApiSection, setShowApiSection] = useState(false);
-  const [userRole, setUserRole] = useState<string | null>(null);
-
-  React.useEffect(() => {
-    async function checkAuth() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        if (session.user.email?.toLowerCase() === 'afdecadmin@afronovation.com' || session.user.email?.toLowerCase() === 'admin@afronovation.com') {
-          setUserRole('super_admin');
-        } else {
-          // Extract role from JWT or default to member
-          const jwtRole = session.user.app_metadata?.role;
-          setUserRole(jwtRole || 'member');
-        }
-      }
-    }
-    checkAuth();
-  }, []);
 
   return (
     <div className="min-h-screen bg-zinc-950 font-sans selection:bg-blue-500/20">
@@ -57,7 +40,7 @@ export default function AfricaIntelligencePage() {
             <div className="w-px h-5 bg-zinc-800 hidden sm:block" />
             <Link
               href="/why-africa"
-              className="hidden sm:flex items-center gap-2 text-zinc-600 hover:text-zinc-300 transition-colors text-xs font-bold uppercase tracking-widest"
+              className="hidden sm:flex items-center gap-2 text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-bold uppercase tracking-widest"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back</span>
@@ -75,8 +58,8 @@ export default function AfricaIntelligencePage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest hidden md:block">
-              Live · Supabase Connected
+            <span className="text-[11px] font-black text-emerald-400 uppercase tracking-widest hidden md:block">
+              Live data
             </span>
           </div>
 
@@ -84,35 +67,37 @@ export default function AfricaIntelligencePage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setShowApiSection(!showApiSection)}
-              className="hidden sm:flex items-center gap-1.5 text-zinc-500 hover:text-zinc-300 transition-colors text-xs font-bold uppercase tracking-widest"
+              className="hidden sm:flex items-center gap-1.5 text-zinc-300 hover:text-zinc-300 transition-colors text-xs font-bold uppercase tracking-widest"
             >
               <Database className="w-3.5 h-3.5" />
               API Access
               <ChevronDown className={`w-3 h-3 transition-transform ${showApiSection ? "rotate-180" : ""}`} />
             </button>
-            {userRole === 'super_admin' || userRole === 'admin' ? (
-              <Link
-                href="/dashboard/admin"
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Command Center</span>
-              </Link>
-            ) : userRole === 'member' ? (
-              <Link
-                href="/dashboard/member"
-                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Member Portal</span>
-              </Link>
+            {isAuthenticated ? (
+              isAdmin ? (
+                <Link
+                  href="/dashboard/admin"
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Command Center</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/dashboard/member"
+                  className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Member Portal</span>
+                </Link>
+              )
             ) : (
               <Link
-                href="/contact"
+                href="/auth?redirect=/africa-intelligence"
                 className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-xs font-black uppercase tracking-widest rounded-sm transition-colors"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Request Access</span>
+                <Shield className="w-3.5 h-3.5" />
+                <span>Sign In</span>
               </Link>
             )}
           </div>
@@ -132,7 +117,7 @@ export default function AfricaIntelligencePage() {
                       </div>
                       <div>
                         <h4 className="text-white font-black text-xs mb-1">{f.title}</h4>
-                        <p className="text-zinc-500 text-[11px] leading-relaxed">{f.body}</p>
+                        <p className="text-zinc-300 text-[11px] leading-relaxed">{f.body}</p>
                       </div>
                     </div>
                   );
@@ -146,7 +131,7 @@ export default function AfricaIntelligencePage() {
                   </p>
                 </div>
                 <Link
-                  href="/contact"
+                  href="/access-request"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest rounded-sm transition-colors shrink-0"
                 >
                   Request API Access
@@ -163,42 +148,77 @@ export default function AfricaIntelligencePage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <Building2 className="w-4 h-4 text-zinc-600" />
-                <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">AfDEC Intelligence Division</span>
+                <Building2 className="w-4 h-4 text-zinc-400" />
+                <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">AfDEC Intelligence Division</span>
                 <div className="w-px h-3 bg-zinc-700" />
-                <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Terminal v1.0</span>
+                <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Terminal v1.0</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2">
                 Africa Investment & Market Intelligence Map
               </h1>
-              <p className="text-zinc-500 text-sm font-medium max-w-2xl">
-                Interactive sovereign intelligence across all 54 African nations — GDP, Foreign Direct Investment (FDI), sector data, and AfDEC market assessments. Powered by IMF 2026 projections and real-time Bridgedbs —{" "}
-                <a href="https://www.afronovation.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2">Afronovation, Inc</a>{" "}data infrastructure.
+              <p className="text-zinc-300 text-sm font-medium max-w-2xl">
+                Interactive intelligence across all 54 African nations — GDP, Foreign Direct Investment (FDI), sector data, and AfDEC market assessments. Sourced from IMF, World Bank and AfDB datasets, curated by the AfDEC Intelligence Division and maintained by{" "}
+                <a href="https://www.afronovation.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2">Afronovation, Inc</a>.
               </p>
 
             </div>
             <div className="flex items-center gap-4 shrink-0">
               <div className="text-center px-5 border-r border-zinc-800">
                 <div className="text-2xl font-black text-blue-400">54</div>
-                <div className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Nations</div>
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Nations</div>
               </div>
               <div className="text-center px-5 border-r border-zinc-800">
                 <div className="text-2xl font-black text-emerald-400">5</div>
-                <div className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Regions</div>
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Regions</div>
               </div>
               <div className="text-center px-5">
                 <div className="text-2xl font-black text-amber-400">2026</div>
-                <div className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">IMF Data</div>
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">IMF Data</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Full Map — Flagship Display ── */}
+      {/* ── Map — public teaser tier, full figures for registered partners (enforced by RLS) ── */}
       <section className="bg-zinc-950 py-10">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+          {!isAuthenticated && (
+            <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-xl border border-blue-900/40 bg-blue-950/20 px-6 py-5">
+              <div className="flex items-start gap-4">
+                <Shield className="w-6 h-6 text-blue-300 shrink-0 mt-0.5" />
+                <p className="text-sm text-zinc-200 leading-relaxed">
+                  <span className="font-black text-white">Preview mode.</span> GDP, growth, population and FDI figures are reserved for registered partners and members. Select any country to request access.
+                </p>
+              </div>
+              <div className="flex gap-3 shrink-0">
+                <Link href="/access-request" className="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase tracking-widest rounded-sm">Request Access</Link>
+                <Link href="/auth?redirect=/africa-intelligence" className="px-5 py-3 border border-zinc-600 hover:border-zinc-400 text-white font-bold text-xs uppercase tracking-widest rounded-sm">Sign In</Link>
+              </div>
+            </div>
+          )}
           <AfricaMap />
+        </div>
+      </section>
+
+      {/* ── Access tiers ── */}
+      <section className="bg-zinc-950 border-t border-zinc-800/50 py-14">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+          <h2 className="text-xl font-black text-white mb-2">Access tiers</h2>
+          <p className="text-sm text-zinc-300 mb-8 max-w-2xl">Intelligence depth follows your relationship with AfDEC. Tiers are assigned by the AfDEC team after review.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { name: "Explorer", who: "Public visitors", body: "Interactive map, regions and AfDEC priority markets. Key figures are hidden." },
+              { name: "Registered partner", who: "Approved registrations", body: "Headline indicators (GDP, growth, population, FDI) and country overviews." },
+              { name: "Member / Institutional", who: "Members, investors, institutions", body: "Full country briefs: sectors, trade, opportunities, risk & mitigation and reports." },
+            ].map((tier) => (
+              <div key={tier.name} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+                <div className="text-xs font-bold text-blue-300 uppercase tracking-widest mb-1">{tier.who}</div>
+                <h3 className="text-lg font-black text-white mb-2">{tier.name}</h3>
+                <p className="text-sm text-zinc-300 leading-relaxed">{tier.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -216,7 +236,7 @@ export default function AfricaIntelligencePage() {
                 The AfDEC Africa Intelligence Map API
               </h2>
               <p className="text-zinc-400 text-base leading-relaxed mb-8 font-medium">
-                AfDEC is building a licensed data intelligence infrastructure that partner organizations — government agencies, development banks, diaspora organizations, and institutional investors — can embed directly into their own platforms. The Africa Intelligence Map will become a sovereign-grade data product.
+                AfDEC is building a licensed data intelligence infrastructure that partner organizations — government agencies, development banks, diaspora organizations, and institutional investors — can embed directly into their own platforms. The Africa Intelligence Map will become a Enterprise-grade data product.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-10">
                 {API_FEATURES.map((f) => {
@@ -225,14 +245,14 @@ export default function AfricaIntelligencePage() {
                     <div key={f.title} className="flex flex-col bg-zinc-900/60 border border-zinc-800 rounded-lg p-5 h-full">
                       <Icon className="w-5 h-5 text-blue-400 mb-3 shrink-0" />
                       <h3 className="text-white font-black text-sm mb-2">{f.title}</h3>
-                      <p className="text-zinc-500 text-[12px] leading-relaxed flex-1">{f.body}</p>
+                      <p className="text-zinc-300 text-[12px] leading-relaxed flex-1">{f.body}</p>
                     </div>
                   );
                 })}
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/contact"
+                  href="/access-request"
                   className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm uppercase tracking-widest rounded-sm transition-all shadow-lg group"
                 >
                   Join the API Waitlist <ExternalLink className="w-4 h-4 ml-2" />
