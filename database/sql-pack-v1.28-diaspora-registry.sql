@@ -10,6 +10,14 @@
 --   3. Publishes ANONYMOUS aggregate counts for the homepage / registry page.
 -- ====================================================================
 
+DO $$ BEGIN
+  IF to_regprocedure('public.is_staff()') IS NULL THEN
+    RAISE EXCEPTION 'Run sql-pack-v1.26b-foundation.sql successfully BEFORE v1.28.';
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='diaspora_registry' AND column_name='consent_at') THEN
+    RAISE EXCEPTION 'diaspora_registry.consent_at is missing: v1.26b did not complete. Re-run it first.';
+  END IF;
+END $$;
 GRANT INSERT ON public.diaspora_registry TO anon, authenticated;
 
 DROP POLICY IF EXISTS diaspora_public_insert ON public.diaspora_registry;

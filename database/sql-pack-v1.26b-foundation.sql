@@ -431,25 +431,47 @@ GRANT SELECT ON public.v_published_articles, public.v_country_teaser, public.v_p
 -- --------------------------------------------------------------------
 -- 9. RLS RESET  (drop every policy on platform tables, rebuild cleanly)
 -- --------------------------------------------------------------------
+-- Policy helper failures are recorded here instead of aborting the whole pack
+-- (the Supabase SQL editor runs a script as ONE transaction, so a single error used to roll everything back).
+CREATE TABLE IF NOT EXISTS public.afdec_policy_skips (
+  id bigserial PRIMARY KEY,
+  tbl text,
+  policy text,
+  error text,
+  at timestamptz NOT NULL DEFAULT now()
+);
+ALTER TABLE public.afdec_policy_skips ENABLE ROW LEVEL SECURITY;  -- no policies: invisible to API users
+TRUNCATE public.afdec_policy_skips;
 CREATE OR REPLACE FUNCTION public._afdec_policies(
   tbl text, sel text, ins text, upd text, del text, pub_ins text DEFAULT NULL)
 RETURNS void LANGUAGE plpgsql AS $f$
-DECLARE r record;
+DECLARE r record; stmts text[] := ARRAY[]::text[]; s text;
 BEGIN
   IF to_regclass('public.' || tbl) IS NULL THEN
-    RAISE NOTICE 'skip % (table not found)', tbl; RETURN;
+    RAISE NOTICE 'skip % (table not found)', tbl;
+    INSERT INTO public.afdec_policy_skips (tbl, policy, error) VALUES (tbl, '(table missing)', 'table not found');
+    RETURN;
   END IF;
   EXECUTE format('ALTER TABLE public.%I ENABLE ROW LEVEL SECURITY', tbl);
   FOR r IN SELECT policyname FROM pg_policies WHERE schemaname = 'public' AND tablename = tbl LOOP
     EXECUTE format('DROP POLICY IF EXISTS %I ON public.%I', r.policyname, tbl);
   END LOOP;
-  IF sel IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_select ON public.%I FOR SELECT USING (%s)', tbl, sel); END IF;
-  IF ins IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, ins); END IF;
-  IF pub_ins IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_public_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, pub_ins); END IF;
-  IF upd IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_update ON public.%I FOR UPDATE USING (%s) WITH CHECK (%s)', tbl, upd, upd); END IF;
-  IF del IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_delete ON public.%I FOR DELETE USING (%s)', tbl, del); END IF;
+  IF sel IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_select ON public.%I FOR SELECT USING (%s)', tbl, sel); END IF;
+  IF ins IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, ins); END IF;
+  IF pub_ins IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_public_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, pub_ins); END IF;
+  IF upd IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_update ON public.%I FOR UPDATE USING (%s) WITH CHECK (%s)', tbl, upd, upd); END IF;
+  IF del IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_delete ON public.%I FOR DELETE USING (%s)', tbl, del); END IF;
+  FOREACH s IN ARRAY stmts LOOP
+    BEGIN
+      EXECUTE s;
+    EXCEPTION WHEN others THEN
+      -- table stays RLS-enabled with fewer policies = deny by default (safe failure mode)
+      INSERT INTO public.afdec_policy_skips (tbl, policy, error)
+      VALUES (tbl, substring(s from 'CREATE POLICY (\w+)'), SQLERRM);
+      RAISE WARNING 'policy skipped on %: %', tbl, SQLERRM;
+    END;
+  END LOOP;
 END $f$;
-
 -- profiles (own row + admin). Role/status columns are protected by the trigger.
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 DO $$ DECLARE r record; BEGIN
@@ -477,7 +499,8 @@ SELECT public._afdec_policies('hub_stats',       'true', 'public.is_staff()', 'p
 SELECT public._afdec_policies('board_members',   'is_active OR public.is_staff()', 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
 SELECT public._afdec_policies('job_postings',    'is_active OR public.is_staff()', 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
 SELECT public._afdec_policies('businesses',      $$status IN ('active','verified') OR public.is_staff()$$, 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
-SELECT public._afdec_policies('business_entities','true', 'public.is_staff()', 'owner_id = auth.uid() OR public.is_staff()', 'public.is_admin()');
+-- live table (supabase_v1.21_admin_pack.sql) uses user_id and holds tax_id: owner/staff only, never public
+SELECT public._afdec_policies('business_entities', 'user_id = auth.uid() OR public.is_staff()', 'public.is_staff()', 'user_id = auth.uid() OR public.is_staff()', 'public.is_admin()');
 SELECT public._afdec_policies('impact_projects', 'true', 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
 SELECT public._afdec_policies('strategic_milestones', $$status::text = 'published' OR public.is_staff()$$, 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
 SELECT public._afdec_policies('insights_articles', $$status::text = 'published' OR public.is_staff()$$, 'public.is_staff()', 'public.is_staff()', 'public.is_admin()');
@@ -561,6 +584,10 @@ END $$;
 -- --------------------------------------------------------------------
 -- 11. VERIFY (read the result grid after running)
 -- --------------------------------------------------------------------
-SELECT 'policies_on_profiles' AS check, count(*) AS value FROM pg_policies WHERE schemaname='public' AND tablename='profiles'
-UNION ALL SELECT 'tables_with_rls', count(*) FROM pg_tables WHERE schemaname='public' AND rowsecurity
-UNION ALL SELECT 'tables_without_rls', count(*) FROM pg_tables WHERE schemaname='public' AND NOT rowsecurity;
+SELECT 'policies_on_profiles' AS check, count(*) AS value, NULL::text AS detail FROM pg_policies WHERE schemaname='public' AND tablename='profiles'
+UNION ALL SELECT 'tables_with_rls', count(*), NULL FROM pg_tables WHERE schemaname='public' AND rowsecurity
+UNION ALL SELECT 'tables_without_rls', count(*), NULL FROM pg_tables WHERE schemaname='public' AND NOT rowsecurity
+UNION ALL SELECT 'policies_skipped_due_to_error (want 0)', count(*),
+  string_agg(tbl || '.' || policy || ': ' || error, ' | ') FROM public.afdec_policy_skips WHERE policy <> '(table missing)'
+UNION ALL SELECT 'tables_not_found (informational)', count(*),
+  string_agg(tbl, ', ') FROM public.afdec_policy_skips WHERE policy = '(table missing)';

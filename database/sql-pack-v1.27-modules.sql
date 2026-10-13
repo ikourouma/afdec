@@ -8,25 +8,53 @@
 -- --------------------------------------------------------------------
 -- 0. POLICY HELPER (same as v1.26b; dropped at the end)
 -- --------------------------------------------------------------------
+-- Stop early with a clear message if v1.26b has not been applied (it creates is_staff() etc.)
+DO $$ BEGIN
+  IF to_regprocedure('public.is_staff()') IS NULL THEN
+    RAISE EXCEPTION 'Run sql-pack-v1.26b-foundation.sql successfully BEFORE v1.27 (public.is_staff() is missing).';
+  END IF;
+END $$;
+-- Policy helper failures are recorded here instead of aborting the whole pack
+-- (the Supabase SQL editor runs a script as ONE transaction, so a single error used to roll everything back).
+CREATE TABLE IF NOT EXISTS public.afdec_policy_skips (
+  id bigserial PRIMARY KEY,
+  tbl text,
+  policy text,
+  error text,
+  at timestamptz NOT NULL DEFAULT now()
+);
+ALTER TABLE public.afdec_policy_skips ENABLE ROW LEVEL SECURITY;  -- no policies: invisible to API users
+TRUNCATE public.afdec_policy_skips;
 CREATE OR REPLACE FUNCTION public._afdec_policies(
   tbl text, sel text, ins text, upd text, del text, pub_ins text DEFAULT NULL)
 RETURNS void LANGUAGE plpgsql AS $f$
-DECLARE r record;
+DECLARE r record; stmts text[] := ARRAY[]::text[]; s text;
 BEGIN
   IF to_regclass('public.' || tbl) IS NULL THEN
-    RAISE NOTICE 'skip % (table not found)', tbl; RETURN;
+    RAISE NOTICE 'skip % (table not found)', tbl;
+    INSERT INTO public.afdec_policy_skips (tbl, policy, error) VALUES (tbl, '(table missing)', 'table not found');
+    RETURN;
   END IF;
   EXECUTE format('ALTER TABLE public.%I ENABLE ROW LEVEL SECURITY', tbl);
   FOR r IN SELECT policyname FROM pg_policies WHERE schemaname = 'public' AND tablename = tbl LOOP
     EXECUTE format('DROP POLICY IF EXISTS %I ON public.%I', r.policyname, tbl);
   END LOOP;
-  IF sel IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_select ON public.%I FOR SELECT USING (%s)', tbl, sel); END IF;
-  IF ins IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, ins); END IF;
-  IF pub_ins IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_public_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, pub_ins); END IF;
-  IF upd IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_update ON public.%I FOR UPDATE USING (%s) WITH CHECK (%s)', tbl, upd, upd); END IF;
-  IF del IS NOT NULL THEN EXECUTE format('CREATE POLICY afdec_delete ON public.%I FOR DELETE USING (%s)', tbl, del); END IF;
+  IF sel IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_select ON public.%I FOR SELECT USING (%s)', tbl, sel); END IF;
+  IF ins IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, ins); END IF;
+  IF pub_ins IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_public_insert ON public.%I FOR INSERT WITH CHECK (%s)', tbl, pub_ins); END IF;
+  IF upd IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_update ON public.%I FOR UPDATE USING (%s) WITH CHECK (%s)', tbl, upd, upd); END IF;
+  IF del IS NOT NULL THEN stmts := stmts || format('CREATE POLICY afdec_delete ON public.%I FOR DELETE USING (%s)', tbl, del); END IF;
+  FOREACH s IN ARRAY stmts LOOP
+    BEGIN
+      EXECUTE s;
+    EXCEPTION WHEN others THEN
+      -- table stays RLS-enabled with fewer policies = deny by default (safe failure mode)
+      INSERT INTO public.afdec_policy_skips (tbl, policy, error)
+      VALUES (tbl, substring(s from 'CREATE POLICY (\w+)'), SQLERRM);
+      RAISE WARNING 'policy skipped on %: %', tbl, SQLERRM;
+    END;
+  END LOOP;
 END $f$;
-
 -- --------------------------------------------------------------------
 -- 1. ASSET LIBRARY
 -- --------------------------------------------------------------------
@@ -322,4 +350,8 @@ ALTER TABLE public.lead_intakes ADD COLUMN IF NOT EXISTS country_code text;
 
 DROP FUNCTION IF EXISTS public._afdec_policies(text, text, text, text, text, text);
 
-SELECT 'v1.27 applied' AS result;
+SELECT 'v1.27 applied' AS result, 0::bigint AS value, NULL::text AS detail
+UNION ALL SELECT 'policies_skipped_due_to_error (want 0)', count(*),
+  string_agg(tbl || '.' || policy || ': ' || error, ' | ') FROM public.afdec_policy_skips WHERE policy <> '(table missing)'
+UNION ALL SELECT 'tables_not_found (informational)', count(*),
+  string_agg(tbl, ', ') FROM public.afdec_policy_skips WHERE policy = '(table missing)';
