@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { FileText, Plus, Search, RefreshCcw, ShieldCheck, Trash2, Edit3, Image as ImageIcon, XCircle, Save, ExternalLink } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { uploadAsset } from "@/lib/assets";
+import { ImageField } from "@/components/admin/asset-picker";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MediaDashboard() {
@@ -11,6 +13,37 @@ export default function MediaDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [currentRelease, setCurrentRelease] = useState<any | null>(null);
+  const [fileUrl, setFileUrl] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  function openEditor(item: any | null) {
+    setCurrentRelease(item);
+    setFileUrl(item?.file_url || "");
+    setFileName(item?.file_name || "");
+    setImageUrl(item?.image_url || "");
+    setUploadError(null);
+    setIsEditing(true);
+  }
+
+  async function onPickFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const a = await uploadAsset(file, { folder: "documents" });
+      setFileUrl(a.public_url || "");
+      setFileName(a.file_name);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   useEffect(() => {
     loadReleases();
@@ -38,16 +71,20 @@ export default function MediaDashboard() {
     const data = {
       title: formData.get("title"),
       source: formData.get("source"),
-      url: formData.get("url"),
+      url: (formData.get("url") as string) || fileUrl || null,
+      description: (formData.get("description") as string) || null,
+      file_url: fileUrl || null,
+      file_name: fileName || null,
+      image_url: imageUrl || null,
       date: formData.get("date"),
       is_active: true
     };
+    if (!data.url) { setUploadError("Provide a link or upload a file."); return; }
 
-    if (currentRelease?.id) {
-      await supabase.from("press_releases").update(data).eq("id", currentRelease.id);
-    } else {
-      await supabase.from("press_releases").insert([data]);
-    }
+    const { error } = currentRelease?.id
+      ? await supabase.from("press_releases").update(data).eq("id", currentRelease.id)
+      : await supabase.from("press_releases").insert([data]);
+    if (error) return;
 
     setIsEditing(false);
     setCurrentRelease(null);
@@ -85,7 +122,7 @@ export default function MediaDashboard() {
             <RefreshCcw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
           </button>
           <button 
-            onClick={() => { setCurrentRelease(null); setIsEditing(true); }}
+            onClick={() => openEditor(null)}
             className="flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black uppercase tracking-widest rounded-sm shadow-lg transition-all"
           >
             <Plus className="w-4 h-4 mr-2" /> New Release
@@ -141,15 +178,15 @@ export default function MediaDashboard() {
                       <p className="text-xs text-zinc-500 font-medium">{item.source}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors flex items-center text-xs font-bold uppercase tracking-widest">
+                      <a href={item.file_url || item.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors flex items-center text-xs font-bold uppercase tracking-widest">
                         <ExternalLink className="w-3.5 h-3.5 mr-1" /> View Link
                       </a>
                     </td>
                     <td className="px-6 py-4 text-right flex items-center justify-end space-x-2">
-                       <button onClick={() => { setCurrentRelease(item); setIsEditing(true); }} className="p-2 text-zinc-400 hover:text-blue-600 transition-colors">
+                       <button aria-label={`Edit ${item.title}`} onClick={() => openEditor(item)} className="p-2 text-zinc-400 hover:text-blue-600 transition-colors">
                          <Edit3 className="w-4 h-4" />
                        </button>
-                       <button onClick={() => handleDelete(item.id)} className="p-2 text-zinc-400 hover:text-red-600 transition-colors">
+                       <button aria-label={`Delete ${item.title}`} onClick={() => handleDelete(item.id)} className="p-2 text-zinc-400 hover:text-red-600 transition-colors">
                          <Trash2 className="w-4 h-4" />
                        </button>
                     </td>
@@ -185,7 +222,7 @@ export default function MediaDashboard() {
 
                <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-10 space-y-8">
                   <div className="space-y-4">
-                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Release Title</label>
+                     <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest block">Release Title</label>
                      <input 
                         name="title" 
                         defaultValue={currentRelease?.title} 
@@ -196,7 +233,7 @@ export default function MediaDashboard() {
                   </div>
                   
                   <div className="space-y-4">
-                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Publisher / Source</label>
+                     <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest block">Publisher / Source</label>
                      <input 
                         name="source" 
                         defaultValue={currentRelease?.source} 
@@ -207,7 +244,7 @@ export default function MediaDashboard() {
                   </div>
 
                   <div className="space-y-4">
-                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Publication Date</label>
+                     <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest block">Publication Date</label>
                      <input 
                         name="date" 
                         type="date"
@@ -218,16 +255,28 @@ export default function MediaDashboard() {
                   </div>
 
                   <div className="space-y-4">
-                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Target URL</label>
+                     <label className="text-[10px] font-black text-zinc-600 uppercase tracking-widest block">Target URL</label>
                      <input 
                         name="url" 
                         type="url"
                         defaultValue={currentRelease?.url} 
-                        required
-                        placeholder="https://..."
+                        placeholder="https://... (optional if you upload a file)"
                         className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-sm font-bold text-zinc-900"
                      />
                   </div>
+
+                  <div className="space-y-4">
+                     <label htmlFor="pr-desc" className="text-[11px] font-black text-zinc-600 uppercase tracking-widest block">Description</label>
+                     <textarea id="pr-desc" name="description" rows={4} defaultValue={currentRelease?.description} placeholder="Short summary shown on the media page" className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900" />
+                  </div>
+                  <div className="space-y-2">
+                     <label htmlFor="pr-file" className="text-[11px] font-black text-zinc-600 uppercase tracking-widest block">Upload file (PDF or image)</label>
+                     <input id="pr-file" type="file" accept="application/pdf,image/*" onChange={onPickFile} className="w-full text-sm text-zinc-800" />
+                     {uploading && <p className="text-xs text-zinc-600">Uploading…</p>}
+                     {fileUrl && <p className="text-xs text-emerald-700 break-all">Attached: {fileName || fileUrl}</p>}
+                     {uploadError && <p role="alert" className="text-xs text-red-700">{uploadError}</p>}
+                  </div>
+                  <ImageField label="Cover image (optional)" folder="news" value={imageUrl} onChange={setImageUrl} />
 
                   <div className="pt-6 border-t border-zinc-100 flex justify-end">
                      <button type="submit" className="px-6 py-3 bg-zinc-900 hover:bg-black text-white text-xs font-black uppercase tracking-widest rounded-sm shadow-lg flex items-center transition-all">

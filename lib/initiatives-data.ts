@@ -368,7 +368,7 @@ export const initiatives: Record<string, Initiative> = {
     accent: "emerald",
     hero_title: "SME Development",
     hero_subtitle: "Empowering Small and Medium Enterprises with the tools, capital, and bilateral networks needed to scale across the North Carolina - Africa economic corridor.",
-    hero_image: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=2670&auto=format&fit=crop",
+    hero_image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop",
     is_gated: false,
     sections: [
       {

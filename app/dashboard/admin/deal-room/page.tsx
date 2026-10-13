@@ -130,7 +130,7 @@ export default function AdminDealRoomPage() {
             <tbody className="divide-y divide-zinc-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-20 text-center text-zinc-400 font-medium">Synchronizing with Sovereign Data Vault...</td>
+                  <td colSpan={6} className="px-6 py-20 text-center text-zinc-400 font-medium">Synchronizing with Strategic data Vault...</td>
                 </tr>
               ) : filteredApps.length === 0 ? (
                 <tr>

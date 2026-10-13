@@ -220,7 +220,7 @@ export const integrationPages: Record<string, PageDef> = {
     accent: "amber",
     hero_title: "Market Access by Region",
     hero_subtitle: "Africa is not one market — it is 54 sovereign nations across 5 distinct economic regions, each with unique opportunities, regulatory environments, and sector strengths. Use AfDEC's regional intelligence to find exactly where your business fits.",
-    hero_image: "https://images.unsplash.com/photo-1516026672322-bc52d61a9d41?q=80&w=2670&auto=format&fit=crop",
+    hero_image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2670&auto=format&fit=crop",
     hero_image_position: "center right",
     is_gated: false,
     sections: [
@@ -464,7 +464,7 @@ export const sectorPages: Record<string, PageDef> = {
     accent: "amber",
     hero_title: "Advanced Manufacturing & Aerospace",
     hero_subtitle: "Africa's industrialization push requires exactly what North Carolina builds — aerospace components, precision machinery, automotive parts, and advanced manufacturing expertise. NC's manufacturers are sitting at the front door of a $600 billion opportunity.",
-    hero_image: "https://images.unsplash.com/photo-1565793979770-a35bb432e0d4?q=80&w=2670&auto=format&fit=crop",
+    hero_image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2670&auto=format&fit=crop",
     hero_image_position: "center",
     is_gated: false,
     sections: [
@@ -574,7 +574,7 @@ export const sectorPages: Record<string, PageDef> = {
     accent: "red",
     hero_title: "Defense & Security Technology",
     hero_subtitle: "African governments are investing heavily in national security, border management, and maritime surveillance. North Carolina — home to Fort Liberty, one of the largest US military installations in the world — has a deep defense technology ecosystem uniquely suited to support these needs.",
-    hero_image: "https://images.unsplash.com/photo-1542379653-b926a529191d?q=80&w=2670&auto=format&fit=crop",
+    hero_image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2670&auto=format&fit=crop",
     hero_image_position: "center",
     is_gated: false,
     sections: [

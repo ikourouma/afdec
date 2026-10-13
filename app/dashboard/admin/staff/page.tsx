@@ -17,6 +17,8 @@ import {
   Image as ImageIcon
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/lib/auth";
+import { ImageField } from "@/components/admin/asset-picker";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function StaffManagerPage() {
@@ -24,6 +26,9 @@ export default function StaffManagerPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentMember, setCurrentMember] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { isAdmin } = useAuth();
+  const [portrait, setPortrait] = useState("");
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMembers();
@@ -49,7 +54,7 @@ export default function StaffManagerPage() {
       sub_title: formData.get("sub_title"),
       role_tier: formData.get("role_tier"),
       bio: formData.get("bio"),
-      image_url: formData.get("image_url"),
+      image_url: portrait || null,
       committees: (formData.get("committees") as string).split(",").map(c => c.trim()).filter(c => c),
       sort_order: parseInt(formData.get("sort_order") as string) || 0,
       is_featured: formData.get("is_featured") === "on",
@@ -58,15 +63,22 @@ export default function StaffManagerPage() {
 
     if (currentMember?.id) {
       const { error } = await supabase.from("board_members").update(data).eq("id", currentMember.id);
-      if (error) console.error("Error updating member:", error);
+      if (error) return setSaveError(error.message);
     } else {
       const { error } = await supabase.from("board_members").insert([data]);
-      if (error) console.error("Error inserting member:", error);
+      if (error) return setSaveError(error.message);
     }
 
     setIsEditing(false);
     setCurrentMember(null);
     fetchMembers();
+  }
+
+  async function removeMember(id: string, name: string) {
+    if (!window.confirm(`Delete ${name} permanently? Use the toggle to hide instead.`)) return;
+    const { error } = await supabase.from("board_members").delete().eq("id", id);
+    if (error) return setSaveError(error.message);
+    setMembers(prev => prev.filter(m => m.id !== id));
   }
 
   async function toggleActive(id: string, currentState: boolean) {
@@ -82,14 +94,14 @@ export default function StaffManagerPage() {
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-sm mb-4">
             <ShieldCheck className="w-4 h-4 text-blue-500" />
-            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Sovereign Council Manager</span>
+            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Strategic Council Manager</span>
           </div>
           <h1 className="text-3xl lg:text-4xl font-extrabold text-zinc-900 tracking-tight">Council Governance</h1>
           <p className="text-zinc-500 font-medium mt-1">Manage the profiles and institutional committees of the AfDEC Board of Directors.</p>
         </div>
         
         <button 
-          onClick={() => { setCurrentMember(null); setIsEditing(true); }}
+          onClick={() => { setCurrentMember(null); setPortrait(""); setSaveError(null); setIsEditing(true); }}
           className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black uppercase tracking-widest rounded-sm shadow-lg flex items-center transition-all"
         >
           <Plus className="w-4 h-4 mr-2" /> Appoint Member
@@ -101,7 +113,7 @@ export default function StaffManagerPage() {
         {isLoading ? (
           <div className="col-span-full py-20 text-center text-zinc-400 font-medium italic">Synchronizing Governance Nodes...</div>
         ) : members.length === 0 ? (
-          <div className="col-span-full py-20 text-center text-zinc-400 font-medium">The Sovereign Council is currently vacated.</div>
+          <div className="col-span-full py-20 text-center text-zinc-400 font-medium">The Strategic Council is currently vacated.</div>
         ) : (
           members.map((member) => (
             <div key={member.id} className="bg-white border border-zinc-200 rounded-sm p-6 shadow-sm group hover:border-blue-500/40 transition-all">
@@ -115,12 +127,17 @@ export default function StaffManagerPage() {
                  </div>
                  <div className="flex space-x-2">
                     <button 
-                      onClick={() => { setCurrentMember(member); setIsEditing(true); }}
+                      aria-label={`Edit ${member.name}`}
+                      onClick={() => { setCurrentMember(member); setPortrait(member.image_url || ""); setSaveError(null); setIsEditing(true); }}
                       className="p-2 text-zinc-400 hover:text-blue-600 transition-colors"
                     >
                       <Edit3 className="w-4 h-4" />
                     </button>
+                    {isAdmin && (
+                      <button aria-label={`Delete ${member.name}`} onClick={() => removeMember(member.id, member.name)} className="p-2 text-zinc-400 hover:text-red-600 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                    )}
                     <button 
+                      aria-label={member.is_active ? `Hide ${member.name}` : `Show ${member.name}`}
                       onClick={() => toggleActive(member.id, member.is_active)}
                       className={`p-2 transition-colors ${member.is_active ? 'text-emerald-500 hover:text-zinc-400' : 'text-zinc-300 hover:text-emerald-500'}`}
                     >
@@ -146,7 +163,7 @@ export default function StaffManagerPage() {
                  </div>
                  
                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {member.committees.map((c: string) => (
+                    {(member.committees || []).map((c: string) => (
                       <span key={c} className="px-2 py-0.5 bg-zinc-50 text-[9px] font-bold text-zinc-500 uppercase rounded-sm border border-zinc-100">{c}</span>
                     ))}
                  </div>
@@ -183,6 +200,7 @@ export default function StaffManagerPage() {
                </div>
 
                <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-10 space-y-8">
+                {saveError && <p role="alert" className="p-3 border border-red-300 bg-red-50 text-red-800 text-sm rounded-sm">{saveError}</p>}
                   <div className="space-y-4">
                      <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Full Name</label>
                      <input 
@@ -212,7 +230,7 @@ export default function StaffManagerPage() {
                            defaultValue={currentMember?.role_tier || "council"} 
                            className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-bold appearance-none"
                         >
-                           <option value="council">Sovereign Council (Blue)</option>
+                           <option value="council">Strategic Council (Blue)</option>
                            <option value="executive">Executive Mandate (Orange)</option>
                            <option value="advisor">Board of Advisors (Green)</option>
                         </select>
@@ -261,15 +279,7 @@ export default function StaffManagerPage() {
                      </div>
                   </div>
 
-                  <div className="space-y-4">
-                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Portrait URL</label>
-                     <input 
-                        name="image_url" 
-                        defaultValue={currentMember?.image_url} 
-                        placeholder="https://images.unsplash.com/..."
-                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-sm outline-none text-sm text-zinc-900 font-medium"
-                     />
-                  </div>
+                  <div><ImageField label="Portrait" folder="leadership" value={portrait} onChange={setPortrait} /></div>
 
                   <div className="space-y-4">
                      <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block">Institutional Biography</label>

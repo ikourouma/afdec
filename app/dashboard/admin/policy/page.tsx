@@ -6,6 +6,8 @@ import {
   Eye, EyeOff, FilePlus, Download, User, Tag
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { uploadAsset } from "@/lib/assets";
+import { ImageField } from "@/components/admin/asset-picker";
 
 export default function PolicyAdminModule() {
   const [briefs, setBriefs] = useState<any[]>([]);
@@ -14,6 +16,9 @@ export default function PolicyAdminModule() {
   // Forms state
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
+  const [coverUrl, setCoverUrl] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -22,12 +27,12 @@ export default function PolicyAdminModule() {
   async function fetchData() {
     setIsLoading(true);
     try {
-      const { data } = await supabase
-        .from("published_articles")
+      const { data, error } = await supabase
+        .from("insights_articles")
         .select("*")
         .eq("category", "policy")
-        .order("published_at", { ascending: false });
-      
+        .order("published_at", { ascending: false, nullsFirst: true });
+      if (error) setFormError(error.message);
       setBriefs(data || []);
     } catch (err) {
       console.error(err);
@@ -37,20 +42,40 @@ export default function PolicyAdminModule() {
   }
 
   async function togglePublish(id: string, current: boolean) {
-    await supabase.from("published_articles").update({ is_published: !current }).eq('id', id);
+    const { error } = await supabase
+      .from("insights_articles")
+      .update({ status: current ? "draft" : "published", ...(current ? {} : { published_at: new Date().toISOString() }) })
+      .eq('id', id);
+    if (error) setFormError(error.message);
     fetchData();
   }
 
   async function handleDelete(id: string) {
     if (window.confirm("Are you sure you want to delete this policy brief?")) {
-      await supabase.from("published_articles").delete().eq('id', id);
+      const { error } = await supabase.from("insights_articles").delete().eq('id', id);
+      if (error) setFormError(error.code === "42501" ? "Only an admin can delete content." : error.message);
       fetchData();
     }
   }
 
   function openForm(item: any = null) {
     setEditingItem(item);
+    setCoverUrl(item?.cover_image_url || "");
+    setDownloadUrl(item?.download_url || "");
+    setFormError(null);
     setIsFormOpen(true);
+  }
+
+  async function uploadPdf(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      const a = await uploadAsset(file, { folder: "insights" });
+      setDownloadUrl(a.public_url || "");
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : "Upload failed");
+    }
   }
 
   function closeForm() {
@@ -61,28 +86,35 @@ export default function PolicyAdminModule() {
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const updates = {
-      title: formData.get('title'),
-      subtitle: formData.get('subtitle'),
+    const title = String(formData.get('title') || '').trim();
+    const publishedAt = formData.get('published_at') as string;
+    const updates: Record<string, unknown> = {
+      title,
+      subtitle: formData.get('subtitle') || null,
       excerpt: formData.get('excerpt'),
-      cover_image_url: formData.get('cover_image_url'),
+      cover_image_url: coverUrl || null,
       content_type: formData.get('content_type'),
       tags: (formData.get('tags') as string).split(',').map(s => s.trim()).filter(Boolean),
       author_name: formData.get('author_name'),
-      author_title: formData.get('author_title'),
-      published_at: formData.get('published_at') || new Date().toISOString(),
+      author_title: formData.get('author_title') || null,
+      published_at: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
       allow_download: formData.get('allow_download') === 'on',
-      download_url: formData.get('download_url'),
-      download_label: formData.get('download_label'),
+      download_url: downloadUrl || null,
+      download_label: formData.get('download_label') || null,
       is_featured: formData.get('is_featured') === 'on',
-      is_published: formData.get('is_published') === 'on',
+      status: formData.get('is_published') === 'on' ? 'published' : 'draft',
       category: 'policy'
     };
+    if (!editingItem?.id) {
+      updates.slug = `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70)}-${Date.now().toString(36)}`;
+    }
 
-    if (editingItem?.id) {
-      await supabase.from('published_articles').update(updates).eq('id', editingItem.id);
-    } else {
-      await supabase.from('published_articles').insert(updates);
+    const { error } = editingItem?.id
+      ? await supabase.from('insights_articles').update(updates).eq('id', editingItem.id)
+      : await supabase.from('insights_articles').insert(updates);
+    if (error) {
+      setFormError(error.message);
+      return;
     }
     closeForm();
     fetchData();
@@ -103,6 +135,8 @@ export default function PolicyAdminModule() {
           <span>New Policy Brief</span>
         </button>
       </div>
+
+      {formError && !isFormOpen && <p role="alert" className="mb-4 p-3 border border-red-300 bg-red-50 text-red-800 text-sm rounded">{formError}</p>}
 
       {/* Data List */}
       <div className="bg-white border border-zinc-200 rounded-md shadow-sm overflow-hidden">
@@ -182,6 +216,7 @@ export default function PolicyAdminModule() {
             
             <div className="p-6 overflow-y-auto flex-1">
               <form id="briefForm" onSubmit={handleSave} className="space-y-6">
+                {formError && <p role="alert" className="p-3 border border-red-300 bg-red-50 text-red-800 text-sm rounded">{formError}</p>}
                 
                 {/* Basic Info */}
                 <div className="space-y-4">
@@ -201,17 +236,14 @@ export default function PolicyAdminModule() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Content Type</label>
-                      <select name="content_type" defaultValue={editingItem?.content_type || 'Policy Brief'} className="w-full border border-zinc-300 rounded p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-white">
-                        <option>Policy Brief</option>
-                        <option>Research Report</option>
-                        <option>Article</option>
-                        <option>White Paper</option>
+                      <select name="content_type" defaultValue={editingItem?.content_type || 'brief'} className="w-full border border-zinc-300 rounded p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-white">
+                        <option value="brief">Policy Brief</option>
+                        <option value="report">Research Report / White Paper</option>
+                        <option value="article">Article</option>
+                        <option value="data-snapshot">Data Snapshot</option>
                       </select>
                     </div>
-                    <div>
-                      <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Cover Image URL</label>
-                      <input name="cover_image_url" defaultValue={editingItem?.cover_image_url} className="w-full border border-zinc-300 rounded p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" />
-                    </div>
+                    <ImageField label="Cover image" value={coverUrl} onChange={setCoverUrl} folder="insights" />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Tags (comma separated)</label>
@@ -247,8 +279,9 @@ export default function PolicyAdminModule() {
                   </label>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Download URL (PDF)</label>
-                      <input name="download_url" defaultValue={editingItem?.download_url} className="w-full border border-zinc-300 rounded p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" />
+                      <label htmlFor="pdf-up" className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Upload PDF</label>
+                      <input id="pdf-up" type="file" accept="application/pdf" onChange={uploadPdf} className="w-full text-sm text-zinc-800" />
+                      {downloadUrl && <p className="text-xs text-emerald-700 mt-1 break-all">Attached: {downloadUrl}</p>}
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Download Button Label</label>

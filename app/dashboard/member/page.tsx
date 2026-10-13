@@ -6,6 +6,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
+// Admin-managed cards may still point at retired member sub-pages; send them to live pages.
+const LIVE_ROUTES: Record<string, string> = {
+  "/dashboard/member/expansion": "/corridor/expansion",
+  "/dashboard/member/concierge": "/contact?topic=concierge",
+  "/dashboard/member/registry": "/diaspora-registry",
+  "/dashboard/member/investments": "/invest",
+};
+
 export default function MemberDashboardPage() {
   const router = useRouter();
   const [profile, setProfile] = useState<{ id?: string; first_name?: string; last_name?: string; organization?: string; email?: string } | null>(null);
@@ -31,7 +39,7 @@ export default function MemberDashboardPage() {
         .from('profiles')
         .select('id, first_name, last_name, organization')
         .eq('id', session.user.id)
-        .single();
+        .maybeSingle();
         
       setProfile({
         ...profileData,
@@ -43,7 +51,7 @@ export default function MemberDashboardPage() {
         .from('managed_content')
         .select('content')
         .eq('slug', 'member_dashboard_cards')
-        .single();
+        .maybeSingle();
       
       if (contentData?.content) {
         setManagedCards(contentData.content as any[]);
@@ -118,7 +126,7 @@ export default function MemberDashboardPage() {
       case 'FileText': return <FileText className="w-8 h-8 text-emerald-500 mb-6" />;
       case 'Globe2': return <Globe2 className="w-8 h-8 text-purple-500 mb-6" />;
       case 'ShieldCheck': return <ShieldCheck className="w-8 h-8 text-amber-500 mb-6" />;
-      default: return <FileText className="w-8 h-8 text-zinc-500 mb-6" />;
+      default: return <FileText className="w-8 h-8 text-zinc-400 mb-6" />;
     }
   };
 
@@ -126,7 +134,7 @@ export default function MemberDashboardPage() {
     return (
       <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center space-y-4">
         <div className="w-12 h-12 border-t-2 border-blue-500 border-solid rounded-full animate-spin"></div>
-        <div className="text-zinc-500 text-xs font-bold uppercase tracking-[0.3em]">Authenticating Terminal...</div>
+        <div className="text-zinc-400 text-xs font-bold uppercase tracking-[0.3em]">Authenticating Terminal...</div>
       </div>
     );
   }
@@ -134,7 +142,7 @@ export default function MemberDashboardPage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection:bg-blue-500/30 font-sans">
       
-      {/* Real-time Sovereign Toast Alert */}
+      {/* Real-time Strategic Toast Alert */}
       {notification && (
         <div className="fixed top-8 right-8 z-[200] animate-in fade-in slide-in-from-right-8 duration-500">
           <div className="bg-zinc-900/90 border border-blue-500/50 backdrop-blur-xl p-5 rounded-lg shadow-2xl shadow-blue-500/20 max-w-sm flex items-start space-x-4 relative overflow-hidden group">
@@ -148,7 +156,7 @@ export default function MemberDashboardPage() {
             </div>
             <button 
               onClick={() => setNotification(null)}
-              className="text-zinc-600 hover:text-white transition-colors absolute top-2 right-2"
+              className="text-zinc-400 hover:text-white transition-colors absolute top-2 right-2"
             >
               <X className="w-4 h-4" />
             </button>
@@ -168,11 +176,11 @@ export default function MemberDashboardPage() {
         {/* Desktop Controls */}
         <div className="hidden md:flex items-center space-x-6">
           <div className="flex items-center space-x-2 text-xs font-medium text-zinc-400 border-r border-zinc-800 pr-6">
-             <UserIcon className="w-4 h-4 text-zinc-500" />
+             <UserIcon className="w-4 h-4 text-zinc-400" />
              <span>{profile?.first_name} {profile?.last_name}</span>
-             {profile?.organization && <span className="text-zinc-600">({profile.organization})</span>}
+             {profile?.organization && <span className="text-zinc-400">({profile.organization})</span>}
           </div>
-          <span className="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-950/30 px-3 py-1 rounded-sm border border-emerald-900/50 uppercase">
+          <span className="text-xs font-bold tracking-widest text-emerald-400 bg-emerald-950/30 px-3 py-1 rounded-sm border border-emerald-900/50 uppercase">
             Verified
           </span>
           <button 
@@ -202,21 +210,21 @@ export default function MemberDashboardPage() {
               Welcome back, {profile?.first_name || 'Partner'}.
             </h1>
             <p className="text-base md:text-lg text-zinc-400 font-medium max-w-2xl leading-relaxed">
-              You are securely connected to the African Diaspora Economic Council partner portal. Access your deployment pipelines, strategic infrastructure RFPs, and sovereign intelligence.
+              You are securely connected to the African Diaspora Economic Council partner portal. Access your deployment pipelines, strategic infrastructure RFPs, and Market Intelligence.
             </p>
           </div>
 
           {/* Portfolio Snapshot */}
           <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-lg flex flex-col justify-between">
             <div>
-              <div className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-4">Sovereign Portfolio Telemetry</div>
+              <div className="text-xs font-bold text-blue-500 uppercase tracking-[0.2em] mb-4">Strategic Portfolio Telemetry</div>
               <div className="text-4xl font-black text-white mb-2">
                 ${investments.total.toLocaleString()}
               </div>
-              <p className="text-xs text-zinc-500 font-medium">Total contribution across {investments.count} institutional deployments.</p>
+              <p className="text-xs text-zinc-400 font-medium">Total contribution across {investments.count} institutional deployments.</p>
             </div>
-            <Link href="/dashboard/member/investments" className="mt-8 text-[10px] font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest flex items-center">
-              View Detailed Ledger <ArrowRight className="w-3 h-3 ml-2" />
+            <Link href="/invest" className="mt-8 text-xs font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest flex items-center">
+              Explore Investment Options <ArrowRight className="w-3 h-3 ml-2" />
             </Link>
           </div>
         </div>
@@ -224,20 +232,20 @@ export default function MemberDashboardPage() {
         {/* Dynamic Navigation Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {(managedCards.length > 0 ? managedCards : [
-            { id: 1, title: 'Enterprise Expansion', description: 'Track deployment status.', href: '/dashboard/member/expansion', icon: 'Building2', color: 'blue' },
+            { id: 1, title: 'Enterprise Expansion', description: 'Track deployment status.', href: '/corridor/expansion', icon: 'Building2', color: 'blue' },
             { id: 2, title: 'Market Briefings', description: 'Read strategic forecasts.', href: '/news', icon: 'FileText', color: 'emerald' },
-            { id: 3, title: 'Secure Concierge', description: 'Direct board link.', href: '/dashboard/member/concierge', icon: 'Globe2', color: 'purple' },
-            { id: 4, title: 'Business Registry', description: 'Manage profiles.', href: '/dashboard/member/registry', icon: 'ShieldCheck', color: 'amber' }
+            { id: 3, title: 'Secure Concierge', description: 'Direct board link.', href: '/contact?topic=concierge', icon: 'Globe2', color: 'purple' },
+            { id: 4, title: 'Diaspora Registry', description: 'Join or update your registry entry.', href: '/diaspora-registry', icon: 'ShieldCheck', color: 'amber' }
           ]).map((card) => (
             <Link 
               key={card.id} 
-              href={card.href} 
+              href={LIVE_ROUTES[card.href] ?? card.href} 
               className={`bg-zinc-900 border border-zinc-800 p-6 rounded-md group hover:border-${card.color}-500 transition-all flex flex-col justify-between`}
             >
               <div>
                 {getIcon(card.icon)}
                 <h3 className="text-lg font-bold text-white mb-2 tracking-tight">{card.title}</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed mb-6">
+                <p className="text-sm text-zinc-400 leading-relaxed mb-6">
                   {card.description}
                 </p>
               </div>
@@ -263,14 +271,14 @@ export default function MemberDashboardPage() {
                 applications.map((app) => (
                   <div key={app.id} className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:border-zinc-700 transition-all">
                     <div className="space-y-1">
-                      <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">{app.reference_number}</div>
+                      <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{app.reference_number}</div>
                       <div className="text-md font-bold text-white">{app.project_title}</div>
                     </div>
-                    <span className={`text-[10px] font-bold px-3 py-1 rounded-full border uppercase tracking-widest text-center ${
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full border uppercase tracking-widest text-center ${
                       app.status === 'submitted' ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' :
                       app.status === 'under_review' ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' :
                       app.status === 'approved' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' :
-                      'bg-zinc-800 border-zinc-700 text-zinc-500'
+                      'bg-zinc-800 border-zinc-700 text-zinc-400'
                     }`}>
                       {app.status.replace(/_/g, ' ')}
                     </span>
@@ -278,7 +286,7 @@ export default function MemberDashboardPage() {
                 ))
               ) : (
                 <div className="text-center py-12 bg-zinc-900/10 border border-dashed border-zinc-800 rounded-lg">
-                  <p className="text-sm text-zinc-500">No active applications found.</p>
+                  <p className="text-sm text-zinc-400">No active applications found.</p>
                 </div>
               )}
             </div>
@@ -298,9 +306,9 @@ export default function MemberDashboardPage() {
                 insights.map((insight) => (
                   <div key={insight.id} className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-lg flex items-center justify-between group hover:bg-zinc-900 transition-all">
                     <div>
-                      <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-1">{insight.country_iso3}</div>
+                      <div className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{insight.country_iso3}</div>
                       <div className="text-md font-bold text-white mb-2">{insight.country_name}</div>
-                      <p className="text-xs text-zinc-500 line-clamp-1 italic">{insight.note || "Strategic briefing bookmarked."}</p>
+                      <p className="text-xs text-zinc-400 line-clamp-1 italic">{insight.note || "Strategic briefing bookmarked."}</p>
                     </div>
                     <Link href={`/africa-intelligence?iso3=${insight.country_iso3}`} className="p-2 bg-zinc-800 rounded-md text-zinc-400 group-hover:text-purple-400 group-hover:bg-purple-900/20 transition-all">
                       <ArrowRight className="w-5 h-5" />
@@ -309,7 +317,7 @@ export default function MemberDashboardPage() {
                 ))
               ) : (
                 <div className="text-center py-12 bg-zinc-900/10 border border-dashed border-zinc-800 rounded-lg">
-                  <p className="text-sm text-zinc-500">No saved market briefings.</p>
+                  <p className="text-sm text-zinc-400">No saved market briefings.</p>
                 </div>
               )}
             </div>
@@ -317,8 +325,8 @@ export default function MemberDashboardPage() {
         </div>
 
         {/* Security Notice */}
-        <div className="mt-16 pt-8 border-t border-zinc-900 flex items-start md:items-center text-xs text-zinc-500 font-medium">
-          <ShieldCheck className="w-4 h-4 mr-2 text-zinc-600 shrink-0" />
+        <div className="mt-16 pt-8 border-t border-zinc-900 flex items-start md:items-center text-xs text-zinc-400 font-medium">
+          <ShieldCheck className="w-4 h-4 mr-2 text-zinc-400 shrink-0" />
           <p>This portal is actively monitored. All accessed intelligence and telemetry conform to established non-disclosure protocols (NDP-2026).</p>
         </div>
       </main>
